@@ -1,6 +1,12 @@
 package Fingerprint;
 
-import com.digitalpersona.uareu.*;
+import com.digitalpersona.uareu.Reader;
+import com.digitalpersona.uareu.ReaderCollection;
+import com.digitalpersona.uareu.UareUException;
+import com.digitalpersona.uareu.UareUGlobal;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Selection extends Thread{
@@ -30,21 +36,45 @@ public class Selection extends Thread{
         return false;
     }
 
-    public static Reader getReader(){
-        Reader reader = null;
+    public static boolean readerIsConnected_noLogging(){
         try {
             ReaderCollection readerCollection = getReaderCollection();
-            if (!readerCollection.isEmpty()){
+            if (!readerCollection.isEmpty()) {
+                Reader reader = readerCollection.get(0);
+                return true;
+            }
+        } catch (UareUException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+//    public static Reader getReader(){
+//        Reader reader = null;
+//        try {
+//            ReaderCollection readerCollection = getReaderCollection();
+//            if (!readerCollection.isEmpty()){
+//                reader = readerCollection.get(0);
+//            }
+//        }catch (UareUException e){
+//            e.printStackTrace();
+//        }
+//        return reader;
+//    }
+
+    public static void getReader(){
+        try {
+            if (readerIsConnected_noLogging()){
+                ReaderCollection readerCollection = getReaderCollection();
                 reader = readerCollection.get(0);
             }
         }catch (UareUException e){
             e.printStackTrace();
         }
-        return reader;
     }
 
     public static void closeAndOpenReader() throws UareUException{
-        if(readerIsConnected()){
+        if(readerIsConnected_noLogging()){
             try{
                 reader.Close();
                 reader.Open(Reader.Priority.COOPERATIVE);
@@ -55,7 +85,7 @@ public class Selection extends Thread{
     }
 
     public static void closeReader() throws UareUException{
-        if(readerIsConnected()){
+        if(readerIsConnected_noLogging()){
             try{
                 reader.Close();
             }catch (UareUException ex){
@@ -64,28 +94,35 @@ public class Selection extends Thread{
         }
     }
 
-    public static Reader waitAndGetReader(){
-       Reader reader = null;
-       while(true){
-            reader = getReader();
-            if(reader == null){
-                 System.out.println("No fingerprint reader found. Waiting for a reader to be connected...");
-            }else{
-                System.out.println("Connected fingerprint reader: " + reader.GetDescription().name);
-                return reader;
-            }
+    public static void waitAndGetReader(){
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        // Execute a task using the executor
+        executor.execute(() -> {
+            while(true && ThreadFlags.programIsRunning){
+                getReader();
+                if(reader == null){
+                    System.out.println("No fingerprint reader found. Waiting for a reader to be connected...");
+                }else{
+                    System.out.println("Connected fingerprint reader: " + reader.GetDescription().name);
+                    try {
+                        closeAndOpenReader();
+                    } catch (UareUException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
 
-            // Wait for a few seconds before checking again
-            try {
-                TimeUnit.SECONDS.sleep(3); // You can adjust the sleep duration as needed
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                // Wait for a few seconds before checking again
+                try {
+                    TimeUnit.SECONDS.sleep(5); // You can adjust the sleep duration as needed
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
-       }
+        });
     }
 
     public void Run(){
-        reader = waitAndGetReader();
+        waitAndGetReader();
     }
 }
 

@@ -4,7 +4,6 @@
  */
 package Controller;
 
-import Fingerprint.IdentificationModal;
 import Fingerprint.VerificationThread;
 import Model.Attendance;
 import Model.User;
@@ -59,11 +58,9 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
     private Label prevTimeInLabel;
 
     User userToTime;
-    int getDelayTimeInMs;
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
-    //public volatile boolean isFingerprintMatched;
-    IdentificationModal identificationModal = new IdentificationModal();
+    int dailyAttendanceLimit = 2;
 
     /**
      * Initializes the controller class.
@@ -106,8 +103,6 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
 
     //simplified method, but time out for lunch break is not enforced, meaning if the user needs to log out first before lunch break, before they can login in the next period, if they miss the lnchbreak time out
     public void addAttendance() {
-        int dailyAttendanceLimit = 2;
-
         // Check if user has already timed in for the current day
         boolean hasTimedIn = Attendance.userHasTimeInToday(userToTime.getId());
         System.out.println("Has timed in: " + hasTimedIn);
@@ -117,15 +112,9 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         System.out.println("Has timed out: " + hasTimedOut);
 
         boolean hasTimedOutAM = Attendance.userHasTimeOutBetween(userToTime.getId(), "00:00", "11:59");
-
-        //create boolean hastTimedOutPM
         boolean hasTimedOutPM = Attendance.userHasTimeOutBetween(userToTime.getId(), "12:00", "23:59");
-
         boolean hasReachedDailyAttendanceLimit = Attendance.userHasReachedDailyAttendanceLimit(userToTime.getId(), dailyAttendanceLimit);
-        // Time in or time out based on user's current status
 
-
-        //compare two localdates
 
         if(hasReachedDailyAttendanceLimit){
                 SoundUtil.playDenySound();
@@ -138,17 +127,13 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
                 SoundUtil.playDenySound();
                 attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
 
-
                 LocalTime currentTime = LocalTime.now();
-                // Define 12 noon
                 LocalTime noonTime = LocalTime.of(12, 0);
-                // Calculate the duration between the current time and 12 noon
                 Duration duration = Duration.between(currentTime, noonTime);
-                // Extract hours and minutes from the duration
+
                 long hours = duration.toHours();
                 long minutes = duration.minusHours(hours).toMinutes();
                 String timeLeft = hours+" hours and "+minutes+" minutes";
-
 
                 timeLabel.setText(timeLeft);
                 dateLabel.setText("UNTIL YOUR NEXT TIME IN");
@@ -170,42 +155,6 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
     }
 
 
-
-//    public void timeOutUser(String time) {
-//        SoundUtil.playPromptSound();
-//
-//        attendanceTypeLabel.setText("SCAN AGAIN TO TIME OUT");
-//        timeLabel.setText("");
-//        dateLabel.setText("");
-//        prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId()) + " SINCE LAST TIME IN");
-//        prevTimeInLabel.setVisible(true);
-//
-//        CompletableFuture<Void> verificationFuture = CompletableFuture.runAsync(() -> {
-//            VerficationThread verificationThread = new VerficationThread(userToTime.getId(), delayTimeInMs);
-//            verificationThread.start();
-//            try {
-//                verificationThread.join();
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//            if (ThreadFlags.isFingerprintMatched) {
-//                Platform.runLater(() -> {
-//                    timeOutActionConfirmed(time);
-//                });
-//            } else {
-//                Platform.runLater(() -> {
-//                    attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
-//                    SoundUtil.playFailSound();
-//                });
-//            }
-//        });
-//
-//        // Handle completion asynchronously if needed
-//        verificationFuture.thenRun(() -> {
-//            // Code to run after verification is complete (if needed)
-//        });
-//    }
 
     public void timeOutUser(String time) {
         SoundUtil.playPromptSound();
@@ -245,61 +194,6 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
             }
         });
         executor.shutdown();
-
-
-
-
-//        Task<Void> nonUITask = new Task<>() {
-//            @Override
-//            protected Void call() throws Exception {
-//                VerficationThread verificationThread = new VerficationThread(userToTime.getId(), delayTimeInMs);
-//                verificationThread.start();
-//                try {
-//                    verificationThread.join();
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                }
-//
-//                if (verificationThread.userIsVerified) {
-//                    Platform.runLater(() -> {
-//                        timeOutActionConfirmed(time);
-//                    });
-//                } else {
-//                    Platform.runLater(() -> {
-//                        attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
-//                        SoundUtil.playFailSound();
-//                    });
-//                }
-//                return null;
-//            }
-//        };
-//
-//        Thread thread = new Thread(nonUITask);
-//        thread.start();
-
-
-
-
-//        CompletableFuture<Void> verificationFuture = CompletableFuture.runAsync(() -> {
-//            VerficationThread verificationThread = new VerficationThread(userToTime.getId(), delayTimeInMs);
-//            verificationThread.start();
-//            try {
-//                verificationThread.join();
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//            if (verificationThread.userIsVerified) {
-//                Platform.runLater(() -> {
-//                    timeOutActionConfirmed(time);
-//                });
-//            } else {
-//                Platform.runLater(() -> {
-//                    attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
-//                    SoundUtil.playFailSound();
-//                });
-//            }
-//        });
     }
 
     public void timeOutActionConfirmed(String time){
@@ -311,7 +205,6 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         // Insert the time into the database
         Attendance.timeOut(userToTime.getId(), time);
         SoundUtil.playTimeOutSound();
-        //ThreadFlags.isFingerprintMatched = false;
     }
 
     public static String getCurrentTime(){
@@ -319,7 +212,6 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         return time.toString();
     }
 
-    //make the progress bar decrease automatically in 3 seconds from 100 to 0 percent
     public void loadProgressbar(){
         Task<Void> task = new Task<Void>() {
             @Override

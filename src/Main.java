@@ -4,6 +4,7 @@
  */
 
 import Fingerprint.Selection;
+import Fingerprint.ThreadFlags;
 import com.digitalpersona.uareu.UareUException;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -26,10 +27,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         //Automatically Select Reader
-        Selection.reader = Selection.getReader();
-//        Platform.runLater(() -> {
-//                Selection.reader = Selection.getReader();
-//        });
+        //Selection.reader = Selection.getReader();
+        Selection.waitAndGetReader();
 
         
         
@@ -53,6 +52,7 @@ public class Main extends Application {
           public void handle(WindowEvent we) {
               System.out.println("Stage is closing");
               try {
+                  ThreadFlags.programIsRunning = false;
 
                   Selection.closeReader();
               } catch (UareUException ex) {

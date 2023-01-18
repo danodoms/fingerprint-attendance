@@ -6,6 +6,8 @@ package Controller;
  */
 
 import Fingerprint.IdentificationThread;
+import Fingerprint.Selection;
+import Fingerprint.ThreadFlags;
 import Model.User;
 import Utilities.Encryption;
 import Utilities.PaneUtil;
@@ -22,6 +24,9 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * FXML Controller class
  *
@@ -86,6 +91,10 @@ public class LoginPaneCTRL implements Initializable {
     private Label timeLabel;
     @FXML
     private Label notationLabel;
+    @FXML
+    private Label scannerStatusLabel;
+    @FXML
+    private Label scannerStatusSubtextLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -124,6 +133,41 @@ public class LoginPaneCTRL implements Initializable {
                 passwordField.setPromptText("");
             }
         });
+
+
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        // Execute a task using the executor
+        executor.execute(() -> {
+            while(true && ThreadFlags.programIsRunning) {
+                //Selection.reader = Selection.getReader();
+                Selection.getReader();
+                //sleep thread for 3 seconds
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                    if (Selection.readerIsConnected_noLogging()) {
+                        Platform.runLater(() -> {
+                            scannerStatusLabel.setText("Reader Connected");
+                            scannerStatusSubtextLabel.setText("READY FOR CAPTURE");
+                        });
+                    } else {
+                        Platform.runLater(() -> {
+                            scannerStatusLabel.setText("Reader Disconnected");
+                            scannerStatusSubtextLabel.setText("WAITING FOR READER");
+                        });
+                    }
+                }
+            });
+
+
+        // Shutdown the executor to release resources
+        executor.shutdown();
+
+
     }
     
     

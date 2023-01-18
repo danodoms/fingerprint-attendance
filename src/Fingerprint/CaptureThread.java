@@ -7,7 +7,6 @@ package Fingerprint;
 import com.digitalpersona.uareu.Fid;
 import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.UareUException;
-import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 
 import java.util.concurrent.ExecutorService;
@@ -40,47 +39,41 @@ public class CaptureThread extends Thread{
         this.delayTimeInMs = delayTimeInMs;
 
     }
-    
+
     public void startCapture() {
         System.out.println(threadName + ": Capture Thread Started");
 
+        boolean runCapture = true;
+        while(runCapture && ThreadFlags.programIsRunning){
+            try {
+                if(!Selection.readerIsConnected()){
+                    System.out.println(threadName + ": Capture Thread waiting for reader to be connected");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }else{
+                    System.out.println(threadName + "Reader Status: " + Selection.reader.GetStatus());
+                    cancelCaptureBasedOnDelayTime(delayTimeInMs);
+                    Reader.CaptureResult captureResult = Selection.reader.Capture(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
 
+                    lastCapture = new CaptureEvent(captureResult, Selection.reader.GetStatus());
+                    System.out.println(threadName + "Capture quality: " + captureResult.quality);
+                    runCapture = false;
 
-        try {
-            //null checking for reader before executing the lines below
-            if(Selection.reader == null){
-                Platform.runLater(() -> {
-                    Selection.reader = Selection.getReader();
-                });
-            }else{
-                System.out.println(threadName + "Reader Status: " + Selection.reader.GetStatus());
-                cancelCaptureBasedOnDelayTime(delayTimeInMs);
-                Reader.CaptureResult captureResult = Selection.reader.Capture(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
-
-
-
-                lastCapture = new CaptureEvent(captureResult, Selection.reader.GetStatus());
-                System.out.println(threadName + "Capture quality: " + captureResult.quality);
-
-                Fid.Fiv view = null;
-
-                if(captureResult.image != null ){
                     //Store single fingerprint view
-                    Fid fid = captureResult.image;
-                    view = fid.getViews()[0];
-                }
+                    Fid.Fiv view = (captureResult.image != null) ? captureResult.image.getViews()[0] : null;
 
-                if(imageview != null && view != null){
                     //Display fingerprint image on imageview
                     Display.displayFingerprint(view, imageview);
                 }
 
-
-            }
-
             } catch (UareUException ex) {
                 ex.printStackTrace();
             }
+        }
+
         System.out.println(threadName + ": Capture Thread Stopped");
     }
     
@@ -120,8 +113,6 @@ public class CaptureThread extends Thread{
                 this.captureResult = captureResult;
                 this.readerStatus = readerStatus;
         }
-        
-        
     }
     
     public CaptureEvent getLastCapture(){
@@ -150,8 +141,6 @@ public class CaptureThread extends Thread{
             });
             executor.shutdown();
         }
-
-
     }
 
     @Override

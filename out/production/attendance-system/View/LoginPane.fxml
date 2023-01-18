@@ -66,6 +66,16 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <Label fx:id="scannerStatusLabel" alignment="CENTER" layoutX="51.0" layoutY="407.0" prefHeight="20.0" prefWidth="189.0" text="Reader Connected" textFill="#2c4036">
+                     <font>
+                        <Font name="Arial Bold" size="10.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="scannerStatusSubtextLabel" alignment="CENTER" layoutX="51.0" layoutY="420.0" prefHeight="20.0" prefWidth="189.0" text="READY FOR CAPTURE" textFill="#2c4036">
+                     <font>
+                        <Font name="Arial Bold" size="10.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <StackPane prefHeight="539.0" prefWidth="487.0">

@@ -24,7 +24,7 @@ public class StringUtil {
     //create a method that will format the fullname like this: "Smith, John A. Jr." "Surname, Firstname MiddleInitial Suffix", make the return type array
     public static String[] formatFullName(String fName, String mName, String lName, String suffix){
         fName = convertNullToEmpty(fName);
-        mName = convertNullToEmpty(mName);
+        mName = convertToInitial(convertNullToEmpty(mName));
         lName = convertNullToEmpty(lName);
         suffix = convertNullToEmpty(suffix);
 
