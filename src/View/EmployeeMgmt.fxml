@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeMgmtController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="780.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.EmployeeMgmtController">
+   <children>
+      <VBox layoutX="55.0" layoutY="62.0" prefHeight="387.0" prefWidth="225.0">
+         <children>
+            <Label text="First Name" />
+            <TextField fx:id="FnameField" />
+            <Label text="Last Name" />
+            <TextField fx:id="LnameField" />
+            <Label text="Middle Name" />
+            <TextField fx:id="MnameField" />
+            <Label text="Email" />
+            <TextField fx:id="emailField" />
+            <Label text="Contact Number" />
+            <TextField fx:id="contactNumField" />
+            <Label text="Department" />
+            <ChoiceBox fx:id="departmentChoiceBox" prefHeight="25.0" prefWidth="257.0" />
+            <Label text="Position" />
+            <ChoiceBox fx:id="positionChoiceBox" prefHeight="25.0" prefWidth="257.0" />
+            <Label text="Sex" />
+            <ChoiceBox fx:id="sexChoiceBox" prefHeight="25.0" prefWidth="257.0" />
+            <Label text="Date of Birth" />
+            <DatePicker fx:id="dateOfBirthPicker" prefHeight="25.0" prefWidth="228.0" />
+            <Label text="Address" />
+            <TextField fx:id="addressField" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
