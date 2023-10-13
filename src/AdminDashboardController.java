@@ -4,6 +4,8 @@
  */
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
@@ -12,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author admin
  */
-public class FXMLController implements Initializable {
+public class AdminDashboardController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -21,5 +23,16 @@ public class FXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+        public Connection getConnection(){
+        Connection conn;
+        try{
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendance-system","root","");
+            return conn;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
     
 }
