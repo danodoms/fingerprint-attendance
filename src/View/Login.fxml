@@ -5,15 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
    <children>
       <Label layoutX="97.0" layoutY="100.0" text="Hellu, goodmorneng, Welcomeeeeeee">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="245.0" layoutY="175.0" mnemonicParsing="false" text="LOGIN AS ADMIN" />
-      <Button layoutX="214.0" layoutY="208.0" mnemonicParsing="false" text="LOGIN AS RECORDS OFFICER" />
+      <Button fx:id="loginAdminBtn" layoutX="245.0" layoutY="175.0" mnemonicParsing="false" onAction="#openAdminPane" text="LOGIN AS ADMIN" />
+      <Button fx:id="loginRecordsOfficerBtn" layoutX="214.0" layoutY="208.0" mnemonicParsing="false" onAction="#openRecordsOfficerPane" text="LOGIN AS RECORDS OFFICER" />
    </children>
 </AnchorPane>
