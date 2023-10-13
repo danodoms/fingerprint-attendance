@@ -23,13 +23,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
        // Load the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
         Parent root = loader.load();
         
         // Create a scene with the loaded FXML content
         Scene scene = new Scene(root);
         
-        primaryStage.setTitle("Attendance System");
+        primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
