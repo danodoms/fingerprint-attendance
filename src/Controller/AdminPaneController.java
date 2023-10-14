@@ -9,7 +9,10 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -18,9 +21,16 @@ import javafx.fxml.Initializable;
  */
 public class AdminPaneController implements Initializable {
 
+    @FXML
+    private Button addEmployeeBtn;
+
     /**
      * Initializes the controller class.
      */
+    
+    controllerMethods method = new controllerMethods();
+    @FXML
+    private Button logOutAdminBtn;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -35,6 +45,16 @@ public class AdminPaneController implements Initializable {
             e.printStackTrace();
             return null;
         }
+    }
+        
+    @FXML
+    private void openEmployeeMgmtPane(ActionEvent event) {
+        method.openWindow(method.employeeMgmtPane);
+    }
+
+    @FXML
+    private void logOut(ActionEvent event) {
+        method.exitAndOpenNewPane(logOutAdminBtn, method.loginPane);
     }
     
 }

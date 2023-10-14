@@ -21,6 +21,7 @@
         </columns>
       </TableView>
       <DatePicker layoutX="443.0" layoutY="78.0" prefHeight="25.0" prefWidth="128.0" />
-      <Button layoutX="114.0" layoutY="38.0" mnemonicParsing="false" text="Add Employee" />
+      <Button fx:id="addEmployeeBtn" layoutX="114.0" layoutY="38.0" mnemonicParsing="false" onAction="#openEmployeeMgmtPane" text="Add Employee" />
+      <Button fx:id="logOutAdminBtn" layoutX="662.0" layoutY="38.0" mnemonicParsing="false" onAction="#logOut" text="Log Out" />
    </children>
 </AnchorPane>
