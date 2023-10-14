@@ -69,7 +69,9 @@ public class EmployeeMgmtController implements Initializable {
 
     @FXML
     private void updatePositionChoiceBox(MouseEvent event) {
-        positionChoiceBox.setItems(dbMethods.getPositionsByDepartment("test"));
+        System.out.println("update position choice box");
+        String department = departmentChoiceBox.getValue()+"";
+        positionChoiceBox.setItems(dbMethods.getPositionsByDepartment(department));
     }
     
 }

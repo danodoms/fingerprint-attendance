@@ -60,7 +60,8 @@ public class dbMethods {
         try {
             Connection connection = getConnection();
             Statement statement = (Statement) connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT position_name from position where department_ID = 1");
+            //ResultSet resultSet = statement.executeQuery("SELECT position_name from position p join department d on p.department_ID = d.department_ID where department_name = "+department);
+            ResultSet resultSet = statement.executeQuery("SELECT position_name FROM position p JOIN department d ON p.department_ID = d.department_ID WHERE department_name = '" + department + "'");
             
             while (resultSet.next()) {
                 String positionName = resultSet.getString("position_name");
