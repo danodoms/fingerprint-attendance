@@ -36,16 +36,7 @@ public class AdminPaneController implements Initializable {
         // TODO
     }    
     
-        public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/attendance-system","root","");
-            return conn;
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
+
         
     @FXML
     private void openEmployeeMgmtPane(ActionEvent event) {

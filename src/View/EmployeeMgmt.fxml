@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -7,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="780.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.EmployeeMgmtController">
+<AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeMgmtController">
    <children>
       <VBox layoutX="55.0" layoutY="62.0" prefHeight="387.0" prefWidth="225.0">
          <children>
@@ -23,7 +23,7 @@
             <Label text="Contact Number" />
             <TextField fx:id="contactNumField" />
             <Label text="Department" />
-            <ChoiceBox fx:id="departmentChoiceBox" prefHeight="25.0" prefWidth="257.0" />
+            <ChoiceBox fx:id="departmentChoiceBox" onMouseClicked="#updatePositionChoiceBox" prefHeight="25.0" prefWidth="257.0" />
             <Label text="Position" />
             <ChoiceBox fx:id="positionChoiceBox" prefHeight="25.0" prefWidth="257.0" />
             <Label text="Sex" />
@@ -34,5 +34,6 @@
             <TextField fx:id="addressField" />
          </children>
       </VBox>
+      <Button fx:id="addEmployeeBtn" layoutX="55.0" layoutY="490.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="25.0" prefWidth="225.0" text="Add Employee" />
    </children>
 </AnchorPane>

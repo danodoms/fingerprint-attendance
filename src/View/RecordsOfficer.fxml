@@ -7,6 +7,6 @@
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.RecordsOfficerController">
    <children>
       <Button fx:id="fileEmpRecordBtn" layoutX="44.0" layoutY="38.0" mnemonicParsing="false" text="File Employee Record" />
-      <Button fx:id="logOutRecordsOfficerBtn" layoutX="497.0" layoutY="38.0" mnemonicParsing="false" onAction="#logOut" text="Button" />
+      <Button fx:id="logOutRecordsOfficerBtn" layoutX="497.0" layoutY="38.0" mnemonicParsing="false" onAction="#logOut" text="Log Out" />
    </children>
 </AnchorPane>
