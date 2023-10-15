@@ -15,8 +15,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import Model.*;
+import java.io.File;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -49,6 +54,14 @@ public class EmployeeMgmtController implements Initializable {
     private Button addEmployeeBtn;
     
     dbMethods dbMethods = new dbMethods();
+    @FXML
+    private ChoiceBox<?> shiftTypeChoiceBox;
+    @FXML
+    private Button selectImageBtn;
+    @FXML
+    private ImageView userImage;
+    @FXML
+    private Button enrollFingerprintBtn;
 
     /**
      * Initializes the controller class.
@@ -72,6 +85,25 @@ public class EmployeeMgmtController implements Initializable {
         System.out.println("update position choice box");
         String department = departmentChoiceBox.getValue()+"";
         positionChoiceBox.setItems(dbMethods.getPositionsByDepartment(department));
+    }
+
+    @FXML
+    private void selectImg(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+
+        if (selectedFile != null) {
+            // Handle the selected file, e.g., display its path
+            String filePath = selectedFile.getAbsolutePath();
+            System.out.println("Selected file: " + filePath);
+            
+            
+            Image image = new Image(selectedFile.toURI().toString());
+
+        // Set the image in the ImageView
+        userImage.setImage(image);
+        }
     }
     
 }
