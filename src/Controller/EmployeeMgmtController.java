@@ -16,6 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import Model.*;
 import java.io.File;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -55,13 +56,21 @@ public class EmployeeMgmtController implements Initializable {
     
     dbMethods dbMethods = new dbMethods();
     @FXML
-    private ChoiceBox<?> shiftTypeChoiceBox;
+    private ChoiceBox<String> shiftTypeChoiceBox;
     @FXML
     private Button selectImageBtn;
     @FXML
     private ImageView userImage;
     @FXML
     private Button enrollFingerprintBtn;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private TextField FnameField1;
+    @FXML
+    private TextField startTimeField;
+    @FXML
+    private TextField endTimeField;
 
     /**
      * Initializes the controller class.
@@ -72,6 +81,10 @@ public class EmployeeMgmtController implements Initializable {
          
          sexChoiceBox.setValue("Select Sex");
          sexChoiceBox.getItems().addAll("Male", "Female");
+         
+         shiftTypeChoiceBox.setValue("Select Shift Type");
+         shiftTypeChoiceBox.getItems().addAll("Day Shift", "Night Shift", "Flexi");
+        
          
          
     }    
@@ -105,5 +118,32 @@ public class EmployeeMgmtController implements Initializable {
         userImage.setImage(image);
         }
     }
+
+    @FXML
+    private void showShiftDetails(MouseEvent event) {
+        String shiftType = shiftTypeChoiceBox.getValue();
+        if(shiftType == "Day Shift"){
+            startTimeField.setEditable(false);
+            endTimeField.setEditable(false);
+            
+            startTimeField.setText("08:00");
+            endTimeField.setText("17:00");
+        }else if(shiftType == "Night Shift"){
+            startTimeField.setEditable(false);
+            endTimeField.setEditable(false);
+            
+            startTimeField.setText("23:00");
+            endTimeField.setText("07:00");
+        }else if(shiftType == "Flexi"){
+            startTimeField.setEditable(true);
+            endTimeField.setEditable(true);
+            
+            startTimeField.clear();
+            endTimeField.clear();
+        }
+    }
+
+    
+    
     
 }

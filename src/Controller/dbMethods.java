@@ -55,27 +55,51 @@ public class dbMethods {
         
     }
     
-    public ObservableList<Positions> getPositionsByDepartment(String department){
-              ObservableList<Positions> positions = FXCollections.observableArrayList();
-        try {
-            Connection connection = getConnection();
-            Statement statement = (Statement) connection.createStatement();
-            //ResultSet resultSet = statement.executeQuery("SELECT position_name from position p join department d on p.department_ID = d.department_ID where department_name = "+department);
-            ResultSet resultSet = statement.executeQuery("SELECT position_name FROM position p JOIN department d ON p.department_ID = d.department_ID WHERE department_name = '" + department + "'");
-            
-            while (resultSet.next()) {
-                String positionName = resultSet.getString("position_name");
-                Positions positionObj = new Positions(positionName);
-                positions.add(positionObj);
-                System.out.println(positions);
-            }
+//    public ObservableList<Positions> getPositionsByDepartment(String department){
+//              ObservableList<Positions> positions = FXCollections.observableArrayList();
+//        try {
+//            Connection connection = getConnection();
+//            Statement statement = (Statement) connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery("SELECT position_name FROM position p JOIN department d ON p.department_ID = d.department_ID WHERE department_name = '" + department + "'");
+//            
+//            while (resultSet.next()) {
+//                String positionName = resultSet.getString("position_name");
+//                Positions positionObj = new Positions(positionName);
+//                positions.add(positionObj);
+//                System.out.println(positions);
+//            }
+//
+//            resultSet.close();
+//            statement.close();
+//            connection.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return positions;
+//    }
+    
+    public ObservableList<Positions> getPositionsByDepartment(String department) {
+    ObservableList<Positions> positions = FXCollections.observableArrayList();
 
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    try (Connection connection = getConnection();
+        Statement statement = connection.createStatement()) {
+
+        String query = "SELECT position_name FROM position p JOIN department d ON p.department_ID = d.department_ID WHERE department_name = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, department);
+        
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            String positionName = resultSet.getString("position_name");
+            positions.add(new Positions(positionName));
         }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
         return positions;
     }
+
 }

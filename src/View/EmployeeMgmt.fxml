@@ -19,6 +19,11 @@
          <children>
             <VBox prefHeight="368.0" prefWidth="125.0">
                <children>
+                  <Label text="User ID">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </Label>
                   <Label text="First Name" textAlignment="RIGHT">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -29,12 +34,17 @@
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </Label>
+                  <Label text="Middle Name" textAlignment="RIGHT">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </Label>
                   <Label text="Email" textAlignment="RIGHT">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Middle Name" textAlignment="RIGHT">
+                  <Label text="Password" textAlignment="RIGHT">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
@@ -66,6 +76,11 @@
             </VBox>
             <VBox prefHeight="420.0" prefWidth="241.0">
                <children>
+                  <TextField fx:id="FnameField1" editable="false" prefHeight="25.0" prefWidth="313.0">
+                     <VBox.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </VBox.margin>
+                  </TextField>
                   <TextField fx:id="FnameField" prefHeight="25.0" prefWidth="313.0">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
@@ -82,6 +97,11 @@
                      </VBox.margin>
                   </TextField>
                   <TextField fx:id="emailField">
+                     <VBox.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="passwordField">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
@@ -135,6 +155,16 @@
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </Label>
+                  <Label text="Start Time">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="End Time">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
             </VBox>
             <VBox prefHeight="190.0" prefWidth="181.0">
@@ -144,16 +174,26 @@
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </ChoiceBox>
-                  <ChoiceBox fx:id="positionChoiceBox" onMouseClicked="#updatePositionChoiceBox" prefHeight="25.0" prefWidth="634.0">
+                  <ChoiceBox fx:id="positionChoiceBox" onMousePressed="#updatePositionChoiceBox" prefHeight="25.0" prefWidth="634.0">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </ChoiceBox>
-                  <ChoiceBox fx:id="shiftTypeChoiceBox" prefHeight="25.0" prefWidth="172.0">
+                  <ChoiceBox fx:id="shiftTypeChoiceBox" onMouseClicked="#showShiftDetails" onMouseDragged="#showShiftDetails" onMouseEntered="#showShiftDetails" onMouseExited="#showShiftDetails" onMouseMoved="#showShiftDetails" onMousePressed="#showShiftDetails" onMouseReleased="#showShiftDetails" prefHeight="25.0" prefWidth="172.0">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </ChoiceBox>
+                  <TextField fx:id="startTimeField">
+                     <VBox.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="endTimeField">
+                     <VBox.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </VBox.margin>
+                  </TextField>
                   <Button fx:id="enrollFingerprintBtn" mnemonicParsing="false" prefHeight="33.0" prefWidth="213.0" text="Enroll Fingerprint">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
