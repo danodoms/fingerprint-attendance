@@ -78,12 +78,14 @@ public class EmployeeMgmtController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          departmentChoiceBox.setItems(dbMethods.getDepartments());
+         departmentChoiceBox.setOnAction(this::updatePositionChoiceBox);
          
          sexChoiceBox.setValue("Select Sex");
          sexChoiceBox.getItems().addAll("Male", "Female");
          
          shiftTypeChoiceBox.setValue("Select Shift Type");
          shiftTypeChoiceBox.getItems().addAll("Day Shift", "Night Shift", "Flexi");
+         shiftTypeChoiceBox.setOnAction(this::showShiftDetails);
         
          
          
@@ -94,11 +96,13 @@ public class EmployeeMgmtController implements Initializable {
     }
 
     @FXML
-    private void updatePositionChoiceBox(MouseEvent event) {
+    private void updatePositionChoiceBox(ActionEvent event) {
         System.out.println("update position choice box");
         String department = departmentChoiceBox.getValue()+"";
         positionChoiceBox.setItems(dbMethods.getPositionsByDepartment(department));
     }
+    
+    //public void updatePositionChe
 
     @FXML
     private void selectImg(ActionEvent event) {
@@ -120,7 +124,7 @@ public class EmployeeMgmtController implements Initializable {
     }
 
     @FXML
-    private void showShiftDetails(MouseEvent event) {
+    private void showShiftDetails(ActionEvent event) {
         String shiftType = shiftTypeChoiceBox.getValue();
         if(shiftType == "Day Shift"){
             startTimeField.setEditable(false);

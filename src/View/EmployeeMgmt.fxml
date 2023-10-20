@@ -174,12 +174,12 @@
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </ChoiceBox>
-                  <ChoiceBox fx:id="positionChoiceBox" onMousePressed="#updatePositionChoiceBox" prefHeight="25.0" prefWidth="634.0">
+                  <ChoiceBox fx:id="positionChoiceBox" prefHeight="25.0" prefWidth="634.0">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </ChoiceBox>
-                  <ChoiceBox fx:id="shiftTypeChoiceBox" onMouseClicked="#showShiftDetails" onMouseDragged="#showShiftDetails" onMouseEntered="#showShiftDetails" onMouseExited="#showShiftDetails" onMouseMoved="#showShiftDetails" onMousePressed="#showShiftDetails" onMouseReleased="#showShiftDetails" prefHeight="25.0" prefWidth="172.0">
+                  <ChoiceBox fx:id="shiftTypeChoiceBox" prefHeight="25.0" prefWidth="172.0">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
