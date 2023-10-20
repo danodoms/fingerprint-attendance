@@ -56,7 +56,7 @@ public class EmployeeMgmtController implements Initializable {
     
     dbMethods dbMethods = new dbMethods();
     @FXML
-    private ChoiceBox<String> shiftTypeChoiceBox;
+    private ChoiceBox<Shifts> shiftTypeChoiceBox;
     @FXML
     private Button selectImageBtn;
     @FXML
@@ -83,9 +83,12 @@ public class EmployeeMgmtController implements Initializable {
          sexChoiceBox.setValue("Select Sex");
          sexChoiceBox.getItems().addAll("Male", "Female");
          
-         shiftTypeChoiceBox.setValue("Select Shift Type");
-         shiftTypeChoiceBox.getItems().addAll("Day Shift", "Night Shift", "Flexi");
-         shiftTypeChoiceBox.setOnAction(this::showShiftDetails);
+         //shiftTypeChoiceBox.setValue("Select Shift Type");
+         shiftTypeChoiceBox.setItems(dbMethods.getShifts());
+//         shiftTypeChoiceBox.getItems().addAll("Day Shift", "Night Shift", "Flexi");
+
+
+//         shiftTypeChoiceBox.setOnAction(this::showShiftDetails);
         
          
          
@@ -102,7 +105,6 @@ public class EmployeeMgmtController implements Initializable {
         positionChoiceBox.setItems(dbMethods.getPositionsByDepartment(department));
     }
     
-    //public void updatePositionChe
 
     @FXML
     private void selectImg(ActionEvent event) {
@@ -123,29 +125,29 @@ public class EmployeeMgmtController implements Initializable {
         }
     }
 
-    @FXML
-    private void showShiftDetails(ActionEvent event) {
-        String shiftType = shiftTypeChoiceBox.getValue();
-        if(shiftType == "Day Shift"){
-            startTimeField.setEditable(false);
-            endTimeField.setEditable(false);
-            
-            startTimeField.setText("08:00");
-            endTimeField.setText("17:00");
-        }else if(shiftType == "Night Shift"){
-            startTimeField.setEditable(false);
-            endTimeField.setEditable(false);
-            
-            startTimeField.setText("23:00");
-            endTimeField.setText("07:00");
-        }else if(shiftType == "Flexi"){
-            startTimeField.setEditable(true);
-            endTimeField.setEditable(true);
-            
-            startTimeField.clear();
-            endTimeField.clear();
-        }
-    }
+//    @FXML
+//    private void showShiftDetails(ActionEvent event) {
+//        String shiftType = shiftTypeChoiceBox.getValue();
+//        if(shiftType == "Day Shift"){
+//            startTimeField.setEditable(false);
+//            endTimeField.setEditable(false);
+//            
+//            startTimeField.setText("08:00");
+//            endTimeField.setText("17:00");
+//        }else if(shiftType == "Night Shift"){
+//            startTimeField.setEditable(false);
+//            endTimeField.setEditable(false);
+//            
+//            startTimeField.setText("23:00");
+//            endTimeField.setText("07:00");
+//        }else if(shiftType == "Flexi"){
+//            startTimeField.setEditable(true);
+//            endTimeField.setEditable(true);
+//            
+//            startTimeField.clear();
+//            endTimeField.clear();
+//        }
+//    }
 
     
     

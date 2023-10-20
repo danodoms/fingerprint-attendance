@@ -17,7 +17,7 @@ import javafx.collections.FXCollections;
  * @author admin
  */
 public class dbMethods {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/attendance_system";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/v10_attendance_system";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
     
@@ -37,11 +37,12 @@ public class dbMethods {
         try {
             Connection connection = getConnection();
             Statement statement = (Statement) connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT department_ID, department_name FROM department");
+//            ResultSet resultSet = statement.executeQuery("SELECT department_ID, department_name FROM department");
+            ResultSet resultSet = statement.executeQuery("SELECT departmentID, departmentName FROM department");
             
             while (resultSet.next()) {
-                int id = resultSet.getInt("department_ID");
-                String departmentName = resultSet.getString("department_name");
+                int id = resultSet.getInt("departmentID");
+                String departmentName = resultSet.getString("departmentName");
                 Departments departmentObj = new Departments(id, departmentName);
                 departments.add(departmentObj);
                 System.out.println(departments);
@@ -109,14 +110,15 @@ public class dbMethods {
     try (Connection connection = getConnection();
         Statement statement = connection.createStatement()) {
 
-        String query = "SELECT position_id, position_name FROM position p JOIN department d ON p.department_ID = d.department_ID WHERE department_name = ?";
+        //String query = "SELECT position_id, position_name FROM position p JOIN department d ON p.department_ID = d.department_ID WHERE department_name = ?";
+        String query = "SELECT positionID, position_name FROM position p JOIN department d ON p.departmentID = d.departmentID WHERE departmentName = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, department);
 
         ResultSet rs = preparedStatement.executeQuery();
 
         while (rs.next()) {
-            int positionId = rs.getInt("position_id");
+            int positionId = rs.getInt("positionID");
             String positionName = rs.getString("position_name");
 //            System.out.println("Position ID: " + positionId);
 //            System.out.println("Position Name: " + positionName);
@@ -136,6 +138,34 @@ public class dbMethods {
 
     return positions;
 }
+    
+    
+        public ObservableList<Shifts> getShifts() {
+    ObservableList<Shifts> shifts = FXCollections.observableArrayList();
+
+    try (Connection connection = getConnection();
+        Statement statement = connection.createStatement()) {
+
+        String query = "SELECT * FROM `shift`";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+//        preparedStatement.setString(1, department);
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            Shifts shiftsObj = new Shifts(rs.getInt("shiftID"), rs.getString("shiftName"), rs.getString("startTime"), rs.getString("endTime"));
+            shifts.add(shiftsObj);
+        }
+        
+         System.out.println(shifts);
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return shifts;
+}
+
 
 
 }
