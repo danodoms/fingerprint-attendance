@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeMgmtController">
    <children>
-      <Button fx:id="addEmployeeBtn" layoutX="175.0" layoutY="402.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="33.0" prefWidth="213.0" text="Add Employee" />
+      <Button fx:id="addEmployeeBtn" layoutX="175.0" layoutY="435.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="33.0" prefWidth="213.0" text="Add Employee" />
       <HBox layoutX="35.0" layoutY="51.0" prefHeight="351.0" prefWidth="425.0">
          <children>
             <VBox prefHeight="368.0" prefWidth="125.0">
@@ -45,6 +45,11 @@
                      </VBox.margin>
                   </Label>
                   <Label text="Password" textAlignment="RIGHT">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Type" textAlignment="RIGHT">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
@@ -106,6 +111,11 @@
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
+                  <ChoiceBox fx:id="userTypeChoiceBox" prefHeight="25.0" prefWidth="587.0">
+                     <VBox.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </VBox.margin>
+                  </ChoiceBox>
                   <TextField fx:id="contactNumField">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />

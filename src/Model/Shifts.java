@@ -20,6 +20,19 @@ public class Shifts {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+   
+    public Shifts(int id, String shiftName) {
+        this.id = id;
+        this.shiftName = shiftName;
+    }
+    
+    public Shifts(int id){
+        this.id = id;
+    }
+    
+    public Shifts(String shiftName) {
+        this.shiftName = shiftName;
+    }
 
     public int getId() {
         return id;
@@ -53,4 +66,9 @@ public class Shifts {
         this.endTime = endTime;
     }
     
+        @Override
+    public String toString() {
+        return shiftName;
+    }
+
 }
