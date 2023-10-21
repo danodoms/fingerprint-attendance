@@ -71,12 +71,19 @@ public class EmployeeMgmtController implements Initializable {
     private TextField startTimeField;
     @FXML
     private TextField endTimeField;
+    @FXML
+    private ChoiceBox<String> userTypeChoiceBox;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+         //USER TYPE CHOICE BOX INITIALIZATION
+         userTypeChoiceBox.setValue("Select User Type");
+         userTypeChoiceBox.getItems().addAll("Employee", "Admin", "Records Officer");
+         
+         
          //DEPARTMENT CHOICE BOX INITIALIZATION
          departmentChoiceBox.setItems(dbMethods.getDepartments());
          departmentChoiceBox.setOnAction(this::updatePositionChoiceBox);
@@ -94,7 +101,6 @@ public class EmployeeMgmtController implements Initializable {
     private void addEmployee(ActionEvent event) {
     }
 
-    @FXML
     private void updatePositionChoiceBox(ActionEvent event) {
         System.out.println("update position choice box");
         Departments selectedDepartment = departmentChoiceBox.getValue();
@@ -128,6 +134,13 @@ public class EmployeeMgmtController implements Initializable {
         
         //Stores the id of the selected shift
         int id = selectedShift.getId();
+        
+        String startTime = selectedShift.getStartTime();
+        String endTime = selectedShift.getEndTime();
+        
+        startTimeField.setText(startTime);
+        endTimeField.setText(endTime);
+        
         
         //DEBUGGER
         System.out.println("SelectedShiftID: " + id);
