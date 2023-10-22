@@ -66,19 +66,28 @@ public class EmployeeMgmtController implements Initializable {
     @FXML
     private TextField passwordField;
     @FXML
-    private TextField FnameField1;
-    @FXML
     private TextField startTimeField;
     @FXML
     private TextField endTimeField;
     @FXML
     private ChoiceBox<String> userTypeChoiceBox;
+    @FXML
+    private TextField userIDfield;
+    @FXML
+    private ChoiceBox<String> userSuffixChoiceBox;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+         //USER ID TEXT FIELD INITIALIZATION
+         userIDfield.setText(dbMethods.getNextUserId()+"");
+         
+         //USER SUFFIX INITIALIZATION
+         userSuffixChoiceBox.setValue("Select Suffix");
+         userSuffixChoiceBox.getItems().addAll("None","Jr.", "II", "III", "IV");
+        
          //USER TYPE CHOICE BOX INITIALIZATION
          userTypeChoiceBox.setValue("Select User Type");
          userTypeChoiceBox.getItems().addAll("Employee", "Admin", "Records Officer");
@@ -126,7 +135,8 @@ public class EmployeeMgmtController implements Initializable {
         userImage.setImage(image);
         }
     }
-
+    
+    //Display start time and end time on startTime and endTime fields on employee mgmt pane
     private void showShiftDetails(ActionEvent event) {
         
         //Stores the selected shift

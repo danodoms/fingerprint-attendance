@@ -108,6 +108,25 @@ public class dbMethods {
     return shifts;
 }    
 
+    
+    
+    
+      public int getNextUserId(){
+        int nextUserId = 1;
+        try (Connection connection = getConnection();
+            Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT user_id from user order by user_id desc limit 1");
+            
+            if (rs.next()) {
+                nextUserId = rs.getInt("user_id")+1;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nextUserId;
+        
+    }
 
 
 }
