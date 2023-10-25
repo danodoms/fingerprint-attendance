@@ -66,17 +66,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <Button fx:id="insertBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="243.0" text="Insert">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Button>
             <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateRow" prefHeight="35.0" prefWidth="243.0" text="Update">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="deleteBtn" mnemonicParsing="false" prefHeight="32.0" prefWidth="243.0" text="Delete">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
