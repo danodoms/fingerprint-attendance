@@ -8,29 +8,29 @@ package Model;
  *
  * @author admin
  */
-public class Shifts {
+public class Shift {
     private int id;
     private String shiftName;
     private String startTime;
     private String endTime;
 
-    public Shifts(int id, String shiftName, String startTime, String endTime) {
+    public Shift(int id, String shiftName, String startTime, String endTime) {
         this.id = id;
         this.shiftName = shiftName;
         this.startTime = startTime;
         this.endTime = endTime;
     }
    
-    public Shifts(int id, String shiftName) {
+    public Shift(int id, String shiftName) {
         this.id = id;
         this.shiftName = shiftName;
     }
     
-    public Shifts(int id){
+    public Shift(int id){
         this.id = id;
     }
     
-    public Shifts(String shiftName) {
+    public Shift(String shiftName) {
         this.shiftName = shiftName;
     }
 

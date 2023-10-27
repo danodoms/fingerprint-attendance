@@ -33,16 +33,16 @@ public class dbMethods {
     }
     
     //queries departments to display on employee mgmt choicebox
-    public ObservableList<Departments> getDepartments(){
-        ObservableList<Departments> departments = FXCollections.observableArrayList();
+    public ObservableList<Department> getDepartments(){
+        ObservableList<Department> departments = FXCollections.observableArrayList();
         try (Connection connection = getConnection();
             Statement statement = connection.createStatement()){
             ResultSet rs = statement.executeQuery("SELECT department_id, department_name FROM department");
             
             while (rs.next()) {
-                  departments.add(new Departments(
-                                    rs.getInt("department_id"),
-                           rs.getString("department_name")
+                  departments.add(new Department(
+                          rs.getInt("department_id"),
+                 rs.getString("department_name")
                   ));
             }
 
@@ -54,8 +54,8 @@ public class dbMethods {
     }
     
     //queries positions based on selected department on employee mgmt ui, to display on choicebox
-    public ObservableList<Positions> getPositionsByDepartmentId(int departmentId) {
-    ObservableList<Positions> positions = FXCollections.observableArrayList();
+    public ObservableList<Position> getPositionsByDepartmentId(int departmentId) {
+    ObservableList<Position> positions = FXCollections.observableArrayList();
 
     try (Connection connection = getConnection();
         Statement statement = connection.createStatement()) {
@@ -67,7 +67,7 @@ public class dbMethods {
         ResultSet rs = preparedStatement.executeQuery();
 
         while (rs.next()) {
-              positions.add(new Positions(
+              positions.add(new Position(
                             rs.getInt("position_id"),
                           rs.getString("position_name")
               ));
@@ -83,8 +83,8 @@ public class dbMethods {
 }
     
     //queries columns from shift table, to display on employee mgmt shift choicebox
-    public ObservableList<Shifts> getShifts() {
-    ObservableList<Shifts> shifts = FXCollections.observableArrayList();
+    public ObservableList<Shift> getShifts() {
+    ObservableList<Shift> shifts = FXCollections.observableArrayList();
 
     try (Connection connection = getConnection();
         Statement statement = connection.createStatement()) {
@@ -93,7 +93,7 @@ public class dbMethods {
         ResultSet rs = preparedStatement.executeQuery();
 
         while (rs.next()) {            
-            shifts.add(new Shifts(
+            shifts.add(new Shift(
                          rs.getInt("shift_id"),
                     rs.getString("shift_name"),
                     rs.getString("start_time"),
