@@ -228,6 +228,6 @@
             <Image url="@../../assets/default_user_img.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="selectImageBtn" layoutX="470.0" layoutY="138.0" mnemonicParsing="false" onAction="#selectImg" text="Select Image" />
+      <Button fx:id="selectImageBtn" layoutX="470.0" layoutY="137.0" mnemonicParsing="false" onAction="#selectImg" text="Select Image" />
    </children>
 </AnchorPane>

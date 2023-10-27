@@ -8,16 +8,12 @@ package Model;
  *
  * @author admin
  */
-public class Departments {
+public class Department {
     private int id;
     private String departmentName;
    public static String defaultValue = "Select Department";
     
-   
-   Departments(){
-       
-   }
-    public Departments(int id, String departmentName){
+    public Department(int id, String departmentName){
         this.id = id;
         this.departmentName = departmentName;
     }

@@ -42,9 +42,9 @@ public class EmployeeMgmtController implements Initializable {
     @FXML
     private TextField contactNumField;
     @FXML
-    private ChoiceBox<Departments> departmentChoiceBox;
+    private ChoiceBox<Department> departmentChoiceBox;
     @FXML
-    private ChoiceBox<Positions> positionChoiceBox;
+    private ChoiceBox<Position> positionChoiceBox;
     @FXML
     private ChoiceBox<String> sexChoiceBox;
     @FXML
@@ -56,7 +56,7 @@ public class EmployeeMgmtController implements Initializable {
     
     dbMethods dbMethods = new dbMethods();
     @FXML
-    private ChoiceBox<Shifts> shiftTypeChoiceBox;
+    private ChoiceBox<Shift> shiftTypeChoiceBox;
     @FXML
     private Button selectImageBtn;
     @FXML
@@ -114,7 +114,7 @@ public class EmployeeMgmtController implements Initializable {
 
     private void updatePositionChoiceBox(ActionEvent event) {
         System.out.println("update position choice box");
-        Departments selectedDepartment = departmentChoiceBox.getValue();
+        Department selectedDepartment = departmentChoiceBox.getValue();
         positionChoiceBox.setItems(dbMethods.getPositionsByDepartmentId(selectedDepartment.getId()));
     }
     
@@ -142,7 +142,7 @@ public class EmployeeMgmtController implements Initializable {
     private void showShiftDetails(ActionEvent event) {
         
         //Stores the selected shift
-        Shifts selectedShift = shiftTypeChoiceBox.getValue();
+        Shift selectedShift = shiftTypeChoiceBox.getValue();
         
         //Stores the id of the selected shift
         int id = selectedShift.getId();

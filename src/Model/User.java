@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
  *
  * @author admin
  */
-public class Users {
+public class User {
     private int id;
     private String password;
     private String email;
@@ -24,7 +24,7 @@ public class Users {
     private int user_status;
     private Image user_img;
 
-    public Users(int id, String password, String email, String address, String user_fname, String user_lname, String user_mname, String suffix, String user_type, int user_cntct, int user_status, Image user_img) {
+    public User(int id, String password, String email, String address, String user_fname, String user_lname, String user_mname, String suffix, String user_type, int user_cntct, int user_status, Image user_img) {
         this.id = id;
         this.password = password;
         this.email = email;
