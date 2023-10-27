@@ -75,10 +75,12 @@ public class EmployeeMgmtController implements Initializable {
     private TextField userIDfield;
     @FXML
     private ChoiceBox<String> userSuffixChoiceBox;
+    
 
     /**
      * Initializes the controller class.
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          //USER ID TEXT FIELD INITIALIZATION

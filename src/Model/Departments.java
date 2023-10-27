@@ -13,6 +13,10 @@ public class Departments {
     private String departmentName;
    public static String defaultValue = "Select Department";
     
+   
+   Departments(){
+       
+   }
     public Departments(int id, String departmentName){
         this.id = id;
         this.departmentName = departmentName;
@@ -46,5 +50,7 @@ public class Departments {
     public String toString() {
         return departmentName;
     }
+    
+ 
     
 }
