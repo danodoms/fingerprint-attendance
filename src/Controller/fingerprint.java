@@ -5,6 +5,7 @@
 
 package Controller;
 import com.digitalpersona.uareu.*;
+import com.digitalpersona.uareu.Reader.ReaderStatus;
 
 
 /**
@@ -23,7 +24,6 @@ public class fingerprint{
 
             // Get the list of available readers from the ReaderCollection
             readerCollection.GetReaders();
-
             // Check if there are any connected fingerprint readers
             if (readerCollection.isEmpty()) {
                 System.out.println("No fingerprint reader found.");
@@ -33,6 +33,9 @@ public class fingerprint{
 
                 // Now you have a Reader object for the connected fingerprint reader
                 System.out.println("Connected fingerprint reader: " + reader.GetDescription().name);
+             reader.Open(Reader.Priority.COOPERATIVE);
+                System.out.println(reader.GetCapabilities());
+                Reader.Status readerStat= reader.GetStatus();
             }
         } catch (UareUException e) {
             e.printStackTrace();
