@@ -8,6 +8,8 @@ import java.sql.*;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import Model.*;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.collections.FXCollections;
 
 /**
@@ -15,7 +17,7 @@ import javafx.collections.FXCollections;
  * @author admin
  */
 public class dbMethods {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/attendance_system";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/v11_attendance_system";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
     
@@ -30,24 +32,20 @@ public class dbMethods {
         }
     }
     
+    //queries departments to display on employee mgmt choicebox
     public ObservableList<Departments> getDepartments(){
         ObservableList<Departments> departments = FXCollections.observableArrayList();
-        try {
-            Connection connection = getConnection();
-            Statement statement = (Statement) connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT department_ID, department_name FROM department");
+        try (Connection connection = getConnection();
+            Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT department_id, department_name FROM department");
             
-            while (resultSet.next()) {
-                int id = resultSet.getInt("department_ID");
-                String departmentName = resultSet.getString("department_name");
-                Departments departmentObj = new Departments(id, departmentName);
-                departments.add(departmentObj);
-                System.out.println(departments);
+            while (rs.next()) {
+                  departments.add(new Departments(
+                                    rs.getInt("department_id"),
+                           rs.getString("department_name")
+                  ));
             }
 
-            resultSet.close();
-            statement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,27 +53,80 @@ public class dbMethods {
         
     }
     
-    public ObservableList<Positions> getPositionsByDepartment(String department){
-              ObservableList<Positions> positions = FXCollections.observableArrayList();
-        try {
-            Connection connection = getConnection();
-            Statement statement = (Statement) connection.createStatement();
-            //ResultSet resultSet = statement.executeQuery("SELECT position_name from position p join department d on p.department_ID = d.department_ID where department_name = "+department);
-            ResultSet resultSet = statement.executeQuery("SELECT position_name FROM position p JOIN department d ON p.department_ID = d.department_ID WHERE department_name = '" + department + "'");
+    //queries positions based on selected department on employee mgmt ui, to display on choicebox
+    public ObservableList<Positions> getPositionsByDepartmentId(int departmentId) {
+    ObservableList<Positions> positions = FXCollections.observableArrayList();
+
+    try (Connection connection = getConnection();
+        Statement statement = connection.createStatement()) {
+
+        String query = "SELECT position_id, position_name FROM position p JOIN department d ON p.department_id = d.department_id WHERE p.department_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, departmentId);
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+              positions.add(new Positions(
+                            rs.getInt("position_id"),
+                          rs.getString("position_name")
+              ));
+        }
+        
+         System.out.println(positions);
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return positions;
+}
+    
+    //queries columns from shift table, to display on employee mgmt shift choicebox
+    public ObservableList<Shifts> getShifts() {
+    ObservableList<Shifts> shifts = FXCollections.observableArrayList();
+
+    try (Connection connection = getConnection();
+        Statement statement = connection.createStatement()) {
+        String query = "SELECT * FROM `shift`";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {            
+            shifts.add(new Shifts(
+                         rs.getInt("shift_id"),
+                    rs.getString("shift_name"),
+                    rs.getString("start_time"),
+                      rs.getString("end_time")
+            ));
+        }
+         System.out.println("SHIFTS: " + shifts);
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return shifts;
+}    
+
+    
+    
+    
+      public int getNextUserId(){
+        int nextUserId = 1;
+        try (Connection connection = getConnection();
+            Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT user_id from user order by user_id desc limit 1");
             
-            while (resultSet.next()) {
-                String positionName = resultSet.getString("position_name");
-                Positions positionObj = new Positions(positionName);
-                positions.add(positionObj);
-                System.out.println(positions);
+            if (rs.next()) {
+                nextUserId = rs.getInt("user_id")+1;
             }
 
-            resultSet.close();
-            statement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return positions;
+        return nextUserId;
+        
     }
+
+
 }

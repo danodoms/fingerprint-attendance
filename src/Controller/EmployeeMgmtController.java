@@ -16,6 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import Model.*;
 import java.io.File;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -55,37 +56,66 @@ public class EmployeeMgmtController implements Initializable {
     
     dbMethods dbMethods = new dbMethods();
     @FXML
-    private ChoiceBox<?> shiftTypeChoiceBox;
+    private ChoiceBox<Shifts> shiftTypeChoiceBox;
     @FXML
     private Button selectImageBtn;
     @FXML
     private ImageView userImage;
     @FXML
     private Button enrollFingerprintBtn;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private TextField startTimeField;
+    @FXML
+    private TextField endTimeField;
+    @FXML
+    private ChoiceBox<String> userTypeChoiceBox;
+    @FXML
+    private TextField userIDfield;
+    @FXML
+    private ChoiceBox<String> userSuffixChoiceBox;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         departmentChoiceBox.setItems(dbMethods.getDepartments());
+         //USER ID TEXT FIELD INITIALIZATION
+         userIDfield.setText(dbMethods.getNextUserId()+"");
          
+         //USER SUFFIX INITIALIZATION
+         userSuffixChoiceBox.setValue("Select Suffix");
+         userSuffixChoiceBox.getItems().addAll("None","Jr.", "II", "III", "IV");
+        
+         //USER TYPE CHOICE BOX INITIALIZATION
+         userTypeChoiceBox.setValue("Select User Type");
+         userTypeChoiceBox.getItems().addAll("Employee", "Admin", "Records Officer");
+         
+         
+         //DEPARTMENT CHOICE BOX INITIALIZATION
+         departmentChoiceBox.setItems(dbMethods.getDepartments());
+         departmentChoiceBox.setOnAction(this::updatePositionChoiceBox);
+         
+         //SEX CHOICE BOX INITIALIZATION
          sexChoiceBox.setValue("Select Sex");
          sexChoiceBox.getItems().addAll("Male", "Female");
          
-         
+         //SHIFT TYPE CHOICE BOX INITIALIZATION
+         shiftTypeChoiceBox.setItems(dbMethods.getShifts());
+         shiftTypeChoiceBox.setOnAction(this::showShiftDetails);
     }    
 
     @FXML
     private void addEmployee(ActionEvent event) {
     }
 
-    @FXML
-    private void updatePositionChoiceBox(MouseEvent event) {
+    private void updatePositionChoiceBox(ActionEvent event) {
         System.out.println("update position choice box");
-        String department = departmentChoiceBox.getValue()+"";
-        positionChoiceBox.setItems(dbMethods.getPositionsByDepartment(department));
+        Departments selectedDepartment = departmentChoiceBox.getValue();
+        positionChoiceBox.setItems(dbMethods.getPositionsByDepartmentId(selectedDepartment.getId()));
     }
+    
 
     @FXML
     private void selectImg(ActionEvent event) {
@@ -105,5 +135,32 @@ public class EmployeeMgmtController implements Initializable {
         userImage.setImage(image);
         }
     }
+    
+    //Display start time and end time on startTime and endTime fields on employee mgmt pane
+    private void showShiftDetails(ActionEvent event) {
+        
+        //Stores the selected shift
+        Shifts selectedShift = shiftTypeChoiceBox.getValue();
+        
+        //Stores the id of the selected shift
+        int id = selectedShift.getId();
+        
+        String startTime = selectedShift.getStartTime();
+        String endTime = selectedShift.getEndTime();
+        
+        startTimeField.setText(startTime);
+        endTimeField.setText(endTime);
+        
+        
+        //DEBUGGER
+        System.out.println("SelectedShiftID: " + id);
+        System.out.println("Selected Shift: " + selectedShift);
+        System.out.println("SelectedShiftStart: " + selectedShift.getStartTime());
+        System.out.println("SelectedShiftEnd: " + selectedShift.getEndTime());
+        
+    }
+
+    
+    
     
 }
