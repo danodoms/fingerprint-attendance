@@ -8,18 +8,18 @@ package Model;
  *
  * @author admin
  */
-public class Positions {
+public class Position {
     private int position_id;
     private String position_name;
     private String position_description;
     private int department_ID;
     
-    public Positions(int position_id, String position_name){
+    public Position (int position_id, String position_name){
         this.position_id = position_id;
         this.position_name = position_name;
     }
     
-    public Positions(String position_name){
+    public Position(String position_name){
         this.position_name = position_name;
     }
     
