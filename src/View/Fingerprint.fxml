@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.FingerprintController">
+   <children>
+      <ImageView accessibleText="fingerprint" fitHeight="337.0" fitWidth="247.0" layoutX="20.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="20.0" layoutY="14.0" text="Enroll Fingerprint">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="367.0" layoutY="190.0" text="Touch Sensor to begin">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="351.0" layoutY="68.0" text="Device Status:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="351.0" layoutY="88.0" text="Device State: ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
