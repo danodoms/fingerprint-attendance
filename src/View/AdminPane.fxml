@@ -6,13 +6,14 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="523.0" prefWidth="766.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminPaneController">
     <stylesheets>
         <URL value="@style.css" />
     </stylesheets>
    <children>
-      <TableView layoutX="114.0" layoutY="115.0" prefHeight="305.0" prefWidth="457.0">
+      <TableView fx:id="adminTableView" layoutX="270.0" layoutY="122.0" prefHeight="305.0" prefWidth="457.0">
         <columns>
           <TableColumn prefWidth="126.0" text="Name" />
           <TableColumn text="Date" />
@@ -20,8 +21,12 @@
             <TableColumn prefWidth="127.0" text="Status" />
         </columns>
       </TableView>
-      <DatePicker layoutX="443.0" layoutY="78.0" prefHeight="25.0" prefWidth="128.0" />
-      <Button fx:id="addEmployeeBtn" layoutX="114.0" layoutY="38.0" mnemonicParsing="false" onAction="#openEmployeeMgmtPane" text="Add Employee" />
-      <Button fx:id="logOutAdminBtn" layoutX="662.0" layoutY="38.0" mnemonicParsing="false" onAction="#logOut" text="Log Out" />
+      <DatePicker fx:id="dateFilter" layoutX="599.0" layoutY="51.0" prefHeight="25.0" prefWidth="128.0" />
+      <VBox layoutX="14.0" layoutY="14.0" prefHeight="500.0" prefWidth="210.0">
+         <children>
+            <Button fx:id="addEmployeeBtn" mnemonicParsing="false" onAction="#openEmployeeMgmtPane" prefHeight="40.0" prefWidth="215.0" text="Add Employee" />
+            <Button fx:id="logOutAdminBtn" mnemonicParsing="false" onAction="#logOut" prefHeight="40.0" prefWidth="215.0" text="Log Out" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
