@@ -21,6 +21,7 @@ public class controllerMethods {
     final String adminPane = "/View/AdminPane.fxml";
     final String recordsOfficerPane = "/View/RecordsOfficer.fxml";
     final String employeeMgmtPane = "/View/EmployeeMgmt.fxml";
+    final String fingerprintPane = "/View/Fingerprint.fxml";
     
     public void exitAndOpenNewPane(Button btnName, String fxmlPath){
          try {

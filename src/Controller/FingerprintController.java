@@ -8,6 +8,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import com.digitalpersona.uareu.*;
+import Fingerprint.*;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -15,6 +18,13 @@ import com.digitalpersona.uareu.*;
  * @author admin
  */
 public class FingerprintController implements Initializable {
+    
+    private ReaderCollection m_collection;
+    private Reader           m_reader;
+
+
+    @FXML
+    private Label readerStatusLabel;
 
     /**
      * Initializes the controller class.
@@ -22,49 +32,19 @@ public class FingerprintController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+        setHardwareStatusLabel();
+//System.out.println(hardwareStatusLabel.getText());
+    }   
     
-    private Reader fingerprintReader;
-    private Fmd enrollmentTemplate;
-    
-    public FingerprintController(Reader reader) {
-//        this.fingerprintReader = reader;
-//    }
-//
-//    public void startFingerprintEnrollment() {
-//        try {
-//            // Initialize enrollment
-//            Engine engine = UareUGlobal.GetEngine();
-//            Fmd.Format format = Fmd.Format.ISO_19794_2_2005; // Choose a suitable format
-//            int sampleCount = 4; // Number of fingerprint samples for enrollment
-//            Fmd[] samples = new Fmd[sampleCount];
-//
-//            for (int i = 0; i < sampleCount; i++) {
-//                // Capture a fingerprint image
-//                Reader.CaptureResult captureResult = fingerprintReader.Capture(Reader.Priority.COOPERATIVE);
-//
-//                // Check if the capture was successful
-//                if (captureResult.image != null) {
-//                    // Process the captured image to create an Fmd
-//                    Fmd sampleFmd = engine.CreateFmd(captureResult.image, format);
-//
-//                    // Store the sample Fmd
-//                    samples[i] = sampleFmd;
-//                }
-//            }
-//
-//            // Create an enrollment template from the captured samples
-//            enrollmentTemplate = engine.CreateEnrollmentFmd(Fmd.Format.ANSI_378, samples);
-//
-//            // Store the enrollment template for later use (e.g., database storage)
-//        } catch (UareUException e) {
-//            e.printStackTrace();
-//            // Handle the exception (e.g., display an error message)
-//        }
-//    }
-//
-//    public Fmd getEnrollmentTemplate() {
-//        return enrollmentTemplate;
-//    }
-    }  
+    private void setHardwareStatusLabel(){
+        String newText = readerStatusLabel.getText();
+        if(Selection.readerConnected()){
+            newText += " Connected";
+            
+        }else{
+            newText += " Disconnected";
+        }
+            
+        readerStatusLabel.setText(newText);
+    }
 }
