@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -21,7 +22,17 @@ public class controllerMethods {
     final String adminPane = "/View/AdminPane.fxml";
     final String recordsOfficerPane = "/View/RecordsOfficer.fxml";
     final String employeeMgmtPane = "/View/EmployeeMgmt.fxml";
+    final String adminAttendancePane = "/View/Admin_attendance.fxml";
     
+    public void openAttenPane(String fxmlPath){
+         try {
+            // Close the current window
+            AnchorPane view = FXMLLoader.load(getClass().getResource(fxmlPath));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void exitAndOpenNewPane(Button btnName, String fxmlPath){
          try {
             // Close the current window
