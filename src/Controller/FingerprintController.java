@@ -13,6 +13,7 @@ import javafx.beans.binding.*;
 import javafx.beans.value.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import com.digitalpersona.uareu.*;
 
 /**
  * FXML Controller class
@@ -34,9 +35,17 @@ public class FingerprintController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        m_reader = Selection.getReader();
+        
         setReaderStatusLabel();
         
-        m_reader = Selection.waitAndGetReader();
+        if(m_reader != null){
+            Enrollment.Run(m_reader);
+        }
+        
+        
+        
+//        m_reader = Selection.waitAndGetReader();
 //        BooleanBinding readerNullBinding = Bindings.isNull((ObservableObjectValue<Reader>) reader);
 //        readerStatusLabel.textProperty().bind(Bindings.when(readerNullBinding)
 //        .then("Disconnected")
@@ -65,4 +74,5 @@ public class FingerprintController implements Initializable {
             
         readerStatusLabel.setText(newText);
     }
+    
 }

@@ -1,3 +1,5 @@
+package Fingerprint;
+
 import javax.swing.JOptionPane;
 
 import com.digitalpersona.uareu.Reader;

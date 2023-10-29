@@ -5,8 +5,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Selection{
     
-    //HARDWARE refers to fingerprint reader
-    
 
 public static ReaderCollection getReaderCollection()throws UareUException{
     ReaderCollection readerCollection = UareUGlobal.GetReaderCollection();

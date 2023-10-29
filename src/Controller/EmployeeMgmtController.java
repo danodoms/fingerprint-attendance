@@ -5,6 +5,7 @@ package Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
+import Fingerprint.Enrollment;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -23,6 +24,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import Fingerprint.*;
+import com.digitalpersona.uareu.Reader;
+
+
 
 /**
  * FXML Controller class
@@ -76,6 +81,8 @@ public class EmployeeMgmtController implements Initializable {
     private TextField userIDfield;
     @FXML
     private ChoiceBox<String> userSuffixChoiceBox;
+    
+    
     
 
     /**
@@ -166,6 +173,11 @@ public class EmployeeMgmtController implements Initializable {
     @FXML
     private void openFingerprintPane(ActionEvent event) {
         method.openPane(method.FINGERPRINT_PANE);
+//        
+//        Reader m_reader = Selection.getReader();
+//        if(m_reader != null){
+//            Enrollment.Run(m_reader);
+//        }
     }
 
     
