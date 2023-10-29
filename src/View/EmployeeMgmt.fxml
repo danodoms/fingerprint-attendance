@@ -214,7 +214,7 @@
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <Button fx:id="enrollFingerprintBtn" mnemonicParsing="false" prefHeight="33.0" prefWidth="213.0" text="Enroll Fingerprint">
+                  <Button fx:id="enrollFingerprintBtn" mnemonicParsing="false" onAction="#openFingerprintPane" prefHeight="33.0" prefWidth="213.0" text="Enroll Fingerprint">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>

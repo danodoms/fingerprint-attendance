@@ -40,12 +40,12 @@ public class AdminPaneController implements Initializable {
         
     @FXML
     private void openEmployeeMgmtPane(ActionEvent event) {
-        method.openWindow(method.employeeMgmtPane);
+        method.openPane(method.EMPLOYEE_MGMT_PANE);
     }
 
     @FXML
     private void logOut(ActionEvent event) {
-        method.exitAndOpenNewPane(logOutAdminBtn, method.loginPane);
+        method.exitAndOpenNewPane(logOutAdminBtn, method.LOGIN_PANE);
     }
     
 }
