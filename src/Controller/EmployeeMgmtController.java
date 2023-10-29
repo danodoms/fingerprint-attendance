@@ -92,7 +92,7 @@ public class EmployeeMgmtController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          //USER ID TEXT FIELD INITIALIZATION
-         userIDfield.setText(dbMethods.getNextUserId()+"");
+         userIDfield.setText(User.getNextUserId()+"");
          
          //USER SUFFIX INITIALIZATION
          userSuffixChoiceBox.setValue("Select Suffix");
@@ -104,7 +104,7 @@ public class EmployeeMgmtController implements Initializable {
          
          
          //DEPARTMENT CHOICE BOX INITIALIZATION
-         departmentChoiceBox.setItems(dbMethods.getDepartments());
+         departmentChoiceBox.setItems(Department.getDepartments());
          departmentChoiceBox.setOnAction(this::updatePositionChoiceBox);
          
          //SEX CHOICE BOX INITIALIZATION
@@ -112,7 +112,7 @@ public class EmployeeMgmtController implements Initializable {
          sexChoiceBox.getItems().addAll("Male", "Female");
          
          //SHIFT TYPE CHOICE BOX INITIALIZATION
-         shiftTypeChoiceBox.setItems(dbMethods.getShifts());
+         shiftTypeChoiceBox.setItems(Shift.getShifts());
          shiftTypeChoiceBox.setOnAction(this::showShiftDetails);
     }    
 
@@ -123,7 +123,7 @@ public class EmployeeMgmtController implements Initializable {
     private void updatePositionChoiceBox(ActionEvent event) {
         System.out.println("update position choice box");
         Department selectedDepartment = departmentChoiceBox.getValue();
-        positionChoiceBox.setItems(dbMethods.getPositionsByDepartmentId(selectedDepartment.getId()));
+        positionChoiceBox.setItems(Position.getPositionsByDepartmentId(selectedDepartment.getId()));
     }
     
 

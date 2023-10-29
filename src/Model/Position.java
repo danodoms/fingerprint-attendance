@@ -4,6 +4,16 @@
  */
 package Model;
 
+
+import Controller.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author admin
@@ -59,5 +69,33 @@ public class Position {
     public void setDepartment_ID(int department_ID) {
         this.department_ID = department_ID;
     }
+    
+        public static ObservableList<Position> getPositionsByDepartmentId(int departmentId) {
+    ObservableList<Position> positions = FXCollections.observableArrayList();
+
+    try (Connection connection = dbMethods.getConnection();
+        Statement statement = connection.createStatement()) {
+
+        String query = "SELECT position_id, position_name FROM position p JOIN department d ON p.department_id = d.department_id WHERE p.department_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, departmentId);
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+              positions.add(new Position(
+                            rs.getInt("position_id"),
+                          rs.getString("position_name")
+              ));
+        }
+        
+         System.out.println(positions);
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return positions;
+}
     
 }

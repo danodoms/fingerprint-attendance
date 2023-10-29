@@ -4,6 +4,15 @@
  */
 package Model;
 
+import Controller.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author admin
@@ -70,5 +79,30 @@ public class Shift {
     public String toString() {
         return shiftName;
     }
+    
+        public static ObservableList<Shift> getShifts() {
+    ObservableList<Shift> shifts = FXCollections.observableArrayList();
+
+    try (Connection connection = dbMethods.getConnection();
+        Statement statement = connection.createStatement()) {
+        String query = "SELECT * FROM `shift`";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {            
+            shifts.add(new Shift(
+                         rs.getInt("shift_id"),
+                    rs.getString("shift_name"),
+                    rs.getString("start_time"),
+                      rs.getString("end_time")
+            ));
+        }
+         System.out.println("SHIFTS: " + shifts);
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return shifts;
+}    
 
 }

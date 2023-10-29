@@ -4,6 +4,11 @@
  */
 package Model;
 
+import Controller.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javafx.scene.image.Image;
 
 /**
@@ -23,6 +28,25 @@ public class User {
     private int user_cntct;
     private int user_status;
     private Image user_img;
+    
+    
+    
+          public static int getNextUserId(){
+        int nextUserId = 1;
+        try (Connection connection = dbMethods.getConnection();
+            Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT user_id from user order by user_id desc limit 1");
+            
+            if (rs.next()) {
+                nextUserId = rs.getInt("user_id")+1;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nextUserId;
+        
+    }
 
     public User(int id, String password, String email, String address, String user_fname, String user_lname, String user_mname, String suffix, String user_type, int user_cntct, int user_status, Image user_img) {
         this.id = id;
