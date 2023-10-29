@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="523.0" prefWidth="766.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminPaneController">
+<AnchorPane id="AnchorPane" prefHeight="523.0" prefWidth="850.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminPaneController">
     <stylesheets>
         <URL value="@style.css" />
     </stylesheets>
    <children>
-      <BorderPane fx:id="borderPaneOb" prefHeight="200.0" prefWidth="200.0">
+      <BorderPane fx:id="borderPaneOb" prefHeight="200.0" prefWidth="165.0">
          <left>
-            <VBox prefHeight="457.0" prefWidth="192.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="457.0" prefWidth="150.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="dashBoardBtn" mnemonicParsing="false" onAction="#openDashboardPane" prefHeight="40.0" prefWidth="215.0" text="Dasboard" />
                   <Button fx:id="attendanceViewer" mnemonicParsing="false" onAction="#openAttendancePane" prefHeight="40.0" prefWidth="215.0" text="Attendance" />
@@ -22,7 +22,7 @@
                   <Button fx:id="logOutAdminBtn" mnemonicParsing="false" onAction="#logOut" prefHeight="40.0" prefWidth="215.0" text="Log Out" />
                </children>
                <BorderPane.margin>
-                  <Insets left="10.0" top="20.0" />
+                  <Insets left="10.0" top="15.0" />
                </BorderPane.margin>
             </VBox>
          </left>

@@ -3,6 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
+import Controller.*;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -47,6 +55,25 @@ public class Department {
         return departmentName;
     }
     
+        public static ObservableList<Department> getDepartments(){
+        ObservableList<Department> departments = FXCollections.observableArrayList();
+        try (Connection connection = dbMethods.getConnection();
+            Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT department_id, department_name FROM department");
+            
+            while (rs.next()) {
+                  departments.add(new Department(
+                          rs.getInt("department_id"),
+                 rs.getString("department_name")
+                  ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return departments;
+        
+    }
  
     
 }
