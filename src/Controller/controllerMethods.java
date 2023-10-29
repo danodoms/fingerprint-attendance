@@ -23,6 +23,7 @@ public class controllerMethods {
     final String recordsOfficerPane = "/View/RecordsOfficer.fxml";
     final String employeeMgmtPane = "/View/EmployeeMgmt.fxml";
     final String adminAttendancePane = "/View/Admin_attendance.fxml";
+    final String adminDashboardPane = "/View/Admin_dashboard.fxml";
     
     public void openAttenPane(String fxmlPath){
          try {
@@ -33,6 +34,7 @@ public class controllerMethods {
             e.printStackTrace();
         }
     }
+    
     public void exitAndOpenNewPane(Button btnName, String fxmlPath){
          try {
             // Close the current window

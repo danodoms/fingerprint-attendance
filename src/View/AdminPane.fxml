@@ -13,10 +13,10 @@
     </stylesheets>
    <children>
       <BorderPane fx:id="borderPaneOb" prefHeight="200.0" prefWidth="200.0">
-         <center>
+         <left>
             <VBox prefHeight="457.0" prefWidth="192.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="dashBoardBtn" mnemonicParsing="false" onAction="#openAttendancePane" prefHeight="40.0" prefWidth="215.0" text="Attendance" />
+                  <Button fx:id="dashBoardBtn" mnemonicParsing="false" onAction="#openDashboardPane" prefHeight="40.0" prefWidth="215.0" text="Dasboard" />
                   <Button fx:id="attendanceViewer" mnemonicParsing="false" onAction="#openAttendancePane" prefHeight="40.0" prefWidth="215.0" text="Attendance" />
                   <Button fx:id="addEmployeeBtn" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="215.0" text="Add Employee" />
                   <Button fx:id="logOutAdminBtn" mnemonicParsing="false" onAction="#logOut" prefHeight="40.0" prefWidth="215.0" text="Log Out" />
@@ -25,7 +25,7 @@
                   <Insets left="10.0" top="20.0" />
                </BorderPane.margin>
             </VBox>
-         </center>
+         </left>
       </BorderPane>
    </children>
 </AnchorPane>
