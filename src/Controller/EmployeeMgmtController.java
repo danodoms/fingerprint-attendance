@@ -55,6 +55,7 @@ public class EmployeeMgmtController implements Initializable {
     private Button addEmployeeBtn;
     
     dbMethods dbMethods = new dbMethods();
+    controllerMethods method = new controllerMethods();
     @FXML
     private ChoiceBox<Shift> shiftTypeChoiceBox;
     @FXML
@@ -160,6 +161,11 @@ public class EmployeeMgmtController implements Initializable {
         System.out.println("SelectedShiftStart: " + selectedShift.getStartTime());
         System.out.println("SelectedShiftEnd: " + selectedShift.getEndTime());
         
+    }
+
+    @FXML
+    private void openFingerprintPane(ActionEvent event) {
+        method.openPane(method.FINGERPRINT_PANE);
     }
 
     
