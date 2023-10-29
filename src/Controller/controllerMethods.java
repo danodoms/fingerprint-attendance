@@ -18,19 +18,20 @@ import javafx.stage.Stage;
  */
 public class controllerMethods {
     
-<<<<<<< HEAD
+//<<<<<<< HEAD
+//    final String LOGIN_PANE = "/View/Login.fxml";
+//    final String ADMIN_PANE = "/View/AdminPane.fxml";
+//    final String RECORDS_OFFICER_PANE = "/View/RecordsOfficer.fxml";
+//    final String EMPLOYEE_MGMT_PANE = "/View/EmployeeMgmt.fxml";
+//    final String FINGERPRINT_PANE = "/View/Fingerprint.fxml";
+//=======
     final String LOGIN_PANE = "/View/Login.fxml";
     final String ADMIN_PANE = "/View/AdminPane.fxml";
     final String RECORDS_OFFICER_PANE = "/View/RecordsOfficer.fxml";
     final String EMPLOYEE_MGMT_PANE = "/View/EmployeeMgmt.fxml";
+    final String ADMIN_ATTENDANCE_PANE = "/View/Admin_attendance.fxml";
+    final String ADMIN_DASHBOARD_PANE = "/View/Admin_dashboard.fxml";
     final String FINGERPRINT_PANE = "/View/Fingerprint.fxml";
-=======
-    final String loginPane = "/View/Login.fxml";
-    final String adminPane = "/View/AdminPane.fxml";
-    final String recordsOfficerPane = "/View/RecordsOfficer.fxml";
-    final String employeeMgmtPane = "/View/EmployeeMgmt.fxml";
-    final String adminAttendancePane = "/View/Admin_attendance.fxml";
-    final String adminDashboardPane = "/View/Admin_dashboard.fxml";
     
     public void openAttenPane(String fxmlPath){
          try {
@@ -41,7 +42,7 @@ public class controllerMethods {
             e.printStackTrace();
         }
     }
->>>>>>> henry
+//>>>>>>> henry
     
     public void openPane(String fxmlPath){
          try {
