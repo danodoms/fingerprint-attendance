@@ -40,10 +40,7 @@ public class AdminPaneController implements Initializable {
      */
     @FXML
     private BorderPane borderPaneOb;
-    @FXML
-    private BorderPane dashboardBP;
     
-    @FXML
     private AnchorPane view;
     controllerMethods method = new controllerMethods();
     
@@ -54,31 +51,36 @@ public class AdminPaneController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         try {
-            view = FXMLLoader.load(getClass().getResource(method.adminDashboardPane));
+            view = FXMLLoader.load(getClass().getResource(method.ADMIN_DASHBOARD_PANE));
         } catch (IOException ex) {
             Logger.getLogger(AdminPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
         borderPaneOb.setCenter(view);
     } 
+    private void openEmployeeMgmtPane(ActionEvent event) {
+        method.openPane(method.EMPLOYEE_MGMT_PANE);
+    }
+
     @FXML
     private void openDashboardPane(ActionEvent event) throws IOException {
-        view = FXMLLoader.load(getClass().getResource(method.adminDashboardPane));
+        view = FXMLLoader.load(getClass().getResource(method.ADMIN_DASHBOARD_PANE));
         borderPaneOb.setCenter(view);
     }
     @FXML
     private void openAttendancePane(ActionEvent event) throws IOException {
-        view = FXMLLoader.load(getClass().getResource(method.adminAttendancePane));
+        view = FXMLLoader.load(getClass().getResource(method.ADMIN_ATTENDANCE_PANE));
         borderPaneOb.setCenter(view);
     }
     @FXML
     private void openEmpPane(ActionEvent event) throws IOException {
-        view = FXMLLoader.load(getClass().getResource(method.employeeMgmtPane));
+        view = FXMLLoader.load(getClass().getResource(method.EMPLOYEE_MGMT_PANE));
         borderPaneOb.setCenter(view);
+
     }
 
     @FXML
     private void logOut(ActionEvent event) {
-        method.exitAndOpenNewPane(logOutAdminBtn, method.loginPane);
+        method.exitAndOpenNewPane(logOutAdminBtn, method.LOGIN_PANE);
     }
     
 }
