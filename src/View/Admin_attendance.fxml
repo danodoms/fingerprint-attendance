@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="543.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1">
+   <children>
+      <TableView fx:id="adminTableView" layoutX="20.0" layoutY="109.0" prefHeight="381.0" prefWidth="503.0">
+         <columns>
+            <TableColumn prefWidth="126.0" text="Name" />
+            <TableColumn prefWidth="110.0" text="Date" />
+            <TableColumn minWidth="0.0" prefWidth="108.0" text="Time" />
+            <TableColumn prefWidth="166.0" text="Status" />
+         </columns>
+      </TableView>
+      <DatePicker fx:id="datePicker" layoutX="393.0" layoutY="72.0" prefHeight="25.0" prefWidth="128.0" promptText="yyyy-mm-dd" />
+   </children>
+</AnchorPane>
