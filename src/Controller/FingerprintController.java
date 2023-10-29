@@ -9,6 +9,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import com.digitalpersona.uareu.*;
 import Fingerprint.*;
+import javafx.beans.binding.*;
+import javafx.beans.value.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -21,7 +23,7 @@ public class FingerprintController implements Initializable {
     
     private ReaderCollection m_collection;
     private Reader           m_reader;
-
+    private ObservableObjectValue<Reader> ObservableReader;
 
     @FXML
     private Label readerStatusLabel;
@@ -32,13 +34,29 @@ public class FingerprintController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        setHardwareStatusLabel();
-//System.out.println(hardwareStatusLabel.getText());
+        setReaderStatusLabel();
+        
+        m_reader = Selection.waitAndGetReader();
+//        BooleanBinding readerNullBinding = Bindings.isNull((ObservableObjectValue<Reader>) reader);
+//        readerStatusLabel.textProperty().bind(Bindings.when(readerNullBinding)
+//        .then("Disconnected")
+//        .otherwise("Connected"));
+
+//
+//        this.ObservableReader = new SimpleObjectProperty<>(ObservableReader);
+//        readerStatusLabel.textProperty().bind(Bindings.when(ObservableReader.isNull())
+//                                         .then("Disconnected")
+//                                         .otherwise("Connected"));
+
+        
+        
+        //reader = Selection.waitAndGetReader();
+
     }   
     
-    private void setHardwareStatusLabel(){
+    private void setReaderStatusLabel(){
         String newText = readerStatusLabel.getText();
-        if(Selection.readerConnected()){
+        if(Selection.readerIsConnected()){
             newText += " Connected";
             
         }else{

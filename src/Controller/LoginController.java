@@ -43,13 +43,13 @@ public class LoginController implements Initializable {
 
     @FXML
     private void openAdminPane(ActionEvent event) {
-        method.exitAndOpenNewPane(loginAdminBtn, method.adminPane);
+        method.exitAndOpenNewPane(loginAdminBtn, method.ADMIN_PANE);
         System.out.println("Logged in as admin");
     }
 
     @FXML
     private void openRecordsOfficerPane(ActionEvent event) {
-        method.exitAndOpenNewPane(loginAdminBtn, method.recordsOfficerPane);
+        method.exitAndOpenNewPane(loginAdminBtn, method.RECORDS_OFFICER_PANE);
         System.out.println("Logged in as records officer");
     }
 }

@@ -1,6 +1,7 @@
 package Fingerprint;
 
 import com.digitalpersona.uareu.*;
+import java.util.concurrent.TimeUnit;
 
 public class Selection{
     
@@ -14,7 +15,7 @@ public static ReaderCollection getReaderCollection()throws UareUException{
     return readerCollection;
 }
 
-public static boolean readerConnected(){
+public static boolean readerIsConnected(){
     try {
         ReaderCollection readerCollection = getReaderCollection();
         if (!readerCollection.isEmpty()) {
@@ -35,7 +36,9 @@ public static Reader getReader(){
     Reader reader = null;
     try {
         ReaderCollection readerCollection = getReaderCollection();
-        reader = readerCollection.get(0);
+        if (!readerCollection.isEmpty()){
+            reader = readerCollection.get(0);
+        }
     }catch (UareUException e){
         e.printStackTrace();
     }
@@ -43,5 +46,29 @@ public static Reader getReader(){
     
 }
 
+public static Reader waitAndGetReader(){
+       
+       Reader reader = null;
+        do {
+            reader = getReader();
+            if(reader == null){
+                 System.out.println("No fingerprint reader found. Waiting for a reader to be connected...");
+            }else{
+                System.out.println("Connected fingerprint reader: " + reader.GetDescription().name);
+                return reader;
+            }
+
+            // Wait for a few seconds before checking again
+            try {
+                TimeUnit.SECONDS.sleep(3); // You can adjust the sleep duration as needed
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }while (reader == null);
+           
+        return reader;
+    
+
+    }
 }
 

@@ -163,7 +163,7 @@ public class EmployeeMgmtController implements Initializable {
 
     @FXML
     private void openFingerprintPane(ActionEvent event) {
-        method.openWindow(method.fingerprintPane);
+        method.openPane(method.FINGERPRINT_PANE);
     }
 
     

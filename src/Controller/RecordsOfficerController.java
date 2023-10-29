@@ -34,7 +34,7 @@ public class RecordsOfficerController implements Initializable {
 
     @FXML
     private void logOut(ActionEvent event) {
-        method.exitAndOpenNewPane(fileEmpRecordBtn, method.loginPane);
+        method.exitAndOpenNewPane(fileEmpRecordBtn, method.LOGIN_PANE);
     }
     
 }
