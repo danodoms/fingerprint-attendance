@@ -90,7 +90,7 @@
                   <Insets left="17.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="resetBtn" mnemonicParsing="false" text="Reset">
+            <Button fx:id="resetBtn" mnemonicParsing="false" onAction="#clearChoiceBox" onMouseDragReleased="#clearChoiceBox" text="Reset">
                <VBox.margin>
                   <Insets left="57.0" top="7.0" />
                </VBox.margin>

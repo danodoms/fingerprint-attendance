@@ -4,10 +4,17 @@
  */
 package Model;
 
+import java.util.Date;
+
 /**
  *
  * @author User
  */
 public class Attendance {
     private int id;
+    private int userId;
+    private Date date;
+    private int dateStatus;
+    private String timeIn;
+    private String timeOut;
 }

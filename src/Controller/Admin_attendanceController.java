@@ -33,9 +33,7 @@ public class Admin_attendanceController implements Initializable {
     @FXML
     private ChoiceBox<Shift> shiftTypeChoiceBox;
     @FXML
-    private TextField startTimeField;
-    @FXML
-    private TextField endTimeField;
+    private TextField startTimeField, endTimeField;
     @FXML
     private Button resetBtn;
     
@@ -73,7 +71,6 @@ public class Admin_attendanceController implements Initializable {
         startTimeField.setText(startTime);
         endTimeField.setText(endTime);
         
-        
         //DEBUGGER
         System.out.println("SelectedShiftID: " + id);
         System.out.println("Selected Shift: " + selectedShift);
@@ -81,5 +78,12 @@ public class Admin_attendanceController implements Initializable {
         System.out.println("SelectedShiftEnd: " + selectedShift.getEndTime());
         
     }
-    
+    @FXML
+    public void clearChoiceBox(ActionEvent event){
+        departmentChoiceBox.setValue(null);
+        positionChoiceBox.setValue(null);
+        shiftTypeChoiceBox.setValue(null);
+        startTimeField.clear();
+        endTimeField.clear();
+    }
 }

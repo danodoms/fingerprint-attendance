@@ -29,12 +29,7 @@ import javafx.scene.layout.Pane;
 public class AdminPaneController implements Initializable {
 
     @FXML
-    private Button addEmployeeBtn;
-    @FXML
-    private Button dashBoardBtn;
-    
-    @FXML
-    private Button attendanceViewer;
+    private Button addEmployeeBtn, dashBoardBtn, attendanceViewer, logOutAdminBtn;
     /**
      * Initializes the controller class.
      */
@@ -43,9 +38,6 @@ public class AdminPaneController implements Initializable {
     
     private AnchorPane view;
     controllerMethods method = new controllerMethods();
-    
-    @FXML
-    private Button logOutAdminBtn;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

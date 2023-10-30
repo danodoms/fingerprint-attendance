@@ -32,51 +32,26 @@ import javafx.stage.Stage;
 public class EmployeeMgmtController implements Initializable {
 
     @FXML
-    private TextField FnameField;
+    private TextField userIDfield, passwordField, FnameField, LnameField, MnameField;
     @FXML
-    private TextField LnameField;
-    @FXML
-    private TextField MnameField;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private TextField contactNumField;
+    private TextField emailField, contactNumField, addressField, startTimeField, endTimeField;
     @FXML
     private ChoiceBox<Department> departmentChoiceBox;
     @FXML
     private ChoiceBox<Position> positionChoiceBox;
     @FXML
-    private ChoiceBox<String> sexChoiceBox;
+    private ChoiceBox<Shift> shiftTypeChoiceBox;
+    @FXML
+    private ChoiceBox<String> sexChoiceBox, userTypeChoiceBox, userSuffixChoiceBox;
     @FXML
     private DatePicker dateOfBirthPicker;
     @FXML
-    private TextField addressField;
+    private Button addEmployeeBtn, selectImageBtn, enrollFingerprintBtn;
     @FXML
-    private Button addEmployeeBtn;
+    private ImageView userImage;
     
     dbMethods dbMethods = new dbMethods();
     controllerMethods method = new controllerMethods();
-    @FXML
-    private ChoiceBox<Shift> shiftTypeChoiceBox;
-    @FXML
-    private Button selectImageBtn;
-    @FXML
-    private ImageView userImage;
-    @FXML
-    private Button enrollFingerprintBtn;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private TextField startTimeField;
-    @FXML
-    private TextField endTimeField;
-    @FXML
-    private ChoiceBox<String> userTypeChoiceBox;
-    @FXML
-    private TextField userIDfield;
-    @FXML
-    private ChoiceBox<String> userSuffixChoiceBox;
-    
 
     /**
      * Initializes the controller class.
