@@ -52,35 +52,5 @@ public class Capture {
 
     
     
-    
-    
-//    public static Fmd captureFingerprintImage(Reader reader) {
-//        try {
-//            // Open the reader
-//            reader.Open(Reader.Priority.COOPERATIVE);
-//
-//            // Capture a single fingerprint image
-//            CaptureResult captureResult = reader.Capture(Fid.Format.ANSI_381_2004, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
-//
-//            if (captureResult.image != null && captureResult.quality == CaptureQuality.GOOD) {
-//                // Successfully captured a fingerprint image
-//                return (Fmd) captureResult.image;
-//            } else {
-//                // Handle capture failure or low-quality image
-//                System.out.println("Fingerprint capture failed or quality is not good.");
-//                return null;
-//            }
-//        } catch (UareUException e) {
-//            e.printStackTrace();
-//            return null;
-//        } finally {
-//            try {
-//                // Close the reader
-//                reader.Close();
-//            } catch (UareUException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-    
+  
 }
