@@ -13,8 +13,23 @@ import javafx.beans.binding.*;
 import javafx.beans.value.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import com.digitalpersona.uareu.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.image.ImageView;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
+
+import com.digitalpersona.uareu.*;
+import com.digitalpersona.uareu.Reader.*;
+import com.digitalpersona.uareu.Fid.*;
+import javafx.application.Platform;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.canvas.*;
+import javafx.scene.image.*;
 /**
  * FXML Controller class
  *
@@ -28,6 +43,12 @@ public class FingerprintController implements Initializable {
 
     @FXML
     private Label readerStatusLabel;
+    @FXML
+    private ImageView fingerprintImage;
+    @FXML
+    private Canvas fingerprintCanvas;
+    
+
 
     /**
      * Initializes the controller class.
@@ -38,9 +59,78 @@ public class FingerprintController implements Initializable {
         m_reader = Selection.getReader();
         
         setReaderStatusLabel();
+        CaptureThread2 capT = new CaptureThread2(m_reader, fingerprintImage, fingerprintCanvas);
+        capT.start();
         
-        if(m_reader != null){
-            Enrollment.Run(m_reader);
+//        Capabilities rc = m_reader.GetCapabilities();
+//			if(!rc.can_stream){
+//				System.out.println("This reader does not support streaming");
+//                                
+//			}else{
+//                            System.out.println("Streaming Supported");
+//                        }
+        
+//        try {
+//            m_reader.Open(Priority.COOPERATIVE);
+//            m_reader.StartStreaming();
+//            while (true) {
+//                    CaptureResult captureResult = m_reader.GetStreamImage(
+//                        Fid.Format.ISO_19794_4_2005, ImageProcessing.IMG_PROC_DEFAULT, 500);
+//
+//                    if (captureResult != null) {
+//                        Fid fid = captureResult.image;
+//                        Fiv fiv = fid.getViews()[0];
+//                        byte[] imageData = fiv.getImageData();
+//
+//                        // Create a JavaFX Image from the captured bytes
+//                        Image fxImage = new Image(new ByteArrayInputStream(imageData));
+//
+//                        // Update the ImageView with the new frame
+//                        //fingerprintImage.setImage(fxImage);
+//                        Platform.runLater(() -> fingerprintImage.setImage(fxImage));
+//                    }
+//                }
+//            } catch (UareUException ex) {
+//            Logger.getLogger(FingerprintController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//            
+//        if(m_reader != null){
+//            CaptureResult captureResult = Capture.captureFingerprintImage(m_reader);
+//
+//            if (captureResult != null) {
+//               
+//                    System.out.println("Fingerprint image captured successfully.");
+//                    // You can use the capturedImage for further processing or display.
+//                    
+//                    Fid fid = captureResult.image;
+//                    System.out.println("fid: "+fid+"");
+//                     
+//                    Fiv fiv = fid.getViews()[0];
+//                    System.out.println("fiv: "+fiv+"");
+//                    
+//                    System.out.println("fiv view count: "+fiv.getViewCnt()+"");
+//                    System.out.println("fiv view number: "+fiv.getViewNumber()+"");
+//                    System.out.println("fiv getImageData: "+fiv.getImageData()+"");
+//
+//                    
+//                    BufferedImage img = Capture.convertBytesToImage(fiv.getImageData());
+//                    
+//                    System.out.println("img: "+img+"");
+//                    
+//                    //WritableImage writableImage = new WritableImage(img.getWidth(), img.getHeight());
+//                    Image fxImage = SwingFXUtils.toFXImage(img, null);
+//                    fingerprintImage.setImage(fxImage);
+//                    
+//                } else {
+//                    System.out.println("Fingerprint image capture failed.");
+//                } 
+//        }
+        
+            
+            
+        
+          
+            
         }
         
         
@@ -61,7 +151,7 @@ public class FingerprintController implements Initializable {
         
         //reader = Selection.waitAndGetReader();
 
-    }   
+     
     
     private void setReaderStatusLabel(){
         String newText = readerStatusLabel.getText();

@@ -62,7 +62,7 @@ public class Enrollment
 
 			while(null == prefmd && !m_bCancel){
 				//start capture thread
-				m_capture = new CaptureThread(m_reader, false, Fid.Format.ANSI_381_2004, Reader.ImageProcessing.IMG_PROC_DEFAULT);
+				m_capture = new CaptureThread(m_reader, false, Fid.Format.ANSI_381_2004, Reader.ImageProcessing.IMG_PROC_UNPROCESSED);
 				m_capture.start(null);
 				
 				//prompt for finger
