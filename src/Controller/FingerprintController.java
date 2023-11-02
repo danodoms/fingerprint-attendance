@@ -15,7 +15,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -31,6 +33,8 @@ public class FingerprintController implements Initializable {
     private Label readerStatusLabel;
     @FXML
     private ImageView fingerprintImage;
+    @FXML
+    private Label enrollFingerprintLabel;
     
 
 
@@ -43,8 +47,10 @@ public class FingerprintController implements Initializable {
         m_reader = Selection.getReader();
         
         setReaderStatusLabel();
-        CaptureThread capT = new CaptureThread(m_reader, fingerprintImage);
-        capT.start();
+//        CaptureThread capT = new CaptureThread(m_reader, fingerprintImage);
+//        capT.start();
+        EnrollmentThread enrollment = new EnrollmentThread(m_reader, fingerprintImage);
+        enrollment.start();
  
         }
     
