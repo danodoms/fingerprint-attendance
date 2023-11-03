@@ -51,6 +51,7 @@ public class CaptureThread extends Thread{
                     
                     //Display fingerprint image on imageview
                     Display.displayFingerprint(view, imageview);
+                    Prompt.prompt(Prompt.CONTINUE_CAPTURE);
                 //}
                 //System.out.println("Reader timed out");
                 
@@ -71,8 +72,7 @@ public class CaptureThread extends Thread{
                     System.out.println("Reader Status: " + reader.GetStatus());
                     Reader.CaptureResult captureResult = reader.GetStreamImage(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500);
                     System.out.println("Capture quality: " + captureResult.quality);
-                   
-                    
+                        
                     //Store sigle fingerprint view
                     Fid fid = captureResult.image;       
                     Fid.Fiv view = fid.getViews()[0];

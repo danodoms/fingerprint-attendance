@@ -11,9 +11,11 @@ import com.digitalpersona.uareu.Fmd;
 import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.image.ImageView;
+import Model.*;
 
 /**
  *
@@ -24,6 +26,7 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     private Reader reader;
     private ImageView imageview;
     private CaptureThread captureThread;
+    private int FmdCount = 4;
     
     
     public EnrollmentThread(Reader reader, ImageView imageview){
@@ -33,26 +36,42 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     
      public void startEnrollment(Reader reader, ImageView imageview) {
         int counter = 0;
+        ArrayList<Fmd> capturedFMDs = new ArrayList<>();
         try {
             reader.Open(Reader.Priority.COOPERATIVE);
             Engine engine = UareUGlobal.GetEngine();
-                while (true) {
+                while (counter != FmdCount) {
                     System.out.println(counter); counter++;
                     
                     //Calls the Override GetFmd method that is implemented from Engine.CreateEnrollmentFmd Class
                     Fmd fmd = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
-
+                    //System.out.println("FMD view count: " + fmd.getViewCnt());
                     // Send the result to the listener
+                    
                     if (null != fmd) {
                         //IMPORTANT!
                         //ADD HERE THE SQL INSERT QUERY THAT INSERTS THE FMD, AND THE ID OF THE CURRENT USER
                         System.out.println("FMD returned");
+                        Prompt.prompt(Prompt.ANOTHER_CAPTURE);
+                        
+                        capturedFMDs.add(fmd);
+                        System.out.println("FMD array count: " + capturedFMDs.size());
                     } else {
                         //SendToListener(ACT_CANCELED, null, null, null, null);
                         System.out.println("No FMD returned");
                         break;
                     }
 
+                }
+                Prompt.prompt(Prompt.DONE_CAPTURE);
+                reader.Close();
+                
+                //DOUBLE CHECKS IF THERE ARE 4 FMDS AND THEN INSERTS TO DATABASE
+                if(capturedFMDs.size() == 4){
+                    for (Fmd fmd : capturedFMDs) {
+                        System.out.println("Inserting Fmd to database");
+                        Fingerprint.insertFmd(1, fmd);
+                    }
                 }
             } catch (UareUException ex) {
                 ex.printStackTrace();
@@ -71,7 +90,8 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
             captureThread.start();
 
             //prompt for finger
-            System.out.println("Place finger on reader");
+            //System.out.println("Place finger on reader");
+            
             
             try {
                 //wait till done
@@ -100,13 +120,9 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
                         prefmd.fmd = fmd;
                         prefmd.view_index = 0;
 
-                        //send success
-                        //SendToListener(ACT_FEATURES, null, null, null, null);
                         System.out.println("FMD Features Extracted");
                     }
                     catch(UareUException e){ 
-                        //send extraction error
-                        //SendToListener(ACT_FEATURES, null, null, null, e);
                         System.out.println("FMD Feature Extraction failed");
                     }
                 }

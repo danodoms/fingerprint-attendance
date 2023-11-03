@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import com.digitalpersona.uareu.*;
 import Fingerprint.*;
+import static Fingerprint.Prompt.promptLabel;
 import javafx.beans.binding.*;
 import javafx.beans.value.*;
 import javafx.fxml.FXML;
@@ -23,16 +24,14 @@ import javafx.stage.Stage;
  *
  * @author admin
  */
-public class FingerprintController implements Initializable {
-    
-    private ReaderCollection m_collection;
-    private Reader           m_reader;
-    private ObservableObjectValue<Reader> ObservableReader;
+public class FingerprintController implements Initializable { 
+    private Reader reader;
 
     @FXML
     private Label readerStatusLabel;
     @FXML
     private ImageView fingerprintImage;
+    
     @FXML
     private Label enrollFingerprintLabel;
     
@@ -44,12 +43,12 @@ public class FingerprintController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        m_reader = Selection.getReader();
+        promptLabel = enrollFingerprintLabel;
+        reader = Selection.getReader();
         
         setReaderStatusLabel();
-//        CaptureThread capT = new CaptureThread(m_reader, fingerprintImage);
-//        capT.start();
-        EnrollmentThread enrollment = new EnrollmentThread(m_reader, fingerprintImage);
+        
+        EnrollmentThread enrollment = new EnrollmentThread(reader, fingerprintImage);
         enrollment.start();
  
         }
