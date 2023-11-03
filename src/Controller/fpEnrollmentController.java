@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  *
  * @author admin
  */
-public class FingerprintController implements Initializable { 
+public class fpEnrollmentController implements Initializable { 
     private Reader reader;
 
     @FXML

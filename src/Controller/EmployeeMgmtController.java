@@ -171,7 +171,7 @@ public class EmployeeMgmtController implements Initializable {
 
     @FXML
     private void openFingerprintPane(ActionEvent event) {
-        method.openPane(method.FINGERPRINT_PANE);
+        method.openPane(method.FP_ENROLLMENT_PANE);
 //        
 //        Reader m_reader = Selection.getReader();
 //        if(m_reader != null){

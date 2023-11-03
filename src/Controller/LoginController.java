@@ -37,7 +37,9 @@ public class LoginController implements Initializable {
     
     controllerMethods method = new controllerMethods();
     @FXML
-    private Button fingerprintShortcutBtn;
+    private Button fpEnrollmentShortcutBtn;
+    @FXML
+    private Button fpIdentificationShortcutBtn;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -56,7 +58,12 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void openFingerprintPane(ActionEvent event) {
-        method.openPane(method.FINGERPRINT_PANE);
+    private void openFpEnrollmentPane(ActionEvent event) {
+        method.openPane(method.FP_ENROLLMENT_PANE);
+    }
+
+    @FXML
+    private void openFpIdentificationPane(ActionEvent event) {
+        method.openPane(method.FP_IDENTIFICATION_PANE);
     }
 }

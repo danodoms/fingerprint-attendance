@@ -34,7 +34,6 @@ public class CaptureThread extends Thread{
     public void startCapture(Reader reader, ImageView imageview) {
         int counter = 0;
         try {
-            //reader.Open(Reader.Priority.COOPERATIVE);
             String readerStatus = reader.GetStatus()+"";
                 //while (!(readerStatus.equals("FAILURE"))) {
                     System.out.println(counter); counter++;
@@ -51,7 +50,6 @@ public class CaptureThread extends Thread{
                     
                     //Display fingerprint image on imageview
                     Display.displayFingerprint(view, imageview);
-                    Prompt.prompt(Prompt.CONTINUE_CAPTURE);
                 //}
                 //System.out.println("Reader timed out");
                 

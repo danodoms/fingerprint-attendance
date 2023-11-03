@@ -93,9 +93,11 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
             //System.out.println("Place finger on reader");
             
             
+            
             try {
                 //wait till done
                 captureThread.join(0);
+                Prompt.prompt(Prompt.CONTINUE_CAPTURE);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
