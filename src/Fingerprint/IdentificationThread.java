@@ -5,6 +5,7 @@
 package Fingerprint;
 
 import Model.Fingerprint;
+import Model.User;
 import com.digitalpersona.uareu.Engine;
 import com.digitalpersona.uareu.Engine.Candidate;
 import com.digitalpersona.uareu.Fmd;
@@ -22,7 +23,8 @@ public class IdentificationThread extends Thread{
     private Reader reader;
     private ImageView imageview;
     private CaptureThread captureThread;
-    
+    ObservableList<Fingerprint> fingerprintList;
+    ObservableList<User> userList;
     
     public IdentificationThread(Reader reader, ImageView imageview){
         this.reader = reader;
@@ -62,14 +64,33 @@ public class IdentificationThread extends Thread{
                     
                     Fmd[] databaseFmds = getFmdsFromDatabase();
 
-                    Candidate[] candidateFmd = engine.Identify(fmdToIdentify, 0, databaseFmds, falsePositiveRate, candidateCount );
+                    Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, databaseFmds, falsePositiveRate, candidateCount );
                      
-                    if(candidateFmd != null){
+                    
+                    Fmd topCandidateFmd = null;
+                    if(candidateFmds.length != 0){
                         System.out.println("candidate found");
+                       // System.out.println("candidateFmd length: "+candidateFmds.length+"");
+                        topCandidateFmd = databaseFmds[candidateFmds[0].fmd_index];
                         
+                        int topCandidateIndex = candidateFmds[0].fmd_index;
+                        
+                        byte[] topCandidateFmdBytes = topCandidateFmd.getData();
+                        
+                        int matchingUserId = fingerprintList.get(topCandidateIndex).getUserId();
+                        
+                       
+                        
+                        
+                        displayIdentifiedUser(matchingUserId);
+                        
+                        System.out.println("Your name is "+userList.get(0).getUser_lname()+"");
                     }else{
                         System.out.println("no candidate/s found");
                     }
+                    
+                    
+                    
                             
                 }
             
@@ -81,7 +102,7 @@ public class IdentificationThread extends Thread{
     private Fmd[] getFmdsFromDatabase(){
         Engine engine = UareUGlobal.GetEngine();
 
-        ObservableList<Fingerprint> fingerprintList = Fingerprint.getFingerprints();
+        fingerprintList = Fingerprint.getFingerprints();
         byte[][] fmdBytes = extractFmdBytesFromDatabase(fingerprintList);
 
         Fmd[] Fmds = new Fmd[fmdBytes.length];
@@ -117,6 +138,9 @@ public class IdentificationThread extends Thread{
         return fmdBytesArray;
     }
     
+    private void displayIdentifiedUser(int userId){
+        userList = User.getUserByUserId(userId);
+    }
 
     @Override
     public void run(){
