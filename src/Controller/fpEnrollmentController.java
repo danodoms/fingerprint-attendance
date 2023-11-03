@@ -25,7 +25,6 @@ import javafx.stage.Stage;
  * @author admin
  */
 public class fpEnrollmentController implements Initializable { 
-    private Reader reader;
 
     @FXML
     private Label readerStatusLabel;
@@ -44,11 +43,10 @@ public class fpEnrollmentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         promptLabel = enrollFingerprintLabel;
-        reader = Selection.getReader();
         
         setReaderStatusLabel();
         
-        EnrollmentThread enrollment = new EnrollmentThread(reader, fingerprintImage);
+        EnrollmentThread enrollment = new EnrollmentThread(fingerprintImage);
         enrollment.start();
  
         }

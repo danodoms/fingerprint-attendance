@@ -23,22 +23,20 @@ import Model.*;
  */
 public class EnrollmentThread extends Thread implements Engine.EnrollmentCallback{
     private PreEnrollmentFmd preEnrollFmd;
-    private Reader reader;
     private ImageView imageview;
     private CaptureThread captureThread;
     private int FmdCount = 4;
     
     
-    public EnrollmentThread(Reader reader, ImageView imageview){
-        this.reader = reader;
+    public EnrollmentThread(ImageView imageview){
         this.imageview = imageview;
     }
     
-     public void startEnrollment(Reader reader, ImageView imageview) {
+     public void startEnrollment(ImageView imageview) {
         int counter = 0;
         ArrayList<Fmd> capturedFMDs = new ArrayList<>();
         try {
-            reader.Open(Reader.Priority.COOPERATIVE);
+            Selection.reader.Open(Reader.Priority.COOPERATIVE);
             Engine engine = UareUGlobal.GetEngine();
                 while (counter != FmdCount) {
                     System.out.println(counter); counter++;
@@ -64,7 +62,7 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
 
                 }
                 Prompt.prompt(Prompt.DONE_CAPTURE);
-                reader.Close();
+                Selection.reader.Close();
                 
                 //DOUBLE CHECKS IF THERE ARE 4 FMDS AND THEN INSERTS TO DATABASE
                 if(capturedFMDs.size() == 4){
@@ -86,7 +84,7 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
 
         while(null == prefmd){
             //start capture thread
-            captureThread = new CaptureThread(reader, imageview);
+            captureThread = new CaptureThread(imageview);
             captureThread.start();
 
             //prompt for finger
@@ -144,6 +142,6 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     
     @Override
     public void run(){
-        startEnrollment(reader, imageview);
+        startEnrollment(imageview);
     }   
 }

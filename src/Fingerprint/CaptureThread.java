@@ -19,30 +19,28 @@ import javafx.stage.Stage;
  * @author admin
  */
 public class CaptureThread extends Thread{
-    private Reader reader;
     private ImageView imageview;
     private CaptureEvent lastCapture;
 //    public Stage stage;
 //    public boolean isRunning = true;
     
-    public CaptureThread(Reader reader, ImageView imageview){
+    public CaptureThread(ImageView imageview){
         this.imageview = imageview;
-        this.reader = reader;
 
     }
     
-    public void startCapture(Reader reader, ImageView imageview) {
+    public void startCapture(ImageView imageview) {
         int counter = 0;
         try {
-            String readerStatus = reader.GetStatus()+"";
+            String readerStatus = Selection.reader.GetStatus()+"";
                 //while (!(readerStatus.equals("FAILURE"))) {
                     System.out.println(counter); counter++;
 
-                    System.out.println("Reader Status: " + reader.GetStatus());
-                    Reader.CaptureResult captureResult = reader.Capture(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
-                    lastCapture = new CaptureEvent(captureResult, reader.GetStatus());
+                    System.out.println("Reader Status: " + Selection.reader.GetStatus());
+                    Reader.CaptureResult captureResult = Selection.reader.Capture(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
+                    lastCapture = new CaptureEvent(captureResult, Selection.reader.GetStatus());
                     System.out.println("Capture quality: " + captureResult.quality);
-                     readerStatus = reader.GetStatus()+"";
+                     readerStatus = Selection.reader.GetStatus()+"";
 
                     //Store sigle fingerprint view
                     Fid fid = captureResult.image;       
@@ -58,17 +56,17 @@ public class CaptureThread extends Thread{
         }
     }
     
-    public void startStream(Reader reader, ImageView imageview) {
+    public void startStream(ImageView imageview) {
         int counter = 0;
         try {
-            reader.Open(Reader.Priority.COOPERATIVE);
-            reader.StartStreaming();
+            Selection.reader.Open(Reader.Priority.COOPERATIVE);
+            Selection.reader.StartStreaming();
             
                 while (true) {
                     System.out.println(counter); counter++;
 
-                    System.out.println("Reader Status: " + reader.GetStatus());
-                    Reader.CaptureResult captureResult = reader.GetStreamImage(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500);
+                    System.out.println("Reader Status: " + Selection.reader.GetStatus());
+                    Reader.CaptureResult captureResult = Selection.reader.GetStreamImage(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500);
                     System.out.println("Capture quality: " + captureResult.quality);
                         
                     //Store sigle fingerprint view
@@ -115,6 +113,6 @@ public class CaptureThread extends Thread{
 
     @Override
     public void run(){
-        startCapture(reader,imageview);
+        startCapture(imageview);
     }
 }

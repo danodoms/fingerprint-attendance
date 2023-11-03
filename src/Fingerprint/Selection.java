@@ -4,7 +4,7 @@ import com.digitalpersona.uareu.*;
 import java.util.concurrent.TimeUnit;
 
 public class Selection{
-    
+    public static Reader reader;
 
 public static ReaderCollection getReaderCollection()throws UareUException{
     ReaderCollection readerCollection = UareUGlobal.GetReaderCollection();

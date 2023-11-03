@@ -19,6 +19,7 @@ public class Prompt {
     public static final String CONTINUE_CAPTURE = "Touch Sensor again";
     public static final String ANOTHER_CAPTURE = "Place another finger";
     public static final String DONE_CAPTURE = "Enrollment Complete";
+    public static final String ALREADY_ENROLLED = "Finger Already Enrolled, Try another finger";
     
     public static void prompt(String promptType){
         Platform.runLater(() -> {

@@ -21,7 +21,6 @@ import javafx.scene.image.ImageView;
  * @author admin
  */
 public class fpIdentificationController implements Initializable {
-    private Reader reader = Selection.getReader();
     @FXML
     private ImageView fpIdentificationImage;
 
@@ -30,7 +29,7 @@ public class fpIdentificationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        IdentificationThread identification = new IdentificationThread(reader, fpIdentificationImage);
+        IdentificationThread identification = new IdentificationThread(fpIdentificationImage);
         identification.start();
         // TODO
     }    

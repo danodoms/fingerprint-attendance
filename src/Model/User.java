@@ -31,15 +31,14 @@ public class User {
     private int user_cntct;
     private int user_status;
     private byte[] user_img;
+   
     
-    
-    
-          public static int getNextUserId(){
+    public static int getNextUserId(){
         int nextUserId = 1;
         try (Connection connection = dbMethods.getConnection();
             Statement statement = connection.createStatement()){
             ResultSet rs = statement.executeQuery("SELECT user_id from user order by user_id desc limit 1");
-            
+
             if (rs.next()) {
                 nextUserId = rs.getInt("user_id")+1;
             }
@@ -47,8 +46,7 @@ public class User {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return nextUserId;
-        
+        return nextUserId;  
     }
           
     public static ObservableList<User> getUserByUserId(int userId){
@@ -68,15 +66,15 @@ public class User {
                         rs.getInt("user_id"),
                         rs.getString("password"),
                         rs.getString("email"),
-                          rs.getString("address"),
-                          rs.getString("user_fname"),
-                          rs.getString("user_lname"),
-                          rs.getString("user_mname"),
-                          rs.getString("suffix"),
-                          rs.getString("user_type"),
-                          rs.getInt("user_cntct"),
-                          rs.getInt("user_status"),
-                          rs.getBytes("user_img")
+                        rs.getString("address"),
+                        rs.getString("user_fname"),
+                        rs.getString("user_lname"),
+                        rs.getString("user_mname"),
+                        rs.getString("suffix"),
+                        rs.getString("user_type"),
+                        rs.getInt("user_cntct"),
+                        rs.getInt("user_status"),
+                        rs.getBytes("user_img")
                           
                           
                   ));

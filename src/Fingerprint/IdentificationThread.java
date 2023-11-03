@@ -12,6 +12,8 @@ import com.digitalpersona.uareu.Fmd;
 import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
 
@@ -20,104 +22,66 @@ import javafx.scene.image.ImageView;
  * @author admin
  */
 public class IdentificationThread extends Thread{
-    private Reader reader;
     private ImageView imageview;
+    private Engine engine = UareUGlobal.GetEngine();
     private CaptureThread captureThread;
     ObservableList<Fingerprint> fingerprintList;
     ObservableList<User> userList;
+    int falsePositiveRate = Engine.PROBABILITY_ONE / 100000; //sets how accurate the identification should be to return candidate
+    int candidateCount = 1; //how many candidate Fmd/s to return
     
-    public IdentificationThread(Reader reader, ImageView imageview){
-        this.reader = reader;
+    public IdentificationThread(ImageView imageview){
         this.imageview = imageview;
     }
     
-    public void startIdentification(Reader reader, ImageView imageview){
-        //sets how accurate the identification should be to return candidate
-        int falsePositiveRate = Engine.PROBABILITY_ONE / 100000;
-        
-        //how many candidate Fmd/s to return
-        int candidateCount = 1;
-        
-        
-        try {
-            reader.Open(Reader.Priority.COOPERATIVE);
-            Engine engine = UareUGlobal.GetEngine();
-            while (true) {
-                //ISO_19794_2_2005
-                    captureThread = new CaptureThread(reader, imageview);
-                    captureThread.start();
+    public void startIdentification(ImageView imageview) throws InterruptedException, UareUException{
+            Selection.reader.Open(Reader.Priority.COOPERATIVE);
+            while(true) {
+//                captureThread = new CaptureThread(imageview);
+//                captureThread.start();
+//
+//                try {
+//                    //wait till done
+//                    captureThread.join(0);
+//                } catch (InterruptedException ex) {
+//                    ex.printStackTrace();
+//                }
+//
+//                //store the FMD from the latest capture event, from capture thread
+//                CaptureThread.CaptureEvent evt = captureThread.getLastCapture();
+//                Fmd fmdToIdentify = engine.CreateFmd(evt.captureResult.image, Fmd.Format.ISO_19794_2_2005);
 
-                    //prompt for finger
-                    //System.out.println("Place finger on reader");
+                Fmd fmdToIdentify = getFmdFromCaptureThread(imageview);
 
+                Fmd[] databaseFmds = getFmdsFromDatabase();
+                Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, databaseFmds, falsePositiveRate, candidateCount );
 
-                    try {
-                        //wait till done
-                        captureThread.join(0);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
+                Fmd topCandidateFmd = null;
+                if(candidateFmds.length != 0){
+                    System.out.println("candidate found");
+                    //topCandidateFmd = databaseFmds[candidateFmds[0].fmd_index];
+                    int topCandidateIndex = candidateFmds[0].fmd_index;
 
-                    //store the FMD from the latest capture event, from capture thread
-                    CaptureThread.CaptureEvent evt = captureThread.getLastCapture();
-                    Fmd fmdToIdentify = engine.CreateFmd(evt.captureResult.image, Fmd.Format.ISO_19794_2_2005);
-                    
-                    Fmd[] databaseFmds = getFmdsFromDatabase();
-
-                    Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, databaseFmds, falsePositiveRate, candidateCount );
-                     
-                    
-                    Fmd topCandidateFmd = null;
-                    if(candidateFmds.length != 0){
-                        System.out.println("candidate found");
-                       // System.out.println("candidateFmd length: "+candidateFmds.length+"");
-                        topCandidateFmd = databaseFmds[candidateFmds[0].fmd_index];
-                        
-                        int topCandidateIndex = candidateFmds[0].fmd_index;
-                        
-                        byte[] topCandidateFmdBytes = topCandidateFmd.getData();
-                        
-                        int matchingUserId = fingerprintList.get(topCandidateIndex).getUserId();
-                        
-                       
-                        
-                        
-                        displayIdentifiedUser(matchingUserId);
-                        
-                        System.out.println("Your name is "+userList.get(0).getUser_lname()+"");
-                    }else{
-                        System.out.println("no candidate/s found");
-                    }
-                    
-                    
-                    
-                            
+                    int matchingUserId = fingerprintList.get(topCandidateIndex).getUserId();
+                    displayIdentifiedUser(matchingUserId);
+                    System.out.println("Your name is "+userList.get(0).getUser_lname()+"");
+                }else{
+                    System.out.println("no candidate/s found");
                 }
-            
-        } catch(UareUException ex){
-            ex.printStackTrace();
-        }
+            }
     }
     
-    private Fmd[] getFmdsFromDatabase(){
-        Engine engine = UareUGlobal.GetEngine();
-
+    private Fmd[] getFmdsFromDatabase() throws UareUException{
         fingerprintList = Fingerprint.getFingerprints();
         byte[][] fmdBytes = extractFmdBytesFromDatabase(fingerprintList);
 
         Fmd[] Fmds = new Fmd[fmdBytes.length];
         
-        try{
-            for (int i = 0; i < fmdBytes.length; i++) {
-                if (fmdBytes[i] != null) {
-                    
-                    Fmd convertedFmdBytes = UareUGlobal.GetImporter().ImportFmd(fmdBytes[i], Fmd.Format.ISO_19794_2_2005, Fmd.Format.ISO_19794_2_2005);
-//                    Fmds[i] = engine.CreateFmd(fmdBytes[], 357, 392, 197, 0, 0, Fmd.Format.ISO_19794_2_2005);
-                    Fmds[i] = convertedFmdBytes;
-                }
+        for (int i = 0; i < fmdBytes.length; i++) {
+            if (fmdBytes[i] != null) {
+                Fmd convertedFmdBytes = UareUGlobal.GetImporter().ImportFmd(fmdBytes[i], Fmd.Format.ISO_19794_2_2005, Fmd.Format.ISO_19794_2_2005);
+                Fmds[i] = convertedFmdBytes;
             }
-        } catch(UareUException ex){
-            ex.printStackTrace();
         }
 
         return Fmds;
@@ -138,13 +102,32 @@ public class IdentificationThread extends Thread{
         return fmdBytesArray;
     }
     
+    private Fmd getFmdFromCaptureThread(ImageView imageview)throws UareUException, InterruptedException{
+        captureThread = new CaptureThread(imageview);
+        captureThread.start();
+        //wait till done
+        captureThread.join(0);
+
+        //store the FMD from the latest capture event, from capture thread
+        CaptureThread.CaptureEvent evt = captureThread.getLastCapture();
+        Fmd fmdToIdentify = engine.CreateFmd(evt.captureResult.image, Fmd.Format.ISO_19794_2_2005);
+        
+        return fmdToIdentify;
+    }
+    
     private void displayIdentifiedUser(int userId){
         userList = User.getUserByUserId(userId);
     }
 
     @Override
-    public void run(){
-        startIdentification(reader, imageview);
+    public void run(){ 
+        try {
+            startIdentification(imageview);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(IdentificationThread.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UareUException ex) {
+            Logger.getLogger(IdentificationThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
    
