@@ -18,10 +18,11 @@
       <Line endX="99.0" endY="-16.0" fill="#65b9f5" layoutX="411.0" layoutY="95.0" opacity="0.53" startX="99.0" startY="383.0" stroke="#a0adbf" strokeLineJoin="ROUND" strokeWidth="5.0" />
       <TableView fx:id="adminTableView" layoutX="15.0" layoutY="90.0" prefHeight="381.0" prefWidth="478.0">
          <columns>
-            <TableColumn prefWidth="180.0" text="Name" />
-            <TableColumn prefWidth="110.0" text="Date" />
-            <TableColumn minWidth="0.0" prefWidth="108.0" text="Time" />
-            <TableColumn text="Status" />
+            <TableColumn prefWidth="161.0" text="Name" />
+            <TableColumn prefWidth="91.0" text="Date" />
+            <TableColumn minWidth="0.0" prefWidth="73.0" text="Time In" />
+            <TableColumn minWidth="0.0" prefWidth="76.0" text="Time Out" />
+            <TableColumn fx:id="statusCol" prefWidth="76.0" text="Status" />
          </columns>
       </TableView>
       <Line endX="20.0" endY="85.29289245605469" layoutY="-12.0" startX="669.0" startY="85.29289245605469" stroke="#319ce8" strokeWidth="11.0" />

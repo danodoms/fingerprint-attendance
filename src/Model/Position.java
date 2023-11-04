@@ -29,9 +29,9 @@ public class Position {
         this.position_name = position_name;
     }
     
-    public Position(String position_name){
-        this.position_name = position_name;
-    }
+//    public Position(String position_name){
+//        this.position_name = position_name;
+//    }
     
     @Override
     public String toString() {

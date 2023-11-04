@@ -142,8 +142,4 @@ public class EmployeeMgmtController implements Initializable {
     private void openFingerprintPane(ActionEvent event) {
         method.openPane(method.FINGERPRINT_PANE);
     }
-
-    
-    
-    
 }
