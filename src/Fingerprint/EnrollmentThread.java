@@ -35,36 +35,26 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     
     
     
-    
-    public void startEnrollment(ImageView imageview) {
-        try {
-            Selection.reader.Open(Reader.Priority.COOPERATIVE);
-            
-            
-            for (int attemptCounter = 0; attemptCounter < requiredFmdToEnroll; attemptCounter++) {
-                System.out.println("Attempt " + attemptCounter);
+    public void startEnrollment(ImageView imageview) throws UareUException{
+        Selection.reader.Open(Reader.Priority.COOPERATIVE);
 
-                //Calls the Override GetFmd method that is implemented from Engine.CreateEnrollmentFmd Class
-                Fmd fmdToEnroll = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
+        for (int attemptCounter = 0; attemptCounter < requiredFmdToEnroll; attemptCounter++) {
+            System.out.println("Attempt " + attemptCounter);
 
-                System.out.println("FMD returned");
-                
-                Fingerprint.insertFmd(1, fmdToEnroll);
-                System.out.println("Added FMD to database");
-                Prompt.prompt(Prompt.ANOTHER_CAPTURE);
-            }
-            
-            Prompt.prompt(Prompt.DONE_CAPTURE);
-            Selection.reader.Close();
-                
-            } catch (UareUException ex) {
-                ex.printStackTrace();
+            //Calls the Override GetFmd method that is implemented from Engine.CreateEnrollmentFmd Class
+            Fmd fmdToEnroll = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
+            System.out.println("FMD returned");
+
+            Fingerprint.insertFmd(1, fmdToEnroll);
+            System.out.println("Added FMD to database");
+            Prompt.prompt(Prompt.ANOTHER_CAPTURE);
         }
+        
+        Selection.reader.Close();
+        Prompt.prompt(Prompt.DONE_CAPTURE);
     }
     
-    
-    
-    
+       
     
     
 //     public void startEnrollment(ImageView imageview) {
@@ -104,8 +94,7 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
 //                ex.printStackTrace();
 //        }
 //    }
-    
-    
+        
 
     @Override
     public PreEnrollmentFmd GetFmd(Fmd.Format format){
@@ -164,6 +153,10 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     
     @Override
     public void run(){
-        startEnrollment(imageview);
+        try {
+            startEnrollment(imageview);
+        } catch (UareUException ex) {
+            Logger.getLogger(EnrollmentThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }   
 }

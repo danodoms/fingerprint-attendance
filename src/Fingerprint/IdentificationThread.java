@@ -124,7 +124,7 @@ public class IdentificationThread extends Thread{
         Fmd[] databaseFmds = getFmdsFromDatabase();
         return compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
     }
-
+    
    
     
     @Override
