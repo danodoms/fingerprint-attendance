@@ -80,7 +80,7 @@ public class Shift {
         return shiftName;
     }
     
-        public static ObservableList<Shift> getShifts() {
+    public static ObservableList<Shift> getShifts() {
     ObservableList<Shift> shifts = FXCollections.observableArrayList();
 
     try (Connection connection = dbMethods.getConnection();

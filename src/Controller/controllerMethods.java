@@ -31,7 +31,8 @@ public class controllerMethods {
     final String EMPLOYEE_MGMT_PANE = "/View/EmployeeMgmt.fxml";
     final String ADMIN_ATTENDANCE_PANE = "/View/Admin_attendance.fxml";
     final String ADMIN_DASHBOARD_PANE = "/View/Admin_dashboard.fxml";
-    final String FINGERPRINT_PANE = "/View/Fingerprint.fxml";
+    final String FP_ENROLLMENT_PANE = "/View/fpEnrollment.fxml";
+    final String FP_IDENTIFICATION_PANE = "/View/fpIdentification.fxml";
     
     public void openAttenPane(String fxmlPath){
          try {

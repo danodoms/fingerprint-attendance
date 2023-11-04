@@ -14,5 +14,7 @@
       </Label>
       <Button fx:id="loginAdminBtn" layoutX="245.0" layoutY="175.0" mnemonicParsing="false" onAction="#openAdminPane" text="LOGIN AS ADMIN" />
       <Button fx:id="loginRecordsOfficerBtn" layoutX="214.0" layoutY="208.0" mnemonicParsing="false" onAction="#openRecordsOfficerPane" text="LOGIN AS RECORDS OFFICER" />
+      <Button fx:id="fpEnrollmentShortcutBtn" layoutX="217.0" layoutY="284.0" mnemonicParsing="false" onAction="#openFpEnrollmentPane" text="fp_enrollment pane shortcut" />
+      <Button fx:id="fpIdentificationShortcutBtn" layoutX="211.0" layoutY="326.0" mnemonicParsing="false" onAction="#openFpIdentificationPane" text="fp_identification pane shortcut" />
    </children>
 </AnchorPane>

@@ -1,188 +1,118 @@
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Fingerprint;
 
 import com.digitalpersona.uareu.*;
+import com.digitalpersona.uareu.Reader.ReaderStatus;
+import com.digitalpersona.uareu.UareUException;
+import java.awt.event.ActionListener;
+import javafx.event.ActionEvent;
 
-public class CaptureThread extends Thread 
-{
-	public static final String ACT_CAPTURE = "capture_thread_captured";
-	
-	public class CaptureEvent extends ActionEvent{
-		private static final long serialVersionUID = 101;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
-		public Reader.CaptureResult capture_result;
-		public Reader.Status        reader_status;
-		public UareUException       exception;
-		
-		public CaptureEvent(Object source, String action, Reader.CaptureResult cr, Reader.Status st, UareUException ex){
-			super(source, ActionEvent.ACTION_PERFORMED, action);
-			capture_result = cr;
-			reader_status = st;
-			exception = ex;
-		}
-	}
-	
-	private ActionListener m_listener;
-	private boolean m_bCancel;
-	private Reader  m_reader;
-	private boolean m_bStream;
-	private Fid.Format             m_format;
-	private Reader.ImageProcessing m_proc;
-	private CaptureEvent m_last_capture;
-	
-	public CaptureThread(Reader reader, boolean bStream, Fid.Format img_format, Reader.ImageProcessing img_proc){
-		m_bCancel = false;
-		m_reader = reader;
-		m_bStream = bStream;
-		m_format = img_format;
-		m_proc = img_proc;
-	}
-	
-	public void start(ActionListener listener){
-		m_listener = listener;
-		super.start();
-	}
-	
-	public void join(int milliseconds){
-		try{
-			super.join(milliseconds);
-		} 
-		catch(InterruptedException e){ e.printStackTrace(); }
-	}
-	
-	public CaptureEvent getLastCaptureEvent(){
-		return m_last_capture;
-	}
-	
-	private void Capture(){
-		try{
-			//wait for reader to become ready
-			boolean bReady = false;
-			while(!bReady && !m_bCancel){
-				Reader.Status rs = m_reader.GetStatus();
-				if(Reader.ReaderStatus.BUSY == rs.status){
-					//if busy, wait a bit
-					try{
-						Thread.sleep(100);
-					} 
-					catch(InterruptedException e) {
-						e.printStackTrace();
-						break; 
-					}
-				}
-				else if(Reader.ReaderStatus.READY == rs.status || Reader.ReaderStatus.NEED_CALIBRATION == rs.status){
-					//ready for capture
-					bReady = true;
-					break;
-				}
-				else{
-					//reader failure
-					NotifyListener(ACT_CAPTURE, null, rs, null);
-					break;
-				}
-			}
-			if(m_bCancel){
-				Reader.CaptureResult cr = new Reader.CaptureResult();
-				cr.quality = Reader.CaptureQuality.CANCELED;
-				NotifyListener(ACT_CAPTURE, cr, null, null);
-			}
 
-			
-			if(bReady){
-				//capture
-				Reader.CaptureResult cr = m_reader.Capture(m_format, m_proc, 500, -1);
-				NotifyListener(ACT_CAPTURE, cr, null, null);
-			}
-		}
-		catch(UareUException e){
-			NotifyListener(ACT_CAPTURE, null, null, e);
-		}
-	}
-	
-	private void Stream(){
-		try{
-			//wait for reader to become ready
-			boolean bReady = false;
-			while(!bReady && !m_bCancel){
-				Reader.Status rs = m_reader.GetStatus();
-				if(Reader.ReaderStatus.BUSY == rs.status){
-					//if busy, wait a bit
-					try{
-						Thread.sleep(100);
-					} 
-					catch(InterruptedException e) {
-						e.printStackTrace();
-						break; 
-					}
-				}
-				else if(Reader.ReaderStatus.READY == rs.status || Reader.ReaderStatus.NEED_CALIBRATION == rs.status){
-					//ready for capture
-					bReady = true;
-					break;
-				}
-				else{
-					//reader failure
-					NotifyListener(ACT_CAPTURE, null, rs, null);
-					break;
-				}
-			}
-			
-			if(bReady){
-				//start streaming
-				m_reader.StartStreaming();
-		
-				//get images
-				while(!m_bCancel){
-					Reader.CaptureResult cr = m_reader.GetStreamImage(m_format, m_proc, 500);
-					NotifyListener(ACT_CAPTURE, cr, null, null);
-				}
-				
-				//stop streaming
-				m_reader.StopStreaming();
-			}
-		}
-		catch(UareUException e){
-			NotifyListener(ACT_CAPTURE, null, null, e);
-		}
+/**
+ *
+ * @author admin
+ */
+public class CaptureThread extends Thread{
+    private ImageView imageview;
+    private CaptureEvent lastCapture;
+//    public Stage stage;
+//    public boolean isRunning = true;
+    
+    public CaptureThread(ImageView imageview){
+        this.imageview = imageview;
 
-		if(m_bCancel){
-			Reader.CaptureResult cr = new Reader.CaptureResult();
-			cr.quality = Reader.CaptureQuality.CANCELED;
-			NotifyListener(ACT_CAPTURE, cr, null, null);
-		}
-	}
-	
-	private void NotifyListener(String action, Reader.CaptureResult cr, Reader.Status st, UareUException ex){
-		final CaptureEvent evt = new CaptureEvent(this, action, cr, st, ex);
-		
-		//store last capture event
-		m_last_capture = evt; 
+    }
+    
+    public void startCapture(ImageView imageview) {
+        int counter = 0;
+        try {
+            String readerStatus = Selection.reader.GetStatus()+"";
+                //while (!(readerStatus.equals("FAILURE"))) {
+                    System.out.println(counter); counter++;
 
-		if(null == m_listener || null == action || action.equals("")) return;
-		
-		//invoke listener on EDT thread
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				m_listener.actionPerformed(evt);
-			}
-		});
-	}
-	
-	public void cancel(){
-		m_bCancel = true;
-		try{
-			if(!m_bStream) m_reader.CancelCapture();
-		}
-		catch(UareUException e){}
-	} 
-	
-	public void run(){
-		if(m_bStream){
-			Stream();
-		}
-		else{
-			Capture();
-		}
-	}
+                    System.out.println("Reader Status: " + Selection.reader.GetStatus());
+                    Reader.CaptureResult captureResult = Selection.reader.Capture(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
+                    lastCapture = new CaptureEvent(captureResult, Selection.reader.GetStatus());
+                    System.out.println("Capture quality: " + captureResult.quality);
+                     readerStatus = Selection.reader.GetStatus()+"";
+
+                    //Store sigle fingerprint view
+                    Fid fid = captureResult.image;       
+                    Fid.Fiv view = fid.getViews()[0];
+                    
+                    //Display fingerprint image on imageview
+                    Display.displayFingerprint(view, imageview);
+                //}
+                //System.out.println("Reader timed out");
+                
+            } catch (UareUException ex) {
+                ex.printStackTrace();
+        }
+    }
+    
+    public void startStream(ImageView imageview) {
+        int counter = 0;
+        try {
+            Selection.reader.Open(Reader.Priority.COOPERATIVE);
+            Selection.reader.StartStreaming();
+            
+                while (true) {
+                    System.out.println(counter); counter++;
+
+                    System.out.println("Reader Status: " + Selection.reader.GetStatus());
+                    Reader.CaptureResult captureResult = Selection.reader.GetStreamImage(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500);
+                    System.out.println("Capture quality: " + captureResult.quality);
+                        
+                    //Store sigle fingerprint view
+                    Fid fid = captureResult.image;       
+                    Fid.Fiv view = fid.getViews()[0];
+                    
+                    //Display fingerprint image on imageview
+                    Display.displayFingerprint(view, imageview);
+                }
+            } catch (UareUException ex) {
+                ex.printStackTrace();
+        }
+    }
+
+    public class CaptureEvent{
+        private static final long serialVersionUID = 101;
+
+        public Reader.CaptureResult captureResult;
+        public Reader.Status        readerStatus;
+        public UareUException       exception;
+
+        public CaptureEvent(Reader.CaptureResult captureResult, Reader.Status raderStatus){
+                this.captureResult = captureResult;
+                this.readerStatus = readerStatus;
+        }
+        
+        
+    }
+    
+    public CaptureEvent getLastCapture(){
+        return lastCapture;
+    }
+    
+//    public void stopCapture() {
+//        isRunning = false;
+//
+//        try {
+//            System.out.println("Capture Stopped");
+//            reader.Close();
+//        } catch (UareUException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+
+    @Override
+    public void run(){
+        startCapture(imageview);
+    }
 }

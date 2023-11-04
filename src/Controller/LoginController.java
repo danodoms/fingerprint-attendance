@@ -36,6 +36,10 @@ public class LoginController implements Initializable {
      */
     
     controllerMethods method = new controllerMethods();
+    @FXML
+    private Button fpEnrollmentShortcutBtn;
+    @FXML
+    private Button fpIdentificationShortcutBtn;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -51,5 +55,15 @@ public class LoginController implements Initializable {
     private void openRecordsOfficerPane(ActionEvent event) {
         method.exitAndOpenNewPane(loginAdminBtn, method.RECORDS_OFFICER_PANE);
         System.out.println("Logged in as records officer");
+    }
+
+    @FXML
+    private void openFpEnrollmentPane(ActionEvent event) {
+        method.openPane(method.FP_ENROLLMENT_PANE);
+    }
+
+    @FXML
+    private void openFpIdentificationPane(ActionEvent event) {
+        method.openPane(method.FP_IDENTIFICATION_PANE);
     }
 }

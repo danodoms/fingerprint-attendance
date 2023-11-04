@@ -9,24 +9,32 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import com.digitalpersona.uareu.*;
 import Fingerprint.*;
+import static Fingerprint.Prompt.promptLabel;
 import javafx.beans.binding.*;
 import javafx.beans.value.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
  * @author admin
  */
-public class FingerprintController implements Initializable {
-    
-    private ReaderCollection m_collection;
-    private Reader           m_reader;
-    private ObservableObjectValue<Reader> ObservableReader;
+public class fpEnrollmentController implements Initializable { 
 
     @FXML
     private Label readerStatusLabel;
+    @FXML
+    private ImageView fingerprintImage;
+    
+    @FXML
+    private Label enrollFingerprintLabel;
+    
+
 
     /**
      * Initializes the controller class.
@@ -34,25 +42,14 @@ public class FingerprintController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        promptLabel = enrollFingerprintLabel;
+        
         setReaderStatusLabel();
         
-        m_reader = Selection.waitAndGetReader();
-//        BooleanBinding readerNullBinding = Bindings.isNull((ObservableObjectValue<Reader>) reader);
-//        readerStatusLabel.textProperty().bind(Bindings.when(readerNullBinding)
-//        .then("Disconnected")
-//        .otherwise("Connected"));
-
-//
-//        this.ObservableReader = new SimpleObjectProperty<>(ObservableReader);
-//        readerStatusLabel.textProperty().bind(Bindings.when(ObservableReader.isNull())
-//                                         .then("Disconnected")
-//                                         .otherwise("Connected"));
-
-        
-        
-        //reader = Selection.waitAndGetReader();
-
-    }   
+        EnrollmentThread enrollment = new EnrollmentThread(fingerprintImage);
+        enrollment.start();
+ 
+        }
     
     private void setReaderStatusLabel(){
         String newText = readerStatusLabel.getText();
@@ -65,4 +62,5 @@ public class FingerprintController implements Initializable {
             
         readerStatusLabel.setText(newText);
     }
+    
 }
