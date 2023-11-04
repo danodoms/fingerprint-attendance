@@ -118,7 +118,6 @@ public class Fingerprint {
                     rs.getDate("register_date")
             ));
         }
-         //System.out.println("SHIFTS: " + shifts);
 
     } catch (SQLException e) {
         e.printStackTrace();
