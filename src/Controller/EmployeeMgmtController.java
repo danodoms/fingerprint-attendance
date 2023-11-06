@@ -25,6 +25,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import Fingerprint.*;
 import com.digitalpersona.uareu.Reader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 
 
 
@@ -81,6 +85,8 @@ public class EmployeeMgmtController implements Initializable {
     @FXML
     private ChoiceBox<String> userSuffixChoiceBox;
     
+    byte[] imageBytes;
+    
     
     
 
@@ -117,6 +123,20 @@ public class EmployeeMgmtController implements Initializable {
 
     @FXML
     private void addEmployee(ActionEvent event) {
+        String fName = FnameField.getText();
+        String mName = MnameField.getText();
+        String lName = LnameField.getText();
+        String suffix = userSuffixChoiceBox.getValue();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String privilege = userTypeChoiceBox.getValue();
+        String contactNum = contactNumField.getText();
+        String sex = sexChoiceBox.getValue();
+        LocalDate birthDate = dateOfBirthPicker.getValue();
+        String address = addressField.getText();
+        byte[] image = imageBytes;
+        
+        User.addUser(fName, mName, lName, suffix, email, password, privilege, 0, sex, birthDate, address, image);
     }
 
     private void updatePositionChoiceBox(ActionEvent event) {
@@ -129,19 +149,26 @@ public class EmployeeMgmtController implements Initializable {
     @FXML
     private void selectImg(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         if (selectedFile != null) {
-            // Handle the selected file, e.g., display its path
-            String filePath = selectedFile.getAbsolutePath();
-            System.out.println("Selected file: " + filePath);
-            
-            
-            Image image = new Image(selectedFile.toURI().toString());
+            try {
+                // Read the selected image file into a byte array
+                imageBytes = readImageFile(selectedFile);
 
-        // Set the image in the ImageView
-        userImage.setImage(image);
+                if (imageBytes != null) {
+                    // Store the imageBytes in the database or perform other actions
+                    System.out.println("Image selected and read as bytes.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Display the selected image in an ImageView (optional)
+            String filePath = selectedFile.getAbsolutePath();
+            Image image = new Image(selectedFile.toURI().toString());
+            userImage.setImage(image);
         }
     }
     
@@ -178,8 +205,17 @@ public class EmployeeMgmtController implements Initializable {
 //            Enrollment.Run(m_reader);
 //        }
     }
+    
+    private byte[] readImageFile(File file) throws IOException {
+        FileInputStream fis = new FileInputStream(file);
+        byte[] data = new byte[(int) file.length()];
+        fis.read(data);
+        fis.close();
+        return data;
+    }
+}
 
     
     
     
-}
+

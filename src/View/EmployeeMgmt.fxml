@@ -24,12 +24,12 @@
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="First Name" textAlignment="RIGHT">
+                  <Label text="First Name *" textAlignment="RIGHT">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Last Name" textAlignment="RIGHT">
+                  <Label text="Last Name *" textAlignment="RIGHT">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
@@ -44,17 +44,17 @@
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Email" textAlignment="RIGHT">
+                  <Label text="Email *" textAlignment="RIGHT">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Password" textAlignment="RIGHT">
+                  <Label text="Password *" textAlignment="RIGHT">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Type" textAlignment="RIGHT">
+                  <Label text="Type *" textAlignment="RIGHT">
                      <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </VBox.margin>

@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -46,7 +48,9 @@ public class IdentificationThread extends Thread{
     
     //called by the run method for starting the identification process
     public void startIdentification(ImageView imageview) throws InterruptedException, UareUException{
-        Selection.reader.Open(Reader.Priority.COOPERATIVE);
+//        Selection.reader.Close();
+//        Selection.reader.Open(Reader.Priority.COOPERATIVE);
+        Selection.closeAndOpenReader();
         while(true) {
             Fmd fmdToIdentify = getFmdFromCaptureThread(imageview);
             Fmd[] databaseFmds = getFmdsFromDatabase();
@@ -98,7 +102,7 @@ public class IdentificationThread extends Thread{
             int topCandidateFmdIndex = candidateFmds[0].fmd_index;
             int matchingUserId = fingerprintList.get(topCandidateFmdIndex).getUserId();
             displayIdentifiedUser(matchingUserId);
-            System.out.println("Your name is "+userList.get(0).getUser_lname()+"");
+            System.out.println("Your name is "+userList.get(0).getlName()+"");
             return true;
         }else{
             System.out.println("no candidate/s found");
@@ -111,9 +115,9 @@ public class IdentificationThread extends Thread{
     //this method is used by "compareFmdToDatabaseFmds" for display purposes
     private void displayIdentifiedUser(int userId){
         userList = User.getUserByUserId(userId);
-        String fname = userList.get(0).getUser_fname();
-        String mname = userList.get(0).getUser_fname();
-        String lname = userList.get(0).getUser_fname();
+        String fname = userList.get(0).getfName();
+        String mname = userList.get(0).getmName();
+        String lname = userList.get(0).getlName();
         String suffix = userList.get(0).getSuffix();
     }
     
@@ -125,12 +129,23 @@ public class IdentificationThread extends Thread{
         return compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
     }
     
+    
+
+    
+    
+    public void stopIdentificationThread() throws UareUException{
+        Selection.reader.Close();
+    }
    
     
     @Override
     public void run(){ 
         try {
+
             startIdentification(imageview);
+               
+            
+            
         } catch (InterruptedException ex) {
             Logger.getLogger(IdentificationThread.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UareUException ex) {

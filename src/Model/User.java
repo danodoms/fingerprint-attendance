@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.sql.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
@@ -20,17 +22,93 @@ import javafx.scene.image.Image;
  */
 public class User {
     private int id;
-    private String password;
-    private String email;
-    private String address;
-    private String user_fname;
-    private String user_lname;
-    private String user_mname;
+    private String fName;
+    private String lName;
+    private String mName;
     private String suffix;
-    private String user_type;
-    private int user_cntct;
-    private int user_status;
-    private byte[] user_img;
+    private String email;
+    private String password;
+    private String privilege;
+    private int contactNum;
+    private String sex;
+    private LocalDate birthDate;
+    private String address;
+    private byte[] image;
+    private int status;
+   
+    
+    //Constructor
+    public User(
+        int id,
+        String fName,
+        String mName,
+        String lName,
+        String suffix,
+        String email,
+        String password,
+        String privilege,
+        int contactNum,
+        String sex,
+        LocalDate birthDate,
+        String address,
+        byte[] image,
+        int status)
+    {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.mName = mName;
+        this.suffix = suffix;
+        this.email = email;
+        this.password = password;
+        this.privilege = privilege;
+        this.contactNum = contactNum;
+        this.sex = sex;
+        this.birthDate = birthDate;
+        this.address = address;
+        this.image = image;
+        this.status = status;
+    
+    }
+
+    
+    
+    public static void addUser(
+        String fName,
+        String mName,
+        String lName,
+        String suffix,
+        String email,
+        String password,
+        String privilege,
+        int contactNum,
+        String sex,
+        LocalDate birthDate,
+        String address,
+        byte[] image)
+    {
+        String insertQuery = "INSERT INTO `user`(`user_fname`, `user_mname`, `user_lname`, `suffix`, `email`, `password`, `privilege`, `user_cntct`, `sex`, `birth_date`, `address`, `user_img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = dbMethods.getConnection().prepareStatement(insertQuery)) {
+            preparedStatement.setString(1, fName);
+            preparedStatement.setString(2, mName);
+            preparedStatement.setString(3, lName);
+            preparedStatement.setString(4, suffix);
+            preparedStatement.setString(5, email);
+            preparedStatement.setString(6, password);
+            preparedStatement.setString(7, privilege);
+            preparedStatement.setInt(8, contactNum);
+            preparedStatement.setString(9, sex);
+            preparedStatement.setDate(10, Date.valueOf(birthDate.toString()));
+            preparedStatement.setString(11, address);
+            preparedStatement.setBytes(12, image);
+            
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            // Handle any database errors here
+            e.printStackTrace();
+        }
+    }
    
     
     public static int getNextUserId(){
@@ -60,23 +138,23 @@ public class User {
             preparedStatement.setInt(1, userId);
 
             ResultSet rs = preparedStatement.executeQuery();
-
+            
             while (rs.next()) {
                   users.add(new User(
                         rs.getInt("user_id"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("address"),
                         rs.getString("user_fname"),
-                        rs.getString("user_lname"),
                         rs.getString("user_mname"),
+                        rs.getString("user_lname"),
                         rs.getString("suffix"),
-                        rs.getString("user_type"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("privilege"),
                         rs.getInt("user_cntct"),
-                        rs.getInt("user_status"),
-                        rs.getBytes("user_img")
-                          
-                          
+                        rs.getString("sex"),
+                        rs.getDate("birth_date").toLocalDate(),
+                        rs.getString("address"),
+                        rs.getBytes("user_img"),
+                        rs.getInt("user_status")    
                   ));
             }
 
@@ -89,21 +167,6 @@ public class User {
         return users;
     }
 
-    public User(int id, String password, String email, String address, String user_fname, String user_lname, String user_mname, String suffix, String user_type, int user_cntct, int user_status, byte[] user_img) {
-        this.id = id;
-        this.password = password;
-        this.email = email;
-        this.address = address;
-        this.user_fname = user_fname;
-        this.user_lname = user_lname;
-        this.user_mname = user_mname;
-        this.suffix = suffix;
-        this.user_type = user_type;
-        this.user_cntct = user_cntct;
-        this.user_status = user_status;
-        this.user_img = user_img;
-    }
-
     public int getId() {
         return id;
     }
@@ -112,52 +175,28 @@ public class User {
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public String getfName() {
+        return fName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setfName(String fName) {
+        this.fName = fName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getlName() {
+        return lName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getmName() {
+        return mName;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getUser_fname() {
-        return user_fname;
-    }
-
-    public void setUser_fname(String user_fname) {
-        this.user_fname = user_fname;
-    }
-
-    public String getUser_lname() {
-        return user_lname;
-    }
-
-    public void setUser_lname(String user_lname) {
-        this.user_lname = user_lname;
-    }
-
-    public String getUser_mname() {
-        return user_mname;
-    }
-
-    public void setUser_mname(String user_mname) {
-        this.user_mname = user_mname;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
     public String getSuffix() {
@@ -168,36 +207,77 @@ public class User {
         this.suffix = suffix;
     }
 
-    public String getUser_type() {
-        return user_type;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser_type(String user_type) {
-        this.user_type = user_type;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getUser_cntct() {
-        return user_cntct;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUser_cntct(int user_cntct) {
-        this.user_cntct = user_cntct;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public int getUser_status() {
-        return user_status;
+    public String getPrivilege() {
+        return privilege;
     }
 
-    public void setUser_status(int user_status) {
-        this.user_status = user_status;
+    public void setPrivilege(String privilege) {
+        this.privilege = privilege;
     }
 
-    public byte[] getUser_img() {
-        return user_img;
+    public int getContactNum() {
+        return contactNum;
     }
 
-    public void setUser_img(byte[] user_img) {
-        this.user_img = user_img;
+    public void setContactNum(int contactNum) {
+        this.contactNum = contactNum;
     }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return birthDate;
+    }
+
+    public void setDateOfBirth(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     
 }

@@ -3,7 +3,7 @@ package Fingerprint;
 import com.digitalpersona.uareu.*;
 import java.util.concurrent.TimeUnit;
 
-public class Selection{
+public class Selection extends Thread{
     public static Reader reader;
 
 public static ReaderCollection getReaderCollection()throws UareUException{
@@ -41,11 +41,20 @@ public static Reader getReader(){
         e.printStackTrace();
     }
     return reader;
-    
 }
 
-public static Reader waitAndGetReader(){
-       
+public static void closeAndOpenReader() throws UareUException{
+    if(readerIsConnected()){
+        try{
+            reader.Close();
+            reader.Open(Reader.Priority.COOPERATIVE);
+        }catch (UareUException ex){
+            reader.Open(Reader.Priority.COOPERATIVE);
+        }
+    }
+}
+
+public static Reader waitAndGetReader(){    
        Reader reader = null;
         do {
             reader = getReader();
@@ -67,6 +76,12 @@ public static Reader waitAndGetReader(){
         return reader;
     
 
+    }
+
+    public void Run(){
+        while(true){
+            reader = waitAndGetReader();
+        }
     }
 }
 

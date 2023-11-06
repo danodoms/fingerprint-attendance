@@ -36,7 +36,9 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     
     
     public void startEnrollment(ImageView imageview) throws UareUException{
-        Selection.reader.Open(Reader.Priority.COOPERATIVE);
+//        Selection.reader.Close();
+//        Selection.reader.Open(Reader.Priority.COOPERATIVE);
+        Selection.closeAndOpenReader();
 
         for (int attemptCounter = 0; attemptCounter < requiredFmdToEnroll; attemptCounter++) {
             System.out.println("Attempt " + attemptCounter);
