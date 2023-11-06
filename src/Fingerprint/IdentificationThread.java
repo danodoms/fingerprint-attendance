@@ -141,11 +141,7 @@ public class IdentificationThread extends Thread{
     @Override
     public void run(){ 
         try {
-
             startIdentification(imageview);
-               
-            
-            
         } catch (InterruptedException ex) {
             Logger.getLogger(IdentificationThread.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UareUException ex) {

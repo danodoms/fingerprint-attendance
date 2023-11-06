@@ -10,7 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="539.0" prefWidth="778.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
@@ -41,41 +43,89 @@
                   </Label>
                </children>
             </Pane>
-            <Pane prefHeight="539.0" prefWidth="495.0" style="-fx-border-radius: 25; -fx-border-width: 10; -fx-border-color: #1a1a1a; -fx-background-radius: 50;">
+            <StackPane prefHeight="539.0" prefWidth="487.0">
                <children>
-                  <Label layoutX="213.0" layoutY="161.0" text="Login" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="126.0" layoutY="205.0" prefHeight="25.0" prefWidth="240.0" />
-                  <PasswordField layoutX="126.0" layoutY="240.0" prefHeight="25.0" prefWidth="240.0" />
-                  <VBox layoutX="156.0" layoutY="327.0" prefHeight="129.0" prefWidth="179.0">
+                  <Pane fx:id="loginPane" prefHeight="539.0" prefWidth="495.0" style="-fx-border-radius: 25; -fx-border-width: 10; -fx-border-color: #1a1a1a; -fx-background-radius: 50;" visible="false">
                      <children>
-                        <Button fx:id="loginAdminBtn" mnemonicParsing="false" onAction="#openAdminPane" prefHeight="25.0" prefWidth="211.0" text="LOGIN AS ADMIN">
-                           <VBox.margin>
-                              <Insets top="7.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="loginRecordsOfficerBtn" mnemonicParsing="false" onAction="#openRecordsOfficerPane" prefHeight="25.0" prefWidth="185.0" text="LOGIN AS RECORDS OFFICER">
-                           <VBox.margin>
-                              <Insets top="7.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="fpEnrollmentShortcutBtn" mnemonicParsing="false" onAction="#openFpEnrollmentPane" prefHeight="25.0" prefWidth="185.0" text="fp_enrollment pane shortcut">
-                           <VBox.margin>
-                              <Insets top="7.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="fpIdentificationShortcutBtn" mnemonicParsing="false" onAction="#openFpIdentificationPane" prefHeight="25.0" prefWidth="194.0" text="fp_identification pane shortcut">
-                           <VBox.margin>
-                              <Insets top="7.0" />
-                           </VBox.margin>
-                        </Button>
+                        <Label layoutX="213.0" layoutY="161.0" text="Login" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="126.0" layoutY="205.0" prefHeight="25.0" prefWidth="240.0" />
+                        <PasswordField layoutX="126.0" layoutY="240.0" prefHeight="25.0" prefWidth="240.0" />
+                        <VBox layoutX="156.0" layoutY="327.0" prefHeight="129.0" prefWidth="179.0">
+                           <children>
+                              <Button fx:id="loginAdminBtn" mnemonicParsing="false" onAction="#openAdminPane" prefHeight="25.0" prefWidth="211.0" text="LOGIN AS ADMIN">
+                                 <VBox.margin>
+                                    <Insets top="7.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="loginRecordsOfficerBtn" mnemonicParsing="false" onAction="#openRecordsOfficerPane" prefHeight="25.0" prefWidth="185.0" text="LOGIN AS RECORDS OFFICER">
+                                 <VBox.margin>
+                                    <Insets top="7.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="fpEnrollmentShortcutBtn" mnemonicParsing="false" onAction="#openFpEnrollmentPane" prefHeight="25.0" prefWidth="185.0" text="fp_enrollment pane shortcut">
+                                 <VBox.margin>
+                                    <Insets top="7.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="fpIdentificationShortcutBtn" mnemonicParsing="false" onAction="#openFpIdentificationPane" prefHeight="25.0" prefWidth="194.0" text="fp_identification pane shortcut">
+                                 <VBox.margin>
+                                    <Insets top="7.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </Pane>
+                  <Pane prefHeight="539.0" prefWidth="487.0">
+                     <children>
+                        <ImageView fx:id="userImage" fitHeight="111.0" fitWidth="120.0" layoutX="189.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../Downloads/default_user_img.jpg" />
+                           </image>
+                        </ImageView>
+                        <Circle fill="#1fffbd" layoutX="245.0" layoutY="314.0" radius="52.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Label fx:id="userNameLabel" layoutX="108.0" layoutY="188.0" prefHeight="25.0" prefWidth="272.0" style="-fx-alignment: center;" text="Lorem D. Ipsum" textAlignment="CENTER" textFill="#96ffcd">
+                           <font>
+                              <Font name="Segoe UI Symbol" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="180.0" layoutY="224.0" prefHeight="38.0" prefWidth="131.0" style="-fx-alignment: center;" text="Fingerprints Enrolled" textAlignment="CENTER" textFill="#91ffce">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="fpCountLabel" contentDisplay="CENTER" layoutX="223.0" layoutY="277.0" prefHeight="74.0" prefWidth="42.0" style="-fx-alignment: center;" text="4" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial" size="64.0" />
+                           </font>
+                        </Label>
+                        <VBox layoutX="150.0" layoutY="384.0" prefHeight="117.0" prefWidth="179.0">
+                           <children>
+                              <Button fx:id="enrollFpBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="179.0" style="-fx-background-color: #07f9a2;" text="Reenroll Fingerprints" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Label prefHeight="50.0" prefWidth="179.0" style="-fx-alignment: center;" text="Last Enroll" textAlignment="CENTER" textFill="#a1ffc9">
+                                 <font>
+                                    <Font name="Arial" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lastEnrollDateLabel" contentDisplay="CENTER" prefHeight="21.0" prefWidth="179.0" style="-fx-alignment: center;" text="30 Days ago" textAlignment="CENTER" textFill="#a1ffc9">
+                                 <font>
+                                    <Font name="Arial" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
+            </StackPane>
          </children>
       </HBox>
    </children>
