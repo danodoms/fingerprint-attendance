@@ -56,26 +56,26 @@ public class EmployeeMgmtController implements Initializable {
     
     dbMethods dbMethods = new dbMethods();
     controllerMethods method = new controllerMethods();
-    @FXML
-    private ChoiceBox<Shift> shiftTypeChoiceBox;
-    @FXML
-    private Button selectImageBtn;
-    @FXML
-    private ImageView userImage;
-    @FXML
-    private Button enrollFingerprintBtn;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private TextField startTimeField;
-    @FXML
-    private TextField endTimeField;
-    @FXML
-    private ChoiceBox<String> userTypeChoiceBox;
-    @FXML
-    private TextField userIDfield;
-    @FXML
-    private ChoiceBox<String> userSuffixChoiceBox;
+//    @FXML
+//    private ChoiceBox<Shift> shiftTypeChoiceBox;
+//    @FXML
+//    private Button selectImageBtn;
+//    @FXML
+//    private ImageView userImage;
+//    @FXML
+//    private Button enrollFingerprintBtn;
+//    @FXML
+//    private TextField passwordField;
+//    @FXML
+//    private TextField startTimeField;
+//    @FXML
+//    private TextField endTimeField;
+//    @FXML
+//    private ChoiceBox<String> userTypeChoiceBox;
+//    @FXML
+//    private TextField userIDfield;
+//    @FXML
+//    private ChoiceBox<String> userSuffixChoiceBox;
     
     
     

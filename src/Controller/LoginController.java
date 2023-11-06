@@ -17,6 +17,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ResourceBundle;
+import javafx.util.Duration;
 /**
  * FXML Controller class
  *
@@ -29,7 +39,10 @@ public class LoginController implements Initializable {
     private Button loginAdminBtn;
     @FXML
     private Button loginRecordsOfficerBtn;
-    
+    @FXML
+    private Label dateLabel;
+    @FXML
+    private Label timeLabel;
 
     /**
      * Initializes the controller class.
@@ -43,8 +56,38 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+         dt(); // Initialize the date label
+        times(); // Start updating the time label
     }    
+    
+    
+    public void dt() {
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, yyyy-MM-dd");
+        String dd = sdf.format(d);
+        dateLabel.setText(dd);
+    }
 
+    private void times() {
+        SimpleDateFormat st = new SimpleDateFormat("hh:mm:ss a");
+
+        Timeline timeline = new Timeline(
+            new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    Date dt = new Date();
+                    String tt = st.format(dt);
+                    timeLabel.setText(tt);
+                }
+            })
+        );
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+    
+    
+    
     @FXML
     private void openAdminPane(ActionEvent event) {
         method.exitAndOpenNewPane(loginAdminBtn, method.ADMIN_PANE);
