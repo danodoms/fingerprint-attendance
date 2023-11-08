@@ -26,7 +26,7 @@
          </columns>
       </TableView>
       <Line endX="20.0" endY="85.29289245605469" layoutY="-12.0" startX="669.0" startY="85.29289245605469" stroke="#319ce8" strokeWidth="11.0" />
-      <VBox layoutX="529.0" layoutY="82.0" prefHeight="403.0" prefWidth="158.0">
+      <VBox layoutX="528.0" layoutY="82.0" prefHeight="403.0" prefWidth="158.0">
          <children>
             <Label text="Filter by :">
                <VBox.margin>
@@ -36,22 +36,17 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="searchBar" maxWidth="128.0" onKeyPressed="#filterTable" onKeyReleased="#filterTable" promptText="Search name...">
-               <VBox.margin>
-                  <Insets left="17.0" top="11.0" />
-               </VBox.margin>
-            </TextField>
             <Label text="Date">
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>
             </Label>
-            <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="128.0" promptText="yyyy-mm-dd">
+            <DatePicker fx:id="datePicker" onAction="#filterTableView" prefHeight="25.0" prefWidth="128.0" promptText="yyyy-mm-dd">
                <VBox.margin>
                   <Insets left="17.0" top="2.0" />
                </VBox.margin>
             </DatePicker>
-            <Label text="Department Type ">
+            <Label text="Department">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -61,7 +56,7 @@
                   <Insets left="17.0" top="2.0" />
                </VBox.margin>
             </ChoiceBox>
-            <Label text="Position Type">
+            <Label text="Position">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -71,7 +66,7 @@
                   <Insets left="17.0" top="2.0" />
                </VBox.margin>
             </ChoiceBox>
-            <Label text="Shift Type">
+            <Label text="Shift">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -104,5 +99,6 @@
             <Font name="Berlin Sans FB" size="30.0" />
          </font>
       </Label>
+      <TextField fx:id="searchBar" layoutX="14.0" layoutY="55.0" maxWidth="231.0" onKeyPressed="#filterTable" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="231.0" promptText="Search name..." />
    </children>
 </AnchorPane>

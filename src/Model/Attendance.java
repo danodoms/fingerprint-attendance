@@ -74,13 +74,55 @@ public void setTimeOut(String timeOut) {
         try (Connection connection = dbMethods.getConnection();
             Statement statement = connection.createStatement()){
             
-//            if(){
-//                
-//            }
             ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, a.date, "
             + "a.time_in as timeIn, a.time_out as timeOut, a.attendance_status \n" +
             "FROM user u \n" +
-            "JOIN attendance a ON u.user_id = a.user_id;");
+            "JOIN attendance a ON u.user_id = a.user_id ORDER BY a.date;");
+            
+            while (rs.next()) {
+                int statusInt = rs.getInt("attendance_status");
+                String out= rs.getString("timeOut");
+                String statusString;
+                String time_out;
+
+                   if(out.equals("00:00:00")){
+                       out = " ";
+                   }
+
+                if (statusInt == 1) {
+                    statusString = "   √";
+                } else if (statusInt == 2) {
+                    statusString = "Late";
+                } else if (statusInt == 3) {
+                    statusString = "No Out";
+                } else {
+                    statusString = "Unknown";
+                }
+
+                attendance.add(new Attendance(
+                    rs.getString("name"),
+                    rs.getDate("date"),
+                  rs.getString("timeIn"),
+                 out,
+         statusString
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return attendance;
+    }
+        public static ObservableList<Attendance> getAttendancebyDate(){
+        ObservableList<Attendance> attendance = FXCollections.observableArrayList();
+        try (Connection connection = dbMethods.getConnection();
+            Statement statement = connection.createStatement()){
+            
+            ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, a.date, "
+            + "a.time_in as timeIn, a.time_out as timeOut, a.attendance_status \n" +
+            "FROM user u \n" +
+            "JOIN attendance a ON u.user_id = a.user_id;"
+                    + "");
             
             while (rs.next()) {
                 int statusInt = rs.getInt("attendance_status");
@@ -115,7 +157,6 @@ public void setTimeOut(String timeOut) {
             e.printStackTrace();
         }
         return attendance;
-        
     }
 
 }
