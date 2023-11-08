@@ -26,9 +26,9 @@ public class Department {
         this.departmentName = departmentName;
     }
     
-//    public Departments(String departmentName){
-//        this.departmentName = departmentName;
-//    }
+    public Department(String departmentName){
+        this.departmentName = departmentName;
+    }
     
     public int getId() {
         return id;
