@@ -36,7 +36,7 @@
                         <Font name="Arial Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dateTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="103.0" text="Date - Time" textAlignment="CENTER">
+                  <Label fx:id="dateTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="100.0" prefHeight="16.0" prefWidth="248.0" style="-fx-alignment: center;" text="Date - Time" textAlignment="CENTER">
                      <font>
                         <Font name="Arial Bold" size="14.0" />
                      </font>
@@ -45,15 +45,15 @@
             </Pane>
             <StackPane prefHeight="539.0" prefWidth="487.0">
                <children>
-                  <Pane fx:id="loginPane" prefHeight="539.0" prefWidth="495.0" style="-fx-border-radius: 25; -fx-border-width: 10; -fx-border-color: #1a1a1a; -fx-background-radius: 50;" visible="false">
+                  <Pane fx:id="loginPane" prefHeight="539.0" prefWidth="495.0" style="-fx-border-radius: 25; -fx-border-width: 10; -fx-border-color: #1a1a1a; -fx-background-radius: 50;">
                      <children>
-                        <Label layoutX="213.0" layoutY="161.0" text="Login" textFill="WHITE">
+                        <Label layoutX="213.0" layoutY="161.0" text="Login" textFill="#6effbe">
                            <font>
                               <Font name="Arial Bold" size="24.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="126.0" layoutY="205.0" prefHeight="25.0" prefWidth="240.0" />
-                        <PasswordField layoutX="126.0" layoutY="240.0" prefHeight="25.0" prefWidth="240.0" />
+                        <TextField fx:id="usernameField" layoutX="126.0" layoutY="205.0" prefHeight="25.0" prefWidth="240.0" />
+                        <PasswordField fx:id="passwordField" layoutX="126.0" layoutY="238.0" prefHeight="25.0" prefWidth="240.0" />
                         <VBox layoutX="156.0" layoutY="327.0" prefHeight="129.0" prefWidth="179.0">
                            <children>
                               <Button fx:id="loginAdminBtn" mnemonicParsing="false" onAction="#openAdminPane" prefHeight="25.0" prefWidth="211.0" text="LOGIN AS ADMIN">
@@ -78,9 +78,10 @@
                               </Button>
                            </children>
                         </VBox>
+                        <Button fx:id="loginBtn" layoutX="126.0" layoutY="280.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #07f9a2;" text="Login" textFill="#1b1b1b" />
                      </children>
                   </Pane>
-                  <Pane prefHeight="539.0" prefWidth="487.0">
+                  <Pane fx:id="fpEnrollmentPane" prefHeight="539.0" prefWidth="487.0" visible="false">
                      <children>
                         <ImageView fx:id="userImage" fitHeight="111.0" fitWidth="120.0" layoutX="189.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -122,6 +123,20 @@
                               </Label>
                            </children>
                         </VBox>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="fpIdentificationPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <ImageView fx:id="fpIdentificationUserImage" fitHeight="150.0" fitWidth="200.0" layoutX="169.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../Downloads/sample.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="fpIdentificationUserName" layoutX="74.0" layoutY="322.0" prefHeight="17.0" prefWidth="340.0" style="-fx-alignment: center;" text="Lorem D. Ipsum" textFill="#9effb2">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
                </children>

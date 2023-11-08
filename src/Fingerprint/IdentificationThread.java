@@ -4,6 +4,7 @@
  */
 package Fingerprint;
 
+import Controller.LoginController;
 import Model.Fingerprint;
 import Model.User;
 import com.digitalpersona.uareu.Engine;
@@ -102,7 +103,6 @@ public class IdentificationThread extends Thread{
             int topCandidateFmdIndex = candidateFmds[0].fmd_index;
             int matchingUserId = fingerprintList.get(topCandidateFmdIndex).getUserId();
             displayIdentifiedUser(matchingUserId);
-            System.out.println("Your name is "+userList.get(0).getlName()+"");
             return true;
         }else{
             System.out.println("no candidate/s found");
@@ -119,6 +119,14 @@ public class IdentificationThread extends Thread{
         String mname = userList.get(0).getmName();
         String lname = userList.get(0).getlName();
         String suffix = userList.get(0).getSuffix();
+        byte[] userImage = userList.get(0).getImage();
+        
+        String fullName = fname + " " + mname + " " + lname + " " + suffix;
+        System.out.println("You are " + fullName);
+        
+        //LoginController loginController = new LoginController();
+        //LoginController.setVisibleFpIdentificationPane();
+        
     }
     
     

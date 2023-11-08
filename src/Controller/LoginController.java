@@ -24,6 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -56,6 +57,32 @@ public class LoginController implements Initializable {
     private Label dateTimeLabel;
     @FXML
     private ImageView fpImageview;
+    @FXML
+    private Pane loginPane;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Button loginBtn;
+    @FXML
+    private Pane fpEnrollmentPane;
+    @FXML
+    private ImageView userImage;
+    @FXML
+    private Label userNameLabel;
+    @FXML
+    private Label fpCountLabel;
+    @FXML
+    private Button enrollFpBtn;
+    @FXML
+    private Label lastEnrollDateLabel;
+    @FXML
+    private static Pane fpIdentificationPane;
+    @FXML
+    private ImageView fpIdentificationUserImage;
+    @FXML
+    private Label fpIdentificationUserName;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -103,6 +130,10 @@ public class LoginController implements Initializable {
     @FXML
     private void openFpIdentificationPane(ActionEvent event) {
         method.openPane(method.FP_IDENTIFICATION_PANE);
+    }
+    
+    public static void setVisibleFpIdentificationPane(){
+        fpIdentificationPane.setVisible(true);
     }
     
 }
