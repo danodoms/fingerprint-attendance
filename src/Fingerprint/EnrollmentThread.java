@@ -47,7 +47,7 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
             Fmd fmdToEnroll = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
             System.out.println("FMD returned");
 
-            Fingerprint.insertFmd(4, fmdToEnroll);
+            Fingerprint.insertFmd(5, fmdToEnroll);
             System.out.println("Added FMD to database");
             Prompt.prompt(Prompt.ANOTHER_CAPTURE);
         }

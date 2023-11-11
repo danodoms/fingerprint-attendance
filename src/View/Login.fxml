@@ -83,11 +83,7 @@
                   </Pane>
                   <Pane fx:id="fpEnrollmentPane" prefHeight="539.0" prefWidth="487.0" visible="false">
                      <children>
-                        <ImageView fx:id="userImage" fitHeight="111.0" fitWidth="120.0" layoutX="189.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../Downloads/default_user_img.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="userImage" fitHeight="111.0" fitWidth="120.0" layoutX="189.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" />
                         <Circle fill="#1fffbd" layoutX="245.0" layoutY="314.0" radius="52.0" stroke="BLACK" strokeType="INSIDE" />
                         <Label fx:id="userNameLabel" layoutX="108.0" layoutY="188.0" prefHeight="25.0" prefWidth="272.0" style="-fx-alignment: center;" text="Lorem D. Ipsum" textAlignment="CENTER" textFill="#96ffcd">
                            <font>

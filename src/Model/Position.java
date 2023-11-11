@@ -28,6 +28,9 @@ public class Position {
         this.position_id = position_id;
         this.position_name = position_name;
     }
+//    public Position(String position_name){
+//        this.position_name = position_name;
+//    }
     
     public Position(String position_name){
         this.position_name = position_name;
@@ -37,7 +40,6 @@ public class Position {
     public String toString() {
         return position_name;
     }
-
     public int getId() {
         return position_id;
     }
@@ -46,11 +48,11 @@ public class Position {
         this.position_id = position_id;
     }
 
-    public String getPosition_name() {
+    public String getPosition() {
         return position_name;
     }
 
-    public void setPosition_name(String position_name) {
+    public void setPosition(String position_name) {
         this.position_name = position_name;
     }
 

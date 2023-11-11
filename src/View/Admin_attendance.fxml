@@ -18,14 +18,15 @@
       <Line endX="99.0" endY="-16.0" fill="#65b9f5" layoutX="411.0" layoutY="95.0" opacity="0.53" startX="99.0" startY="383.0" stroke="#a0adbf" strokeLineJoin="ROUND" strokeWidth="5.0" />
       <TableView fx:id="adminTableView" layoutX="15.0" layoutY="90.0" prefHeight="381.0" prefWidth="478.0">
          <columns>
-            <TableColumn prefWidth="180.0" text="Name" />
-            <TableColumn prefWidth="110.0" text="Date" />
-            <TableColumn minWidth="0.0" prefWidth="108.0" text="Time" />
-            <TableColumn text="Status" />
+            <TableColumn fx:id="nameCol" prefWidth="161.0" text="Name" />
+            <TableColumn fx:id="dateCol" prefWidth="91.0" text="Date" />
+            <TableColumn fx:id="tiCol" minWidth="0.0" prefWidth="73.0" text="Time In" />
+            <TableColumn fx:id="toCol" minWidth="0.0" prefWidth="76.0" text="Time Out" />
+            <TableColumn fx:id="status" prefWidth="76.0" text="Status" />
          </columns>
       </TableView>
       <Line endX="20.0" endY="85.29289245605469" layoutY="-12.0" startX="669.0" startY="85.29289245605469" stroke="#319ce8" strokeWidth="11.0" />
-      <VBox layoutX="529.0" layoutY="82.0" prefHeight="403.0" prefWidth="158.0">
+      <VBox layoutX="528.0" layoutY="82.0" prefHeight="403.0" prefWidth="158.0">
          <children>
             <Label text="Filter by :">
                <VBox.margin>
@@ -35,22 +36,17 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="searchBar" maxWidth="128.0" promptText="Search name...">
-               <VBox.margin>
-                  <Insets left="17.0" top="11.0" />
-               </VBox.margin>
-            </TextField>
             <Label text="Date">
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>
             </Label>
-            <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="128.0" promptText="yyyy-mm-dd">
+            <DatePicker fx:id="datePicker" onAction="#filterTableView" prefHeight="25.0" prefWidth="128.0" promptText="yyyy-mm-dd">
                <VBox.margin>
                   <Insets left="17.0" top="2.0" />
                </VBox.margin>
             </DatePicker>
-            <Label text="Department Type ">
+            <Label text="Department">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -60,7 +56,7 @@
                   <Insets left="17.0" top="2.0" />
                </VBox.margin>
             </ChoiceBox>
-            <Label text="Position Type">
+            <Label text="Position">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -70,7 +66,7 @@
                   <Insets left="17.0" top="2.0" />
                </VBox.margin>
             </ChoiceBox>
-            <Label text="Shift Type">
+            <Label text="Shift">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -90,7 +86,7 @@
                   <Insets left="17.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="resetBtn" mnemonicParsing="false" text="Reset">
+            <Button fx:id="resetBtn" mnemonicParsing="false" onAction="#clearChoiceBox" onMouseDragReleased="#clearChoiceBox" text="Reset">
                <VBox.margin>
                   <Insets left="57.0" top="7.0" />
                </VBox.margin>
@@ -103,5 +99,6 @@
             <Font name="Berlin Sans FB" size="30.0" />
          </font>
       </Label>
+      <TextField fx:id="searchBar" layoutX="14.0" layoutY="55.0" maxWidth="231.0" onKeyPressed="#filterTable" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="231.0" promptText="Search name..." />
    </children>
 </AnchorPane>
