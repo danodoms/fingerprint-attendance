@@ -125,20 +125,6 @@
                         </VBox>
                      </children>
                   </Pane>
-                  <Pane fx:id="fpIdentificationPane" prefHeight="200.0" prefWidth="200.0" visible="false">
-                     <children>
-                        <ImageView fx:id="fpIdentificationUserImage" fitHeight="150.0" fitWidth="200.0" layoutX="169.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../Downloads/sample.jpg" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="fpIdentificationUserName" layoutX="74.0" layoutY="322.0" prefHeight="17.0" prefWidth="340.0" style="-fx-alignment: center;" text="Lorem D. Ipsum" textFill="#9effb2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
                </children>
             </StackPane>
          </children>

@@ -77,12 +77,7 @@ public class LoginController implements Initializable {
     private Button enrollFpBtn;
     @FXML
     private Label lastEnrollDateLabel;
-    @FXML
-    private static Pane fpIdentificationPane;
-    @FXML
-    private ImageView fpIdentificationUserImage;
-    @FXML
-    private Label fpIdentificationUserName;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -101,12 +96,6 @@ public class LoginController implements Initializable {
         identification.start();
         
         
-//        Stage stage = (Stage) loginAdminBtn.getScene().getWindow();
-//        stage.setOnCloseRequest((WindowEvent event) -> {
-//            // This code will run when the window is closed
-//            System.out.println("Window is closing");
-//            // You can perform additional actions here
-//        });
 
     }    
 
@@ -132,8 +121,5 @@ public class LoginController implements Initializable {
         method.openPane(method.FP_IDENTIFICATION_PANE);
     }
     
-    public static void setVisibleFpIdentificationPane(){
-        fpIdentificationPane.setVisible(true);
-    }
     
 }

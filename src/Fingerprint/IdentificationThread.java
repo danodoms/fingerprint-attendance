@@ -15,6 +15,7 @@ import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -123,10 +124,6 @@ public class IdentificationThread extends Thread{
         
         String fullName = fname + " " + mname + " " + lname + " " + suffix;
         System.out.println("You are " + fullName);
-        
-        //LoginController loginController = new LoginController();
-        //LoginController.setVisibleFpIdentificationPane();
-        
     }
     
     
