@@ -17,7 +17,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="539.0" prefWidth="778.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
    <children>
-<<<<<<< HEAD
       <HBox prefHeight="539.0" prefWidth="778.0" style="-fx-background-color: #1a1a1a;">
          <children>
             <Pane prefHeight="539.0" prefWidth="291.0" style="-fx-background-color: #07f9a2; -fx-background-radius: 40; -fx-border-width: 10; -fx-border-color: #1a1a1a; -fx-border-radius: 25;">
@@ -84,11 +83,7 @@
                   </Pane>
                   <Pane fx:id="fpEnrollmentPane" prefHeight="539.0" prefWidth="487.0" visible="false">
                      <children>
-                        <ImageView fx:id="userImage" fitHeight="111.0" fitWidth="120.0" layoutX="189.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../Downloads/default_user_img.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="userImage" fitHeight="111.0" fitWidth="120.0" layoutX="189.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" />
                         <Circle fill="#1fffbd" layoutX="245.0" layoutY="314.0" radius="52.0" stroke="BLACK" strokeType="INSIDE" />
                         <Label fx:id="userNameLabel" layoutX="108.0" layoutY="188.0" prefHeight="25.0" prefWidth="272.0" style="-fx-alignment: center;" text="Lorem D. Ipsum" textAlignment="CENTER" textFill="#96ffcd">
                            <font>
@@ -128,11 +123,7 @@
                   </Pane>
                   <Pane fx:id="fpIdentificationPane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
-                        <ImageView fx:id="fpIdentificationUserImage" fitHeight="150.0" fitWidth="200.0" layoutX="169.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../Downloads/sample.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="fpIdentificationUserImage" fitHeight="150.0" fitWidth="200.0" layoutX="169.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="fpIdentificationUserName" layoutX="74.0" layoutY="322.0" prefHeight="17.0" prefWidth="340.0" style="-fx-alignment: center;" text="Lorem D. Ipsum" textFill="#9effb2">
                            <font>
                               <Font size="16.0" />
@@ -144,18 +135,5 @@
             </StackPane>
          </children>
       </HBox>
-=======
-      <Label layoutX="97.0" layoutY="100.0" text="Welcome">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Button fx:id="loginAdminBtn" layoutX="245.0" layoutY="175.0" mnemonicParsing="false" onAction="#openAdminPane" text="LOGIN AS ADMIN" />
-      <Button fx:id="loginRecordsOfficerBtn" layoutX="214.0" layoutY="208.0" mnemonicParsing="false" onAction="#openRecordsOfficerPane" text="LOGIN AS RECORDS OFFICER" />
-      <Button fx:id="fpEnrollmentShortcutBtn" layoutX="217.0" layoutY="284.0" mnemonicParsing="false" onAction="#openFpEnrollmentPane" text="fp_enrollment pane shortcut" />
-      <Button fx:id="fpIdentificationShortcutBtn" layoutX="211.0" layoutY="326.0" mnemonicParsing="false" onAction="#openFpIdentificationPane" text="fp_identification pane shortcut" />
-      <Label fx:id="dateLabel" layoutX="434.0" layoutY="46.0" />
-      <Label fx:id="timeLabel" layoutX="434.0" layoutY="75.0" />
->>>>>>> henry
    </children>
 </AnchorPane>

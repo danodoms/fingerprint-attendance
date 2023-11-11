@@ -60,39 +60,34 @@ public class Admin_attendanceController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTable();
-        }
+    }
 
     private void updatePositionChoiceBox(ActionEvent event) {
         System.out.println("update position choice box");
         Department selectedDepartment = departmentChoiceBox.getValue();
-        positionChoiceBox.setItems(Position.getPositionsByDepartmentId(selectedDepartment.getId()));
-          
+        positionChoiceBox.setItems(Position.getPositionsByDepartmentId(selectedDepartment.getId()));     
     }
+    
     private void showShiftDetails(ActionEvent event) {
-        
-        //Stores the selected shift
         Shift selectedShift = shiftTypeChoiceBox.getValue();
-        
-        //Stores the id of the selected shift
         int id = selectedShift.getId();
-        
         String startTime = selectedShift.getStartTime();
         String endTime = selectedShift.getEndTime();
-        
         startTimeField.setText(startTime);
         endTimeField.setText(endTime);
-        
+       
         //DEBUGGER
         System.out.println("SelectedShiftID: " + id);
         System.out.println("Selected Shift: " + selectedShift);
         System.out.println("SelectedShiftStart: " + selectedShift.getStartTime());
         System.out.println("SelectedShiftEnd: " + selectedShift.getEndTime());
-        
     }
+    
     @FXML
     public void clearChoiceBox(ActionEvent event){
         setTable();
     }
+    
     @FXML
     public void setTable(){
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -113,32 +108,32 @@ public class Admin_attendanceController implements Initializable {
         departmentChoiceBox.getItems().addAll(new Department("All"));
         departmentChoiceBox.getItems().addAll(Department.getDepartments());
         departmentChoiceBox.setOnAction(this::updatePositionChoiceBox);
-//        datePicker.setValue(null);
+        datePicker.setValue(null);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            datePicker.setConverter(new StringConverter<LocalDate>() {
-                @Override
-                public String toString(LocalDate date) {
-                    if (date != null) {
-                        return dateFormatter.format(date);
-                    } else {
-                        return "";
-                    }
+        
+        datePicker.setConverter(new StringConverter<LocalDate>(){   
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
                 }
-                @Override
-                public LocalDate fromString(String string) {
-                    if (string != null && !string.isEmpty()) {
-                        return LocalDate.parse(string, dateFormatter);
-                    } else {
-                        return null;
-                    }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                     return LocalDate.parse(string, dateFormatter);
+                }else{
+                    return null;
                 }
-            });
-//        LocalDate defaultDate = LocalDate.now(); // You can change this to your desired default date
-//        datePicker.setValue(defaultDate);
-//        datePicker.setOnAction(this::filterTableView);
+            }
+        });
     }
-   @FXML
-private void filterTable(KeyEvent event) {
+    
+    @FXML
+    private void filterTable(KeyEvent event) {
     ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
     String keyword = searchBar.getText().toLowerCase(); // Get the search keyword in lowercase
         for (Attendance attendance : getAttendance()) {    
@@ -147,61 +142,48 @@ private void filterTable(KeyEvent event) {
             adminTableView.setItems(filteredData);
             }
         }
-}       @FXML
-      private void filterTableView(ActionEvent event) {
-          
+    }  
+    
+    @FXML
+    private void filterTableView(ActionEvent event) { 
         LocalDate selectedDate = datePicker.getValue();
-          if(selectedDate != null){
-              try {
-        // Create a filtered list based on the selected date
-        ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
-        for (Attendance attendance : getAttendance()) {
-            if (attendance.getDate().toString().equals(selectedDate.toString())) {
-                filteredData.add(attendance);
+        if(selectedDate != null){
+            try {
+                // Create a filtered list based on the selected date
+                ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
+                for (Attendance attendance : getAttendance()) {
+                    if (attendance.getDate().toString().equals(selectedDate.toString())) {
+                        filteredData.add(attendance);
+                    }
+                }
+                // Update the TableView with the filtered data
+                adminTableView.setItems(filteredData);
+            }catch (Exception e) {
+                e.printStackTrace(); // This prints the exception details to the console
             }
         }
-
-        // Update the TableView with the filtered data
-        adminTableView.setItems(filteredData);
-    } catch (Exception e) {
-        // Handle the exception here
-        e.printStackTrace(); // This prints the exception details to the console
-        // You can show an error message or take appropriate action based on the exception
     }
-          }
-     
-}
-
-
+    
     private void filterbyDate(){
         ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
-        
-        
-         String keyword = searchBar.getText().toLowerCase(); 
+        String keyword = searchBar.getText().toLowerCase(); 
         if(!searchBar.getText().equals(" ") && datePicker.getValue()==null){
-        for (Attendance attendance : getAttendance()) { // Assuming 'table' is your TableView
-            // Check if any of the columns contain the search keyword (case-insensitive).
-            if ((attendance.getName().toLowerCase()).contains(keyword)){
-                filteredData.add(attendance);
-            adminTableView.setItems(filteredData);
+            for (Attendance attendance : getAttendance()) { // Assuming 'table' is your TableView
+                // Check if any of the columns contain the search keyword (case-insensitive).
+                if ((attendance.getName().toLowerCase()).contains(keyword)){
+                    filteredData.add(attendance);
+                    adminTableView.setItems(filteredData);
+                }
             }
-//            else if(searchBar.getText().equals(null)){
-//                setTable();
-//            }
-        }
-    }else if(!searchBar.getText().equals(" ") && datePicker.getValue()!=null){
-        for (Attendance attendance : getAttendance()) { // Assuming 'table' is your TableView
-            // Check if any of the columns contain the search keyword (case-insensitive).
-            if ((attendance.getDate().toString().equals(datePicker.getValue().toString())) &&
-                    ((attendance.getName().toLowerCase()).contains(keyword))){
-                filteredData.add(attendance);
-            adminTableView.setItems(filteredData);
+        }else if(!searchBar.getText().equals(" ") && datePicker.getValue()!=null){
+            for (Attendance attendance : getAttendance()) { // Assuming 'table' is your TableView
+                // Check if any of the columns contain the search keyword (case-insensitive).
+                if ((attendance.getDate().toString().equals(datePicker.getValue().toString())) &&
+                        ((attendance.getName().toLowerCase()).contains(keyword))){
+                    filteredData.add(attendance);
+                adminTableView.setItems(filteredData);
+                }
             }
-//            else if(searchBar.getText().equals(null)){
-//                setTable();
-//            }
         }
     }
-    }
-
 }

@@ -201,8 +201,6 @@ public class EmployeeMgmtController implements Initializable {
 //            Enrollment.Run(m_reader);
 //        }
     }
-<<<<<<< HEAD
-    
     private byte[] readImageFile(File file) throws IOException {
         FileInputStream fis = new FileInputStream(file);
         byte[] data = new byte[(int) file.length()];
@@ -213,9 +211,3 @@ public class EmployeeMgmtController implements Initializable {
 }
 
     
-    
-    
-
-=======
-}
->>>>>>> henry
