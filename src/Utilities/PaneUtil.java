@@ -29,6 +29,7 @@ public class PaneUtil {
     public final String FP_ENROLLMENT_PANE = "/View/FP_Enrollment.fxml";
     public final String FP_IDENTIFICATION_PANE = "/View/FP_Identification.fxml";
     public final String FP_IDENTIFICATION_SUCCESS = "/View/FP_IdentificationSuccess.fxml";
+    public final String FP_IDENTIFICATION_FAIL = "/View/FP_IdentificationFail.fxml";
     
     
     

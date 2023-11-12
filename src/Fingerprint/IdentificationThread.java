@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import Utilities.*;
+import javafx.scene.media.AudioClip;
 
 /**
  *
@@ -119,6 +120,7 @@ public class IdentificationThread extends Thread{
     
     //this method is used by "compareFmdToDatabaseFmds" for display purposes
     private void userIdentificationSuccess(int userId){
+        
         userList = User.getUserByUserId(userId);
         String fname = userList.get(0).getfName();
         String mname = userList.get(0).getmName();
@@ -128,6 +130,14 @@ public class IdentificationThread extends Thread{
         
         String fullName = fname + " " + mname + " " + lname + " " + suffix;
         System.out.println("You are " + fullName);
+        //SoundUtil.playSuccessSound();
+        
+        //ADD A METHOD THAT VERIFIES FIRST IF USER HAS ALREADY TIMED IN/OUT, DO IT BY QUERYING THE ATTENDANCE RECORD
+        //if(hasTimedInOrOut(userId))
+        
+        
+        AudioClip buzzer = new AudioClip(getClass().getResource("success.wav").toExternalForm());
+        buzzer.play();
       
         Platform.runLater(() -> {
             //controllerUtils.openAndClosePane(controllerUtils.FP_IDENTIFICATION_SUCCESS, 2250);
@@ -135,7 +145,22 @@ public class IdentificationThread extends Thread{
         });  
     }
     
+    
+    
     private void userIdentificationFailed(){
+        AudioClip buzzer = new AudioClip(getClass().getResource("fail.wav").toExternalForm());
+        buzzer.play();
+        
+        
+        Platform.runLater(() -> {
+            identificationModal.displayIdentificationFail(1500);
+        });  
+    }
+    
+    
+    
+    private void hasTimedInOrOut(){
+        
     }
     
     

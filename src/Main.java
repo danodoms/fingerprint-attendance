@@ -35,7 +35,7 @@ public class Main extends Application {
         
         
        // Load the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("View//Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("View//LoginPane.fxml"));
         Parent root = loader.load();
         
         

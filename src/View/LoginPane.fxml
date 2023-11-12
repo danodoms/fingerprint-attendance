@@ -52,7 +52,7 @@
                               <Font name="Arial Bold" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameField" layoutX="126.0" layoutY="205.0" prefHeight="25.0" prefWidth="240.0" />
+                        <TextField fx:id="emailField" layoutX="126.0" layoutY="205.0" prefHeight="25.0" prefWidth="240.0" />
                         <PasswordField fx:id="passwordField" layoutX="126.0" layoutY="238.0" prefHeight="25.0" prefWidth="240.0" />
                         <VBox layoutX="156.0" layoutY="327.0" prefHeight="129.0" prefWidth="179.0">
                            <children>
@@ -78,7 +78,7 @@
                               </Button>
                            </children>
                         </VBox>
-                        <Button fx:id="loginBtn" layoutX="126.0" layoutY="280.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #07f9a2;" text="Login" textFill="#1b1b1b" />
+                        <Button fx:id="loginBtn" layoutX="126.0" layoutY="280.0" mnemonicParsing="false" onAction="#authenticate" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #07f9a2;" text="Login" textFill="#1b1b1b" />
                      </children>
                   </Pane>
                   <Pane fx:id="fpEnrollmentPane" prefHeight="539.0" prefWidth="487.0" visible="false">

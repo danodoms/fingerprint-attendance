@@ -45,5 +45,27 @@ public class IdentificationModal {
             e.printStackTrace();
         }
     }
+      
+      
+      
+       public void displayIdentificationFail(int delayInMilliseconds) {
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.FP_IDENTIFICATION_FAIL));
+            Parent root = loader.load();
+
+            // Create a new stage for the window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            
+            Timeline timeline = new Timeline(
+                new KeyFrame(Duration.millis(delayInMilliseconds), event -> stage.close())
+            );
+            timeline.play();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
 }

@@ -38,7 +38,7 @@ public class User {
     private int status;
    
     
-    //Constructor
+    //Full Constructor
     public User(
         int id,
         String fName,
@@ -70,6 +70,12 @@ public class User {
         this.image = image;
         this.status = status;
     
+    }
+    
+    public User(String email, String password, String privilege){
+        this.email = email;
+        this.password = password;
+        this.privilege = privilege;
     }
 
     
@@ -166,6 +172,31 @@ public class User {
         }
 
         return users;
+    }
+    
+    
+    public static User getUserByEmail(String email){
+        User user = null;
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()) {
+
+            String query = "SELECT email, password, privilege FROM user WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if (rs.next()) {
+                String userEmail = rs.getString("email");
+                String password = rs.getString("password");
+                String privilege = rs.getString("privilege");
+                user = new User(userEmail, password, privilege);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     public int getId() {

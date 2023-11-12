@@ -7,6 +7,7 @@ package Controller;
 
 import Utilities.PaneUtil;
 import Fingerprint.IdentificationThread;
+import Model.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.animation.AnimationTimer;
@@ -49,8 +50,6 @@ public class LoginPaneCTRL implements Initializable {
     @FXML
     private Pane loginPane;
     @FXML
-    private TextField usernameField;
-    @FXML
     private PasswordField passwordField;
     @FXML
     private Button loginBtn;
@@ -74,6 +73,8 @@ public class LoginPaneCTRL implements Initializable {
     private ImageView fpIdentificationUserImage;
     @FXML
     private Label fpIdentificationUserName;
+    @FXML
+    private TextField emailField;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -97,26 +98,78 @@ public class LoginPaneCTRL implements Initializable {
     
     
     @FXML
+    private void authenticate(ActionEvent event) {
+        System.out.println("authenticating");
+        String enteredEmail = emailField.getText();
+        String enteredPassword = passwordField.getText();
+        
+        User user = User.getUserByEmail(enteredEmail);
+        
+        
+        if(user == null){
+            System.out.println("Email does not exist");
+        }else{
+            String email = user.getEmail();
+            String password = user.getPassword();
+            
+            if(enteredPassword.equals(password)){
+                System.out.println("password matched");
+                proceedUserLogin(user);
+            }else{
+                System.out.println("password mismatched");
+            }
+        }
+    }
+    
+    private void proceedUserLogin(User authdUser){
+        User user = authdUser;
+        
+        String currentUser = user.getEmail();
+        String privilege = user.getPrivilege();
+        
+        if(privilege.equalsIgnoreCase("employee")){
+            System.out.println("Access denied");
+        }else if(privilege.equalsIgnoreCase("admin")){
+            method.exitAndOpenNewPane(loginAdminBtn, method.ADMIN_PANE);
+            System.out.println("Logged in as" + currentUser+"");
+        }else if(privilege.equalsIgnoreCase("records officer")){
+            method.exitAndOpenNewPane(loginAdminBtn, method.RECORDS_OFFICER_PANE);
+            System.out.println("Logged in as" + currentUser+"");
+        }
+        
+    }
+    
+    
+    
+    @FXML
     private void openAdminPane(ActionEvent event) {
         method.exitAndOpenNewPane(loginAdminBtn, method.ADMIN_PANE);
         System.out.println("Logged in as admin");
     }
 
+    
+    
     @FXML
     private void openRecordsOfficerPane(ActionEvent event) {
         method.exitAndOpenNewPane(loginAdminBtn, method.RECORDS_OFFICER_PANE);
         System.out.println("Logged in as records officer");
     }
 
+    
+    
     @FXML
     private void openFpEnrollmentPane(ActionEvent event) {
         method.openPane(method.FP_ENROLLMENT_PANE);
     }
 
+    
+    
     @FXML
     private void openFpIdentificationPane(ActionEvent event) {
         method.openPane(method.FP_IDENTIFICATION_PANE);
     }
+
+    
     
     
 }
