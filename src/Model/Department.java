@@ -55,7 +55,7 @@ public class Department {
         return departmentName;
     }
     
-        public static ObservableList<Department> getDepartments(){
+    public static ObservableList<Department> getDepartments(){
         ObservableList<Department> departments = FXCollections.observableArrayList();
         try (Connection connection = dbMethods.getConnection();
             Statement statement = connection.createStatement()){
@@ -74,6 +74,4 @@ public class Department {
         return departments;
         
     }
- 
-    
 }
