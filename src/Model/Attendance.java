@@ -138,7 +138,7 @@ public void setTimeOut(String timeOut) {
         
          public static ObservableList<Attendance> getAdministrative(){
         ObservableList<Attendance> attendance = FXCollections.observableArrayList();
-        try (Connection connection = dbMethods.getConnection();
+        try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
             ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date, "
@@ -188,7 +188,7 @@ public void setTimeOut(String timeOut) {
          
          public static ObservableList<Attendance> getInstruction(){
         ObservableList<Attendance> attendance = FXCollections.observableArrayList();
-        try (Connection connection = dbMethods.getConnection();
+        try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
             ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date, "
