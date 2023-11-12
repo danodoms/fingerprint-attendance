@@ -23,17 +23,26 @@ public class Attendance {
     private String timeIn;
     private String timeOut;
     private String name;
+    private String deptName;
+    private String notation;
     public static String defaultValue = "All";
     
-     public Attendance (String name, Date date, String timeIn, String timeOut, String attendance_status){
+     public Attendance (String name, Date date, String timeIn, String timeOut, String notation, String attendance_status){
         this.name = name;
         this.date = date;
         this.attendance_status = attendance_status;
         this.timeIn = timeIn;
         this.timeOut = timeOut;
+        this.notation = notation;
     }
       public String getName() {
         return name;
+    }
+      public String getNotation() {
+        return notation;
+    }
+       public String getDeptName() {
+        return deptName;
     }
      public Date getDate() {
         return date;
@@ -47,11 +56,19 @@ public class Attendance {
      public String getTimeOut() {
         return timeOut;
     }
+    
      
      
-     
-    public void setName(String name) {
+public void setName(String name) {
     this.name = name;
+}
+
+public void setNotation(String notation) {
+    this.notation = notation;
+}
+
+public void setDeptName(String deptName) {
+    this.deptName = deptName;
 }
 
 public void setDate(Date date) {
@@ -74,11 +91,15 @@ public void setTimeOut(String timeOut) {
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
-            ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, a.date, "
-            + "a.time_in as timeIn, a.time_out as timeOut, a.attendance_status \n" +
-            "FROM user u \n" +
-            "JOIN attendance a ON u.user_id = a.user_id ORDER BY a.date;");
-            
+            ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date, "
+            + "c.time_in as timeIn, c.time_out as timeOut, c.time_notation as notation, c.attendance_status \n" +
+            "FROM attendance c \n" +
+            "JOIN user u ON c.user_id = u.user_id "+
+            "JOIN assignment a ON u.user_id = a.user_id " +
+            "JOIN position p ON a.position_id = p.position_id " +
+            "JOIN department d ON p.department_id = d.department_id " +
+            "WHERE u.user_status = 1 GROUP BY c.attendance_id ORDER BY c.attendance_id;");
+            //d.department_id = 1 && 
             while (rs.next()) {
                 int statusInt = rs.getInt("attendance_status");
                 String out= rs.getString("timeOut");
@@ -90,7 +111,7 @@ public void setTimeOut(String timeOut) {
                    }
 
                 if (statusInt == 1) {
-                    statusString = "   √";
+                    statusString = "   ♥";
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
@@ -104,6 +125,7 @@ public void setTimeOut(String timeOut) {
                     rs.getDate("date"),
                   rs.getString("timeIn"),
                  out,
+                rs.getString("notation"), 
          statusString
                 ));
             }
@@ -113,19 +135,124 @@ public void setTimeOut(String timeOut) {
         }
         return attendance;
     }
+        
+         public static ObservableList<Attendance> getAdministrative(){
+        ObservableList<Attendance> attendance = FXCollections.observableArrayList();
+        try (Connection connection = dbMethods.getConnection();
+            Statement statement = connection.createStatement()){
+            
+            ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date, "
+            + "c.time_in as timeIn, c.time_out as timeOut, c.time_notation as notation, c.attendance_status \n" +
+            "FROM attendance c \n" +
+            "JOIN user u ON c.user_id = u.user_id "+
+            "JOIN assignment a ON u.user_id = a.user_id " +
+            "JOIN position p ON a.position_id = p.position_id " +
+            "JOIN department d ON p.department_id = d.department_id " +
+            "WHERE d.department_id = 1 && u.user_status = 1 GROUP BY c.attendance_id ORDER BY c.attendance_id;");
+            //d.department_id = 1 && 
+            while (rs.next()) {
+                int statusInt = rs.getInt("attendance_status");
+                String out= rs.getString("timeOut");
+                String statusString;
+                String time_out;
+
+                   if(out.equals("00:00:00")){
+                       out = " ";
+                   }
+
+                if (statusInt == 1) {
+                    statusString = "   ♥";
+                } else if (statusInt == 2) {
+                    statusString = "Late";
+                } else if (statusInt == 3) {
+                    statusString = "No Out";
+                } else {
+                    statusString = "Unknown";
+                }
+
+                attendance.add(new Attendance(
+                    rs.getString("name"),
+                    rs.getDate("date"),
+                  rs.getString("timeIn"),
+                 out,
+                rs.getString("notation"),
+         statusString
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return attendance;
+    } 
+         
+         public static ObservableList<Attendance> getInstruction(){
+        ObservableList<Attendance> attendance = FXCollections.observableArrayList();
+        try (Connection connection = dbMethods.getConnection();
+            Statement statement = connection.createStatement()){
+            
+            ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date, "
+            + "c.time_in as timeIn, c.time_out as timeOut, c.time_notation as notation, c.attendance_status \n" +
+            "FROM attendance c \n" +
+            "JOIN user u ON c.user_id = u.user_id "+
+            "JOIN assignment a ON u.user_id = a.user_id " +
+            "JOIN position p ON a.position_id = p.position_id " +
+            "JOIN department d ON p.department_id = d.department_id " +
+            "WHERE d.department_id = 2 && u.user_status = 1 GROUP BY c.attendance_id ORDER BY c.attendance_id;");
+            //d.department_id = 1 && 
+            while (rs.next()) {
+                int statusInt = rs.getInt("attendance_status");
+                String out= rs.getString("timeOut");
+                String statusString;
+                String time_out;
+
+                   if(out.equals("00:00:00")){
+                       out = " ";
+                   }
+
+                if (statusInt == 1) {
+                    statusString = "   ♥";
+                } else if (statusInt == 2) {
+                    statusString = "Late";
+                } else if (statusInt == 3) {
+                    statusString = "No Out";
+                } else {
+                    statusString = "Unknown";
+                }
+
+                attendance.add(new Attendance(
+                    rs.getString("name"),
+                    rs.getDate("date"),
+                  rs.getString("timeIn"),
+                 out, 
+            rs.getString("notation"),
+         statusString
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return attendance;
+    }
+        
         public static ObservableList<Attendance> getAttendancebyDate(){
         ObservableList<Attendance> attendance = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
-            ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, a.date, "
-            + "a.time_in as timeIn, a.time_out as timeOut, a.attendance_status \n" +
-            "FROM user u \n" +
-            "JOIN attendance a ON u.user_id = a.user_id;"
-                    + "");
+            ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date, "
+            + "c.time_in as timeIn, c.time_out as timeOut, c.time_notation as notation, c.attendance_status \n" +
+            "FROM attendance c \n" +
+            "JOIN user u ON c.user_id = u.user_id "+
+            "JOIN assignment a ON u.user_id = a.user_id " +
+            "JOIN position p ON a.position_id = p.position_id " +
+            "JOIN department d ON p.department_id = d.department_id " +
+            "WHERE u.user_status = 1 GROUP BY c.attendance_id ORDER BY c.attendance_id;");
             
             while (rs.next()) {
                 int statusInt = rs.getInt("attendance_status");
+                String in = rs.getString("timeIn");
                 String out= rs.getString("timeOut");
                 String statusString;
                 String time_out;
@@ -135,7 +262,7 @@ public void setTimeOut(String timeOut) {
                    }
 
                 if (statusInt == 1) {
-                    statusString = "Present";
+                    statusString = "  √";
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
@@ -148,7 +275,8 @@ public void setTimeOut(String timeOut) {
                     rs.getString("name"),
                     rs.getDate("date"),
                   rs.getString("timeIn"),
-                 out,
+                 out, 
+                 rs.getString("notation"),
          statusString
                 ));
             }
@@ -158,5 +286,4 @@ public void setTimeOut(String timeOut) {
         }
         return attendance;
     }
-
 }
