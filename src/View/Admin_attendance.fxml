@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin_attendanceController">
+<AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AttendanceCTRL">
    <children>
       <Line endX="99.0" endY="-16.0" fill="#65b9f5" layoutX="411.0" layoutY="95.0" opacity="0.53" startX="99.0" startY="383.0" stroke="#a0adbf" strokeLineJoin="ROUND" strokeWidth="5.0" />
       <TableView fx:id="adminTableView" layoutX="15.0" layoutY="90.0" prefHeight="381.0" prefWidth="478.0">

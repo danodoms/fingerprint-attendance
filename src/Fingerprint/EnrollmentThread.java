@@ -6,12 +6,10 @@ package Fingerprint;
 
 import com.digitalpersona.uareu.Engine;
 import com.digitalpersona.uareu.Engine.PreEnrollmentFmd;
-import com.digitalpersona.uareu.Fid;
 import com.digitalpersona.uareu.Fmd;
 import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.image.ImageView;
@@ -56,46 +54,6 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
         Prompt.prompt(Prompt.DONE_CAPTURE);
     }
     
-       
-    
-    
-//     public void startEnrollment(ImageView imageview) {
-//        int counter = 0;
-//        ArrayList<Fmd> capturedFMDs = new ArrayList<>();
-//        
-//        try {
-//            Selection.reader.Open(Reader.Priority.COOPERATIVE);
-//                while (counter != FmdCount) {
-//                    System.out.println(counter); counter++;
-//                    
-//                    //Calls the Override GetFmd method that is implemented from Engine.CreateEnrollmentFmd Class
-//                    Fmd fmd = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
-//                    
-//                    if (null != fmd) {
-//                        System.out.println("FMD returned");
-//                        Prompt.prompt(Prompt.ANOTHER_CAPTURE);
-//                        
-//                        capturedFMDs.add(fmd);
-//                        System.out.println("FMD array count: " + capturedFMDs.size());
-//                    } else {
-//                        System.out.println("No FMD returned");
-//                        break;
-//                    }
-//                }
-//                Prompt.prompt(Prompt.DONE_CAPTURE);
-//                Selection.reader.Close();
-//                
-//                //DOUBLE CHECKS IF THERE ARE 4 FMDS AND THEN INSERTS TO DATABASE
-//                if(capturedFMDs.size() == 4){
-//                    for (Fmd fmd : capturedFMDs) {
-//                        System.out.println("Inserting Fmd to database");
-//                        Fingerprint.insertFmd(1, fmd);
-//                    }
-//                }
-//            } catch (UareUException ex) {
-//                ex.printStackTrace();
-//        }
-//    }
         
 
     @Override

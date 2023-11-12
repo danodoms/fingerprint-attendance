@@ -4,11 +4,7 @@
  */
 package Controller;
 
-import Fingerprint.EnrollmentThread;
 import Fingerprint.IdentificationThread;
-import static Fingerprint.Prompt.promptLabel;
-import Fingerprint.Selection;
-import com.digitalpersona.uareu.Reader;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -20,7 +16,7 @@ import javafx.scene.image.ImageView;
  *
  * @author admin
  */
-public class fpIdentificationController implements Initializable {
+public class FP_IdentificationCTRL implements Initializable {
     @FXML
     private ImageView fpIdentificationImage;
 

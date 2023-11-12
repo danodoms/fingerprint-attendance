@@ -7,24 +7,17 @@ package Controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import com.digitalpersona.uareu.*;
 import Fingerprint.*;
 import static Fingerprint.Prompt.promptLabel;
-import javafx.beans.binding.*;
-import javafx.beans.value.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
  * @author admin
  */
-public class fpEnrollmentController implements Initializable { 
+public class FP_EnrollmentCTRL implements Initializable { 
 
     @FXML
     private Label readerStatusLabel;

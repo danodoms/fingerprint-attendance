@@ -33,7 +33,7 @@ import javafx.util.StringConverter;
  *
  * @author User
  */
-public class Admin_attendanceController implements Initializable {  
+public class ADMIN_AttendanceCTRL implements Initializable {  
     @FXML
     private TableView<Attendance> adminTableView;
     @FXML

@@ -20,16 +20,17 @@ import javafx.stage.Stage;
  * @author admin
  */
 public class PaneUtil {
-   
-    public final String LOGIN_PANE = "/View/Login.fxml";
-    public final String ADMIN_PANE = "/View/AdminPane.fxml";
-    public final String RECORDS_OFFICER_PANE = "/View/RecordsOfficer.fxml";
-    public final String EMPLOYEE_MGMT_PANE = "/View/EmployeeMgmt.fxml";
-    public final String ADMIN_ATTENDANCE_PANE = "/View/Admin_attendance.fxml";
-    public final String ADMIN_DASHBOARD_PANE = "/View/Admin_dashboard.fxml";
-    public final String FP_ENROLLMENT_PANE = "/View/fpEnrollment.fxml";
-    public final String FP_IDENTIFICATION_PANE = "/View/fpIdentification.fxml";
-    public final String FP_IDENTIFICATION_SUCCESS = "/View/fpIdentificationSuccess.fxml";
+    public final String LOGIN_PANE = "/View/LoginPane.fxml";
+    public final String ADMIN_PANE = "/View/ADMIN_Pane.fxml";
+    public final String RECORDS_OFFICER_PANE = "/View/RO_Pane.fxml";
+    public final String EMPLOYEE_MGMT_PANE = "/View/ADMIN_EmpMgmt.fxml";
+    public final String ADMIN_ATTENDANCE_PANE = "/View/ADMIN_Attendance.fxml";
+    public final String ADMIN_DASHBOARD_PANE = "/View/ADMIN_Dashboard.fxml";
+    public final String FP_ENROLLMENT_PANE = "/View/FP_Enrollment.fxml";
+    public final String FP_IDENTIFICATION_PANE = "/View/FP_Identification.fxml";
+    public final String FP_IDENTIFICATION_SUCCESS = "/View/FP_IdentificationSuccess.fxml";
+    
+    
     
     public void openAttenPane(String fxmlPath){
          try {
@@ -40,6 +41,8 @@ public class PaneUtil {
             e.printStackTrace();
         }
     }
+    
+    
     
     public void openPane(String fxmlPath){
          try {
@@ -57,6 +60,8 @@ public class PaneUtil {
         }
     }
     
+    
+    
     public void exitPane(Button btnName){
             // Close the current window
             Stage stage = (Stage) btnName.getScene().getWindow();
@@ -64,10 +69,13 @@ public class PaneUtil {
     }
     
         
+    
     public void exitAndOpenNewPane(Button btnName, String fxmlPath){
             exitPane(btnName);
             openPane(fxmlPath);
     }
+    
+    
     
     public void openAndClosePane(String fxmlPath, int delayInMilliseconds) {
         try {

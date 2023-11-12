@@ -5,13 +5,8 @@
 package Fingerprint;
 
 import com.digitalpersona.uareu.*;
-import com.digitalpersona.uareu.Reader.ReaderStatus;
 import com.digitalpersona.uareu.UareUException;
-import java.awt.event.ActionListener;
-import javafx.event.ActionEvent;
-
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 
 /**

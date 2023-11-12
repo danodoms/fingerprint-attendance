@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeMgmtController">
+<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_EmpMgmtCTRL">
    <children>
       <Button fx:id="addEmployeeBtn" layoutX="156.0" layoutY="450.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="33.0" prefWidth="158.0" text="Add Employee" />
       <HBox layoutX="14.0" layoutY="13.0" prefHeight="432.0" prefWidth="313.0">

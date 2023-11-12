@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="365.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.fpEnrollmentController">
+<AnchorPane id="AnchorPane" prefHeight="365.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FP_EnrollmentCTRL">
    <children>
       <ImageView fx:id="fingerprintImage" accessibleText="fingerprint" fitHeight="250.0" fitWidth="250.0" layoutX="28.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -4,7 +4,7 @@
  */
 package Fingerprint;
 
-import Controller.LoginController;
+import Controller.LoginPaneCTRL;
 import Model.Fingerprint;
 import Model.User;
 import com.digitalpersona.uareu.Engine;
@@ -131,7 +131,7 @@ public class IdentificationThread extends Thread{
       
         Platform.runLater(() -> {
             //controllerUtils.openAndClosePane(controllerUtils.FP_IDENTIFICATION_SUCCESS, 2250);
-            identificationModal.displayIdentificationSuccess(2750, fullName);
+            identificationModal.displayIdentificationSuccess(2750, fullName, userImage);
         });  
     }
     

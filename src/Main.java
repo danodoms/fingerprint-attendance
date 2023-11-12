@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
 
-import Controller.LoginController;
+import Controller.LoginPaneCTRL;
 import Fingerprint.Selection;
 import static Fingerprint.Selection.waitAndGetReader;
 import com.digitalpersona.uareu.UareUException;

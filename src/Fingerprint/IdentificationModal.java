@@ -4,7 +4,7 @@
  */
 package Fingerprint;
 
-import Controller.FpIdentificationSuccessController;
+import Controller.FP_IdentificationSuccessCTRL;
 import Utilities.PaneUtil;
 import java.io.IOException;
 import javafx.animation.KeyFrame;
@@ -23,14 +23,14 @@ import javafx.util.Duration;
 public class IdentificationModal {
     PaneUtil paneUtil = new PaneUtil();
     
-      public void displayIdentificationSuccess(int delayInMilliseconds, String userName) {
+      public void displayIdentificationSuccess(int delayInMilliseconds, String userName, byte[] imageData) {
         try {
             // Load the FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.FP_IDENTIFICATION_SUCCESS));
             Parent root = loader.load();
             
-            FpIdentificationSuccessController controller = loader.getController();  // Access the controller
-            controller.setUserData(userName);// Set user data
+            FP_IdentificationSuccessCTRL controller = loader.getController();  // Access the controller
+            controller.setUserData(userName, imageData);// Set user data
 
             // Create a new stage for the window
             Stage stage = new Stage();

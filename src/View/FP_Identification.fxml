@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="681.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.fpIdentificationController">
+<AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="681.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FP_IdentificationCTRL">
    <children>
       <ImageView fx:id="fpIdentificationImage" fitHeight="285.0" fitWidth="259.0" layoutX="38.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
          <image>

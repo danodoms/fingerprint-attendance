@@ -18,19 +18,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import Model.*;
 import java.io.File;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import Fingerprint.*;
-import com.digitalpersona.uareu.Reader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
 
 
 
@@ -39,7 +33,7 @@ import java.util.Date;
  *
  * @author admin
  */
-public class Admin_employeeMgmtController implements Initializable {
+public class ADMIN_EmpMgmtCTRL implements Initializable {
 
     @FXML
     private TextField userIDfield, passwordField, FnameField, LnameField, MnameField;
@@ -62,26 +56,6 @@ public class Admin_employeeMgmtController implements Initializable {
     
     DatabaseUtil dbMethods = new DatabaseUtil();
     PaneUtil method = new PaneUtil();
-//    @FXML
-//    private ChoiceBox<Shift> shiftTypeChoiceBox;
-//    @FXML
-//    private Button selectImageBtn;
-//    @FXML
-//    private ImageView userImage;
-//    @FXML
-//    private Button enrollFingerprintBtn;
-//    @FXML
-//    private TextField passwordField;
-//    @FXML
-//    private TextField startTimeField;
-//    @FXML
-//    private TextField endTimeField;
-//    @FXML
-//    private ChoiceBox<String> userTypeChoiceBox;
-//    @FXML
-//    private TextField userIDfield;
-//    @FXML
-//    private ChoiceBox<String> userSuffixChoiceBox;
     
     byte[] imageBytes;
     
@@ -197,12 +171,8 @@ public class Admin_employeeMgmtController implements Initializable {
     @FXML
     private void openFingerprintPane(ActionEvent event) {
         method.openPane(method.FP_ENROLLMENT_PANE);
-//        
-//        Reader m_reader = Selection.getReader();
-//        if(m_reader != null){
-//            Enrollment.Run(m_reader);
-//        }
     }
+    
     private byte[] readImageFile(File file) throws IOException {
         FileInputStream fis = new FileInputStream(file);
         byte[] data = new byte[(int) file.length()];

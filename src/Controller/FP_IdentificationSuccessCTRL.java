@@ -4,27 +4,29 @@
  */
 package Controller;
 
-import Utilities.PaneUtil;
+import Utilities.ImageUtil;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
  *
  * @author admin
  */
-public class RecordsOfficerController implements Initializable {
+public class FP_IdentificationSuccessCTRL implements Initializable {
 
     @FXML
-    private Button fileEmpRecordBtn;
+    private Label nameLabel;
     @FXML
-    private Button logOutRecordsOfficerBtn;
-    
-    PaneUtil method = new PaneUtil();
+    private Label nameLabel1;
+    @FXML
+    private ImageView userImageView;
+
     /**
      * Initializes the controller class.
      */
@@ -32,10 +34,11 @@ public class RecordsOfficerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
-    @FXML
-    private void logOut(ActionEvent event) {
-        method.exitAndOpenNewPane(fileEmpRecordBtn, method.LOGIN_PANE);
-    }
     
+    
+     public void setUserData(String userName, byte[] imageData) {
+        // Set the actual image and name in the placeholder
+        userImageView.setImage(ImageUtil.byteArrayToImage(imageData));
+        nameLabel.setText(userName);
+    }
 }
