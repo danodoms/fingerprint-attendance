@@ -5,7 +5,7 @@ package Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
-import Utilities.ControllerUtils;
+import Utilities.PaneUtil;
 import Fingerprint.IdentificationThread;
 import com.digitalpersona.uareu.UareUException;
 import java.io.IOException;
@@ -38,6 +38,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.util.Duration;
 /**
  * FXML Controller class
@@ -56,7 +58,7 @@ public class LoginController implements Initializable {
      * Initializes the controller class.
      */
     
-    ControllerUtils method = new ControllerUtils();
+    PaneUtil method = new PaneUtil();
     @FXML
     private Button fpEnrollmentShortcutBtn;
     @FXML
@@ -85,6 +87,14 @@ public class LoginController implements Initializable {
     private Button enrollFpBtn;
     @FXML
     private Label lastEnrollDateLabel;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Pane fpIdentificationPane;
+    @FXML
+    private ImageView fpIdentificationUserImage;
+    @FXML
+    private Label fpIdentificationUserName;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -102,6 +112,8 @@ public class LoginController implements Initializable {
         
         IdentificationThread identification = new IdentificationThread(fpImageview);
         identification.start();
+        
+  
     }
     
     

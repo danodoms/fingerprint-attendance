@@ -5,6 +5,9 @@
 package Utilities;
 
 import java.io.IOException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,15 +19,8 @@ import javafx.stage.Stage;
  *
  * @author admin
  */
-public class ControllerUtils {
-    
-//<<<<<<< HEAD
-//    final String LOGIN_PANE = "/View/Login.fxml";
-//    final String ADMIN_PANE = "/View/AdminPane.fxml";
-//    final String RECORDS_OFFICER_PANE = "/View/RecordsOfficer.fxml";
-//    final String EMPLOYEE_MGMT_PANE = "/View/EmployeeMgmt.fxml";
-//    final String FINGERPRINT_PANE = "/View/Fingerprint.fxml";
-//=======
+public class PaneUtil {
+   
     public final String LOGIN_PANE = "/View/Login.fxml";
     public final String ADMIN_PANE = "/View/AdminPane.fxml";
     public final String RECORDS_OFFICER_PANE = "/View/RecordsOfficer.fxml";
@@ -33,6 +29,7 @@ public class ControllerUtils {
     public final String ADMIN_DASHBOARD_PANE = "/View/Admin_dashboard.fxml";
     public final String FP_ENROLLMENT_PANE = "/View/fpEnrollment.fxml";
     public final String FP_IDENTIFICATION_PANE = "/View/fpIdentification.fxml";
+    public final String FP_IDENTIFICATION_SUCCESS = "/View/fpIdentificationSuccess.fxml";
     
     public void openAttenPane(String fxmlPath){
          try {
@@ -43,7 +40,6 @@ public class ControllerUtils {
             e.printStackTrace();
         }
     }
-//>>>>>>> henry
     
     public void openPane(String fxmlPath){
          try {
@@ -71,6 +67,32 @@ public class ControllerUtils {
     public void exitAndOpenNewPane(Button btnName, String fxmlPath){
             exitPane(btnName);
             openPane(fxmlPath);
+    }
+    
+    public void openAndClosePane(String fxmlPath, int delayInMilliseconds) {
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Create a new stage for the window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Close the window after the specified delay
+            //Thread.sleep(delayInMilliseconds);
+            //stage.close();
+            
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.millis(delayInMilliseconds), event -> stage.close())
+            );
+            timeline.play();
+            
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
 }

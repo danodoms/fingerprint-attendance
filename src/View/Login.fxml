@@ -31,7 +31,7 @@
                         <Image url="@../Fingerprint/fp_placeholder.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="123.0" layoutY="470.0" text="biolog" textFill="#00bf79">
+                  <Label fx:id="titleLabel" layoutX="123.0" layoutY="470.0" text="biolog" textFill="#00bf79">
                      <font>
                         <Font name="Arial Bold" size="14.0" />
                      </font>
@@ -83,7 +83,11 @@
                   </Pane>
                   <Pane fx:id="fpEnrollmentPane" prefHeight="539.0" prefWidth="487.0" visible="false">
                      <children>
-                        <ImageView fx:id="userImage" fitHeight="111.0" fitWidth="120.0" layoutX="189.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="userImage" fitHeight="111.0" fitWidth="120.0" layoutX="189.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../Downloads/default_user_img.jpg" />
+                           </image>
+                        </ImageView>
                         <Circle fill="#1fffbd" layoutX="245.0" layoutY="314.0" radius="52.0" stroke="BLACK" strokeType="INSIDE" />
                         <Label fx:id="userNameLabel" layoutX="108.0" layoutY="188.0" prefHeight="25.0" prefWidth="272.0" style="-fx-alignment: center;" text="Lorem D. Ipsum" textAlignment="CENTER" textFill="#96ffcd">
                            <font>
@@ -119,6 +123,20 @@
                               </Label>
                            </children>
                         </VBox>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="fpIdentificationPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <ImageView fx:id="fpIdentificationUserImage" fitHeight="150.0" fitWidth="200.0" layoutX="169.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../Downloads/sample.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="fpIdentificationUserName" layoutX="74.0" layoutY="322.0" prefHeight="17.0" prefWidth="340.0" style="-fx-alignment: center;" text="Lorem D. Ipsum" textFill="#9effb2">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
                </children>

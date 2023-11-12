@@ -20,12 +20,15 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import Utilities.*;
 
 /**
  *
  * @author admin
  */
 public class IdentificationThread extends Thread{
+    IdentificationModal identificationModal = new IdentificationModal();
+    PaneUtil controllerUtils = new PaneUtil();
     private ImageView imageview; //sets the imageview to use as fingerprint display, likely from fpIdentification.fxml
     private Engine engine = UareUGlobal.GetEngine(); //creates engine to be used by whole class
     private CaptureThread captureThread;
@@ -125,6 +128,11 @@ public class IdentificationThread extends Thread{
         
         String fullName = fname + " " + mname + " " + lname + " " + suffix;
         System.out.println("You are " + fullName);
+      
+        Platform.runLater(() -> {
+            //controllerUtils.openAndClosePane(controllerUtils.FP_IDENTIFICATION_SUCCESS, 2250);
+            identificationModal.displayIdentificationSuccess(2750, fullName);
+        });  
     }
     
     private void userIdentificationFailed(){

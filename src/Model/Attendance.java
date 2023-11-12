@@ -4,7 +4,7 @@
  */
 package Model;
 
-import Utilities.DatabaseUtils;
+import Utilities.DatabaseUtil;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,7 +71,7 @@ public void setTimeOut(String timeOut) {
 }
         public static ObservableList<Attendance> getAttendance(){
         ObservableList<Attendance> attendance = FXCollections.observableArrayList();
-        try (Connection connection = DatabaseUtils.getConnection();
+        try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
             ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, a.date, "
@@ -115,7 +115,7 @@ public void setTimeOut(String timeOut) {
     }
         public static ObservableList<Attendance> getAttendancebyDate(){
         ObservableList<Attendance> attendance = FXCollections.observableArrayList();
-        try (Connection connection = DatabaseUtils.getConnection();
+        try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
             ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, a.date, "

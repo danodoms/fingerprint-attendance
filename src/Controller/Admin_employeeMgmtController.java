@@ -5,8 +5,8 @@ package Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
-import Utilities.DatabaseUtils;
-import Utilities.ControllerUtils;
+import Utilities.DatabaseUtil;
+import Utilities.PaneUtil;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -60,8 +60,8 @@ public class Admin_employeeMgmtController implements Initializable {
     @FXML
     private ImageView userImage;
     
-    DatabaseUtils dbMethods = new DatabaseUtils();
-    ControllerUtils method = new ControllerUtils();
+    DatabaseUtil dbMethods = new DatabaseUtil();
+    PaneUtil method = new PaneUtil();
 //    @FXML
 //    private ChoiceBox<Shift> shiftTypeChoiceBox;
 //    @FXML

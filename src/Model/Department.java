@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
-import Utilities.DatabaseUtils;
+import Utilities.DatabaseUtil;
 import Controller.*;
 
 import java.sql.Connection;
@@ -58,7 +58,7 @@ public class Department {
     
         public static ObservableList<Department> getDepartments(){
         ObservableList<Department> departments = FXCollections.observableArrayList();
-        try (Connection connection = DatabaseUtils.getConnection();
+        try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             ResultSet rs = statement.executeQuery("SELECT department_id, department_name FROM department");
             
