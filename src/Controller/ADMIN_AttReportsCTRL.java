@@ -8,6 +8,6 @@ package Controller;
  *
  * @author User
  */
-public class Admin_attReportsController {
+public class ADMIN_AttReportsCTRL {
     
 }
