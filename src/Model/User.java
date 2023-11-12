@@ -4,6 +4,7 @@
  */
 package Model;
 
+import Utilities.DatabaseUtils;
 import Controller.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -89,7 +90,7 @@ public class User {
     {
         String insertQuery = "INSERT INTO `user`(`user_fname`, `user_mname`, `user_lname`, `suffix`, `email`, `password`, `privilege`, `user_cntct`, `sex`, `birth_date`, `address`, `user_img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement preparedStatement = dbMethods.getConnection().prepareStatement(insertQuery)) {
+        try (PreparedStatement preparedStatement = DatabaseUtils.getConnection().prepareStatement(insertQuery)) {
             preparedStatement.setString(1, fName);
             preparedStatement.setString(2, mName);
             preparedStatement.setString(3, lName);
@@ -113,7 +114,7 @@ public class User {
     
     public static int getNextUserId(){
         int nextUserId = 1;
-        try (Connection connection = dbMethods.getConnection();
+        try (Connection connection = DatabaseUtils.getConnection();
             Statement statement = connection.createStatement()){
             ResultSet rs = statement.executeQuery("SELECT user_id from user order by user_id desc limit 1");
 
@@ -130,7 +131,7 @@ public class User {
     public static ObservableList<User> getUserByUserId(int userId){
         ObservableList<User> users = FXCollections.observableArrayList();
 
-        try (Connection connection = dbMethods.getConnection();
+        try (Connection connection = DatabaseUtils.getConnection();
             Statement statement = connection.createStatement()) {
 
             String query = "SELECT * FROM user WHERE user_id = ?";

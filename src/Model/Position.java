@@ -5,6 +5,7 @@
 package Model;
 
 
+import Utilities.DatabaseUtils;
 import Controller.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -75,7 +76,7 @@ public class Position {
         public static ObservableList<Position> getPositionsByDepartmentId(int departmentId) {
     ObservableList<Position> positions = FXCollections.observableArrayList();
 
-    try (Connection connection = dbMethods.getConnection();
+    try (Connection connection = DatabaseUtils.getConnection();
         Statement statement = connection.createStatement()) {
 
         String query = "SELECT position_id, position_name FROM position p JOIN department d ON p.department_id = d.department_id WHERE p.department_id = ?";

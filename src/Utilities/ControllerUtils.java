@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package Utilities;
 
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author admin
  */
-public class controllerMethods {
+public class ControllerUtils {
     
 //<<<<<<< HEAD
 //    final String LOGIN_PANE = "/View/Login.fxml";
@@ -25,14 +25,14 @@ public class controllerMethods {
 //    final String EMPLOYEE_MGMT_PANE = "/View/EmployeeMgmt.fxml";
 //    final String FINGERPRINT_PANE = "/View/Fingerprint.fxml";
 //=======
-    final String LOGIN_PANE = "/View/Login.fxml";
-    final String ADMIN_PANE = "/View/AdminPane.fxml";
-    final String RECORDS_OFFICER_PANE = "/View/RecordsOfficer.fxml";
-    final String EMPLOYEE_MGMT_PANE = "/View/EmployeeMgmt.fxml";
-    final String ADMIN_ATTENDANCE_PANE = "/View/Admin_attendance.fxml";
-    final String ADMIN_DASHBOARD_PANE = "/View/Admin_dashboard.fxml";
-    final String FP_ENROLLMENT_PANE = "/View/fpEnrollment.fxml";
-    final String FP_IDENTIFICATION_PANE = "/View/fpIdentification.fxml";
+    public final String LOGIN_PANE = "/View/Login.fxml";
+    public final String ADMIN_PANE = "/View/AdminPane.fxml";
+    public final String RECORDS_OFFICER_PANE = "/View/RecordsOfficer.fxml";
+    public final String EMPLOYEE_MGMT_PANE = "/View/EmployeeMgmt.fxml";
+    public final String ADMIN_ATTENDANCE_PANE = "/View/Admin_attendance.fxml";
+    public final String ADMIN_DASHBOARD_PANE = "/View/Admin_dashboard.fxml";
+    public final String FP_ENROLLMENT_PANE = "/View/fpEnrollment.fxml";
+    public final String FP_IDENTIFICATION_PANE = "/View/fpIdentification.fxml";
     
     public void openAttenPane(String fxmlPath){
          try {

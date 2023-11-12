@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package Utilities;
 
 import java.sql.*;
 import javafx.collections.ObservableList;
@@ -16,7 +16,7 @@ import javafx.collections.FXCollections;
  *
  * @author admin
  */
-public class dbMethods {
+public class DatabaseUtils {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/v11_attendance_system";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";

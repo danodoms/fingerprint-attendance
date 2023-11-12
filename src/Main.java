@@ -32,8 +32,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         //Automatically Select Reader
         Selection.reader = Selection.getReader();
-//        Selection selection = new Selection();
-//        selection.start();
         
         
        // Load the FXML file
@@ -49,8 +47,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         
-//        LoginController login = new LoginController();
-//        login.addSetOnCloseRequest();
         
  primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
           public void handle(WindowEvent we) {

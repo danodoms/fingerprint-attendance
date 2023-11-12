@@ -99,14 +99,15 @@ public class IdentificationThread extends Thread{
         Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, databaseFmds, falsePositiveRate, candidateCount );
 
         if(candidateFmds.length != 0){
-            System.out.println("candidate found");
+            System.out.println("Candidate found");
             //topCandidateFmd = databaseFmds[candidateFmds[0].fmd_index];
             int topCandidateFmdIndex = candidateFmds[0].fmd_index;
             int matchingUserId = fingerprintList.get(topCandidateFmdIndex).getUserId();
-            displayIdentifiedUser(matchingUserId);
+            userIdentificationSuccess(matchingUserId);
             return true;
         }else{
-            System.out.println("no candidate/s found");
+            userIdentificationFailed();
+            System.out.println("No candidate/s found");
             return false;
         }
     }
@@ -114,7 +115,7 @@ public class IdentificationThread extends Thread{
     
     
     //this method is used by "compareFmdToDatabaseFmds" for display purposes
-    private void displayIdentifiedUser(int userId){
+    private void userIdentificationSuccess(int userId){
         userList = User.getUserByUserId(userId);
         String fname = userList.get(0).getfName();
         String mname = userList.get(0).getmName();
@@ -124,6 +125,9 @@ public class IdentificationThread extends Thread{
         
         String fullName = fname + " " + mname + " " + lname + " " + suffix;
         System.out.println("You are " + fullName);
+    }
+    
+    private void userIdentificationFailed(){
     }
     
     

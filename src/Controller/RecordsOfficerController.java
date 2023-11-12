@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Utilities.ControllerUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ public class RecordsOfficerController implements Initializable {
     @FXML
     private Button logOutRecordsOfficerBtn;
     
-    controllerMethods method = new controllerMethods();
+    ControllerUtils method = new ControllerUtils();
     /**
      * Initializes the controller class.
      */

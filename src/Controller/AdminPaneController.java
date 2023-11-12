@@ -5,6 +5,7 @@ package Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
+import Utilities.ControllerUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -37,7 +38,7 @@ public class AdminPaneController implements Initializable {
     private BorderPane borderPaneOb;
     
     private AnchorPane view;
-    controllerMethods method = new controllerMethods();
+    ControllerUtils method = new ControllerUtils();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

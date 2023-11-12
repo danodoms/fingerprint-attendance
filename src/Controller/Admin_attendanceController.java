@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Utilities.DatabaseUtils;
+import Utilities.ControllerUtils;
 import Model.*;
 import static Model.Attendance.getAttendance;
 import java.net.URL;
@@ -54,8 +56,8 @@ public class Admin_attendanceController implements Initializable {
     private Button resetBtn;
     
     
-    dbMethods dbMethods = new dbMethods();
-    controllerMethods method = new controllerMethods();
+    DatabaseUtils dbMethods = new DatabaseUtils();
+    ControllerUtils method = new ControllerUtils();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {

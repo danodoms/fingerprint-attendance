@@ -4,6 +4,7 @@
  */
 package Model;
 
+import Utilities.DatabaseUtils;
 import java.util.Date;
 import Controller.*;
 import com.digitalpersona.uareu.Fmd;
@@ -69,7 +70,7 @@ public class Fingerprint {
     public static void insertFmd(int userId, Fmd fmd) {
     String insertQuery = "INSERT INTO fingerprint (user_id, fmd, width, height, resolution, finger_position, cbeff_id, register_date) VALUES (?, ?, ?, ?, ?, ?, ?, DATE(NOW()))";
 
-        try (PreparedStatement preparedStatement = dbMethods.getConnection().prepareStatement(insertQuery)) {
+        try (PreparedStatement preparedStatement = DatabaseUtils.getConnection().prepareStatement(insertQuery)) {
             preparedStatement.setInt(1, userId);
 
             // Convert FMD to a byte array
@@ -100,7 +101,7 @@ public class Fingerprint {
     public static ObservableList<Fingerprint> getFingerprints() {
     ObservableList<Fingerprint> Fingerprints = FXCollections.observableArrayList();
 
-    try (Connection connection = dbMethods.getConnection();
+    try (Connection connection = DatabaseUtils.getConnection();
         Statement statement = connection.createStatement()) {
         String query = "SELECT * FROM fingerprint";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

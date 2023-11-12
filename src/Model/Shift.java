@@ -4,6 +4,7 @@
  */
 package Model;
 
+import Utilities.DatabaseUtils;
 import Controller.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -83,7 +84,7 @@ public class Shift {
     public static ObservableList<Shift> getShifts() {
     ObservableList<Shift> shifts = FXCollections.observableArrayList();
 
-    try (Connection connection = dbMethods.getConnection();
+    try (Connection connection = DatabaseUtils.getConnection();
         Statement statement = connection.createStatement()) {
         String query = "SELECT * FROM `shift`";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

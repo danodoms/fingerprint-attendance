@@ -5,6 +5,7 @@ package Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
+import Utilities.ControllerUtils;
 import Fingerprint.IdentificationThread;
 import com.digitalpersona.uareu.UareUException;
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class LoginController implements Initializable {
      * Initializes the controller class.
      */
     
-    controllerMethods method = new controllerMethods();
+    ControllerUtils method = new ControllerUtils();
     @FXML
     private Button fpEnrollmentShortcutBtn;
     @FXML
@@ -101,9 +102,6 @@ public class LoginController implements Initializable {
         
         IdentificationThread identification = new IdentificationThread(fpImageview);
         identification.start();
-        
-        
-
     }
     
     
