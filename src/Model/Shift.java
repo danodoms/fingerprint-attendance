@@ -24,25 +24,31 @@ public class Shift {
     private String startTime;
     private String endTime;
 
+    //CONSTRUCTOR
     public Shift(int id, String shiftName, String startTime, String endTime) {
         this.id = id;
         this.shiftName = shiftName;
         this.startTime = startTime;
         this.endTime = endTime;
     }
+    
+    //CONSTRUCTOR
+    public Shift(String shiftName) {
+        this.shiftName = shiftName;
+    }
    
+    //CONSTRUCTOR
     public Shift(int id, String shiftName) {
         this.id = id;
         this.shiftName = shiftName;
     }
     
+    //CONSTRUCTOR
     public Shift(int id){
         this.id = id;
     }
     
-    public Shift(String shiftName) {
-        this.shiftName = shiftName;
-    }
+    
 
     public int getId() {
         return id;

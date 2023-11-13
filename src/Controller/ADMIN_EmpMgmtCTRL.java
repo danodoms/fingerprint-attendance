@@ -1,32 +1,23 @@
-package Controller;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
+package Controller;
 
-import Utilities.DatabaseUtil;
-import Utilities.PaneUtil;
+import Model.Assignment;
+import Model.Department;
+import Model.Shift;
+import Model.User;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import Model.*;
-import java.io.File;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.time.LocalDate;
-
-
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -36,150 +27,92 @@ import java.time.LocalDate;
 public class ADMIN_EmpMgmtCTRL implements Initializable {
 
     @FXML
-    private TextField userIDfield, passwordField, FnameField, LnameField, MnameField;
+    private TableView<User> userTable;
     @FXML
-    private TextField emailField, contactNumField, addressField, startTimeField, endTimeField;
+    private TableView<Assignment> assignmentTable;
     @FXML
-    private ChoiceBox<Department> departmentChoiceBox;
+    private ChoiceBox<String> privilegeFilter_choiceBox;
     @FXML
-    private ChoiceBox<Position> positionChoiceBox;
+    private ChoiceBox<Department> departmentFilter_choiceBox;
     @FXML
-    private ChoiceBox<Shift> shiftTypeChoiceBox;
+    private ChoiceBox<Shift> shiftFilter_choiceBox;
     @FXML
-    private ChoiceBox<String> sexChoiceBox, userTypeChoiceBox, userSuffixChoiceBox;
+    private TableColumn<User, Integer> col_user_id;
     @FXML
-    private DatePicker dateOfBirthPicker;
+    private TableColumn<User, String> col_fname;
     @FXML
-    private Button addEmployeeBtn, selectImageBtn, enrollFingerprintBtn;
+    private TableColumn<User, String> col_mname;
     @FXML
-    private ImageView userImage;
-    
-    DatabaseUtil dbMethods = new DatabaseUtil();
-    PaneUtil method = new PaneUtil();
-    
-    byte[] imageBytes;
-    
-    
-    
+    private TableColumn<User, String> col_lname;
+    @FXML
+    private TableColumn<User, String> col_suffix;
+    @FXML
+    private TableColumn<User, String> col_privilege;
+    @FXML
+    private TableColumn<User, String> col_email;
+    @FXML
+    private TableColumn<User, String> col_contact_num;
+    @FXML
+    private TableColumn<User, String> col_birthday;
+    @FXML
+    private TableColumn<Assignment, Integer> col_assignment_id;
+    @FXML
+    private TableColumn<Assignment, String> col_department;
+    @FXML
+    private TableColumn<Assignment, String> col_position;
+    @FXML
+    private TableColumn<Assignment, String> col_shift;
 
     /**
      * Initializes the controller class.
      */
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         //USER ID TEXT FIELD INITIALIZATION
-         userIDfield.setText(User.getNextUserId()+"");
-         
-         //USER SUFFIX INITIALIZATION
-         userSuffixChoiceBox.setValue("Select Suffix");
-         userSuffixChoiceBox.getItems().addAll("None","Jr.", "II", "III", "IV");
+        // TODO
+        showUserTable();
         
-         //USER TYPE CHOICE BOX INITIALIZATION
-         userTypeChoiceBox.setValue("Select User Type");
-         userTypeChoiceBox.getItems().addAll("Employee", "Admin", "Records Officer");
-         
-         
-         //DEPARTMENT CHOICE BOX INITIALIZATION
-         departmentChoiceBox.setItems(Department.getDepartments());
-         departmentChoiceBox.setOnAction(this::updatePositionChoiceBox);
-         
-         //SEX CHOICE BOX INITIALIZATION
-         sexChoiceBox.setValue("Select Sex");
-         sexChoiceBox.getItems().addAll("Male", "Female");
-         
-         //SHIFT TYPE CHOICE BOX INITIALIZATION
-         shiftTypeChoiceBox.setItems(Shift.getShifts());
-         shiftTypeChoiceBox.setOnAction(this::showShiftDetails);
+        privilegeFilter_choiceBox.setValue("All");
+        privilegeFilter_choiceBox.getItems().addAll("All","employee","admin","records officer");
+        
+        shiftFilter_choiceBox.setValue(new Shift("All"));
+        shiftFilter_choiceBox.getItems().addAll(new Shift("All"));
+        shiftFilter_choiceBox.getItems().addAll(Shift.getShifts());
+        
+        departmentFilter_choiceBox.setValue(new Department("All"));
+        departmentFilter_choiceBox.getItems().addAll(new Department("All"));
+        departmentFilter_choiceBox.getItems().addAll(Department.getDepartments());
+        
+        //USER TABLE
+        col_user_id.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
+        col_fname.setCellValueFactory(new PropertyValueFactory<User, String>("fName"));
+        col_mname.setCellValueFactory(new PropertyValueFactory<User, String>("mName"));
+        col_lname.setCellValueFactory(new PropertyValueFactory<User, String>("lName"));
+        col_suffix.setCellValueFactory(new PropertyValueFactory<User, String>("suffix"));
+        col_privilege.setCellValueFactory(new PropertyValueFactory<User, String>("privilege"));
+        col_email.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
+        col_contact_num.setCellValueFactory(new PropertyValueFactory<User, String>("contactNum"));
+        col_birthday.setCellValueFactory(new PropertyValueFactory<User, String>("birthDate"));
+
+        //ASSIGNMENT TABLE
+        col_assignment_id.setCellValueFactory(new PropertyValueFactory<Assignment, Integer>("id"));
+        col_position.setCellValueFactory(new PropertyValueFactory<Assignment, String>("position"));
+        col_department.setCellValueFactory(new PropertyValueFactory<Assignment, String>("department"));
+        col_shift.setCellValueFactory(new PropertyValueFactory<Assignment, String>("shift"));
+    }    
+    
+     public void showUserTable(){
+        ObservableList<User> users = User.getUsers();
+        userTable.setItems(users);
+    }
+     
+    public void showAssignmentTable(int user_id){
+        ObservableList<Assignment> assignments = Assignment.getAssignmentByUserId(user_id);
+        assignmentTable.setItems(assignments);
     }    
 
     @FXML
-    private void addEmployee(ActionEvent event) {
-        String fName = FnameField.getText();
-        String mName = MnameField.getText();
-        String lName = LnameField.getText();
-        String suffix = userSuffixChoiceBox.getValue();
-        String email = emailField.getText();
-        String password = passwordField.getText();
-        String privilege = userTypeChoiceBox.getValue();
-        String contactNum = contactNumField.getText();
-        String sex = sexChoiceBox.getValue();
-        LocalDate birthDate = dateOfBirthPicker.getValue();
-        String address = addressField.getText();
-        byte[] image = imageBytes;
-        
-        User.addUser(fName, mName, lName, suffix, email, password, privilege, 0, sex, birthDate, address, image);
-    }
-
-    private void updatePositionChoiceBox(ActionEvent event) {
-        System.out.println("update position choice box");
-        Department selectedDepartment = departmentChoiceBox.getValue();
-        positionChoiceBox.setItems(Position.getPositionsByDepartmentId(selectedDepartment.getId()));
-    }
-    
-
-    @FXML
-    private void selectImg(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"));
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
-
-        if (selectedFile != null) {
-            try {
-                // Read the selected image file into a byte array
-                imageBytes = readImageFile(selectedFile);
-
-                if (imageBytes != null) {
-                    // Store the imageBytes in the database or perform other actions
-                    System.out.println("Image selected and read as bytes.");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            // Display the selected image in an ImageView (optional)
-            String filePath = selectedFile.getAbsolutePath();
-            Image image = new Image(selectedFile.toURI().toString());
-            userImage.setImage(image);
-        }
-    }
-    
-    //Display start time and end time on startTime and endTime fields on employee mgmt pane
-    private void showShiftDetails(ActionEvent event) {
-        
-        //Stores the selected shift
-        Shift selectedShift = shiftTypeChoiceBox.getValue();
-        
-        //Stores the id of the selected shift
-        int id = selectedShift.getId();
-        
-        String startTime = selectedShift.getStartTime();
-        String endTime = selectedShift.getEndTime();
-        
-        startTimeField.setText(startTime);
-        endTimeField.setText(endTime);
-        
-        
-        //DEBUGGER
-        System.out.println("SelectedShiftID: " + id);
-        System.out.println("Selected Shift: " + selectedShift);
-        System.out.println("SelectedShiftStart: " + selectedShift.getStartTime());
-        System.out.println("SelectedShiftEnd: " + selectedShift.getEndTime());
-        
-    }
-
-    @FXML
-    private void openFingerprintPane(ActionEvent event) {
-        method.openPane(method.FP_ENROLLMENT_PANE);
-    }
-    
-    private byte[] readImageFile(File file) throws IOException {
-        FileInputStream fis = new FileInputStream(file);
-        byte[] data = new byte[(int) file.length()];
-        fis.read(data);
-        fis.close();
-        return data;
+    private void updateAssignmentTable(MouseEvent event) {
+        User selectedItem = userTable.getSelectionModel().getSelectedItem();
+        showAssignmentTable(selectedItem.getId());
     }
 }
-
-    

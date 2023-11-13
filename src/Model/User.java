@@ -133,6 +133,39 @@ public class User {
         }
         return nextUserId;  
     }
+    
+    
+    public static ObservableList<User> getUsers(){
+        ObservableList<User> users = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("select * from user where user_status = 1;");
+            
+            while (rs.next()) {
+                  users.add(new User(
+                        rs.getInt("user_id"),
+                        rs.getString("user_fname"),
+                        rs.getString("user_mname"),
+                        rs.getString("user_lname"),
+                        rs.getString("suffix"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("privilege"),
+                        rs.getInt("user_cntct"),
+                        rs.getString("sex"),
+                        rs.getDate("birth_date").toLocalDate(),
+                        rs.getString("address"),
+                        rs.getBytes("user_img"),
+                        rs.getInt("user_status")  
+                  ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users; 
+    }
+    
           
     public static ObservableList<User> getUserByUserId(int userId){
         ObservableList<User> users = FXCollections.observableArrayList();

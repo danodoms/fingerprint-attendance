@@ -7,18 +7,18 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="523.0" prefWidth="928.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_PaneCTRL">
+<AnchorPane id="AnchorPane" prefHeight="592.0" prefWidth="1077.0" style="-fx-background-color: #1a1a1a;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_PaneCTRL">
     <stylesheets>
         <URL value="@style.css" />
     </stylesheets>
    <children>
-      <BorderPane fx:id="borderPaneOb" prefHeight="200.0" prefWidth="200.0">
+      <BorderPane fx:id="borderPaneOb" prefHeight="592.0" prefWidth="187.0" style="-fx-background-color: #1a1a1a;">
          <left>
-            <VBox prefHeight="457.0" prefWidth="192.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="573.0" prefWidth="168.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="dashBoardBtn" mnemonicParsing="false" onAction="#openDashboardPane" prefHeight="40.0" prefWidth="215.0" text="Dasboard" />
                   <Button fx:id="attendanceViewer" mnemonicParsing="false" onAction="#openAttendancePane" prefHeight="40.0" prefWidth="215.0" text="Attendance" />
-                  <Button fx:id="addEmployeeBtn" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="215.0" text="Add Employee" />
+                  <Button fx:id="addEmployeeBtn" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="215.0" text="Manage Employee" />
                   <Button fx:id="attendanceReportBtn" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="215.0" text="Attendance Reports" />
                   <Button fx:id="logOutAdminBtn" mnemonicParsing="false" onAction="#logOut" prefHeight="40.0" prefWidth="215.0" text="Log Out" />
                </children>
