@@ -139,7 +139,6 @@ public class LoginController implements Initializable {
     private void openFpIdentificationPane(ActionEvent event) {
         method.openPane(method.FP_IDENTIFICATION_PANE);
     }
-    
     public static void setVisibleFpIdentificationPane(){
         fpIdentificationPane.setVisible(true);
     }

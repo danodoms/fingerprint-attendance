@@ -67,7 +67,6 @@ public class Admin_attendanceController implements Initializable {
     public void clearChoiceBox(ActionEvent event){
         setTable();
     }
-    
 //    @FXML
     public void setTable(){
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -93,7 +92,6 @@ public class Admin_attendanceController implements Initializable {
                     return "";
                 }
             }
-
             @Override
             public LocalDate fromString(String string) {
                 if (string != null && !string.isEmpty()) {
@@ -186,8 +184,7 @@ public class Admin_attendanceController implements Initializable {
             }
         adminTableView.setItems(filteredData);
     }
-    
-    
+     
     private void filterByDept() {
         ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
         String keyword = searchBar.getText().toLowerCase(); 

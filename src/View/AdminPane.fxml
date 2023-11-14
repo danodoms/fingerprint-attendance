@@ -19,7 +19,8 @@
                   <Button fx:id="dashBoardBtn" mnemonicParsing="false" onAction="#openDashboardPane" prefHeight="40.0" prefWidth="215.0" text="Dasboard" />
                   <Button fx:id="attendanceViewer" mnemonicParsing="false" onAction="#openAttendancePane" prefHeight="40.0" prefWidth="215.0" text="Attendance" />
                   <Button fx:id="addEmployeeBtn" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="215.0" text="Add Employee" />
-                  <Button fx:id="attendanceReportBtn" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="215.0" text="Attendance Reports" />
+                  <Button fx:id="empMgmntBtn" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="215.0" text="Employee Management" />
+                  <Button fx:id="attendanceReportBtn" mnemonicParsing="false" onAction="#openAttRepPane" prefHeight="40.0" prefWidth="215.0" text="Attendance Reports" />
                   <Button fx:id="logOutAdminBtn" mnemonicParsing="false" onAction="#logOut" prefHeight="40.0" prefWidth="215.0" text="Log Out" />
                </children>
                <BorderPane.margin>

@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin_attendanceController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin_attendanceController">
    <children>
       <HBox layoutX="90.0" layoutY="75.0" prefHeight="50.0" prefWidth="584.0">
          <children>
@@ -47,19 +47,19 @@
             <Insets left="30.0" />
          </padding>
       </HBox>
-      <Line endX="99.0" endY="-25.207107543945312" fill="#65b9f5" layoutX="573.0" layoutY="97.0" opacity="0.53" startX="99.0" startY="383.0" stroke="#a0adbf" strokeLineJoin="ROUND" strokeWidth="5.0" />
-      <TableView fx:id="adminTableView" layoutX="16.0" layoutY="126.0" prefHeight="345.0" prefWidth="649.0">
+      <Line endX="99.0" endY="-25.207107543945312" fill="#65b9f5" layoutX="594.0" layoutY="97.0" opacity="0.53" startX="99.0" startY="383.0" stroke="#a0adbf" strokeLineJoin="ROUND" strokeWidth="5.0" />
+      <TableView fx:id="adminTableView" layoutX="16.0" layoutY="126.0" prefHeight="345.0" prefWidth="670.0">
          <columns>
             <TableColumn fx:id="nameCol" prefWidth="173.0" text="Name" />
-            <TableColumn fx:id="dateCol" prefWidth="81.0" text="Date" />
-            <TableColumn fx:id="tiCol" minWidth="0.0" prefWidth="82.0" text="Time In" />
-            <TableColumn fx:id="toCol" minWidth="0.0" prefWidth="91.0" text="Time Out" />
-            <TableColumn fx:id="timeNotation" minWidth="0.0" prefWidth="104.0" text="Time Notation" />
-            <TableColumn fx:id="status" prefWidth="117.0" text="Status" />
+            <TableColumn fx:id="dateCol" prefWidth="112.0" text="Date" />
+            <TableColumn fx:id="tiCol" minWidth="0.0" prefWidth="95.0" text="Time In" />
+            <TableColumn fx:id="toCol" minWidth="0.0" prefWidth="95.0" text="Time Out" />
+            <TableColumn fx:id="timeNotation" minWidth="0.0" prefWidth="102.0" text="Time Notation" />
+            <TableColumn fx:id="status" prefWidth="92.0" text="Status" />
          </columns>
       </TableView>
-      <Line endX="20.0" endY="85.29289245605469" layoutY="-18.0" startX="669.0" startY="85.29289245605469" stroke="#319ce8" strokeWidth="11.0" />
-      <Line endX="20.0" endY="85.29289245605469" layoutY="395.0" startX="669.0" startY="85.29289245605469" stroke="#319ce8" strokeWidth="11.0" />
+      <Line endX="20.0" endY="85.29289245605469" layoutX="1.0" layoutY="-18.0" startX="690.0" startY="85.29289245605469" stroke="#319ce8" strokeWidth="11.0" />
+      <Line endX="20.0" endY="85.29289245605469" layoutY="395.0" startX="690.0" startY="85.29289245605469" stroke="#319ce8" strokeWidth="11.0" />
       <Label layoutX="192.0" layoutY="8.0" text="ATTENDANCE RECORD">
          <font>
             <Font name="Berlin Sans FB" size="30.0" />

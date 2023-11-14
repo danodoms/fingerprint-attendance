@@ -29,7 +29,7 @@ import javafx.scene.layout.Pane;
 public class AdminPaneController implements Initializable {
 
     @FXML
-    private Button addEmployeeBtn, dashBoardBtn, attendanceViewer, logOutAdminBtn;
+    private Button addEmployeeBtn, dashBoardBtn, attendanceViewer, logOutAdminBtn, attendanceReportBtn;
     /**
      * Initializes the controller class.
      */
@@ -67,12 +67,18 @@ public class AdminPaneController implements Initializable {
     private void openEmpPane(ActionEvent event) throws IOException {
         view = FXMLLoader.load(getClass().getResource(method.EMPLOYEE_MGMT_PANE));
         borderPaneOb.setCenter(view);
-
     }
 
     @FXML
     private void logOut(ActionEvent event) {
         method.exitAndOpenNewPane(logOutAdminBtn, method.LOGIN_PANE);
     }
+    
+    @FXML
+    private void openAttRepPane(ActionEvent event) throws IOException {
+        view = FXMLLoader.load(getClass().getResource(method.ADMIN_ATT_REP_PANE));
+        borderPaneOb.setCenter(view);
+    }
+    
     
 }

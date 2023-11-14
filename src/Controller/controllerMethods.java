@@ -33,6 +33,8 @@ public class controllerMethods {
     final String ADMIN_DASHBOARD_PANE = "/View/Admin_dashboard.fxml";
     final String FP_ENROLLMENT_PANE = "/View/fpEnrollment.fxml";
     final String FP_IDENTIFICATION_PANE = "/View/fpIdentification.fxml";
+    final String ADMIN_ATT_REP_PANE = "/View/Admin_attReports.fxml";
+    final String ADMIN_ATTENDANCE_WORD = "/View/Admin_attWordGenerator.fxml";
     
     public void openAttenPane(String fxmlPath){
          try {
