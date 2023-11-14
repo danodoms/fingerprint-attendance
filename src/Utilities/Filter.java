@@ -58,7 +58,7 @@ public class Filter {
         }
         
         public static String privilege(String privilege){
-            if(privilege.equals("")){
+            if(privilege.equals("Select")){
                 return "Privilege can't be empty";
             }else{
                 return "";
