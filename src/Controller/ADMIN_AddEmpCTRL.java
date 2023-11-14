@@ -27,6 +27,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Pos;
@@ -108,6 +109,9 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         String password = passwordField.getText();
         String repeatPassword = repeatPasswordField.getText();
         String privilege = privilegeChoiceBox.getValue();
+            if(privilege.equals("None")){
+                   privilege = null;
+               }
         String contactNum = contactNumField.getText();
         String sex = sexChoiceBox.getValue();
             if(sex.equals("Select")){
@@ -123,14 +127,14 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         try {
             if(prompt.equals("")){
                 User.addUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
-                showModal("Employee added successfully!");
+                showModal("Success","Employee added successfully!");
                 clearFields();
             }else{
-                showModal(prompt);
+                showModal("Failed", prompt);
             }
         } catch (SQLException ex) {
             System.out.println("Database error, check inputs");
-            showModal("Database error");
+            showModal("Failed", "Database error");
             ex.printStackTrace();
         }
         
@@ -138,23 +142,41 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     }
     
     private String generatePrompt(User user, String repeatedPassword){
+        ArrayList<String> promptList = new ArrayList<>();
+        String filterPrompt = "";
         
+        String fnamePrompt = Filter.REQUIRED.name(user.getFname(), "First Name");
+        String mnamePrompt = Filter.OPTIONAL.name(user.getMname(), "Middle Name");
+        String lnamePrompt = Filter.REQUIRED.name(user.getLname(), "Last Name");
+        String emailPrompt = Filter.REQUIRED.email(user.getEmail());
+        String passwordPrompt = Filter.REQUIRED.password(user.getPassword(), repeatedPassword);
+        String privilegePrompt = Filter.REQUIRED.privilege(user.getPrivilege());
         
-        String fnamePrompt = Filter.filterName(user.getFname(), "First Name");
-        String mnamePrompt = Filter.filterName(user.getMname(), "Middle Name");
-        String lnamePrompt = Filter.filterName(user.getLname(), "Last Name");
+        //add prompts to promptList
+        promptList.add(fnamePrompt);
+        promptList.add(mnamePrompt);
+        promptList.add(lnamePrompt);
+        promptList.add(emailPrompt);
+        promptList.add(passwordPrompt);
+        promptList.add(privilegePrompt);
         
-        
-        String filterPrompt = fnamePrompt + "\n" + mnamePrompt + "\n" + lnamePrompt;
+        //Combines all prompts from promptlist and also adds new line for each
+        for(int i=0; i<promptList.size(); i++){
+            if(!(promptList.get(i).equals("")) && i == promptList.size()-1){
+                filterPrompt += promptList.get(i);
+            }else if(!(promptList.get(i).equals(""))){
+                filterPrompt += promptList.get(i) + "\n";
+            }
+        }
         
         return filterPrompt;
     }
     
     
-    private void showModal(String message) {
+    private void showModal(String title, String message) {
         Stage successStage = new Stage();
         successStage.initModality(Modality.APPLICATION_MODAL);
-        successStage.setTitle("Success");
+        successStage.setTitle(title);
 
         Label successLabel = new Label(message);
         Button closeButton = new Button("Close");
@@ -166,7 +188,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         // Center the content
         modalContent.setAlignment(Pos.CENTER);
 
-        Scene successScene = new Scene(modalContent, 250, 150);
+        Scene successScene = new Scene(modalContent, 350, 250);
         successStage.setScene(successScene);
         successStage.show();
     }
@@ -184,6 +206,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         dateOfBirthPicker.setValue(null);
         contactNumField.clear();
         addressField.clear();
+        repeatPasswordField.clear();
     }
     
 
