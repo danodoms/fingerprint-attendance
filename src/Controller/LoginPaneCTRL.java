@@ -8,6 +8,7 @@ package Controller;
 import Utilities.PaneUtil;
 import Fingerprint.IdentificationThread;
 import Model.User;
+import Utilities.EncryptionUtil;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.animation.AnimationTimer;
@@ -112,7 +113,7 @@ public class LoginPaneCTRL implements Initializable {
             String email = user.getEmail();
             String password = user.getPassword();
             
-            if(enteredPassword.equals(password)){
+            if(EncryptionUtil.verifyPassword(enteredPassword, password)){
                 System.out.println("password matched");
                 proceedUserLogin(user);
             }else{

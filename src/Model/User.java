@@ -6,6 +6,7 @@ package Model;
 
 import Utilities.DatabaseUtil;
 import Controller.*;
+import Utilities.EncryptionUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -94,6 +95,7 @@ public class User {
         String address,
         byte[] image) throws SQLException
     {
+        String hashedPassword = EncryptionUtil.hashPassword(password);
         String insertQuery = "INSERT INTO `user`(`user_fname`, `user_mname`, `user_lname`, `suffix`, `email`, `password`, `privilege`, `user_cntct`, `sex`, `birth_date`, `address`, `user_img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(insertQuery);
@@ -102,11 +104,17 @@ public class User {
             preparedStatement.setString(3, lname);
             preparedStatement.setString(4, suffix);
             preparedStatement.setString(5, email);
-            preparedStatement.setString(6, password);
+            preparedStatement.setString(6, hashedPassword);
             preparedStatement.setString(7, privilege);
             preparedStatement.setString(8, contactNum);
             preparedStatement.setString(9, sex);
-            preparedStatement.setDate(10, Date.valueOf(birthDate.toString()));
+            
+            if (birthDate != null) {
+                preparedStatement.setDate(10, Date.valueOf(birthDate.toString()));
+            } else {
+                preparedStatement.setNull(10, java.sql.Types.DATE);
+            }
+
             preparedStatement.setString(11, address);
             preparedStatement.setBytes(12, image);
             
@@ -138,6 +146,12 @@ public class User {
             ResultSet rs = statement.executeQuery("select * from user where user_status = 1;");
             
             while (rs.next()) {
+                LocalDate birthDate = null;
+                java.sql.Date sqlBirthDate = rs.getDate("birth_date");
+                if (sqlBirthDate != null) {
+                    birthDate = sqlBirthDate.toLocalDate();
+                }
+
                   users.add(new User(
                         rs.getInt("user_id"),
                         rs.getString("user_fname"),
@@ -149,7 +163,7 @@ public class User {
                         rs.getString("privilege"),
                         rs.getString("user_cntct"),
                         rs.getString("sex"),
-                        rs.getDate("birth_date").toLocalDate(),
+                        birthDate,
                         rs.getString("address"),
                         rs.getBytes("user_img"),
                         rs.getInt("user_status")  
@@ -178,6 +192,12 @@ public class User {
             ResultSet rs = preparedStatement.executeQuery();
             
             while (rs.next()) {
+                LocalDate birthDate = null;
+                java.sql.Date sqlBirthDate = rs.getDate("birth_date");
+                if (sqlBirthDate != null) {
+                    birthDate = sqlBirthDate.toLocalDate();
+                }
+                
                   users.add(new User(
                         rs.getInt("user_id"),
                         rs.getString("user_fname"),
@@ -189,7 +209,7 @@ public class User {
                         rs.getString("privilege"),
                         rs.getString("user_cntct"),
                         rs.getString("sex"),
-                        rs.getDate("birth_date").toLocalDate(),
+                        birthDate,
                         rs.getString("address"),
                         rs.getBytes("user_img"),
                         rs.getInt("user_status")    
