@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author admin
  */
-public class EncryptionUtil {
+public class Encryption {
     public static String hashPassword(String password) {
         try {
             // Create MessageDigest instance for SHA-256

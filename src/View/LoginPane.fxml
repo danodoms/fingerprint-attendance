@@ -72,7 +72,7 @@
                               </Button>
                            </children>
                         </VBox>
-                        <VBox layoutX="122.0" layoutY="105.0" prefHeight="210.0" prefWidth="248.0">
+                        <VBox layoutX="122.0" layoutY="105.0" prefHeight="236.0" prefWidth="248.0">
                            <children>
                               <Label prefHeight="37.0" prefWidth="253.0" style="-fx-alignment: center;" text="Login" textFill="#6effbe">
                                  <font>
@@ -102,7 +102,8 @@
                                     <Insets bottom="12.0" />
                                  </VBox.margin>
                               </CheckBox>
-                              <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#authenticate" prefHeight="41.0" prefWidth="248.0" style="-fx-background-color: #07f9a2;" text="Login" textFill="#1b1b1b" />
+                              <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#authenticate" prefHeight="33.0" prefWidth="248.0" style="-fx-background-color: #07f9a2;" text="Login" textFill="#1b1b1b" />
+                              <Label fx:id="loginPrompt" focusTraversable="false" prefHeight="32.0" prefWidth="248.0" style="-fx-alignment: center;" text="Invalid Credentials" textAlignment="CENTER" textFill="#ff572d" visible="false" />
                            </children>
                         </VBox>
                      </children>

@@ -8,7 +8,7 @@ package Controller;
 import Utilities.PaneUtil;
 import Fingerprint.IdentificationThread;
 import Model.User;
-import Utilities.EncryptionUtil;
+import Utilities.Encryption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.animation.AnimationTimer;
@@ -78,6 +78,8 @@ public class LoginPaneCTRL implements Initializable {
     private TextField emailField;
     @FXML
     private CheckBox showPassCheckBox;
+    @FXML
+    private Label loginPrompt;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -117,17 +119,34 @@ public class LoginPaneCTRL implements Initializable {
         User user = User.getUserByEmail(enteredEmail);
         
         
+        
+        
+        
         if(user == null){
             System.out.println("Email does not exist");
+            loginPrompt.setVisible(true);
+            loginPrompt.setText("Email does not exist");
         }else{
+            
             String email = user.getEmail();
             String password = user.getPassword();
             
-            if(EncryptionUtil.verifyPassword(enteredPassword, password)){
+            if(enteredEmail.equals("") && enteredPassword.equals("")){
+             loginPrompt.setText("Fields can't be empty");
+             loginPrompt.setVisible(true);
+            }else if(enteredEmail.equals("")){
+                loginPrompt.setText("Email can't be empty");
+                loginPrompt.setVisible(true);
+            }else if(enteredPassword.equals("")){
+                loginPrompt.setText("Password can't be empty");
+                loginPrompt.setVisible(true);
+            }else if(Encryption.verifyPassword(enteredPassword, password)){
                 System.out.println("password matched");
                 proceedUserLogin(user);
             }else{
                 System.out.println("password mismatched");
+                loginPrompt.setVisible(true);
+                loginPrompt.setText("Incorrect Password");
             }
         }
     }

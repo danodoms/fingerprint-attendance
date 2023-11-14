@@ -6,7 +6,7 @@ package Model;
 
 import Utilities.DatabaseUtil;
 import Controller.*;
-import Utilities.EncryptionUtil;
+import Utilities.Encryption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -110,7 +110,7 @@ public class User {
         String address,
         byte[] image) throws SQLException
     {
-        String hashedPassword = EncryptionUtil.hashPassword(password);
+        String hashedPassword = Encryption.hashPassword(password);
         String insertQuery = "INSERT INTO `user`(`user_fname`, `user_mname`, `user_lname`, `suffix`, `email`, `password`, `privilege`, `user_cntct`, `sex`, `birth_date`, `address`, `user_img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(insertQuery);
