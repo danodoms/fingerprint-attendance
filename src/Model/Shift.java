@@ -4,6 +4,7 @@
  */
 package Model;
 
+import Utilities.DatabaseUtil;
 import Controller.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,25 +24,31 @@ public class Shift {
     private String startTime;
     private String endTime;
 
+    //CONSTRUCTOR
     public Shift(int id, String shiftName, String startTime, String endTime) {
         this.id = id;
         this.shiftName = shiftName;
         this.startTime = startTime;
         this.endTime = endTime;
     }
+    
+    //CONSTRUCTOR
+    public Shift(String shiftName) {
+        this.shiftName = shiftName;
+    }
    
+    //CONSTRUCTOR
     public Shift(int id, String shiftName) {
         this.id = id;
         this.shiftName = shiftName;
     }
     
+    //CONSTRUCTOR
     public Shift(int id){
         this.id = id;
     }
     
-    public Shift(String shiftName) {
-        this.shiftName = shiftName;
-    }
+    
 
     public int getId() {
         return id;
@@ -83,7 +90,7 @@ public class Shift {
     public static ObservableList<Shift> getShifts() {
     ObservableList<Shift> shifts = FXCollections.observableArrayList();
 
-    try (Connection connection = dbMethods.getConnection();
+    try (Connection connection = DatabaseUtil.getConnection();
         Statement statement = connection.createStatement()) {
         String query = "SELECT * FROM `shift`";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
 
-import Controller.LoginController;
+import Controller.LoginPaneCTRL;
 import Fingerprint.Selection;
 import static Fingerprint.Selection.waitAndGetReader;
 import com.digitalpersona.uareu.UareUException;
@@ -32,12 +32,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         //Automatically Select Reader
         Selection.reader = Selection.getReader();
-//        Selection selection = new Selection();
-//        selection.start();
         
         
        // Load the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("View//Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("View//LoginPane.fxml"));
         Parent root = loader.load();
         
         
@@ -49,8 +47,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         
-//        LoginController login = new LoginController();
-//        login.addSetOnCloseRequest();
         
  primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
           public void handle(WindowEvent we) {

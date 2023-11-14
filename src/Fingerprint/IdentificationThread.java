@@ -4,7 +4,7 @@
  */
 package Fingerprint;
 
-import Controller.LoginController;
+import Controller.LoginPaneCTRL;
 import Model.Fingerprint;
 import Model.User;
 import com.digitalpersona.uareu.Engine;
@@ -15,16 +15,21 @@ import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import Utilities.*;
+import javafx.scene.media.AudioClip;
 
 /**
  *
  * @author admin
  */
 public class IdentificationThread extends Thread{
+    IdentificationModal identificationModal = new IdentificationModal();
+    PaneUtil controllerUtils = new PaneUtil();
     private ImageView imageview; //sets the imageview to use as fingerprint display, likely from fpIdentification.fxml
     private Engine engine = UareUGlobal.GetEngine(); //creates engine to be used by whole class
     private CaptureThread captureThread;
@@ -98,14 +103,15 @@ public class IdentificationThread extends Thread{
         Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, databaseFmds, falsePositiveRate, candidateCount );
 
         if(candidateFmds.length != 0){
-            System.out.println("candidate found");
+            System.out.println("Candidate found");
             //topCandidateFmd = databaseFmds[candidateFmds[0].fmd_index];
             int topCandidateFmdIndex = candidateFmds[0].fmd_index;
             int matchingUserId = fingerprintList.get(topCandidateFmdIndex).getUserId();
-            displayIdentifiedUser(matchingUserId);
+            userIdentificationSuccess(matchingUserId);
             return true;
         }else{
-            System.out.println("no candidate/s found");
+            userIdentificationFailed();
+            System.out.println("No candidate/s found");
             return false;
         }
     }
@@ -113,19 +119,47 @@ public class IdentificationThread extends Thread{
     
     
     //this method is used by "compareFmdToDatabaseFmds" for display purposes
-    private void displayIdentifiedUser(int userId){
+    private void userIdentificationSuccess(int userId){
+        
         userList = User.getUserByUserId(userId);
-        String fname = userList.get(0).getfName();
-        String mname = userList.get(0).getmName();
-        String lname = userList.get(0).getlName();
+        String fname = userList.get(0).getFname();
+        String mname = userList.get(0).getMname();
+        String lname = userList.get(0).getLname();
         String suffix = userList.get(0).getSuffix();
         byte[] userImage = userList.get(0).getImage();
         
         String fullName = fname + " " + mname + " " + lname + " " + suffix;
         System.out.println("You are " + fullName);
+        //SoundUtil.playSuccessSound();
         
-        //LoginController loginController = new LoginController();
-        //LoginController.setVisibleFpIdentificationPane();
+        //ADD A METHOD THAT VERIFIES FIRST IF USER HAS ALREADY TIMED IN/OUT, DO IT BY QUERYING THE ATTENDANCE RECORD
+        //if(hasTimedInOrOut(userId))
+        
+        
+        AudioClip buzzer = new AudioClip(getClass().getResource("success.wav").toExternalForm());
+        buzzer.play();
+      
+        Platform.runLater(() -> {
+            //controllerUtils.openAndClosePane(controllerUtils.FP_IDENTIFICATION_SUCCESS, 2250);
+            identificationModal.displayIdentificationSuccess(2750, fullName, userImage);
+        });  
+    }
+    
+    
+    
+    private void userIdentificationFailed(){
+        AudioClip buzzer = new AudioClip(getClass().getResource("fail.wav").toExternalForm());
+        buzzer.play();
+        
+        
+        Platform.runLater(() -> {
+            identificationModal.displayIdentificationFail(1500);
+        });  
+    }
+    
+    
+    
+    private void hasTimedInOrOut(){
         
     }
     
