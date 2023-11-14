@@ -17,6 +17,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import Model.*;
+import Utilities.Filter;
 import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -71,6 +72,8 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     
     DatabaseUtil dbMethods = new DatabaseUtil();
     PaneUtil method = new PaneUtil();
+    @FXML
+    private TextField repeatPasswordField;
 
     /**
      * Initializes the controller class.
@@ -93,41 +96,58 @@ public class ADMIN_AddEmpCTRL implements Initializable {
 
     @FXML
     private void addEmployee(ActionEvent event) {
-        String fName = FnameField.getText();
-        String mName = MnameField.getText();
-        String lName = LnameField.getText();
+        String fname = FnameField.getText();
+        String mname = MnameField.getText();
+        String lname = LnameField.getText();
         String suffix = userSuffixChoiceBox.getValue();
-        if(suffix.equals("None")){
-            suffix = null;
-        }
+            if(suffix.equals("None")){
+                suffix = null;
+            }
         
         String email = emailField.getText();
         String password = passwordField.getText();
+        String repeatPassword = repeatPasswordField.getText();
         String privilege = privilegeChoiceBox.getValue();
         String contactNum = contactNumField.getText();
         String sex = sexChoiceBox.getValue();
-        if(sex.equals("Select")){
-            sex = null;
-        }
+            if(sex.equals("Select")){
+                sex = null;
+            }
         LocalDate birthDate = dateOfBirthPicker.getValue();
         String address = addressField.getText();
         byte[] image = imageBytes;
         
-        //filterAddEmployee();
-//        if()
-        
+        User candidateUser = new User(image, email, password, privilege, fname, mname, lname, suffix, sex, birthDate, contactNum, address);
+        String prompt = generatePrompt(candidateUser, repeatPassword);
         
         try {
-            User.addUser(fName, mName, lName, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
+            if(prompt.equals("")){
+                User.addUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
+                showModal("Employee added successfully!");
+                clearFields();
+            }else{
+                showModal(prompt);
+            }
         } catch (SQLException ex) {
             System.out.println("Database error, check inputs");
-            showModal("Database error, check inputs");
-            
+            showModal("Database error");
             ex.printStackTrace();
         }
         
-        showModal("Employee added successfully!");
-        clearFields();
+        
+    }
+    
+    private String generatePrompt(User user, String repeatedPassword){
+        
+        
+        String fnamePrompt = Filter.filterName(user.getFname(), "First Name");
+        String mnamePrompt = Filter.filterName(user.getMname(), "Middle Name");
+        String lnamePrompt = Filter.filterName(user.getLname(), "Last Name");
+        
+        
+        String filterPrompt = fnamePrompt + "\n" + mnamePrompt + "\n" + lnamePrompt;
+        
+        return filterPrompt;
     }
     
     

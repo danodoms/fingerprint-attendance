@@ -4,32 +4,15 @@
  */
 package Utilities;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 /**
  *
  * @author admin
  */
 public class EncryptionUtil {
-    
-//     public static String hashPassword(String password) {
-//        // Generate a salt for bcrypt
-//        byte[] salt = BCrypt.with(new SecureRandom()).hash(6, password.getBytes(StandardCharsets.UTF_8));
-//
-//        // Hash the password with the generated salt
-//        return BCrypt.withDefaults().hashToString(12, (password + salt).toCharArray());
-//    }
-//
-//    public static boolean verifyPassword(String password, String hashedPassword) {
-//        // Verify the password against the hashed password
-//        return BCrypt.verifyer().verify(password.toCharArray(), hashedPassword).verified;
-//    }
-    
-    
     public static String hashPassword(String password) {
         try {
             // Create MessageDigest instance for SHA-256

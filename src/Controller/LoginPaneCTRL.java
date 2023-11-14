@@ -76,6 +76,8 @@ public class LoginPaneCTRL implements Initializable {
     private Label fpIdentificationUserName;
     @FXML
     private TextField emailField;
+    @FXML
+    private CheckBox showPassCheckBox;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -94,7 +96,15 @@ public class LoginPaneCTRL implements Initializable {
         IdentificationThread identification = new IdentificationThread(fpImageview);
         identification.start();
         
-  
+        showPassCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                passwordField.setPromptText(passwordField.getText());
+                passwordField.setText("");
+            } else {
+                passwordField.setText(passwordField.getPromptText());
+                passwordField.setPromptText("");
+            }
+        });
     }
     
     
@@ -132,10 +142,10 @@ public class LoginPaneCTRL implements Initializable {
             System.out.println("Access denied");
         }else if(privilege.equalsIgnoreCase("admin")){
             method.exitAndOpenNewPane(loginAdminBtn, method.ADMIN_PANE);
-            System.out.println("Logged in as" + currentUser+"");
+            System.out.println("Logged in as " + currentUser+"");
         }else if(privilege.equalsIgnoreCase("records officer")){
             method.exitAndOpenNewPane(loginAdminBtn, method.RECORDS_OFFICER_PANE);
-            System.out.println("Logged in as" + currentUser+"");
+            System.out.println("Logged in as " + currentUser+"");
         }
         
     }

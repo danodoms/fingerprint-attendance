@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" prefHeight="488.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AddEmpCTRL">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" prefHeight="472.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AddEmpCTRL">
    <children>
-      <HBox layoutX="14.0" layoutY="14.0" prefHeight="397.0" prefWidth="562.0">
+      <HBox layoutX="14.0" layoutY="14.0" prefHeight="459.0" prefWidth="499.0">
          <children>
             <VBox prefHeight="454.0" prefWidth="186.0">
                <children>
@@ -50,6 +50,12 @@
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
+                  <Label text="Repeat Password *" />
+                  <TextField fx:id="repeatPasswordField">
+                     <VBox.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </VBox.margin>
+                  </TextField>
                   <Label text="Privilege *" />
                   <ChoiceBox fx:id="privilegeChoiceBox" prefHeight="25.0" prefWidth="587.0">
                      <VBox.margin>
@@ -64,8 +70,8 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <Pane prefHeight="442.0" prefWidth="22.0" />
-            <VBox prefHeight="442.0" prefWidth="326.0">
+            <Pane prefHeight="459.0" prefWidth="90.0" />
+            <VBox prefHeight="459.0" prefWidth="378.0">
                <children>
                   <Label text="Personal Information">
                      <font>
@@ -139,9 +145,14 @@
                   <Label text="Address" />
                   <TextField fx:id="addressField">
                      <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                        <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
+                  <Button fx:id="addEmployeeBtn" mnemonicParsing="false" onAction="#addEmployee" prefHeight="43.0" prefWidth="284.0" text="Add Employee">
+                     <VBox.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -149,6 +160,5 @@
             </VBox>
          </children>
       </HBox>
-      <Button fx:id="addEmployeeBtn" layoutX="22.0" layoutY="427.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="43.0" prefWidth="518.0" text="Add Employee" />
    </children>
 </AnchorPane>

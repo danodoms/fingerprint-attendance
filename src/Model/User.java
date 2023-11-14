@@ -78,6 +78,21 @@ public class User {
         this.password = password;
         this.privilege = privilege;
     }
+    
+    public User(byte[] image, String email, String password, String privilege, String fname, String mname, String lname, String suffix, String sex, LocalDate birthDate, String contactNum, String address){
+        this.image = image;
+        this.email = email;
+        this.password = password;
+        this.privilege = privilege;
+        this.fname = fname;
+        this.mname = mname;
+        this.lname = lname;
+        this.suffix = suffix;
+        this.sex = sex;
+        this.birthDate = birthDate;
+        this.contactNum = contactNum;
+        this.address = address;
+    }
 
     
     
