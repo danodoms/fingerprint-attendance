@@ -23,14 +23,14 @@ import javafx.scene.image.Image;
  */
 public class User {
     private int id;
-    private String fName;
-    private String lName;
-    private String mName;
+    private String fname;
+    private String lname;
+    private String mname;
     private String suffix;
     private String email;
     private String password;
     private String privilege;
-    private int contactNum;
+    private String contactNum;
     private String sex;
     private LocalDate birthDate;
     private String address;
@@ -41,14 +41,14 @@ public class User {
     //Full Constructor
     public User(
         int id,
-        String fName,
-        String mName,
-        String lName,
+        String fname,
+        String mname,
+        String lname,
         String suffix,
         String email,
         String password,
         String privilege,
-        int contactNum,
+        String contactNum,
         String sex,
         LocalDate birthDate,
         String address,
@@ -56,9 +56,9 @@ public class User {
         int status)
     {
         this.id = id;
-        this.fName = fName;
-        this.lName = lName;
-        this.mName = mName;
+        this.fname = fname;
+        this.lname = lname;
+        this.mname = mname;
         this.suffix = suffix;
         this.email = email;
         this.password = password;
@@ -81,40 +81,36 @@ public class User {
     
     
     public static void addUser(
-        String fName,
-        String mName,
-        String lName,
+        String fname,
+        String mname,
+        String lname,
         String suffix,
         String email,
         String password,
         String privilege,
-        int contactNum,
+        String contactNum,
         String sex,
         LocalDate birthDate,
         String address,
-        byte[] image)
+        byte[] image) throws SQLException
     {
         String insertQuery = "INSERT INTO `user`(`user_fname`, `user_mname`, `user_lname`, `suffix`, `email`, `password`, `privilege`, `user_cntct`, `sex`, `birth_date`, `address`, `user_img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(insertQuery)) {
-            preparedStatement.setString(1, fName);
-            preparedStatement.setString(2, mName);
-            preparedStatement.setString(3, lName);
+        PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(insertQuery);
+            preparedStatement.setString(1, fname);
+            preparedStatement.setString(2, mname);
+            preparedStatement.setString(3, lname);
             preparedStatement.setString(4, suffix);
             preparedStatement.setString(5, email);
             preparedStatement.setString(6, password);
             preparedStatement.setString(7, privilege);
-            preparedStatement.setInt(8, contactNum);
+            preparedStatement.setString(8, contactNum);
             preparedStatement.setString(9, sex);
             preparedStatement.setDate(10, Date.valueOf(birthDate.toString()));
             preparedStatement.setString(11, address);
             preparedStatement.setBytes(12, image);
             
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            // Handle any database errors here
-            e.printStackTrace();
-        }
     }
    
     
@@ -151,7 +147,7 @@ public class User {
                         rs.getString("email"),
                         rs.getString("password"),
                         rs.getString("privilege"),
-                        rs.getInt("user_cntct"),
+                        rs.getString("user_cntct"),
                         rs.getString("sex"),
                         rs.getDate("birth_date").toLocalDate(),
                         rs.getString("address"),
@@ -159,6 +155,8 @@ public class User {
                         rs.getInt("user_status")  
                   ));
             }
+            
+            System.out.println("Users: " + users);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -189,7 +187,7 @@ public class User {
                         rs.getString("email"),
                         rs.getString("password"),
                         rs.getString("privilege"),
-                        rs.getInt("user_cntct"),
+                        rs.getString("user_cntct"),
                         rs.getString("sex"),
                         rs.getDate("birth_date").toLocalDate(),
                         rs.getString("address"),
@@ -240,29 +238,30 @@ public class User {
         this.id = id;
     }
 
-    public String getfName() {
-        return fName;
+    public String getFname() {
+        return fname;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 
-    public String getlName() {
-        return lName;
+    public String getLname() {
+        return lname;
     }
 
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
-    public String getmName() {
-        return mName;
+    public String getMname() {
+        return mname;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setMname(String mname) {
+        this.mname = mname;
     }
+
 
     public String getSuffix() {
         return suffix;
@@ -296,11 +295,11 @@ public class User {
         this.privilege = privilege;
     }
 
-    public int getContactNum() {
+    public String getContactNum() {
         return contactNum;
     }
 
-    public void setContactNum(int contactNum) {
+    public void setContactNum(String contactNum) {
         this.contactNum = contactNum;
     }
 
@@ -312,11 +311,11 @@ public class User {
         this.sex = sex;
     }
 
-    public LocalDate getDateOfBirth() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setDateOfBirth(LocalDate birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -344,5 +343,6 @@ public class User {
         this.status = status;
     }
 
+    
     
 }

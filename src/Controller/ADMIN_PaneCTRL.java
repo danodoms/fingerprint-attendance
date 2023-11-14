@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class
@@ -31,11 +32,15 @@ public class ADMIN_PaneCTRL implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @FXML
-    private BorderPane borderPaneOb;
+    // BorderPane borderPaneOb;
     
     private AnchorPane view;
     PaneUtil paneUtil = new PaneUtil();
+    @FXML
+    private Button attendanceReportBtn;
+    
+    @FXML
+    private Pane contentPane;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -45,7 +50,8 @@ public class ADMIN_PaneCTRL implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(ADMIN_PaneCTRL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        borderPaneOb.setCenter(view);
+        //borderPaneOb.setCenter(view);
+        contentPane.getChildren().setAll(view);
     } 
     private void openEmployeeMgmtPane(ActionEvent event) {
         paneUtil.openPane(paneUtil.EMPLOYEE_MGMT_PANE);
@@ -54,17 +60,20 @@ public class ADMIN_PaneCTRL implements Initializable {
     @FXML
     private void openDashboardPane(ActionEvent event) throws IOException {
         view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_DASHBOARD_PANE));
-        borderPaneOb.setCenter(view);
+        //borderPaneOb.setCenter(view);
+        contentPane.getChildren().setAll(view);
     }
     @FXML
     private void openAttendancePane(ActionEvent event) throws IOException {
         view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_ATTENDANCE_PANE));
-        borderPaneOb.setCenter(view);
+        //borderPaneOb.setCenter(view);
+        contentPane.getChildren().setAll(view);
     }
     @FXML
     private void openEmpPane(ActionEvent event) throws IOException {
         view = FXMLLoader.load(getClass().getResource(paneUtil.EMPLOYEE_MGMT_PANE));
-        borderPaneOb.setCenter(view);
+        //borderPaneOb.setCenter(view);
+        contentPane.getChildren().setAll(view);
 
     }
 

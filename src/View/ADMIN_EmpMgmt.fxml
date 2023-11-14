@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="541.0" prefWidth="780.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.ADMIN_EmpMgmtCTRL">
+<AnchorPane id="AnchorPane" prefHeight="541.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_EmpMgmtCTRL">
    <children>
       <TableView fx:id="userTable" layoutX="14.0" layoutY="51.0" onMouseClicked="#updateAssignmentTable" prefHeight="212.0" prefWidth="751.0">
         <columns>
@@ -42,8 +41,8 @@
       </ImageView>
       <HBox layoutX="30.0" layoutY="451.0" prefHeight="40.0" prefWidth="332.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="112.0" text="Add Employee" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="107.0" text="Edit" />
+            <Button fx:id="addEmpBtn" mnemonicParsing="false" onAction="#openAddEmpPane" prefHeight="45.0" prefWidth="112.0" text="Add Employee" />
+            <Button fx:id="editUserBtn" mnemonicParsing="false" onAction="#openEditUserPane" prefHeight="44.0" prefWidth="107.0" text="Edit" />
             <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="113.0" text="Deactivate" />
          </children>
       </HBox>

@@ -122,9 +122,9 @@ public class IdentificationThread extends Thread{
     private void userIdentificationSuccess(int userId){
         
         userList = User.getUserByUserId(userId);
-        String fname = userList.get(0).getfName();
-        String mname = userList.get(0).getmName();
-        String lname = userList.get(0).getlName();
+        String fname = userList.get(0).getFname();
+        String mname = userList.get(0).getMname();
+        String lname = userList.get(0).getLname();
         String suffix = userList.get(0).getSuffix();
         byte[] userImage = userList.get(0).getImage();
         

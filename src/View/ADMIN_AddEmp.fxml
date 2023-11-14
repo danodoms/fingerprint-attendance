@@ -10,210 +10,145 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_EmpMgmtCTRL">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" prefHeight="488.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AddEmpCTRL">
    <children>
-      <Button fx:id="addEmployeeBtn" layoutX="156.0" layoutY="450.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="33.0" prefWidth="158.0" text="Add Employee" />
-      <HBox layoutX="14.0" layoutY="13.0" prefHeight="432.0" prefWidth="313.0">
+      <HBox layoutX="14.0" layoutY="14.0" prefHeight="397.0" prefWidth="562.0">
          <children>
-            <VBox prefHeight="416.0" prefWidth="160.0">
+            <VBox prefHeight="454.0" prefWidth="186.0">
                <children>
-                  <Label text="User ID">
+                  <Label text="Account Information">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
                      <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                        <Insets bottom="12.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="First Name *" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Last Name *" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Middle Name" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Suffix" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Email *" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Password *" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Type *" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Contact Number" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Sex" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Date of Birth" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Address" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </VBox>
-            <VBox prefHeight="416.0" prefWidth="218.0">
-               <children>
-                  <TextField fx:id="userIDfield" editable="false" prefHeight="25.0" prefWidth="313.0">
+                  <ImageView fx:id="userImage" fitHeight="171.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/default_user_img.jpg" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="selectImageBtn" mnemonicParsing="false" onAction="#selectImg" prefHeight="25.0" prefWidth="267.0" text="Select Image">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="FnameField" prefHeight="25.0" prefWidth="313.0">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="LnameField">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="MnameField">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <ChoiceBox fx:id="userSuffixChoiceBox" prefHeight="25.0" prefWidth="587.0">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                     </VBox.margin>
-                  </ChoiceBox>
+                  </Button>
+                  <Label text="Email *" />
                   <TextField fx:id="emailField">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
+                  <Label text="Password *" />
                   <TextField fx:id="passwordField">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <ChoiceBox fx:id="userTypeChoiceBox" prefHeight="25.0" prefWidth="587.0">
+                  <Label text="Privilege *" />
+                  <ChoiceBox fx:id="privilegeChoiceBox" prefHeight="25.0" prefWidth="587.0">
                      <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                        <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                   </ChoiceBox>
-                  <TextField fx:id="contactNumField">
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+            <Pane prefHeight="442.0" prefWidth="22.0" />
+            <VBox prefHeight="442.0" prefWidth="326.0">
+               <children>
+                  <Label text="Personal Information">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
                      <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                        <Insets bottom="12.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="First Name *" />
+                  <TextField fx:id="FnameField" prefHeight="25.0" prefWidth="313.0">
+                     <VBox.margin>
+                        <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <ChoiceBox fx:id="sexChoiceBox" prefHeight="25.0" prefWidth="587.0">
+                  <Label text="Middle Name " />
+                  <TextField fx:id="MnameField">
                      <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                        <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
-                  </ChoiceBox>
-                  <DatePicker fx:id="dateOfBirthPicker" prefHeight="25.0" prefWidth="622.0">
+                  </TextField>
+                  <Label text="Last Name *" />
+                  <TextField fx:id="LnameField">
                      <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                        <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
-                  </DatePicker>
+                  </TextField>
+                  <HBox prefHeight="38.0" prefWidth="292.0">
+                     <children>
+                        <VBox prefHeight="50.0" prefWidth="95.0">
+                           <children>
+                              <Label text="Suffix" />
+                              <ChoiceBox fx:id="userSuffixChoiceBox" prefHeight="25.0" prefWidth="587.0">
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </VBox.margin>
+                              </ChoiceBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="50.0" prefWidth="93.0">
+                           <children>
+                              <Label text="Sex" />
+                              <ChoiceBox fx:id="sexChoiceBox" prefHeight="25.0" prefWidth="587.0">
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </VBox.margin>
+                              </ChoiceBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="50.0" prefWidth="113.0">
+                           <children>
+                              <Label text="Date Of Birth" />
+                              <DatePicker fx:id="dateOfBirthPicker" prefHeight="25.0" prefWidth="622.0">
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="12.0" />
+                     </padding>
+                  </HBox>
+                  <Label text="Contact Number" />
+                  <TextField fx:id="contactNumField">
+                     <VBox.margin>
+                        <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Address" />
                   <TextField fx:id="addressField">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
                </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
          </children>
       </HBox>
-      <HBox layoutX="332.0" layoutY="237.0" prefHeight="259.0" prefWidth="198.0">
-         <children>
-            <VBox prefHeight="278.0" prefWidth="198.0">
-               <children>
-                  <Label text="Department" textAlignment="RIGHT">
-                     <VBox.margin>
-                        <Insets left="8.0" right="8.0" top="2.0" />
-                     </VBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="departmentChoiceBox" prefHeight="25.0" prefWidth="567.0">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" />
-                     </VBox.margin>
-                  </ChoiceBox>
-                  <Label text="Shift Type">
-                     <VBox.margin>
-                        <Insets left="8.0" right="8.0" top="2.0" />
-                     </VBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="positionChoiceBox" prefHeight="25.0" prefWidth="634.0">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" />
-                     </VBox.margin>
-                  </ChoiceBox>
-                  <Label text="End Time">
-                     <VBox.margin>
-                        <Insets left="8.0" right="8.0" top="2.0" />
-                     </VBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="shiftTypeChoiceBox" prefHeight="25.0" prefWidth="172.0">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" />
-                     </VBox.margin>
-                  </ChoiceBox>
-                  <TextField fx:id="startTimeField">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="endTimeField">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Button fx:id="enrollFingerprintBtn" mnemonicParsing="false" onAction="#openFingerprintPane" prefHeight="33.0" prefWidth="213.0" text="Enroll Fingerprint">
-                     <VBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <ImageView fx:id="userImage" fitHeight="157.0" fitWidth="178.0" layoutX="351.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../assets/default_user_img.jpg" />
-         </image>
-      </ImageView>
-      <Button fx:id="selectImageBtn" layoutX="387.0" layoutY="189.0" mnemonicParsing="false" onAction="#selectImg" text="Select Image" />
+      <Button fx:id="addEmployeeBtn" layoutX="22.0" layoutY="427.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="43.0" prefWidth="518.0" text="Add Employee" />
    </children>
 </AnchorPane>

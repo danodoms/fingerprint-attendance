@@ -8,11 +8,15 @@ import Model.Assignment;
 import Model.Department;
 import Model.Shift;
 import Model.User;
+import Utilities.PaneUtil;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -53,7 +57,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     @FXML
     private TableColumn<User, String> col_contact_num;
     @FXML
-    private TableColumn<User, String> col_birthday;
+    private TableColumn<User, LocalDate> col_birthday;
     @FXML
     private TableColumn<Assignment, Integer> col_assignment_id;
     @FXML
@@ -62,7 +66,13 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     private TableColumn<Assignment, String> col_position;
     @FXML
     private TableColumn<Assignment, String> col_shift;
+    @FXML
+    private Button editUserBtn;
 
+    
+    PaneUtil paneUtil = new PaneUtil();
+    @FXML
+    private Button addEmpBtn;
     /**
      * Initializes the controller class.
      */
@@ -84,14 +94,14 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
         
         //USER TABLE
         col_user_id.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
-        col_fname.setCellValueFactory(new PropertyValueFactory<User, String>("fName"));
-        col_mname.setCellValueFactory(new PropertyValueFactory<User, String>("mName"));
-        col_lname.setCellValueFactory(new PropertyValueFactory<User, String>("lName"));
+        col_fname.setCellValueFactory(new PropertyValueFactory<User, String>("fname"));
+        col_mname.setCellValueFactory(new PropertyValueFactory<User, String>("mname"));
+        col_lname.setCellValueFactory(new PropertyValueFactory<User, String>("lname"));
         col_suffix.setCellValueFactory(new PropertyValueFactory<User, String>("suffix"));
         col_privilege.setCellValueFactory(new PropertyValueFactory<User, String>("privilege"));
         col_email.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
         col_contact_num.setCellValueFactory(new PropertyValueFactory<User, String>("contactNum"));
-        col_birthday.setCellValueFactory(new PropertyValueFactory<User, String>("birthDate"));
+        col_birthday.setCellValueFactory(new PropertyValueFactory<User, LocalDate>("birthDate"));
 
         //ASSIGNMENT TABLE
         col_assignment_id.setCellValueFactory(new PropertyValueFactory<Assignment, Integer>("id"));
@@ -114,5 +124,15 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     private void updateAssignmentTable(MouseEvent event) {
         User selectedItem = userTable.getSelectionModel().getSelectedItem();
         showAssignmentTable(selectedItem.getId());
+    }
+
+    @FXML
+    private void openEditUserPane(ActionEvent event) {
+        paneUtil.openPane(paneUtil.ADD_EMPLOYEE_PANE);
+    }
+
+    @FXML
+    private void openAddEmpPane(ActionEvent event) {
+         paneUtil.openModal(paneUtil.ADD_EMPLOYEE_PANE);
     }
 }

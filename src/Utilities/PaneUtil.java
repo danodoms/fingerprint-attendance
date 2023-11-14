@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -57,6 +58,23 @@ public class PaneUtil {
             // Create a new stage for the second window
             Stage secondStage = new Stage();
             secondStage.setScene(new Scene(root));
+            secondStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void openModal(String fxmlPath){
+         try {
+            // Load the second FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Create a new stage for the second window
+            Stage secondStage = new Stage();
+            secondStage.setScene(new Scene(root));
+            secondStage.initModality(Modality.APPLICATION_MODAL);
             secondStage.show();
 
         } catch (IOException e) {
