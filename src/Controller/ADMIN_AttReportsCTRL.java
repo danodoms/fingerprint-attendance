@@ -7,83 +7,95 @@ package Controller;
 import Model.Attendance;
 import static Model.Attendance.getEmpName;
 import static Model.Attendance.getYearforLabel;
-import java.util.Date;
+import Utilities.DatabaseUtil;
+import Utilities.PaneUtil;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.Month;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import com.jfoenix.controls.JFXDatePicker;
-import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.stage.Popup;
 
 /**
  *
  * @author User
  */
-public class ADMIN_AttReportsCTRL {
-    
-    dbMethods dbMethods = new dbMethods();
-    controllerMethods method = new controllerMethods();
-    
+public class ADMIN_AttReportsCTRL implements Initializable{
     @FXML
-   private void openDTR(ActionEvent event) {
-        method.openPane(method.ADMIN_ATTENDANCE_WORD);
-    }
+    private TableView<Attendance> empNameTable;
+    @FXML
+    private TableColumn<Attendance, String> empName;
+    @FXML
+    private Label monthYearLabel, nameLabel, dateTimeLabel;
+    @FXML
+    private ChoiceBox <String> monthChoiceBox;
+    @FXML
+    private ChoiceBox<String> yearChoiceBox;
+    @FXML
+    private TextField searchBar;
+    @FXML
+    private Button resetBtn;
+    
+    DatabaseUtil dbMethods = new DatabaseUtil();
+    PaneUtil method = new PaneUtil();
+    LocalDate currentDate = LocalDate.now();
+    int currentYear = currentDate.getYear();
+    Month currentMonth = currentDate.getMonth();
+    String capitalizedMonth = currentMonth.toString().substring(0, 1) + currentMonth.toString().substring(1).toLowerCase();
+    
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle rb) {
+         try {
         setTable();
+        dateTimeLabel.setText(String.valueOf(currentDate));
         ObservableList<String> monthList = FXCollections.observableArrayList();
         monthList.addAll("January", "February", "March", 
                 "April", "May", "June", "July", 
                 "August", "September", "October", 
                 "November", "December");
         monthChoiceBox.setItems(monthList);
-        monthChoiceBox.setValue("Select Month");
+        monthChoiceBox.setValue(capitalizedMonth);
         monthChoiceBox.setOnAction(event -> selectMonth());
         yearChoiceBox.setOnAction(event -> selectYear());
-        
         ObservableList<String> monthYear = FXCollections.observableArrayList();
+                monthYear.addAll("2021","2022");
                 for (Attendance attendance : getYearforLabel()){
                         String[] splitItems = attendance.getDate().toString().split("-");
                         monthYear.add(splitItems[0]);
                 }
-                System.out.println(monthYear);
                 yearChoiceBox.setItems(monthYear);
-                yearChoiceBox.setValue("Select Year");
+                yearChoiceBox.setValue(currentYear+"");
+                
+          } catch (Exception e) {
+        e.printStackTrace();
+    }     
     }
     public void selectYear(){
         String selectedMonth = (String) monthChoiceBox.getSelectionModel().getSelectedItem();
         String selectedYear = (String) yearChoiceBox.getSelectionModel().getSelectedItem();
-           if(!(selectedMonth.equals("Select Month"))){
-               monthYearLabel.setText(selectedMonth+ ", "+selectedYear);
-           }
+        monthYearLabel.setText(selectedMonth+ ", "+selectedYear);
     }
     public void selectMonth(){
         String selectedMonth = (String) monthChoiceBox.getSelectionModel().getSelectedItem();
         String selectedYear = (String) yearChoiceBox.getSelectionModel().getSelectedItem();
-           if(!(selectedYear.equals("Select Year"))){
-               monthYearLabel.setText(selectedMonth+ ", "+selectedYear);
-           }
+        monthYearLabel.setText(selectedMonth+ ", "+selectedYear);
     }
     
     public void setTable(){
         empNameTable.setItems(Attendance.getEmpName());
-        monthChoiceBox.setValue("Select Month");
-        yearChoiceBox.setValue("Select Year");
+        monthChoiceBox.setValue(capitalizedMonth);
+        yearChoiceBox.setValue(currentYear+"");
         searchBar.setText("");
         monthYearLabel.setText("");
         nameLabel.setText("");
@@ -109,9 +121,7 @@ public class ADMIN_AttReportsCTRL {
     
     @FXML
      public void showOnLabels() {
-        // Get the selected item from the table.
         Attendance selectedItem = empNameTable.getSelectionModel().getSelectedItem();
-        // If an item is selected, populate the text fields with the item's data.
         if (selectedItem != null) {
             nameLabel.setText(selectedItem.getName());
         }

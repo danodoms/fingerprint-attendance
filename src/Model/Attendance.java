@@ -95,7 +95,7 @@ public void setTimeOut(String timeOut) {
 }   
     public static ObservableList<Attendance> getYearforLabel(){
         ObservableList<Attendance>empName = FXCollections.observableArrayList();
-        try (Connection connection = dbMethods.getConnection();
+        try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
             ResultSet rs = statement.executeQuery("SELECT date FROM attendance "+
@@ -114,7 +114,7 @@ public void setTimeOut(String timeOut) {
     }
      public static ObservableList<Attendance> getEmpName(){
         ObservableList<Attendance>empName = FXCollections.observableArrayList();
-        try (Connection connection = dbMethods.getConnection();
+        try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
             ResultSet rs = statement.executeQuery("SELECT CONCAT(user_fname, ' ', user_lname) AS name FROM user "+

@@ -28,7 +28,11 @@ import javafx.scene.layout.Pane;
 public class ADMIN_PaneCTRL implements Initializable {
 
     @FXML
-    private Button addEmployeeBtn, dashBoardBtn, attendanceViewer, logOutAdminBtn, attendanceReportBtn;
+    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
+    private Button addEmployeeBtn;
+
+    @FXML
+    private Button dashBoardBtn, attendanceViewer, logOutAdminBtn, attendanceReportBtn;
     /**
      * Initializes the controller class.
      */
@@ -36,8 +40,8 @@ public class ADMIN_PaneCTRL implements Initializable {
     
     private AnchorPane view;
     PaneUtil paneUtil = new PaneUtil();
-    @FXML
-    private Button attendanceReportBtn;
+//    @FXML
+//    private Button attendanceReportBtn;
     
     @FXML
     private Pane contentPane;
@@ -71,27 +75,22 @@ public class ADMIN_PaneCTRL implements Initializable {
     }
     @FXML
     private void openEmpPane(ActionEvent event) throws IOException {
-<<<<<<< HEAD:src/Controller/AdminPaneController.java
-        view = FXMLLoader.load(getClass().getResource(method.EMPLOYEE_MGMT_PANE));
-        borderPaneOb.setCenter(view);
-=======
+
         view = FXMLLoader.load(getClass().getResource(paneUtil.EMPLOYEE_MGMT_PANE));
         //borderPaneOb.setCenter(view);
         contentPane.getChildren().setAll(view);
-
->>>>>>> 85c84d57c6e4dd266a468abedb9fa0243451ea39:src/Controller/ADMIN_PaneCTRL.java
     }
-
+     @FXML
+    private void openAttRepPane(ActionEvent event) throws IOException {
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_ATT_REP_PANE));
+        contentPane.getChildren().setAll(view);
+    }
     @FXML
     private void logOut(ActionEvent event) {
         paneUtil.exitAndOpenNewPane(logOutAdminBtn, paneUtil.LOGIN_PANE);
     }
     
-    @FXML
-    private void openAttRepPane(ActionEvent event) throws IOException {
-        view = FXMLLoader.load(getClass().getResource(method.ADMIN_ATT_REP_PANE));
-        borderPaneOb.setCenter(view);
-    }
+   
     
     
 }

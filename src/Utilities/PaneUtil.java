@@ -26,6 +26,7 @@ public class PaneUtil {
     public final String RECORDS_OFFICER_PANE = "/View/RO_Pane.fxml";
     public final String EMPLOYEE_MGMT_PANE = "/View/ADMIN_EmpMgmt.fxml";
     public final String ADD_EMPLOYEE_PANE = "/View/ADMIN_AddEmp.fxml";
+    public final String ADMIN_ATT_REP_PANE = "/View/ADMIN_AttReports.fxml";
     public final String ADMIN_ATTENDANCE_PANE = "/View/ADMIN_Attendance.fxml";
     public final String ADMIN_DASHBOARD_PANE = "/View/ADMIN_Dashboard.fxml";
     

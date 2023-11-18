@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="500.0" maxWidth="700.0" minHeight="500.0" minWidth="700.0" prefHeight="0.0" prefWidth="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AttReportsCTRL">
+   <children>
+      <TextField fx:id="searchBar" layoutX="24.0" layoutY="86.0" maxWidth="231.0" onKeyReleased="#filterBySearchBar" prefHeight="25.0" prefWidth="200.0" promptText="Search name..." />
+      <Label layoutX="202.0" layoutY="18.0" prefHeight="33.0" prefWidth="301.0" text="ATTENDANCE REPORT">
+         <font>
+            <Font name="Berlin Sans FB" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="382.0" prefHeight="17.0" prefWidth="71.0" text="Month :" />
+      <ChoiceBox fx:id="monthChoiceBox" layoutX="76.0" layoutY="377.0" prefHeight="25.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="yearChoiceBox" layoutX="76.0" layoutY="411.0" prefWidth="150.0" />
+      <Label layoutX="42.0" layoutY="414.0" prefHeight="17.0" prefWidth="33.0" text="Year :" />
+      <TableView fx:id="empNameTable" layoutX="26.0" layoutY="121.0" onMouseClicked="#showOnLabels" prefHeight="246.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="empName" prefWidth="198.0" text="Employee Name" />
+        </columns>
+      </TableView>
+      <Label fx:id="monthYearLabel" layoutX="329.0" layoutY="133.0" prefHeight="26.0" prefWidth="183.0">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
+      <Label fx:id="nameLabel" layoutX="330.0" layoutY="90.0" prefHeight="26.0" prefWidth="183.0">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
+      <Button fx:id="resetBtn" layoutX="76.0" layoutY="445.0" mnemonicParsing="false" onAction="#resetSelectedItems" prefHeight="25.0" prefWidth="150.0" text="Reset" />
+      <Label layoutX="280.0" layoutY="93.0" prefHeight="17.0" prefWidth="46.0" text="Name :" />
+      <Label layoutX="248.0" layoutY="138.0" prefHeight="17.0" prefWidth="77.0" text="Month/Year :" />
+      <Label fx:id="dateTimeLabel" layoutX="25.0" layoutY="58.0" prefHeight="21.0" prefWidth="200.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="250.0" layoutY="178.0" text="Tardiness Record ">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tardinessTable" layoutX="249.0" layoutY="215.0" prefHeight="200.0" prefWidth="426.0">
+        <columns>
+          <TableColumn fx:id="countCol" prefWidth="57.0" text="#" />
+          <TableColumn prefWidth="93.0" text="Date" />
+            <TableColumn prefWidth="91.0" text="AM" />
+            <TableColumn prefWidth="84.0" text="PM" />
+            <TableColumn prefWidth="100.0" text="Calculation" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
