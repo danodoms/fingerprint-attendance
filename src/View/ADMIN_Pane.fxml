@@ -12,7 +12,7 @@
         <URL value="@style.css" />
     </stylesheets>
    <children>
-      <VBox prefHeight="600.0" prefWidth="199.0" style="-fx-background-color: #07f9a2;">
+      <VBox prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: #07f9a2;">
          <children>
             <Pane prefHeight="168.0" prefWidth="199.0" />
             <Button fx:id="dashBoardBtn" mnemonicParsing="false" onAction="#openDashboardPane" prefHeight="40.0" prefWidth="215.0" text="Dasboard">
@@ -45,6 +45,6 @@
                </VBox.margin></Button>
          </children>
       </VBox>
-      <Pane fx:id="contentPane" layoutX="200.0" prefHeight="591.0" prefWidth="797.0" />
+      <Pane fx:id="contentPane" layoutX="199.0" minHeight="600.0" minWidth="802.0" prefHeight="600.0" prefWidth="802.0" />
    </children>
 </AnchorPane>
