@@ -140,6 +140,7 @@ public class ADMIN_AttendanceCTRL implements Initializable {
                     if (attendance.getDate().toString().equals(selectedDate.toString()) 
                             && (attendance.getName().toLowerCase()).contains(keyword)){
                         filteredData.add(attendance);
+                        
                     }
                  }
             }
