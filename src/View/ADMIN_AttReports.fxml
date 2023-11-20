@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="802.0" minHeight="600.0" minWidth="802.0" prefHeight="0.0" prefWidth="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AttReportsCTRL">
+   <children>
+      <ImageView fitHeight="147.0" fitWidth="178.0" layoutX="632.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Fingerprint/sample2.jpg" />
+         </image>
+      </ImageView>
+      <Line endX="448.0" layoutX="333.0" layoutY="497.0" startX="303.5" stroke="#07f9a2" strokeWidth="37.0" />
+      <TextField fx:id="searchBar" layoutX="22.0" layoutY="138.0" maxWidth="231.0" onKeyReleased="#filterBySearchBar" prefHeight="25.0" prefWidth="200.0" promptText="Search name..." />
+      <Label layoutX="24.0" layoutY="508.0" prefHeight="18.0" prefWidth="77.0" text="Month :" />
+      <ChoiceBox fx:id="monthChoiceBox" layoutX="74.0" layoutY="503.0" prefHeight="25.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="yearChoiceBox" layoutX="74.0" layoutY="548.0" prefWidth="150.0" />
+      <Label layoutX="28.0" layoutY="551.0" prefHeight="18.0" prefWidth="56.0" text="Year :" />
+      <TableView fx:id="empNameTable" layoutX="23.0" layoutY="176.0" onMouseClicked="#showOnLabels" prefHeight="311.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="empName" prefWidth="198.0" text="Employee Name" />
+        </columns>
+      </TableView>
+      <Label fx:id="monthYearLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="381.0" layoutY="138.0" prefHeight="26.0" prefWidth="200.0" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
+      <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="380.0" layoutY="94.0" prefHeight="26.0" prefWidth="200.0" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
+      <Button fx:id="resetBtn" layoutX="447.0" layoutY="186.0" mnemonicParsing="false" onAction="#resetSelectedItems" prefHeight="40.0" prefWidth="150.0" text="RESET" />
+      <Label layoutX="319.0" layoutY="99.0" prefHeight="17.0" prefWidth="46.0" text="Name :" />
+      <Label layoutX="287.0" layoutY="148.0" prefHeight="17.0" prefWidth="77.0" text="Month/Year :" />
+      <Label fx:id="dateTimeLabel" layoutX="24.0" layoutY="99.0" prefHeight="21.0" prefWidth="200.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Line endX="448.0" layoutX="337.0" layoutY="70.0" startX="-69.0" stroke="#07f9a2" strokeWidth="37.0" />
+      <TableView fx:id="tardinessTable" layoutX="270.0" layoutY="287.0" onSort="#setTardinessTable" prefHeight="285.0" prefWidth="330.0">
+        <columns>
+          <TableColumn fx:id="dateCol" prefWidth="115.0" text="Date" />
+            <TableColumn fx:id="arCol" prefWidth="115.0" text="Arrival" />
+            <TableColumn fx:id="notCol" prefWidth="100.0" text="Notation" />
+        </columns>
+      </TableView>
+      <Line endX="5.0" endY="513.0" layoutX="244.0" layoutY="68.0" startX="5.0" startY="-17.5" stroke="#659e78" strokeWidth="2.0" />
+      <Line endX="100.0" layoutX="482.0" layoutY="124.0" startX="-100.0" />
+      <Line endX="100.0" layoutX="482.0" layoutY="167.0" startX="-100.0" />
+      <Line endX="448.0" layoutX="337.0" layoutY="261.0" startX="-69.0" stroke="#07f9a2" strokeWidth="37.0" />
+      <Label layoutX="459.0" layoutY="52.0" text="EMPLOYEE" textFill="#f8f4f4">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="414.0" layoutY="245.0" text="TARDINESS REPORT" textFill="#f8f4f4">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Line endX="119.0" layoutX="110.0" layoutY="70.0" startX="-90.0" stroke="#07f9a2" strokeWidth="37.0" />
+      <Label layoutX="32.0" layoutY="53.0" text="SELECT EMPLOYEE" textFill="#f8f4f4">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="selectBtn" layoutX="273.0" layoutY="186.0" mnemonicParsing="false" onAction="#setTardinessTable" prefHeight="40.0" prefWidth="150.0" text="SELECT" />
+      <Label layoutX="624.0" layoutY="356.0" prefHeight="17.0" prefWidth="138.0" text="Total Late :" />
+      <Label layoutX="624.0" layoutY="418.0" prefHeight="17.0" prefWidth="95.0" text="Total Absent :" />
+      <Line endX="58.5" layoutX="723.0" layoutY="406.0" startX="-100.0" />
+      <Line endX="54.5" layoutX="726.0" layoutY="467.0" startX="-100.0" />
+      <Line endX="713.5" layoutX="78.0" layoutY="591.0" startX="-68.0" stroke="#08c281" strokeWidth="20.0" />
+      <Line endX="5.0" endY="563.0" layoutX="-3.0" layoutY="18.0" startX="5.0" startY="-17.5" stroke="#659e78" strokeWidth="2.0" />
+      <Line endX="5.5" endY="562.0" layoutX="795.0" layoutY="19.0" startX="5.0" startY="-17.5" stroke="#659e78" strokeWidth="2.0" />
+      <Line endX="684.0" layoutX="94.0" layoutY="25.0" startX="-68.0" stroke="#08c281" strokeWidth="51.0" />
+      <Label layoutX="253.0" layoutY="6.0" prefHeight="33.0" prefWidth="301.0" text="ATTENDANCE REPORT" textFill="#fcfcfc">
+         <font>
+            <Font name="Berlin Sans FB" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalLate" alignment="CENTER" contentDisplay="CENTER" layoutX="627.0" layoutY="377.0" prefHeight="26.0" prefWidth="150.0" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalTardiness" alignment="CENTER" contentDisplay="CENTER" layoutX="628.0" layoutY="438.0" prefHeight="26.0" prefWidth="148.0">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="byPercent" alignment="CENTER" contentDisplay="CENTER" layoutX="619.0" layoutY="503.0" prefHeight="90.0" prefWidth="182.0" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="62.0" />
+         </font>
+      </Label>
+      <Label layoutX="650.0" layoutY="481.0" prefHeight="32.0" prefWidth="127.0" text="TARDINESS" textFill="#f8f8f8">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="622.0" layoutY="293.0" prefHeight="17.0" prefWidth="138.0" text="Total Scheduled Login :" />
+      <Line endX="58.5" layoutX="723.0" layoutY="343.0" startX="-100.0" />
+      <Label fx:id="totalLogin" alignment="CENTER" contentDisplay="CENTER" layoutX="631.0" layoutY="315.0" prefHeight="26.0" prefWidth="150.0" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

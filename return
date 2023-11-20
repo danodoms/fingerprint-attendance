@@ -1,0 +1,451 @@
+[33mcommit 2cc57cf22b9a62ecbfb4d8d373944dbf0cc6f46b[m[33m ([m[1;36mHEAD -> [m[1;32mhenry[m[33m, [m[1;32mmain[m[33m)[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Wed Nov 15 05:22:33 2023 +0800
+
+    pushing changes
+
+[33mcommit f38d4637c21f2516d7603571ab35c39c473cc99e[m[33m ([m[1;31morigin/henry[m[33m)[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Nov 12 18:57:55 2023 +0800
+
+    Error resolved
+
+[33mcommit b0c1328537fef97c2621ac860b856d63bba20143[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Nov 12 18:33:51 2023 +0800
+
+    Added fully-functional and all-sync filters
+
+[33mcommit 3f62939ca72b874e5150357a8ac88226503cadb8[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sat Nov 11 20:22:00 2023 +0800
+
+    pushing the last changes
+
+[33mcommit 8b29eda21dc057e77f80b71b2e3534ba6a2abf00[m
+Merge: 88e2f3a 43e3d13
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Wed Nov 8 14:24:32 2023 +0800
+
+    Conflict resolved
+
+[33mcommit 43e3d135d1cb62a9ed717f3390255e3a781f3c82[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Wed Nov 8 14:12:19 2023 +0800
+
+    DatePicker Filter added
+
+[33mcommit 88e2f3a4f1daad6b92f7f53a0024f20ef48ca770[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Wed Nov 8 14:05:21 2023 +0800
+
+    WIP: added identificationPane
+
+[33mcommit 45ea96093339e819ee62ee79149e57b4b262cd2f[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Mon Nov 6 15:43:14 2023 +0800
+
+    added enrollment pane on Login.fxml
+
+[33mcommit 9b73b0e1a504475b190f790cfb68ff5daa22f614[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Mon Nov 6 13:28:11 2023 +0800
+
+    Adding default Value to DatePicker
+
+[33mcommit 740475526d00e157b26b96a7d972a000eae9f1de[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Mon Nov 6 12:44:41 2023 +0800
+
+    WIP: added insert user function
+
+[33mcommit 6149fc416416b666e8736ad4f7b38c835f849876[m
+Merge: f51805b fd0d925
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sat Nov 4 14:10:16 2023 +0800
+
+    merging from main to henry branch
+
+[33mcommit f51805b037bd4dde1e3b4bc09d95075348b6807e[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sat Nov 4 14:04:51 2023 +0800
+
+    force commit
+
+[33mcommit fd0d9256980e3079ce1c0994b67d56a4e30f254e[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sat Nov 4 13:56:08 2023 +0800
+
+    Merge main
+
+[33mcommit 95d8626c956011f16d2bfc3ffdaaa5b86dfdf5d1[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sat Nov 4 11:40:46 2023 +0800
+
+    WIP: cleaned up enrollmentThread
+
+[33mcommit a18151a0f929d2adfa3812928ede42b37eaeb360[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sat Nov 4 00:38:12 2023 +0800
+
+    WIP: cleaned up identificationThread
+
+[33mcommit 1295c8c332a3aa17d8c16c04f800afc61732e4fa[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Nov 3 17:57:19 2023 +0800
+
+    WIP: can now identify fingerprints and return userId
+
+[33mcommit cccf7dc625c7475af9cfbd7c31a51dd9ad5388ac[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Nov 3 16:17:59 2023 +0800
+
+    BUGGY: added identification thread
+
+[33mcommit e115e8e68945c4ad486bbc0f0c909c62ee8300ad[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Nov 3 10:23:48 2023 +0800
+
+    can now enroll fingerprint to database
+
+[33mcommit cfb400d9b88f5c03c29980f96993aaa1fc94342d[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Thu Nov 2 18:15:49 2023 +0800
+
+    WIP: added enrollment thread
+
+[33mcommit f6aff0cbe52bbd1d8307eb034f0d578e63299f0a[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Wed Nov 1 18:50:59 2023 +0800
+
+    cleaned up captureThread and added display.java
+
+[33mcommit e24fcf74be1f9f4aa8c8bdc963936696de01d1ea[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Wed Nov 1 17:05:58 2023 +0800
+
+    added display fingerprint feature
+
+[33mcommit e52fc19f7431bc7e19d02a210a596bea16b5b90f[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Mon Oct 30 23:37:37 2023 +0800
+
+    Sorted the FXML features that have been declared inside the FXML Files
+
+[33mcommit c4c3368e63fbd754a127a1a0f222231ccd830dad[m
+Merge: dcf7649 50d972f
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 29 18:06:01 2023 +0800
+
+    merge
+
+[33mcommit dcf7649d8ac2a0e6c19bbd755742116e5b7a6456[m
+Merge: a2e1ef4 eb227bd
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 29 18:04:18 2023 +0800
+
+    Merge branch 'dano'
+
+[33mcommit 50d972fd14388469501999cd995ab3c2fff9ce79[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Oct 29 18:00:44 2023 +0800
+
+    Moved methods from dbMethods to their respective model
+
+[33mcommit eb227bd121949fcbd44547a0719e565cbe4ce1cd[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 29 15:54:41 2023 +0800
+
+    WIP enrollment integration
+
+[33mcommit 7f5d2c72d5b36be7ec17ae548c4da3ca9e97891a[m
+Merge: d88c22e a2e1ef4
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Oct 29 12:38:59 2023 +0800
+
+    resolveeee
+
+[33mcommit d88c22e7b27913816475ce0344c5d25110e889ae[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Oct 29 12:35:00 2023 +0800
+
+    removed project.properties
+
+[33mcommit f90b22cca2de74ff6ef3cc16a75045510ae53d57[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Oct 29 12:31:26 2023 +0800
+
+    overwrite changes
+
+[33mcommit a2e1ef4525071cc58c4f4ccc98536e2b89a8d6d4[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 29 12:29:09 2023 +0800
+
+    removed project.properties
+
+[33mcommit ed1cf050bbc1f6228f651ea6d1bee269b4608b24[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Oct 29 12:27:52 2023 +0800
+
+    restoring a file
+
+[33mcommit e48751e6f270e72801947cec6b9772760caec54f[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 29 12:20:54 2023 +0800
+
+    resolved conflicts
+
+[33mcommit 9f3d246d61d2705a7f245abaab020d39a9644456[m
+Merge: 45a569b 5cbbc43
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Oct 29 12:04:46 2023 +0800
+
+    merge henry
+
+[33mcommit 45a569bcb8f3632b58f67240933d5e73c704ec4a[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Oct 29 11:54:32 2023 +0800
+
+    merge henry
+
+[33mcommit 48231a1529baf1aea686bfa9cd82fadd9e54bca4[m
+Merge: b556537 4045481
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Oct 29 11:49:14 2023 +0800
+
+    merge main
+
+[33mcommit 5cbbc43156dc7aa9fcca5f94c457b3b827fbaa73[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sun Oct 29 11:42:55 2023 +0800
+
+    added dashboard fxml
+
+[33mcommit 40454818a5c2b09a3e3e90980c8a51e2992e91d4[m
+Merge: bac8c56 ab73e24
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 29 09:50:34 2023 +0800
+
+    Merge branch 'dano'
+
+[33mcommit ab73e24eedf8b8d099271a16bf54666708f84a09[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 29 09:18:36 2023 +0800
+
+    improved controllerMethods
+
+[33mcommit d2913826d768abec31f382e791d49d0ea6207b15[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sat Oct 28 18:54:10 2023 +0800
+
+    Removed Group_members.txt file, not related to the project.
+
+[33mcommit e748c220199753854db625f1ee6edcf4f6abbc56[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sat Oct 28 18:48:36 2023 +0800
+
+    Adding Admin_attendance.fxml file and EmployeeMgmt.fxml file to AdminPane.fxml file
+
+[33mcommit 2161f8205aa17b3dd90dcb72330bfb03c24a7c51[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sat Oct 28 18:36:47 2023 +0800
+
+    added fingerprint package
+
+[33mcommit b5565370af33a5913a20e42fac2240d26a662616[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sat Oct 28 07:59:32 2023 +0800
+
+    Vbox added on AdminPane.fxml
+
+[33mcommit bac8c5696de514db89787d4ab34f5ad93e055ba0[m
+Merge: 480c03e 0dd807d
+Author: danodoms <danodoms@gmail.com>
+Date:   Sat Oct 28 00:31:49 2023 +0800
+
+    resolve conflicts
+
+[33mcommit 480c03e88d0c42fb58afef458e0117c55d2788f5[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sat Oct 28 00:26:54 2023 +0800
+
+    merge changeee
+
+[33mcommit 0dd807d409e4ccb81d740cba2a5907e8556bde47[m
+Merge: 0348891 01d4391
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sat Oct 28 00:21:31 2023 +0800
+
+    resolved
+
+[33mcommit 0348891b8a2e5612feb571bbb342155103482a90[m
+Merge: 42f33ec 3c02b89
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sat Oct 28 00:08:36 2023 +0800
+
+    error resolved in nbproject/project.properties
+
+[33mcommit 01d4391d13efbf307badb662aa6369f0876cf96e[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Sat Oct 28 00:00:16 2023 +0800
+
+    Updated model names
+
+[33mcommit 5beb2782a601af4e496164e9d4acb7424d70d0de[m
+Merge: 2b75bf3 3c02b89
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Fri Oct 27 22:45:55 2023 +0800
+
+    Upadting local repository
+
+[33mcommit 2b75bf37401f55c0d1fa7949c88b34bcb587d046[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Fri Oct 27 22:43:34 2023 +0800
+
+    Committing xml file
+
+[33mcommit 3c02b89a6251e1a518b617a58b80ef3f826df203[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Oct 27 22:18:15 2023 +0800
+
+    changed gitignore
+
+[33mcommit 42f33ec90990001f71a8fd4043d366c3684fb878[m
+Merge: 78dd920 036d7ac
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Fri Oct 27 22:07:35 2023 +0800
+
+    Merge for origin
+
+[33mcommit 78dd920d2b019fa0531da2b487ef3f8477b95f25[m
+Author: Grinhornet <timadong25@gmail.com>
+Date:   Fri Oct 27 21:34:20 2023 +0800
+
+    Commit today
+
+[33mcommit d7db804e343fb064b475cb8bed66c7ceaef9abc1[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 22 18:12:15 2023 +0800
+
+    WIP: integrated fingerprint reader
+
+[33mcommit c9ee506cd5a37e2c7e8ce570b54e029557469524[m
+Author: GrinHornet <timadong925@gmail.com>
+Date:   Sun Oct 22 10:17:56 2023 +0800
+
+    Try lang fo
+
+[33mcommit 036d7ac71601a64b81b02387ff6e1a5f5ee5eec6[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 22 09:48:20 2023 +0800
+
+    added more employee mgmt fields, added getNextUserId method
+
+[33mcommit 019faf33f257cc6366b20954ebb5825ac1cbd212[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 22 07:58:15 2023 +0800
+
+    changed database to v11_attendance_system
+
+[33mcommit dddef5e371e64ba001cc5320d69aca478161d538[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 22 06:59:45 2023 +0800
+
+    dbmethods can now retrieve id, cleaned up code
+
+[33mcommit c7cfc0593b322e3a0740e6b7ee877b911eb465b5[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Oct 20 16:21:18 2023 +0800
+
+    switched db to v10_attendance_system, made shift choicebox pull data from db
+
+[33mcommit 7cc4be47e482227e444352034fd279692d713dff[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Oct 20 13:56:30 2023 +0800
+
+    converted employeeMgmt choicebox to setOnAction
+
+[33mcommit 4908ffcabc95a3fd63a571df7fa4f007434f7559[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Thu Oct 19 17:56:47 2023 +0800
+
+    modified getPositionsByDept method
+
+[33mcommit 38e83d34110b0504fbcc299161d0ec0c3f259eed[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sun Oct 15 09:12:49 2023 +0800
+
+    added more employeeMgmt fields
+
+[33mcommit 84af21903abc9ed903e760c9967cc0142c93ae57[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sat Oct 14 16:35:44 2023 +0800
+
+    minor improvements on employeeChoiceBox db link
+
+[33mcommit 0c4e615a6c5dd959b219a452e38b21f9a4630fc7[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sat Oct 14 13:29:40 2023 +0800
+
+    department, position choicebox can now link to database
+
+[33mcommit 92d407764d1c343be565344014407e281d99e7ee[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Sat Oct 14 08:25:24 2023 +0800
+
+    Added logout buttons
+
+[33mcommit f183c39fc5269894764bcab57678782801347c31[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Oct 13 19:12:04 2023 +0800
+
+    added employee mgmt fields
+
+[33mcommit d36300b84cccef9bc6a9ea0bb47011d62b484a1c[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Oct 13 13:52:19 2023 +0800
+
+    added controllerMethods
+
+[33mcommit eb780ff210956291aa3150399c2ba49460468c7a[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Oct 13 10:05:08 2023 +0800
+
+    separated fxml and controller on different folder
+
+[33mcommit d170780dc76c88713dda475d29067448d95bf60d[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Oct 13 09:47:52 2023 +0800
+
+    added view and controller for admin, rcrds officer
+
+[33mcommit afccf916a447effa132784bac52a79607358682f[m
+Merge: 39ffbac 5c3ee91
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Oct 13 09:10:57 2023 +0800
+
+    added controller, fxml
+
+[33mcommit 39ffbac8bdb3d4c62d2abcc72b073f9da46d1253[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Fri Oct 13 09:04:38 2023 +0800
+
+    added controller, fxml
+
+[33mcommit 3c82b3d7580b2abc2544f5b6d4004ab11b87b125[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Thu Oct 12 18:58:13 2023 +0800
+
+    initial commit
+
+[33mcommit 47266e75e53da884cd60b96df91276f322ac68dc[m
+Author: danodoms <danodoms@gmail.com>
+Date:   Thu Oct 12 18:55:59 2023 +0800
+
+    initial commit
+
+[33mcommit 5c3ee9113fd8ae94fa19644335863f6920069f9a[m
+Author: Dominador G. Dano Jr <116992939+danodoms@users.noreply.github.com>
+Date:   Thu Oct 12 17:58:21 2023 +0800
+
+    Initial commit

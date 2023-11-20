@@ -11,22 +11,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="541.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_EmpMgmtCTRL">
+<AnchorPane id="AnchorPane" minWidth="790.0" prefHeight="541.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_EmpMgmtCTRL">
    <children>
-      <TableView fx:id="userTable" layoutX="14.0" layoutY="51.0" onMouseClicked="#updateAssignmentTable" prefHeight="212.0" prefWidth="751.0">
+      <TableView fx:id="userTable" layoutX="14.0" layoutY="51.0" onMouseClicked="#updateAssignmentTable" prefHeight="255.0" prefWidth="768.0">
         <columns>
           <TableColumn fx:id="col_user_id" prefWidth="39.0" text="ID" />
-          <TableColumn fx:id="col_fname" prefWidth="104.0" text="First Name" />
-            <TableColumn fx:id="col_mname" prefWidth="99.0" text="Middle Name" />
+          <TableColumn fx:id="col_fname" prefWidth="92.0" text="First Name" />
+            <TableColumn fx:id="col_mname" prefWidth="111.0" text="Middle Name" />
             <TableColumn fx:id="col_lname" prefWidth="76.0" text="Last Name" />
             <TableColumn fx:id="col_suffix" prefWidth="48.0" text="Suffix" />
-            <TableColumn fx:id="col_privilege" prefWidth="83.0" text="Privilege" />
-            <TableColumn fx:id="col_email" prefWidth="101.0" text="Email" />
-            <TableColumn fx:id="col_contact_num" prefWidth="85.0" text="Contact No." />
-            <TableColumn fx:id="col_birthday" prefWidth="115.0" text="Birthday" />
+            <TableColumn fx:id="col_privilege" prefWidth="99.0" text="Privilege" />
+            <TableColumn fx:id="col_email" prefWidth="121.0" text="Email" />
+            <TableColumn fx:id="col_contact_num" prefWidth="98.0" text="Contact No." />
+            <TableColumn fx:id="col_birthday" prefWidth="83.0" text="Birthday" />
         </columns>
       </TableView>
-      <TableView fx:id="assignmentTable" layoutX="394.0" layoutY="276.0" prefHeight="147.0" prefWidth="372.0">
+      <TableView fx:id="assignmentTable" layoutX="411.0" layoutY="323.0" prefHeight="147.0" prefWidth="372.0">
          <columns>
             <TableColumn fx:id="col_assignment_id" prefWidth="48.0" text="ID" />
             <TableColumn fx:id="col_department" prefWidth="114.0" text="Department" />
@@ -34,12 +34,12 @@
             <TableColumn fx:id="col_shift" prefWidth="104.0" text="Shift" />
          </columns>
       </TableView>
-      <ImageView fitHeight="147.0" fitWidth="178.0" layoutX="14.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="147.0" fitWidth="178.0" layoutX="14.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Fingerprint/sample2.jpg" />
          </image>
       </ImageView>
-      <HBox layoutX="30.0" layoutY="451.0" prefHeight="40.0" prefWidth="332.0">
+      <HBox layoutX="26.0" layoutY="483.0" prefHeight="40.0" prefWidth="332.0">
          <children>
             <Button fx:id="addEmpBtn" mnemonicParsing="false" onAction="#openAddEmpPane" prefHeight="45.0" prefWidth="112.0" text="Add Employee" />
             <Button fx:id="editUserBtn" mnemonicParsing="false" onAction="#openEditUserPane" prefHeight="44.0" prefWidth="107.0" text="Edit" />
@@ -70,6 +70,13 @@
                </HBox.margin>
             </Label>
             <ChoiceBox fx:id="shiftFilter_choiceBox" prefHeight="49.0" prefWidth="134.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="436.0" layoutY="482.0" prefHeight="40.0" prefWidth="332.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="112.0" text="Add Position" />
+            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="107.0" text="Edit" />
+            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="113.0" text="Deactivate" />
          </children>
       </HBox>
    </children>

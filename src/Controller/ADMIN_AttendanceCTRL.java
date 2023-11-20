@@ -11,7 +11,6 @@ import static Model.Attendance.getAdministrative;
 import static Model.Attendance.getAttendance;
 import static Model.Attendance.getInstruction;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -70,7 +69,6 @@ public class ADMIN_AttendanceCTRL implements Initializable {
     public void clearChoiceBox(ActionEvent event){
         setTable();
     }
-    
 //    @FXML
     public void setTable(){
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -96,7 +94,6 @@ public class ADMIN_AttendanceCTRL implements Initializable {
                     return "";
                 }
             }
-
             @Override
             public LocalDate fromString(String string) {
                 if (string != null && !string.isEmpty()) {
@@ -143,6 +140,7 @@ public class ADMIN_AttendanceCTRL implements Initializable {
                     if (attendance.getDate().toString().equals(selectedDate.toString()) 
                             && (attendance.getName().toLowerCase()).contains(keyword)){
                         filteredData.add(attendance);
+                        
                     }
                  }
             }
@@ -189,8 +187,7 @@ public class ADMIN_AttendanceCTRL implements Initializable {
             }
         adminTableView.setItems(filteredData);
     }
-    
-    
+     
     private void filterByDept() {
         ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
         String keyword = searchBar.getText().toLowerCase(); 
