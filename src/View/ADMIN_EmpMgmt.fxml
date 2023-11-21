@@ -36,14 +36,14 @@
       </TableView>
       <ImageView fitHeight="147.0" fitWidth="178.0" layoutX="14.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Fingerprint/sample2.jpg" />
+            <Image url="@../Controller/default_user_img.jpg" />
          </image>
       </ImageView>
       <HBox layoutX="26.0" layoutY="483.0" prefHeight="40.0" prefWidth="332.0">
          <children>
             <Button fx:id="addEmpBtn" mnemonicParsing="false" onAction="#openAddEmpPane" prefHeight="45.0" prefWidth="112.0" text="Add Employee" />
             <Button fx:id="editUserBtn" mnemonicParsing="false" onAction="#openEditUserPane" prefHeight="44.0" prefWidth="107.0" text="Edit" />
-            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="113.0" text="Deactivate" />
+            <Button fx:id="deactivateUserBtn" mnemonicParsing="false" onAction="#deactivateUser" prefHeight="42.0" prefWidth="113.0" text="Deactivate" />
          </children>
       </HBox>
       <HBox layoutX="229.0" layoutY="11.0" prefHeight="26.0" prefWidth="536.0">

@@ -25,4 +25,15 @@ public class DatabaseUtil {
             return null;
         }
     }
+    
+    public static void executeQuery(String query){
+        Connection con = getConnection();
+        Statement st;
+        try{
+            st = con.createStatement();
+            st.executeUpdate(query);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

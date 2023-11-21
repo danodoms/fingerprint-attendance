@@ -8,6 +8,7 @@ import Model.Assignment;
 import Model.Department;
 import Model.Shift;
 import Model.User;
+import Utilities.DatabaseUtil;
 import Utilities.PaneUtil;
 import java.net.URL;
 import java.time.LocalDate;
@@ -73,6 +74,8 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     PaneUtil paneUtil = new PaneUtil();
     @FXML
     private Button addEmpBtn;
+    @FXML
+    private Button deactivateUserBtn;
     /**
      * Initializes the controller class.
      */
@@ -135,4 +138,22 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     private void openAddEmpPane(ActionEvent event) {
          paneUtil.openModal(paneUtil.ADD_EMPLOYEE_PANE);
     }
+
+    @FXML
+    private void deactivateUser(ActionEvent event) {
+        User selectedItem = userTable.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+            int id = selectedItem.getId();
+            String query = "UPDATE user SET user_status = 0 WHERE user_id = " + id;
+
+            DatabaseUtil.executeQuery(query);
+            showUserTable();
+            //clearFields();
+            //assignment_table.getItems().clear();
+        } else {
+            // Handle case when no row is selected or handle error.
+            // You can show a message or perform other actions here.
+        }
+        }
 }
