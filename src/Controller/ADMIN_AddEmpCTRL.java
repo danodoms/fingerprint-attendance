@@ -208,14 +208,6 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         addressField.clear();
         repeatPasswordField.clear();
     }
-    
-
-//    private void updatePositionChoiceBox(ActionEvent event) {
-//        System.out.println("update position choice box");
-//        Department selectedDepartment = departmentChoiceBox.getValue();
-//        positionChoiceBox.setItems(Position.getPositionsByDepartmentId(selectedDepartment.getId()));
-//    }
-    
 
     @FXML
     private void selectImg(ActionEvent event) {
@@ -277,6 +269,15 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         fis.read(data);
         fis.close();
         return data;
+    }
+    
+    public void setDataForEdit(User user) {
+        // Set the user details in the form
+        FnameField.setText(user.getFname());
+        MnameField.setText(user.getMname());
+        LnameField.setText(user.getLname());
+        userSuffixChoiceBox.setValue(user.getSuffix());
+        // Set other fields as needed
     }
 }
 

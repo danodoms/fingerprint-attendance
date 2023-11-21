@@ -10,19 +10,26 @@ import Model.Shift;
 import Model.User;
 import Utilities.DatabaseUtil;
 import Utilities.PaneUtil;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -131,7 +138,31 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
 
     @FXML
     private void openEditUserPane(ActionEvent event) {
-        paneUtil.openPane(paneUtil.ADD_EMPLOYEE_PANE);
+        
+        User selectedUser = userTable.getSelectionModel().getSelectedItem();
+        try {
+            // Load the AddUserForm.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.ADD_EMPLOYEE_PANE));
+            Parent root = loader.load();
+
+            // Get the controller of the AddUserForm
+            ADMIN_AddEmpCTRL addUserFormController = loader.getController();
+
+            // Pass data to the AddUserFormController
+            addUserFormController.setDataForEdit(selectedUser);
+
+            // Show the AddUserForm in the original pane
+            Stage secondStage = new Stage();
+            secondStage.setScene(new Scene(root));
+            secondStage.initModality(Modality.APPLICATION_MODAL);
+            secondStage.show();
+            //originalPane.getChildren().add(addUserForm);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception
+        }
+        //paneUtil.openPane(paneUtil.ADD_EMPLOYEE_PANE);
     }
 
     @FXML
