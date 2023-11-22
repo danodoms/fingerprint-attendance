@@ -6,6 +6,7 @@ package Model;
 
 import Utilities.DatabaseUtil;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,6 +19,7 @@ import javafx.collections.ObservableList;
  * @author User
  */
 public class Attendance {
+    private int id;
     private Date date;
     private String attendance_status;
     private String timeIn;
@@ -30,14 +32,19 @@ public class Attendance {
     public Attendance(String name){
         this.name = name;
     }
+    public Attendance(int id, String name){
+        this.id = id;
+        this.name = name;
+    }
     public Attendance(Date date){
         this.date=date;
     }
-     public Attendance (String name, Date date, String timeIn, String notation){
+     public Attendance (String name, Date date, String timeIn, String notation, String attendance_status){
         this.name = name;
         this.date = date;
         this.timeIn = timeIn;
         this.notation = notation;
+        this.attendance_status=attendance_status;
     }
     public Attendance (String name, Date date, String timeIn, String timeOut, String notation, String attendance_status){
         this.name = name;
@@ -47,6 +54,9 @@ public class Attendance {
         this.timeOut = timeOut;
         this.notation = notation;
     }
+    public int getId() {
+        return id;
+      }
       public String getName() {
         return name;
       }
@@ -70,7 +80,9 @@ public class Attendance {
     }
     
      
-     
+public void setId(int id) {
+    this.id = id;
+} 
 public void setName(String name) {
     this.name = name;
 }
@@ -122,11 +134,12 @@ public void setTimeOut(String timeOut) {
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
-            ResultSet rs = statement.executeQuery("SELECT CONCAT(user_fname, ' ', user_lname) AS name FROM user "+
-            "WHERE user_status = 1 GROUP BY user_id ORDER BY user_fname;");
+            ResultSet rs = statement.executeQuery("SELECT user_id as id, CONCAT(user_fname, ' ', user_lname) AS name FROM user "+
+            "WHERE user_status = 1 GROUP BY user_id ORDER BY id;");
             while (rs.next()) {
                
                 empName.add(new Attendance(
+                        rs.getInt("id"),
                     rs.getString("name")
                 ));
             }
@@ -176,18 +189,18 @@ public void setTimeOut(String timeOut) {
                    }
 
                 if (statusInt == 1) {
-                    statusString = "   ♥";
+                    statusString = "   ✓";
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
                     statusString = "No Out";
                 } else {
-                    statusString = "Unknown";
+                    statusString = "Present";
                 }
 
                 attendance.add(new Attendance(
-                    rs.getString("name"),
-                    rs.getDate("date"),
+                   rs.getString("name"),
+                   rs.getDate("date"),
                   in,
                  out,
                 rs.getString("notation"), 
@@ -241,13 +254,13 @@ public void setTimeOut(String timeOut) {
                    }
 
                 if (statusInt == 1) {
-                    statusString = "   ♥";
+                    statusString = "   ✓";
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
                     statusString = "No Out";
                 } else {
-                    statusString = "Unknown";
+                    statusString = "Present";
                 }
 
                 attendance.add(new Attendance(
@@ -301,19 +314,19 @@ public void setTimeOut(String timeOut) {
                         
                     }
                    if(out.equals("00:00:00")){
-                       out = " ";
+                       out = " -";
                    }
 
                 if (statusInt == 1) {
-                    statusString = "   ♥";
+                    statusString = "   ✓";
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
                     statusString = "No Out";
                 } else {
-                    statusString = "Unknown";
+                    statusString = "Present";
                 }
-
+                
                 attendance.add(new Attendance(
                     rs.getString("name"),
                     rs.getDate("date"),
@@ -377,7 +390,7 @@ public void setTimeOut(String timeOut) {
                    }
 
                 if (statusInt == 1) {
-                    statusString = "  √";
+                    statusString = "  ✓";
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
@@ -401,27 +414,49 @@ public void setTimeOut(String timeOut) {
         }
         return attendance;
     }
-        public static ObservableList<Attendance> getAttendancebyLate(){
+        //Note: Sabta nlng gyud akong mga comments. THis is for remembering lang fo.
+        public static ObservableList<Attendance> getAttendancebyLate(int user_id){
         ObservableList<Attendance> attendance = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
-            ResultSet rs = statement.executeQuery("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date,\n" +
-"            c.time_in as timeIn, c.time_out as timeOut, c.time_notation as notation,\n" +
-"            c.attendance_status \n" +
-"            FROM attendance c \n" +
-"            JOIN user u ON c.user_id = u.user_id \n" +
-"            JOIN assignment a ON u.user_id = a.user_id \n" +
-"            JOIN position p ON a.position_id = p.position_id\n" +
-"            JOIN department d ON p.department_id = d.department_id \n" +
-"            WHERE u.user_status = 1 AND c.attendance_status = 2 \n" +
-"            GROUP BY c.attendance_id ORDER BY c.attendance_id;");
+        // This is the query fron the  Attendance    
+           String query = ("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date,\n" +
+        "       c.time_in as timeIn, c.time_out as timeOut, c.time_notation as notation, \n" +
+        "       c.attendance_status \n" +
+        "FROM attendance c\n" +
+        "JOIN user u ON c.user_id = u.user_id\n" +
+        "JOIN assignment a ON u.user_id = a.user_id \n" +
+        "JOIN position p ON a.position_id = p.position_id\n" +
+        "JOIN department d ON p.department_id = d.department_id \n" +
+        "WHERE u.user_status = 1 AND u.user_id = ?\n" +
+        "GROUP BY c.attendance_id\n" +
+        "ORDER BY c.attendance_id;");
+           
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, user_id);
             
-            while (rs.next()) {
+            ResultSet rs = preparedStatement.executeQuery();
+        
+            // Iteration huhu -_- Sukol!! 
+               while (rs.next()) {
                 int statusInt = rs.getInt("attendance_status");
                 String in= rs.getString("timeIn");
                 String notationPM = rs.getString("notation");
+                String rs1Date = rs.getDate("date").toString();
+//                String rs2Date = rs2.getDate("date").toString();
+                
+                //timeIn convertion from 24 hours to 12 hours.
                 String statusString;
+                if (statusInt == 1) {
+                    statusString = "  ✓";
+                } else if (statusInt == 2) {
+                    statusString = "Late";
+                } else if (statusInt == 3) {
+                    statusString = "No Out";
+                } else {
+                    statusString = "Overtime";
+                }
                     if(notationPM.equals("PM")){
                         String[] splitIn = in.split(":");
                         int convertIn = Integer.parseInt(splitIn[0]);
@@ -434,13 +469,17 @@ public void setTimeOut(String timeOut) {
                             }
                         }
                     }
-                attendance.add(new Attendance(
+                //Compare rs2 with rs2
+               attendance.add(new Attendance(
                     rs.getString("name"),
                     rs.getDate("date"),
                   in,
-                 rs.getString("notation")
-                ));
+                 rs.getString("notation"),
+                  statusString
+                    ));
             }
+           
+            
 
         } catch (SQLException e) {
             e.printStackTrace();
