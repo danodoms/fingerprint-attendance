@@ -273,11 +273,31 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     
     public void setDataForEdit(User user) {
         // Set the user details in the form
+        String suffix = user.getSuffix();
+        
+        if(suffix == null || suffix.equals("")){
+            suffix = "None";
+        }
+        
         FnameField.setText(user.getFname());
         MnameField.setText(user.getMname());
         LnameField.setText(user.getLname());
-        userSuffixChoiceBox.setValue(user.getSuffix());
+        userSuffixChoiceBox.setValue(suffix);
+        emailField.setText(user.getEmail());
+        privilegeChoiceBox.setValue(user.getPrivilege());
+        contactNumField.setText(user.getContactNum());
+        sexChoiceBox.setValue(user.getSex());
+        dateOfBirthPicker.setValue(user.getBirthDate());
+        addressField.setText(user.getAddress());
+        userImage.setImage(byteArrayToImage(user.getImage()));
+
         // Set other fields as needed
+        addEmployeeBtn.setText("Save Changes");
+    }
+    
+    private Image byteArrayToImage(byte[] byteArray) {
+        // Convert byte array to JavaFX Image
+        return new Image(new java.io.ByteArrayInputStream(byteArray));
     }
 }
 

@@ -138,7 +138,6 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
 
     @FXML
     private void openEditUserPane(ActionEvent event) {
-        
         User selectedUser = userTable.getSelectionModel().getSelectedItem();
         try {
             // Load the AddUserForm.fxml
@@ -186,5 +185,5 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
             // Handle case when no row is selected or handle error.
             // You can show a message or perform other actions here.
         }
-        }
+    }
 }
