@@ -101,10 +101,10 @@
                   </TextField>
                   <HBox prefHeight="38.0" prefWidth="292.0">
                      <children>
-                        <VBox prefHeight="50.0" prefWidth="95.0">
+                        <VBox prefHeight="50.0" prefWidth="69.0">
                            <children>
                               <Label text="Suffix" />
-                              <ChoiceBox fx:id="userSuffixChoiceBox" prefHeight="25.0" prefWidth="587.0">
+                              <ChoiceBox fx:id="userSuffixChoiceBox" prefHeight="25.0" prefWidth="58.0">
                                  <VBox.margin>
                                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                  </VBox.margin>
@@ -121,10 +121,10 @@
                               </ChoiceBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="50.0" prefWidth="113.0">
+                        <VBox prefHeight="50.0" prefWidth="135.0">
                            <children>
                               <Label text="Date Of Birth" />
-                              <DatePicker fx:id="dateOfBirthPicker" prefHeight="25.0" prefWidth="622.0">
+                              <DatePicker fx:id="dateOfBirthPicker" prefHeight="25.0" prefWidth="129.0">
                                  <VBox.margin>
                                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                  </VBox.margin>

@@ -16,14 +16,11 @@
       <TableView fx:id="userTable" layoutX="14.0" layoutY="51.0" onMouseClicked="#updateAssignmentTable" prefHeight="255.0" prefWidth="768.0">
         <columns>
           <TableColumn fx:id="col_user_id" prefWidth="39.0" text="ID" />
-          <TableColumn fx:id="col_fname" prefWidth="92.0" text="First Name" />
-            <TableColumn fx:id="col_mname" prefWidth="111.0" text="Middle Name" />
-            <TableColumn fx:id="col_lname" prefWidth="76.0" text="Last Name" />
-            <TableColumn fx:id="col_suffix" prefWidth="48.0" text="Suffix" />
-            <TableColumn fx:id="col_privilege" prefWidth="99.0" text="Privilege" />
-            <TableColumn fx:id="col_email" prefWidth="121.0" text="Email" />
-            <TableColumn fx:id="col_contact_num" prefWidth="98.0" text="Contact No." />
-            <TableColumn fx:id="col_birthday" prefWidth="83.0" text="Birthday" />
+          <TableColumn fx:id="col_name" prefWidth="245.0" text="Name" />
+            <TableColumn fx:id="col_privilege" minWidth="0.0" prefWidth="91.0" text="Privilege" />
+            <TableColumn fx:id="col_email" prefWidth="135.0" text="Email" />
+            <TableColumn fx:id="col_contact_num" prefWidth="126.0" text="Contact No." />
+            <TableColumn fx:id="col_birthday" prefWidth="131.0" text="Birthday" />
         </columns>
       </TableView>
       <TableView fx:id="assignmentTable" layoutX="411.0" layoutY="323.0" prefHeight="147.0" prefWidth="372.0">

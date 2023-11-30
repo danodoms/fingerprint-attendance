@@ -129,6 +129,9 @@ public class ADMIN_AddEmpCTRL implements Initializable {
                 User.addUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
                 showModal("Success","Employee added successfully!");
                 clearFields();
+                
+                ADMIN_EmpMgmtCTRL adminEmpCtrl = new ADMIN_EmpMgmtCTRL();
+                adminEmpCtrl.loadUserTable();
             }else{
                 showModal("Failed", prompt);
             }
@@ -297,7 +300,13 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     
     private Image byteArrayToImage(byte[] byteArray) {
         // Convert byte array to JavaFX Image
+        try{
         return new Image(new java.io.ByteArrayInputStream(byteArray));
+        } catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        
     }
 }
 

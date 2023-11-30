@@ -51,13 +51,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     @FXML
     private TableColumn<User, Integer> col_user_id;
     @FXML
-    private TableColumn<User, String> col_fname;
-    @FXML
-    private TableColumn<User, String> col_mname;
-    @FXML
-    private TableColumn<User, String> col_lname;
-    @FXML
-    private TableColumn<User, String> col_suffix;
+    private TableColumn<User, String> col_name;
     @FXML
     private TableColumn<User, String> col_privilege;
     @FXML
@@ -83,13 +77,14 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     private Button addEmpBtn;
     @FXML
     private Button deactivateUserBtn;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        showUserTable();
+        loadUserTable();
         
         privilegeFilter_choiceBox.setValue("All");
         privilegeFilter_choiceBox.getItems().addAll("All","employee","admin","records officer");
@@ -104,10 +99,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
         
         //USER TABLE
         col_user_id.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
-        col_fname.setCellValueFactory(new PropertyValueFactory<User, String>("fname"));
-        col_mname.setCellValueFactory(new PropertyValueFactory<User, String>("mname"));
-        col_lname.setCellValueFactory(new PropertyValueFactory<User, String>("lname"));
-        col_suffix.setCellValueFactory(new PropertyValueFactory<User, String>("suffix"));
+        col_name.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
         col_privilege.setCellValueFactory(new PropertyValueFactory<User, String>("privilege"));
         col_email.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
         col_contact_num.setCellValueFactory(new PropertyValueFactory<User, String>("contactNum"));
@@ -120,8 +112,8 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
         col_shift.setCellValueFactory(new PropertyValueFactory<Assignment, String>("shift"));
     }    
     
-     public void showUserTable(){
-        ObservableList<User> users = User.getUsers();
+     public void loadUserTable(){
+        ObservableList<User> users = User.getActiveEmployees();
         userTable.setItems(users);
     }
      
@@ -139,6 +131,8 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     @FXML
     private void openEditUserPane(ActionEvent event) {
         User selectedUser = userTable.getSelectionModel().getSelectedItem();
+        int selectedUserId = selectedUser.getId();
+        User userFromDb = User.getUserByUserId(selectedUserId);
         try {
             // Load the AddUserForm.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.ADD_EMPLOYEE_PANE));
@@ -148,7 +142,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
             ADMIN_AddEmpCTRL addUserFormController = loader.getController();
 
             // Pass data to the AddUserFormController
-            addUserFormController.setDataForEdit(selectedUser);
+            addUserFormController.setDataForEdit(userFromDb);
 
             // Show the AddUserForm in the original pane
             Stage secondStage = new Stage();
@@ -178,7 +172,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
             String query = "UPDATE user SET user_status = 0 WHERE user_id = " + id;
 
             DatabaseUtil.executeQuery(query);
-            showUserTable();
+            loadUserTable();
             //clearFields();
             //assignment_table.getItems().clear();
         } else {

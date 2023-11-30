@@ -121,12 +121,12 @@ public class IdentificationThread extends Thread{
     //this method is used by "compareFmdToDatabaseFmds" for display purposes
     private void userIdentificationSuccess(int userId){
         
-        userList = User.getUserByUserId(userId);
-        String fname = userList.get(0).getFname();
-        String mname = userList.get(0).getMname();
-        String lname = userList.get(0).getLname();
-        String suffix = userList.get(0).getSuffix();
-        byte[] userImage = userList.get(0).getImage();
+        User user = User.getUserByUserId(userId);
+        String fname = user.getFname();
+        String mname = user.getMname();
+        String lname = user.getLname();
+        String suffix = user.getSuffix();
+        byte[] userImage = user.getImage();
         
         String fullName = fname + " " + mname + " " + lname + " " + suffix;
         System.out.println("You are " + fullName);

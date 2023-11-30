@@ -37,6 +37,9 @@ public class User {
     private String address;
     private byte[] image;
     private int status;
+    
+    //Custom variables for Views
+    private String fullName;
    
     
     //Full Constructor
@@ -92,6 +95,16 @@ public class User {
         this.birthDate = birthDate;
         this.contactNum = contactNum;
         this.address = address;
+    }
+    
+    //active employee constructor
+    public User(int id, String fullName, String privilege, String email, String contactNum, LocalDate birthDate){
+        this.id = id;
+        this.fullName = fullName;
+        this.privilege = privilege;
+        this.email = email;
+        this.contactNum = contactNum;
+        this.birthDate = birthDate;
     }
 
     
@@ -194,8 +207,8 @@ public class User {
     }
     
           
-    public static ObservableList<User> getUserByUserId(int userId){
-        ObservableList<User> users = FXCollections.observableArrayList();
+    public static User getUserByUserId(int userId){
+        User user = null;
 
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()) {
@@ -213,7 +226,7 @@ public class User {
                     birthDate = sqlBirthDate.toLocalDate();
                 }
                 
-                  users.add(new User(
+                  user = new User(
                         rs.getInt("user_id"),
                         rs.getString("user_fname"),
                         rs.getString("user_mname"),
@@ -228,16 +241,16 @@ public class User {
                         rs.getString("address"),
                         rs.getBytes("user_img"),
                         rs.getInt("user_status")    
-                  ));
+                  );
             }
 
-             System.out.println(users);
+             System.out.println(user);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return users;
+        return user;
     }
     
     
@@ -263,6 +276,37 @@ public class User {
             e.printStackTrace();
         }
         return user;
+    }
+    
+    public static ObservableList<User> getActiveEmployees(){
+        ObservableList<User> activeEmp = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("select * from activeemployeeview;");
+            
+            while (rs.next()) {
+                LocalDate birthDate = null;
+                java.sql.Date sqlBirthDate = rs.getDate("birth_date");
+                if (sqlBirthDate != null) {
+                    birthDate = sqlBirthDate.toLocalDate();
+                }
+
+                  activeEmp.add(new User(
+                        rs.getInt("user_id"),
+                        rs.getString("name"),
+                        rs.getString("privilege"),
+                        rs.getString("email"),
+                        rs.getString("user_cntct"),
+                        birthDate 
+                  ));
+            }
+            
+            //System.out.println("Users: " + activeEmp);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return activeEmp; 
     }
 
     public int getId() {
@@ -348,6 +392,14 @@ public class User {
 
     public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setBirthDate(LocalDate birthDate) {
