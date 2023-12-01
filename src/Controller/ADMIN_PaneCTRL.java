@@ -89,8 +89,4 @@ public class ADMIN_PaneCTRL implements Initializable {
     private void logOut(ActionEvent event) {
         paneUtil.exitAndOpenNewPane(logOutAdminBtn, paneUtil.LOGIN_PANE);
     }
-    
-   
-    
-    
 }

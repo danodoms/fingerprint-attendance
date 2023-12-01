@@ -25,6 +25,9 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * FXML Controller class
@@ -76,7 +79,8 @@ public class ADMIN_DashboardCTRL implements Initializable {
        
     // Populate the bar chart
     populateBarChart(userList);
-    populatePieChart();
+    schedulePieChartRefresh();
+//    populatePieChart();
 }
 
     private void populateBarChart(ObservableList<User> userList) {
@@ -99,39 +103,32 @@ public class ADMIN_DashboardCTRL implements Initializable {
         }
         barChart.getData().addAll(series, series1);
     }
-//   private void populatePieChart() {
-//        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-//
-//        for (Attendance attendance : getEmpToPieChart()) {
-//            pieChartData.add(new PieChart.Data("Logged In", attendance.getPercentageLoggedIn()));
-//            pieChartData.add(new PieChart.Data("Not Logged In", attendance.getPercentageNotLoggedIn()));
-//        }
-//        pieChart.setData(pieChartData);
-//}
 
 //     private void populatePieChart() {
 //        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-//            int totalEmp = 0, loggedIn = 0, notLogged = 0;
+//            
 //            for (Attendance attendance : getEmpToPieChart()) {
-//                    if (attendance!=null){
-//                        notLogged++;
-//                    }else{
-//                        loggedIn++;
-//                    }
-//                    totalEmp++;
+//            pieChartData.add(new PieChart.Data("Logged In", attendance.getPercentageLoggedIn()));
+//            pieChartData.add(new PieChart.Data("Not Logged In", attendance.getPercentageNotLoggedIn()));
 //                }
-//            double percentageLoggedIn = (double) loggedIn / totalEmp * 100;
-//            double percentageNotLoggedIn = (double) notLogged / totalEmp * 100;
-//            pieChart.getData().addAll(
-         
-//    }
-     private void populatePieChart() {
+//            pieChart.setData(pieChartData);
+//     }
+    private void schedulePieChartRefresh() {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+        // Schedule the refresh every 10 seconds, adjust the interval as needed
+        scheduler.scheduleAtFixedRate(this::populatePieChart, 0, 10, TimeUnit.SECONDS);
+    }
+
+    private void populatePieChart() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-            
-            for (Attendance attendance : getEmpToPieChart()) {
+
+        for (Attendance attendance : getEmpToPieChart()) {
             pieChartData.add(new PieChart.Data("Logged In", attendance.getPercentageLoggedIn()));
             pieChartData.add(new PieChart.Data("Not Logged In", attendance.getPercentageNotLoggedIn()));
-                }
-            pieChart.setData(pieChartData);
-     }
+        }
+
+        // Update the UI in the JavaFX Application Thread
+        Platform.runLater(() -> pieChart.setData(pieChartData));
+    }
 }
