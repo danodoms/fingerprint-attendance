@@ -5,11 +5,14 @@
 package Model;
 
 import Utilities.DatabaseUtil;
+import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,10 +27,65 @@ public class Attendance {
     private String attendance_status;
     private String timeIn;
     private String timeOut;
+    private String timeInAm,timeOutAm;
+    private String timeInPm,timeOutPm;
     private String name;
+    private String notationAM;
+    private String notationPM;
     private String deptName;
     private String notation;
     public static String defaultValue = "All";
+    private int totalEmployees;
+    private double percentageLoggedIn;
+    private double percentageNotLoggedIn;
+    
+    public Attendance(int totalEmployees, double percentageLoggedIn,double percentageNotLoggedIn){
+        this.totalEmployees = totalEmployees;
+        this.percentageLoggedIn=percentageLoggedIn;
+        this.percentageNotLoggedIn=percentageNotLoggedIn;
+    }
+
+    public int getTotalEmployees() {
+        return totalEmployees;
+    }
+
+    public void setTotalEmployees(int totalEmployees) {
+        this.totalEmployees = totalEmployees;
+    }
+
+    public double getPercentageLoggedIn() {
+        return percentageLoggedIn;
+    }
+
+    public double getPercentageNotLoggedIn() {
+        return percentageNotLoggedIn;
+    }
+
+    public void setPercentageLoggedIn(double percentageLoggedIn) {
+        this.percentageLoggedIn = percentageLoggedIn;
+    }
+
+    public void setPercentageNotLoggedIn(double percentageNotLoggedIn) {
+        this.percentageNotLoggedIn = percentageNotLoggedIn;
+    }
+
+//    private boolean loggedIn;
+
+//    public void setLoggedIn(boolean loggedIn) {
+//        this.loggedIn = loggedIn;
+//    }
+//
+//    public boolean isLoggedIn() {
+//        return loggedIn;
+//    }
+
+    public Attendance(int id, Date date, String name, String timeIn, String notation) {
+        this.id=id;
+        this.date = date;
+        this.timeIn = timeIn;
+        this.name = name;
+        this.notation = notation;
+    }
     
     public Attendance(String name){
         this.name = name;
@@ -39,12 +97,30 @@ public class Attendance {
     public Attendance(Date date){
         this.date=date;
     }
-     public Attendance (String name, Date date, String timeIn, String notation, String attendance_status){
+     public Attendance (String name, Date date, String timeInAm, String timeOutAm, String timeInPm, String timeOutPm, String attendance_status){
         this.name = name;
         this.date = date;
-        this.timeIn = timeIn;
-        this.notation = notation;
-        this.attendance_status=attendance_status;
+        this.attendance_status = attendance_status;
+        this.timeIn = timeInAm;
+        this.timeOut = timeOutAm;
+        this.timeIn = timeInPm;
+        this.timeOut = timeOutPm;
+    }
+
+    public void setNotationAM(String notationAM) {
+        this.notationAM = notationAM;
+    }
+
+    public void setNotationPM(String notationPM) {
+        this.notationPM = notationPM;
+    }
+
+    public String getNotationAM() {
+        return notationAM;
+    }
+
+    public String getNotationPM() {
+        return notationPM;
     }
     public Attendance (String name, Date date, String timeIn, String timeOut, String notation, String attendance_status){
         this.name = name;
@@ -78,6 +154,18 @@ public class Attendance {
      public String getTimeOut() {
         return timeOut;
     }
+     public String getTimeInAm() {
+        return timeInAm;
+    }
+     public String getTimeOutAm() {
+        return timeOutAm;
+    }
+     public String getTimeInPm() {
+        return timeInPm;
+    }
+     public String getTimeOutPm() {
+        return timeOutPm;
+    }
     
      
 public void setId(int id) {
@@ -109,6 +197,20 @@ public void setTimeIn(String timeIn) {
 
 public void setTimeOut(String timeOut) {
     this.timeOut = timeOut;
+}   
+public void setTimeInAm(String timeInAm) {
+    this.timeInAm = timeInAm;
+}
+
+public void setTimeOutAm(String timeOutAm) {
+    this.timeOutAm = timeOutAm;
+}   
+public void setTimeInPm(String timeInPm) {
+    this.timeInPm = timeInPm;
+}
+
+public void setTimeOutPm(String timeOutPm) {
+    this.timeOutPm = timeOutPm;
 }   
     public static ObservableList<Attendance> getYearforLabel(){
         ObservableList<Attendance>empName = FXCollections.observableArrayList();
@@ -279,6 +381,67 @@ public void setTimeOut(String timeOut) {
         return attendance;
     } 
          
+         public static ObservableList<Attendance> getEmpToPieChart(){
+            ObservableList<Attendance> attendance = FXCollections.observableArrayList();
+            try (Connection connection = DatabaseUtil.getConnection();
+                Statement statement = connection.createStatement()){
+                String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                ResultSet rs = statement.executeQuery("SELECT total_employees as count, percentage_logged_in as logged, percentage_not_logged_in as notLogged  FROM employee_status_view;");
+                
+                while (rs.next()){
+                   
+                            attendance.add(new Attendance(
+                        rs.getInt("count"),
+                        rs.getDouble("logged"),
+                        rs.getDouble("notLogged")
+                         ));
+                }
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+             
+             return attendance;
+         }
+         
+//         public static ObservableList<Attendance> getEmpToPieChart() {
+//    ObservableList<Attendance> attendance = FXCollections.observableArrayList();
+//
+//    try (Connection connection = DatabaseUtil.getConnection();
+//         CallableStatement cstmt = (CallableStatement) connection.prepareCall("{CALL get_employee_status(?)}")) {
+//
+//        // Set the input parameter for the stored procedure
+//        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        cstmt.setDate(1, java.sql.Date.valueOf(currentDate));
+//
+//        // Execute the stored procedure
+//        boolean results = cstmt.execute();
+//
+//        // Handle the result set
+//        if (results) {
+//            ResultSet rs = cstmt.getResultSet();
+//            while (rs.next()) {
+//                // Process the result set from your stored procedure
+//                int totalEmployees = rs.getInt("total_employees_count");
+//                double percentageLoggedIn = rs.getDouble("percentage_logged_in");
+//                double percentageNotLoggedIn = rs.getDouble("percentage_not_logged_in");
+//
+//                // Create Attendance object and add to the list
+//                attendance.add(new Attendance(
+//                        rs.getInt("total_employees_count"),
+//                        rs.getDouble("percentage_logged_in"),
+//                        rs.getDouble("percentage_not_logged_in")
+//                ));
+//            }
+//        }
+//
+//    } catch (SQLException e) {
+//        e.printStackTrace();
+//    }
+//
+//    return attendance;
+//}
+
+         
          public static ObservableList<Attendance> getInstruction(){
         ObservableList<Attendance> attendance = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();
@@ -421,18 +584,32 @@ public void setTimeOut(String timeOut) {
             Statement statement = connection.createStatement()){
             
         // This is the query fron the  Attendance    
-           String query = ("SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date,\n" +
-        "       c.time_in as timeIn, c.time_out as timeOut, c.time_notation as notation, \n" +
-        "       c.attendance_status \n" +
-        "FROM attendance c\n" +
-        "JOIN user u ON c.user_id = u.user_id\n" +
-        "JOIN assignment a ON u.user_id = a.user_id \n" +
-        "JOIN position p ON a.position_id = p.position_id\n" +
-        "JOIN department d ON p.department_id = d.department_id \n" +
-        "WHERE u.user_status = 1 AND u.user_id = ?\n" +
-        "GROUP BY c.attendance_id\n" +
-        "ORDER BY c.attendance_id;");
+//           String query = ("SELECT\n" +
+//"    CONCAT(u.user_fname, ' ', u.user_lname) AS employee_name, \n" +
+//"    c.date,\n" +
+//"    COALESCE(MAX(CASE WHEN c.time_notation = 'AM' THEN c.time_in END), '') AS timeInAM,\n" +
+//    "    COALESCE(MIN(CASE WHEN c.time_notation = 'AM' THEN c.time_out END), '') AS timeOutAM,\n" +
+//"    'AM' AS notationAM,\n" +
+//"    COALESCE(MAX(CASE WHEN c.time_notation = 'PM' THEN c.time_in END), '') AS timeInPM,\n" +
+//"    COALESCE(MIN(CASE WHEN c.time_notation = 'PM' THEN c.time_out END), '') AS timeOutPM,\n" +
+//"    'PM' AS notationPM,\n" +
+//"    CASE \n" +
+//"        WHEN EXISTS (\n" +
+//"            SELECT 1 \n" +
+//"            FROM attendance a\n" +
+//"            WHERE a.date = c.date \n" +
+//"            AND a.user_id = c.user_id\n" +
+//"            AND a.attendance_status = 2\n" +
+//"        ) THEN 2 \n" +
+//"        ELSE COALESCE(MAX(c.attendance_status), 0)\n" +
+//"    END AS attendance_status \n" +
+//"FROM attendance c \n" +
+//"JOIN user u ON c.user_id = u.user_id\n" +                     
+//"WHERE u.user_id = ?\n" +
+//"GROUP BY c.date \n" +
+//"ORDER BY c.date;");
            
+            String query =("SELECT CONCAT(firstname,' ', lastname) AS name, timeInAM, timeOutAM, timeInPM, timeOutPM, attendance_status FROM dtr WHERE user_id=?;");
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, user_id);
             
@@ -440,16 +617,19 @@ public void setTimeOut(String timeOut) {
         
             // Iteration huhu -_- Sukol!! 
                while (rs.next()) {
+                String name = rs.getString("name");
+                String timeInAm1 = rs.getString("timeInAM") ;
+                String timeOutAm1 = rs.getString("timeOutAM");
+                String timeInPm2 = rs.getString("timeInPM") ;
+                String timeOutPm2 = rs.getString("timeOutPM") ;
                 int statusInt = rs.getInt("attendance_status");
-                String in= rs.getString("timeIn");
-                String notationPM = rs.getString("notation");
                 String rs1Date = rs.getDate("date").toString();
-//                String rs2Date = rs2.getDate("date").toString();
+
+                // timeIn convertion from 24 hours to 12 hours.
                 
-                //timeIn convertion from 24 hours to 12 hours.
                 String statusString;
                 if (statusInt == 1) {
-                    statusString = "  ✓";
+                    statusString = "Present";
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
@@ -457,33 +637,33 @@ public void setTimeOut(String timeOut) {
                 } else {
                     statusString = "Overtime";
                 }
-                    if(notationPM.equals("PM")){
-                        String[] splitIn = in.split(":");
-                        int convertIn = Integer.parseInt(splitIn[0]);
-                        if(convertIn >= 13){
-                            convertIn = convertIn - 12;
-                            if(convertIn>9){
-                                in = (convertIn+"")+ ":"+splitIn[1]+":"+splitIn[2];
-                            }else{
-                                in = "0"+(convertIn+"")+ ":"+splitIn[1]+":"+splitIn[2];
-                            }
-                        }
-                    }
-                //Compare rs2 with rs2
-               attendance.add(new Attendance(
-                    rs.getString("name"),
+
+                attendance.add(new Attendance(
+                    name,
                     rs.getDate("date"),
-                  in,
-                 rs.getString("notation"),
-                  statusString
-                    ));
-            }
-           
-            
+                    timeInAm1,
+                    timeOutAm1,
+                    timeInPm2,
+                    timeOutPm2,
+                    statusString
+                ));
+            } 
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        for (Attendance record : attendance) {
+        System.out.println("Employee Name: " + record.getName());
+        System.out.println("Date: " + record.getDate());
+        System.out.println("Time In (AM): " + record.getTimeInAm());
+        System.out.println("Time Out (AM): " + record.getTimeOutAm());
+        System.out.println("Time In (PM): " + record.getTimeInPm());
+        System.out.println("Time Out (PM): " + record.getTimeOutPm());
+        System.out.println("Attendance Status: " + record.getAttendance_status());
+
+        // Add a separator for better readability
+        System.out.println("----------------------------");
+    }
         return attendance;
     }
 }

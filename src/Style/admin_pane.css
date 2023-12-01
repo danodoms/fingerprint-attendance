@@ -1,0 +1,29 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Dec 1, 2023, 6:02:14 AM
+    Author     : User
+*/
+
+.button {
+    -fx-background-color: #3DAC78;
+    -fx-border: none; 
+    -fx-color: white;
+    -fx-text-fill: white; 
+    -fx-font-size: 14px; 
+}
+
+.button:hover {
+    -fx-background-color: #014421; 
+    -fx-font-weight: bold;
+}
+
+#logOutAdminBtn {
+    -fx-background-color: #f44336;
+}
+
+#logOutAdminBtn:hover {
+    -fx-background-color: #d32f2f;
+}
