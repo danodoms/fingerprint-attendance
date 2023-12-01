@@ -73,6 +73,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     
     DatabaseUtil dbMethods = new DatabaseUtil();
     PaneUtil method = new PaneUtil();
+    boolean editMode = false;
     @FXML
     private TextField repeatPasswordField;
 
@@ -97,49 +98,59 @@ public class ADMIN_AddEmpCTRL implements Initializable {
 
     @FXML
     private void addEmployee(ActionEvent event) {
-        String fname = FnameField.getText();
-        String mname = MnameField.getText();
-        String lname = LnameField.getText();
-        String suffix = userSuffixChoiceBox.getValue();
-            if(suffix.equals("None")){
-                suffix = null;
+//        if(editMode == false){
+            String fname = FnameField.getText();
+            String mname = MnameField.getText();
+            String lname = LnameField.getText();
+            String suffix = userSuffixChoiceBox.getValue();
+                if(suffix.equals("None")){
+                    suffix = null;
+                }
+
+            String email = emailField.getText();
+            String password = passwordField.getText();
+            String repeatPassword = repeatPasswordField.getText();
+            String privilege = privilegeChoiceBox.getValue();
+                if(privilege.equals("None")){
+                       privilege = null;
+                   }
+            String contactNum = contactNumField.getText();
+            String sex = sexChoiceBox.getValue();
+                if(sex.equals("Select")){
+                    sex = null;
+                }
+            LocalDate birthDate = dateOfBirthPicker.getValue();
+            String address = addressField.getText();
+            byte[] image = imageBytes;
+
+            User candidateUser = new User(image, email, password, privilege, fname, mname, lname, suffix, sex, birthDate, contactNum, address);
+            String prompt = generatePrompt(candidateUser, repeatPassword);
+
+            try {
+                if(prompt.equals("")){
+                    if(editMode == true){
+                        User.updateUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
+                        showModal("Success","Saved Changes");
+                    }else{
+                        User.addUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
+                        showModal("Success","Employee added successfully!");
+                    }
+                    clearFields();
+
+                    ADMIN_EmpMgmtCTRL adminEmpCtrl = new ADMIN_EmpMgmtCTRL();
+                    adminEmpCtrl.loadUserTable();
+                }else{
+                    showModal("Failed", prompt);
+                }
+            } catch (SQLException ex) {
+                System.out.println("Database error, check inputs");
+                showModal("Failed", "Database error");
+                ex.printStackTrace();
             }
-        
-        String email = emailField.getText();
-        String password = passwordField.getText();
-        String repeatPassword = repeatPasswordField.getText();
-        String privilege = privilegeChoiceBox.getValue();
-            if(privilege.equals("None")){
-                   privilege = null;
-               }
-        String contactNum = contactNumField.getText();
-        String sex = sexChoiceBox.getValue();
-            if(sex.equals("Select")){
-                sex = null;
-            }
-        LocalDate birthDate = dateOfBirthPicker.getValue();
-        String address = addressField.getText();
-        byte[] image = imageBytes;
-        
-        User candidateUser = new User(image, email, password, privilege, fname, mname, lname, suffix, sex, birthDate, contactNum, address);
-        String prompt = generatePrompt(candidateUser, repeatPassword);
-        
-        try {
-            if(prompt.equals("")){
-                User.addUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
-                showModal("Success","Employee added successfully!");
-                clearFields();
-                
-                ADMIN_EmpMgmtCTRL adminEmpCtrl = new ADMIN_EmpMgmtCTRL();
-                adminEmpCtrl.loadUserTable();
-            }else{
-                showModal("Failed", prompt);
-            }
-        } catch (SQLException ex) {
-            System.out.println("Database error, check inputs");
-            showModal("Failed", "Database error");
-            ex.printStackTrace();
-        }
+//        }else{
+//            
+//        }
+//        
         
         
     }
@@ -275,6 +286,8 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     }
     
     public void setDataForEdit(User user) {
+        editMode = true;
+        
         // Set the user details in the form
         String suffix = user.getSuffix();
         
@@ -287,6 +300,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         LnameField.setText(user.getLname());
         userSuffixChoiceBox.setValue(suffix);
         emailField.setText(user.getEmail());
+        passwordField.setText(user.getPassword());
         privilegeChoiceBox.setValue(user.getPrivilege());
         contactNumField.setText(user.getContactNum());
         sexChoiceBox.setValue(user.getSex());

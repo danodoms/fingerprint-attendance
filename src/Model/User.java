@@ -148,6 +148,53 @@ public class User {
             
             preparedStatement.executeUpdate();
     }
+    
+    public static void updateUser(
+        String fname,
+        String mname,
+        String lname,
+        String suffix,
+        String email,
+        String password,
+        String privilege,
+        String contactNum,
+        String sex,
+        LocalDate birthDate,
+        String address,
+        byte[] image) throws SQLException
+    {
+        // Hash the new password if it's provided
+        String hashedPassword = (password != null) ? Encryption.hashPassword(password) : null;
+
+        String updateQuery = "UPDATE `user` SET `user_fname`=?, `user_mname`=?, `user_lname`=?, `suffix`=?, `email`=?, `password`=?, `privilege`=?, `user_cntct`=?, `sex`=?, `birth_date`=?, `address`=?, `user_img`=? WHERE `user_id`=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+            preparedStatement.setString(1, fname);
+            preparedStatement.setString(2, mname);
+            preparedStatement.setString(3, lname);
+            preparedStatement.setString(4, suffix);
+            preparedStatement.setString(5, email);
+            preparedStatement.setString(6, hashedPassword);
+            preparedStatement.setString(7, privilege);
+            preparedStatement.setString(8, contactNum);
+            preparedStatement.setString(9, sex);
+
+            if (birthDate != null) {
+                preparedStatement.setDate(10, Date.valueOf(birthDate.toString()));
+            } else {
+                preparedStatement.setNull(10, java.sql.Types.DATE);
+            }
+
+            preparedStatement.setString(11, address);
+            preparedStatement.setBytes(12, image);
+            //preparedStatement.setInt(13, userId);
+
+            preparedStatement.executeUpdate();
+        }
+    }
+
    
     
     public static int getNextUserId(){
