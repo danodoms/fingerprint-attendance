@@ -39,7 +39,7 @@
          <font>
             <Font name="System Bold" size="17.0" />
          </font></Label>
-      <Button fx:id="resetBtn" layoutX="429.0" layoutY="538.0" mnemonicParsing="false" onAction="#resetSelectedItems" prefHeight="37.0" prefWidth="170.0" text="RESET" />
+      <Button fx:id="resetBtn" layoutX="350.0" layoutY="536.0" mnemonicParsing="false" onAction="#resetSelectedItems" prefHeight="37.0" prefWidth="170.0" text="RESET" />
       <Label layoutX="306.0" layoutY="104.0" prefHeight="17.0" prefWidth="46.0" text="Name :" />
       <Label layoutX="274.0" layoutY="147.0" prefHeight="17.0" prefWidth="77.0" text="Month/Year :" />
       <Label fx:id="dateTimeLabel" layoutX="24.0" layoutY="99.0" prefHeight="21.0" prefWidth="200.0">
@@ -48,14 +48,20 @@
          </font>
       </Label>
       <Line endX="445.5" layoutX="337.0" layoutY="70.0" startX="-69.0" stroke="#07f9a2" strokeWidth="37.0" />
-      <TableView fx:id="tardinessTable" layoutX="270.0" layoutY="287.0" prefHeight="246.0" prefWidth="330.0">
-        <columns>
-          <TableColumn fx:id="dateCol" prefWidth="91.0" text="Date" />
-            <TableColumn fx:id="arCol" prefWidth="83.0" text="Arrival" />
-            <TableColumn fx:id="notCol" prefWidth="76.0" text="Notation" />
-            <TableColumn fx:id="remCol" prefWidth="79.0" text="Remarks" />
-        </columns>
-      </TableView>
+      <TableView fx:id="tardinessTable" layoutX="253.0" layoutY="295.0" maxHeight="246.0" maxWidth="359.0" minHeight="232.0" minWidth="359.0" prefHeight="232.0" prefWidth="359.0">
+    <columns>
+        <TableColumn fx:id="dateCol" prefWidth="75.0" text="Date" />
+          <TableColumn fx:id="tiAM" prefWidth="55.0" text="Time in">
+          </TableColumn>
+          <TableColumn fx:id="toAM" prefWidth="55.0" text="Time out">
+          </TableColumn>
+          <TableColumn fx:id="tiPM" prefWidth="55.0" text="Time in">
+          </TableColumn>
+          <TableColumn fx:id="toPM" prefWidth="55.0" text="Time out">
+          </TableColumn>
+        <TableColumn fx:id="remCol" prefWidth="63.0" text="Remarks" />
+    </columns>
+</TableView>
       <Line endX="5.0" endY="513.0" layoutX="244.0" layoutY="68.0" startX="5.0" startY="-17.5" stroke="#659e78" strokeWidth="2.0" />
       <Line endX="100.0" layoutX="469.0" layoutY="127.0" startX="-100.0" />
       <Line endX="100.0" layoutX="469.0" layoutY="166.0" startX="-100.0" />

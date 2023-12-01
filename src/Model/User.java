@@ -37,6 +37,8 @@ public class User {
     private String address;
     private byte[] image;
     private int status;
+    private int count;   
+
    
     
     //Full Constructor
@@ -94,7 +96,10 @@ public class User {
         this.address = address;
     }
 
-    
+    public User(String sex, int count){
+        this.sex = sex;
+        this.count = count;      
+    }
     
     public static void addUser(
         String fname,
@@ -265,6 +270,39 @@ public class User {
         return user;
     }
 
+    public static ObservableList<User> getUserGender(){
+        ObservableList<User > user = FXCollections.observableArrayList();
+         try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery("SELECT sex, COUNT(DISTINCT(user_id)) as count FROM user WHERE user_status = 1 GROUP BY sex;");
+           
+            while (rs.next()) {
+                 user.add(new User(
+                    rs.getString("sex"),
+                 rs.getInt("count")
+                 ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    
     public int getId() {
         return id;
     }
@@ -336,14 +374,6 @@ public class User {
 
     public void setContactNum(String contactNum) {
         this.contactNum = contactNum;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 
     public LocalDate getBirthDate() {
