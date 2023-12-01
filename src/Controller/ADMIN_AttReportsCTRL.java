@@ -42,7 +42,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
     @FXML
     private TableView<Attendance> empNameTable, tardinessTable;
     @FXML
-    private TableColumn<Attendance, String> empName, notCol, arCol,remCol, user_id;
+    private TableColumn<Attendance, String> empName, tiAM, toAM, tiPM, toPM, remCol, user_id;
     @FXML
     private TableColumn<Attendance, Date> dateCol;
     @FXML
@@ -71,8 +71,10 @@ public class ADMIN_AttReportsCTRL implements Initializable{
         setTable();
         //Tardiness Table
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-        arCol.setCellValueFactory(new PropertyValueFactory<>("timeIn"));
-        notCol.setCellValueFactory(new PropertyValueFactory<>("notation"));
+        tiAM.setCellValueFactory(new PropertyValueFactory<>("timeInAm"));
+        toAM.setCellValueFactory(new PropertyValueFactory<>("timeOutAm"));
+        tiPM.setCellValueFactory(new PropertyValueFactory<>("timeInPm"));
+        toPM.setCellValueFactory(new PropertyValueFactory<>("timeOutPm"));
         remCol.setCellValueFactory(new PropertyValueFactory<>("attendance_status"));
         //Selection Name table
         user_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -168,8 +170,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             searchBar.setText("");
             searchBar.setPromptText("Search name...");
         ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
-                List<String> dayHolderAM = new LinkedList<>();
-                List<String> dayHolderPM = new LinkedList<>();
+                List<String> dayHolder = new LinkedList<>();
         String selectedYear = (String) yearChoiceBox.getSelectionModel().getSelectedItem();
         String[] dateOnCTRL = monthYearLabel.getText().split(" ");
         String selectedName = nameLabel.getText();
@@ -187,40 +188,32 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                 int month = Integer.parseInt(monthToNum);
                 YearMonth yearMonth = YearMonth.of(year, month);
                 daysInMonth = yearMonth.lengthOfMonth();
+                
                 for (Attendance attendance : getAttendancebyLate(user_id)){
+                    System.out.println(attendance.getDate()+", "+attendance.getTimeInAm()+", "+attendance.getTimeOutAm()+", "+attendance.getTimeInPm()+", "+attendance.getTimeOutPm());
                     String[] dateOnModel = attendance.getDate().toString().split("-");
-                    if(attendance.getNotation().equals("AM")&& dateOnModel[1].equals(monthToNum)){
-                        dayHolderAM.add(dateOnModel[2]);
-                    }if(attendance.getNotation().equals("PM")&& dateOnModel[1].equals(monthToNum)){
-                        dayHolderPM.add(dateOnModel[2]);
+                    if(dateOnModel[1].equals(monthToNum)){
+                        dayHolder.add(dateOnModel[2]);
                     }
                 }
-                System.out.println(dayHolderAM);
-                System.out.println(dayHolderPM);
+                System.out.println(dayHolder);
                 
                 for(int i =1; i<=daysInMonth; i++){
                     LocalDate localDate = LocalDate.of(year, month, i);
-                    boolean amchecker = false;
-                    boolean pmchecker = false;
-                    for(int j =0; j<dayHolderAM.size(); j++){
-                        int amDay = Integer.parseInt(dayHolderAM.get(j));
+                    boolean dayChecker = false;
+                    for(int j =0; j<dayHolder.size(); j++){
+                        int amDay = Integer.parseInt(dayHolder.get(j));
                             if(i==amDay){
-                            amchecker=true;
+                            dayChecker=true;
                         }
                     }
-                    for(int j =0; j<dayHolderPM.size(); j++){
-                        int pmDay = Integer.parseInt(dayHolderPM.get(j));
-                        if(i==pmDay){
-                            pmchecker=true;
-                        }
-                    }
-                    if(amchecker==true){
+                    if(dayChecker==true){
                         for (Attendance attendance : getAttendancebyLate(user_id)){
+                             
                             if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
-                                    && attendance.getAttendance_status().equals("Late")
-                                    && attendance.getNotation().equals("AM")){
+                                    && attendance.getAttendance_status().equals("Late")){
                                 filteredData.add(attendance);
-                                lateCount++;
+                                 lateCount++;
                                 break;
                             }
 //                            if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
@@ -232,40 +225,13 @@ public class ADMIN_AttReportsCTRL implements Initializable{
 //                            }
                         }
                     }
-                    if(pmchecker==true){
-                        for (Attendance attendance : getAttendancebyLate(user_id)){
-                            if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
-                                    && (attendance.getAttendance_status().equals("Late"))
-                                    && attendance.getNotation().equals("PM")){
-                                filteredData.add(attendance);
-                                lateCount++;
-                                break;
-                            }
-//                            if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
-//                                    && (attendance.getAttendance_status().equals("No Out"))
-//                                    && attendance.getNotation().equals("PM")){
-//                                filteredData.add(attendance);
-//                                lateCount++;
-//                                break;
-//                            }
-                        }
-                    }
-                    if(amchecker==false){
+                    if(dayChecker==false){
                         for (Attendance attendance : getAttendancebyLate(user_id)){
                             attendance.setDate(java.sql.Date.valueOf(localDate));
-                            attendance.setTimeIn("    --");
-                            attendance.setNotation("AM"); 
-                            attendance.setAttendance_status("Absent");
-                            filteredData.add(attendance);
-                            absentCount++;
-                            break;
-                        }
-                    }
-                    if(pmchecker==false){
-                        for (Attendance attendance : getAttendancebyLate(user_id)){
-                            attendance.setDate(java.sql.Date.valueOf(localDate));
-                            attendance.setTimeIn("    --");
-                            attendance.setNotation("PM"); 
+                            attendance.setTimeInAm("    --");
+                            attendance.setTimeOutAm("    --");
+                            attendance.setTimeInPm("    --");
+                            attendance.setTimeOutPm("    --");
                             attendance.setAttendance_status("Absent");
                             filteredData.add(attendance);
                             absentCount++;
@@ -274,7 +240,6 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                     }
                 }
                 
-              daysInMonth = (daysInMonth*2);
             if(lateCount!=0 || absentCount!=0){ 
                 tardiness = ((double) (lateCount + absentCount) / (double) (daysInMonth)) * 100;
                 converted = String.format("%.1f", tardiness);
@@ -285,106 +250,9 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                 tardinessTable.setItems(filteredData);
                 byPercent.setText(converted+"%");
                 
-//         for(int i =1; i<=daysInMonth; i++){
-//              LocalDate localDate = LocalDate.of(year, month, i);
-//            boolean amChecker = false;
-//            for (Attendance attendance : getAttendancebyLate(user_id)){
-//                Date date = java.sql.Date.valueOf(localDate);
-                                            //                     System.out.println(attendance.getDate()+" = "+ date+ ",  "
-                                            //                             +attendance.getName()+ " = "+selectedName+", "
-                                            //                                    +attendance.getAttendance_status()+ " TOP");
-
-//                     if(attendance.getDate().equals(date)){
-//                         
-//                         
-//                         if(attendance.getNotation().equals("AM")){
-//                             
-//                            if(attendance.getAttendance_status().equals("Late")){
-//                                count++;
-//                                filteredData.add(attendance);
-//                                
-//                            }else if(attendance.getAttendance_status().equals("  ✓") 
-//                                    || attendance.getAttendance_status().equals("No Out")){}
-//                         }
-//                         
-//                         
-//                     }else if(!attendance.getNotation().equals("PM")){
-//                        attendance.setDate(java.sql.Date.valueOf(localDate));
-//                        attendance.setTimeIn("    --");
-//                        attendance.setNotation("AM"); 
-//                        attendance.setAttendance_status("Absent");
-//                        filteredData.add(attendance);
-//                        count++;
-//                     }
-//                      if(attendance.getNotation().equals("PM")){
-//                            if(attendance.getAttendance_status().equals("Late")){
-//                                count++;
-//                                filteredData.add(attendance);
-//                            }else if(attendance.getAttendance_status().equals("  ✓") 
-//                                    || attendance.getAttendance_status().equals("No Out")){}
-//                         }else{
-//                          attendance.setDate(java.sql.Date.valueOf(localDate));
-//                        attendance.setTimeIn("    --");
-//                        attendance.setNotation("PM"); 
-//                        attendance.setAttendance_status("Absent");
-//                        filteredData.add(attendance);
-//                        count++;
-//                      }
-//                     
-//         }
-//        
-        
-        
-//    }
      }   
     
-//    @FXML
-//    private void setTardinessTable(ActionEvent event) {
-//        ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
-//        String selectedYear = (String) yearChoiceBox.getSelectionModel().getSelectedItem();
-//        String[] dateOnCTRL = monthYearLabel.getText().split(" ");
-//        String selectedName = nameLabel.getText();
-//        String monthToNum = "",converted ="";
-//        int count=0, daysInMonth=0;
-//                if(dateOnCTRL[0].equals("January")){monthToNum="1";}if(dateOnCTRL[0].equals("February")){monthToNum="2";}
-//                if(dateOnCTRL[0].equals("March")){monthToNum="3";}if(dateOnCTRL[0].equals("April")){monthToNum="4";}
-//                if(dateOnCTRL[0].equals("May")){monthToNum="5";}if(dateOnCTRL[0].equals("June")){monthToNum="6";}
-//                if(dateOnCTRL[0].equals("July")){monthToNum="7";}if(dateOnCTRL[0].equals("August")){monthToNum="8";}
-//                if(dateOnCTRL[0].equals("September")){monthToNum="9";}if(dateOnCTRL[0].equals("October")){monthToNum="10";}
-//                if(dateOnCTRL[0].equals("November")){monthToNum="11";}if(dateOnCTRL[0].equals("December")){monthToNum="12";}
-//                 
-//        double tardiness;
-//            for(int h =1; h<=daysInMonth; h++){
-//                boolean absentSetter = false;
-//                for (Attendance attendance : getAttendancebyLate()){
-//                    String[] dateOnModel = attendance.getDate().toString().split("-");
-//                    int year= Integer.parseInt(dateOnCTRL[2]);
-//                    int month = Integer.parseInt(monthToNum);
-//                    YearMonth yearMonth = YearMonth.of(year, month);
-//                    daysInMonth = yearMonth.lengthOfMonth();
-//                    System.out.println("Number of days in " + yearMonth + ": " + daysInMonth);
-//                   
-//                    for(int i =1; i<=daysInMonth; i++){
-//                        if (attendance.getName().equals(selectedName) && dateOnModel[0].equals(dateOnCTRL[2])
-//                            && dateOnModel[1].equals(monthToNum) && dateOnModel[2].equals(i+"")){
-//                            count++;
-//                            filteredData.add(attendance);
-//                            i=32;
-//                            absentSetter=true;
-//                        }
-//                    } 
-//                }
-//            }
-//            
-//            daysInMonth = (daysInMonth*2);
-//            if(count!=0){ 
-//                tardiness = ((double) count / (double) (daysInMonth)) * 100;
-//                converted = String.format("%.1f", tardiness);
-//            }else{converted = "0";}
-//            if(!nameLabel.getText().isEmpty()){totalLogin.setText(daysInMonth+"");totalLate.setText(count+"");}
-//        tardinessTable.setItems(filteredData);
-//        byPercent.setText(converted+"%");
-//    } 
+//   
     
     @FXML
     private void resetSelectedItems(ActionEvent event){
