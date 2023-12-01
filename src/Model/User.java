@@ -37,6 +37,9 @@ public class User {
     private String address;
     private byte[] image;
     private int status;
+    
+    //Custom variables for Views
+    private String fullName;
     private int count;   
 
    
@@ -95,6 +98,16 @@ public class User {
         this.contactNum = contactNum;
         this.address = address;
     }
+    
+    //active employee constructor
+    public User(int id, String fullName, String privilege, String email, String contactNum, LocalDate birthDate){
+        this.id = id;
+        this.fullName = fullName;
+        this.privilege = privilege;
+        this.email = email;
+        this.contactNum = contactNum;
+        this.birthDate = birthDate;
+    }
 
     public User(String sex, int count){
         this.sex = sex;
@@ -140,6 +153,53 @@ public class User {
             
             preparedStatement.executeUpdate();
     }
+    
+    public static void updateUser(
+        String fname,
+        String mname,
+        String lname,
+        String suffix,
+        String email,
+        String password,
+        String privilege,
+        String contactNum,
+        String sex,
+        LocalDate birthDate,
+        String address,
+        byte[] image) throws SQLException
+    {
+        // Hash the new password if it's provided
+        String hashedPassword = (password != null) ? Encryption.hashPassword(password) : null;
+
+        String updateQuery = "UPDATE `user` SET `user_fname`=?, `user_mname`=?, `user_lname`=?, `suffix`=?, `email`=?, `password`=?, `privilege`=?, `user_cntct`=?, `sex`=?, `birth_date`=?, `address`=?, `user_img`=? WHERE `user_id`=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+            preparedStatement.setString(1, fname);
+            preparedStatement.setString(2, mname);
+            preparedStatement.setString(3, lname);
+            preparedStatement.setString(4, suffix);
+            preparedStatement.setString(5, email);
+            preparedStatement.setString(6, hashedPassword);
+            preparedStatement.setString(7, privilege);
+            preparedStatement.setString(8, contactNum);
+            preparedStatement.setString(9, sex);
+
+            if (birthDate != null) {
+                preparedStatement.setDate(10, Date.valueOf(birthDate.toString()));
+            } else {
+                preparedStatement.setNull(10, java.sql.Types.DATE);
+            }
+
+            preparedStatement.setString(11, address);
+            preparedStatement.setBytes(12, image);
+            //preparedStatement.setInt(13, userId);
+
+            preparedStatement.executeUpdate();
+        }
+    }
+
    
     
     public static int getNextUserId(){
@@ -199,8 +259,8 @@ public class User {
     }
     
           
-    public static ObservableList<User> getUserByUserId(int userId){
-        ObservableList<User> users = FXCollections.observableArrayList();
+    public static User getUserByUserId(int userId){
+        User user = null;
 
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()) {
@@ -218,7 +278,7 @@ public class User {
                     birthDate = sqlBirthDate.toLocalDate();
                 }
                 
-                  users.add(new User(
+                  user = new User(
                         rs.getInt("user_id"),
                         rs.getString("user_fname"),
                         rs.getString("user_mname"),
@@ -233,16 +293,16 @@ public class User {
                         rs.getString("address"),
                         rs.getBytes("user_img"),
                         rs.getInt("user_status")    
-                  ));
+                  );
             }
 
-             System.out.println(users);
+             System.out.println(user);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return users;
+        return user;
     }
     
     
@@ -268,6 +328,37 @@ public class User {
             e.printStackTrace();
         }
         return user;
+    }
+    
+    public static ObservableList<User> getActiveEmployees(){
+        ObservableList<User> activeEmp = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("select * from activeemployeeview;");
+            
+            while (rs.next()) {
+                LocalDate birthDate = null;
+                java.sql.Date sqlBirthDate = rs.getDate("birth_date");
+                if (sqlBirthDate != null) {
+                    birthDate = sqlBirthDate.toLocalDate();
+                }
+
+                  activeEmp.add(new User(
+                        rs.getInt("user_id"),
+                        rs.getString("name"),
+                        rs.getString("privilege"),
+                        rs.getString("email"),
+                        rs.getString("user_cntct"),
+                        birthDate 
+                  ));
+            }
+            
+            //System.out.println("Users: " + activeEmp);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return activeEmp; 
     }
 
     public static ObservableList<User> getUserGender(){
@@ -378,6 +469,14 @@ public class User {
 
     public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setBirthDate(LocalDate birthDate) {

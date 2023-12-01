@@ -13,7 +13,7 @@ public class Filter {
         public static String name(String name, String fieldName){
             if(name.equals("")){
                 return fieldName + " can't be empty";
-            }else if (name.matches("[a-zA-Z]+")) {
+            }else if (name.matches("[a-zA-Z ]+")) {
                 return "";
             } else {
                 return "Invalid " + fieldName.toString();
