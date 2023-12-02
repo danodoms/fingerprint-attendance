@@ -112,7 +112,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
         col_shift.setCellValueFactory(new PropertyValueFactory<Assignment, String>("shift"));
     }    
     
-     public void loadUserTable(){
+    public void loadUserTable(){
         ObservableList<User> users = User.getActiveEmployees();
         userTable.setItems(users);
     }

@@ -155,6 +155,7 @@ public class User {
     }
     
     public static void updateUser(
+        int userId,
         String fname,
         String mname,
         String lname,
@@ -194,7 +195,7 @@ public class User {
 
             preparedStatement.setString(11, address);
             preparedStatement.setBytes(12, image);
-            //preparedStatement.setInt(13, userId);
+            preparedStatement.setInt(13, userId);
 
             preparedStatement.executeUpdate();
         }

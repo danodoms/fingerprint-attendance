@@ -30,7 +30,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -72,10 +74,17 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     
     
     DatabaseUtil dbMethods = new DatabaseUtil();
-    PaneUtil method = new PaneUtil();
+    PaneUtil paneUtil = new PaneUtil();
     boolean editMode = false;
+    int selectedUserId = 0;
+    
     @FXML
     private TextField repeatPasswordField;
+    
+    
+    private Parent root;
+    
+    
 
     /**
      * Initializes the controller class.
@@ -97,8 +106,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     }    
 
     @FXML
-    private void addEmployee(ActionEvent event) {
-//        if(editMode == false){
+    private void addEmployee(ActionEvent event) throws IOException {
             String fname = FnameField.getText();
             String mname = MnameField.getText();
             String lname = LnameField.getText();
@@ -129,16 +137,19 @@ public class ADMIN_AddEmpCTRL implements Initializable {
             try {
                 if(prompt.equals("")){
                     if(editMode == true){
-                        User.updateUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
+                        User.updateUser(selectedUserId, fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
                         showModal("Success","Saved Changes");
                     }else{
                         User.addUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
                         showModal("Success","Employee added successfully!");
                     }
                     clearFields();
-
-                    ADMIN_EmpMgmtCTRL adminEmpCtrl = new ADMIN_EmpMgmtCTRL();
-                    adminEmpCtrl.loadUserTable();
+                    
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.EMPLOYEE_MGMT_PANE));
+                    root = loader.load();
+                    
+                    ADMIN_EmpMgmtCTRL adminEmpMgmtCtrl = loader.getController();
+                    adminEmpMgmtCtrl.loadUserTable();
                 }else{
                     showModal("Failed", prompt);
                 }
@@ -147,11 +158,6 @@ public class ADMIN_AddEmpCTRL implements Initializable {
                 showModal("Failed", "Database error");
                 ex.printStackTrace();
             }
-//        }else{
-//            
-//        }
-//        
-        
         
     }
     
@@ -274,7 +280,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
 //    }
 
     private void openFingerprintPane(ActionEvent event) {
-        method.openPane(method.FP_ENROLLMENT_PANE);
+        paneUtil.openPane(paneUtil.FP_ENROLLMENT_PANE);
     }
     
     private byte[] readImageFile(File file) throws IOException {
@@ -287,6 +293,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     
     public void setDataForEdit(User user) {
         editMode = true;
+        selectedUserId = user.getId();
         
         // Set the user details in the form
         String suffix = user.getSuffix();
@@ -303,7 +310,13 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         passwordField.setText(user.getPassword());
         privilegeChoiceBox.setValue(user.getPrivilege());
         contactNumField.setText(user.getContactNum());
-        sexChoiceBox.setValue(user.getSex());
+        
+        if(user.getSex() == null){
+            sexChoiceBox.setValue("Select");
+        }else{
+            sexChoiceBox.setValue(user.getSex());
+        }
+        
         dateOfBirthPicker.setValue(user.getBirthDate());
         addressField.setText(user.getAddress());
         userImage.setImage(byteArrayToImage(user.getImage()));
