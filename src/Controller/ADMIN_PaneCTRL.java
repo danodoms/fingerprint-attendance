@@ -50,7 +50,7 @@ public class ADMIN_PaneCTRL implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         try {
-            view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_DASHBOARD_PANE));
+            view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_DASHBOARD));
         } catch (IOException ex) {
             Logger.getLogger(ADMIN_PaneCTRL.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,31 +58,31 @@ public class ADMIN_PaneCTRL implements Initializable {
         contentPane.getChildren().setAll(view);
     } 
     private void openEmployeeMgmtPane(ActionEvent event) {
-        paneUtil.openPane(paneUtil.EMPLOYEE_MGMT_PANE);
+        paneUtil.openPane(paneUtil.ADMIN_EMP_MGMT);
     }
 
     @FXML
     private void openDashboardPane(ActionEvent event) throws IOException {
-        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_DASHBOARD_PANE));
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_DASHBOARD));
         //borderPaneOb.setCenter(view);
         contentPane.getChildren().setAll(view);
     }
     @FXML
     private void openAttendancePane(ActionEvent event) throws IOException {
-        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_ATTENDANCE_PANE));
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_ATTENDANCE));
         //borderPaneOb.setCenter(view);
         contentPane.getChildren().setAll(view);
     }
     @FXML
     private void openEmpPane(ActionEvent event) throws IOException {
 
-        view = FXMLLoader.load(getClass().getResource(paneUtil.EMPLOYEE_MGMT_PANE));
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_EMP_MGMT));
         //borderPaneOb.setCenter(view);
         contentPane.getChildren().setAll(view);
     }
      @FXML
     private void openAttRepPane(ActionEvent event) throws IOException {
-        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_ATT_REP_PANE));
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_ATT_REPORTS));
         contentPane.getChildren().setAll(view);
     }
     @FXML

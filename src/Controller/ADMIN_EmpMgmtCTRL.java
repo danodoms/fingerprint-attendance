@@ -70,13 +70,21 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     private TableColumn<Assignment, String> col_shift;
     @FXML
     private Button editUserBtn;
-
-    
-    PaneUtil paneUtil = new PaneUtil();
     @FXML
     private Button addEmpBtn;
     @FXML
     private Button deactivateUserBtn;
+    
+    PaneUtil paneUtil = new PaneUtil();
+    
+    // Instance variable to store the reference
+    @FXML
+    private static ADMIN_EmpMgmtCTRL instance;
+
+    // Method to return the instance
+    public static ADMIN_EmpMgmtCTRL getInstance() {
+        return instance;
+    }
     
     /**
      * Initializes the controller class.
@@ -135,7 +143,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
         User userFromDb = User.getUserByUserId(selectedUserId);
         try {
             // Load the AddUserForm.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.ADD_EMPLOYEE_PANE));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.ADMIN_ADD_EMP));
             Parent root = loader.load();
 
             // Get the controller of the AddUserForm
@@ -148,6 +156,13 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
             Stage secondStage = new Stage();
             secondStage.setScene(new Scene(root));
             secondStage.initModality(Modality.APPLICATION_MODAL);
+            
+            // Set the onHidden event handler to reload userTable when add_employee_pane is closed
+            secondStage.setOnHidden(e -> {
+                // Reload userTable when the add_employee_pane is closed
+                loadUserTable();
+            });
+            
             secondStage.show();
             //originalPane.getChildren().add(addUserForm);
 
@@ -160,7 +175,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
 
     @FXML
     private void openAddEmpPane(ActionEvent event) {
-         paneUtil.openModal(paneUtil.ADD_EMPLOYEE_PANE);
+         paneUtil.openModal(paneUtil.ADMIN_ADD_EMP);
     }
 
     @FXML

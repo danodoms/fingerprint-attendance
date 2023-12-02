@@ -71,18 +71,14 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     private ChoiceBox<String> sexChoiceBox;
     @FXML
     private TextField addressField;
+    @FXML
+    private TextField repeatPasswordField;
     
     
     DatabaseUtil dbMethods = new DatabaseUtil();
     PaneUtil paneUtil = new PaneUtil();
     boolean editMode = false;
     int selectedUserId = 0;
-    
-    @FXML
-    private TextField repeatPasswordField;
-    
-    
-    private Parent root;
     
     
 
@@ -131,12 +127,12 @@ public class ADMIN_AddEmpCTRL implements Initializable {
             String address = addressField.getText();
             byte[] image = imageBytes;
 
-            User candidateUser = new User(image, email, password, privilege, fname, mname, lname, suffix, sex, birthDate, contactNum, address);
+            User candidateUser = new User(image, email, password, privilege, fname, mname, lname, suffix, sex, birthDate, contactNum, address); //Creates candidate user that will be checked by the prompt generator
             String prompt = generatePrompt(candidateUser, repeatPassword);
 
             try {
-                if(prompt.equals("")){
-                    if(editMode == true){
+                if(prompt.isEmpty()){
+                    if(editMode){
                         User.updateUser(selectedUserId, fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
                         showModal("Success","Saved Changes");
                     }else{
@@ -144,12 +140,6 @@ public class ADMIN_AddEmpCTRL implements Initializable {
                         showModal("Success","Employee added successfully!");
                     }
                     clearFields();
-                    
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.EMPLOYEE_MGMT_PANE));
-                    root = loader.load();
-                    
-                    ADMIN_EmpMgmtCTRL adminEmpMgmtCtrl = loader.getController();
-                    adminEmpMgmtCtrl.loadUserTable();
                 }else{
                     showModal("Failed", prompt);
                 }
@@ -158,7 +148,6 @@ public class ADMIN_AddEmpCTRL implements Initializable {
                 showModal("Failed", "Database error");
                 ex.printStackTrace();
             }
-        
     }
     
     private String generatePrompt(User user, String repeatedPassword){
@@ -280,7 +269,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
 //    }
 
     private void openFingerprintPane(ActionEvent event) {
-        paneUtil.openPane(paneUtil.FP_ENROLLMENT_PANE);
+        paneUtil.openPane(paneUtil.FP_ENROLLMENT);
     }
     
     private byte[] readImageFile(File file) throws IOException {
