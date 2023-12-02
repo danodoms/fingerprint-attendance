@@ -22,7 +22,7 @@
       </TableView>
       <VBox layoutX="447.0" layoutY="345.0" prefHeight="200.0" prefWidth="170.0">
          <children>
-            <Label prefHeight="20.0" prefWidth="180.0" style="-fx-alignment: center;" text="Fingerprints Registered">
+            <Label prefHeight="20.0" prefWidth="180.0" style="-fx-alignment: center;" text="Fingerprints Enrolled">
                <font>
                   <Font size="14.0" />
                </font>
@@ -38,7 +38,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Button fx:id="enrollBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="173.0" text="Enroll">
+            <Button fx:id="enrollBtn" mnemonicParsing="false" onAction="#openFpEnrollmentPane" prefHeight="25.0" prefWidth="173.0" text="Enroll">
                <font>
                   <Font size="14.0" />
                </font>

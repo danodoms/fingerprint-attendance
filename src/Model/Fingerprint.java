@@ -41,6 +41,8 @@ public class Fingerprint {
         this.cbeffId = cbeffId;
         this.registerDate = registerDate;
     }
+    
+    
 
     public int getUserId() {
         return userId;
@@ -124,7 +126,11 @@ public class Fingerprint {
         e.printStackTrace();
     }
         return Fingerprints;
-    }        
+    }
+    
+    public static void destroyEnrolledFingerprintsByUserId(int userId){
+        
+    }
 }
     
 

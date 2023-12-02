@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javafx.scene.image.ImageView;
 import Model.*;
 import com.digitalpersona.uareu.Reader.CaptureResult;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,32 +23,50 @@ import com.digitalpersona.uareu.Reader.CaptureResult;
  */
 public class EnrollmentThread extends Thread implements Engine.EnrollmentCallback{
     private ImageView imageview;
+    private int userIdToEnroll;
     private CaptureThread captureThread;
     private int requiredFmdToEnroll = 4;
     public Engine engine = UareUGlobal.GetEngine();
     IdentificationThread identificationThread = new IdentificationThread();
     
-    public EnrollmentThread(ImageView imageview){
+    public EnrollmentThread(ImageView imageview, int userIdToEnroll){
         this.imageview = imageview;
+        this.userIdToEnroll = userIdToEnroll;
+        
+        
     }
     
     
     
     public void startEnrollment(ImageView imageview) throws UareUException{
 //        Selection.reader.Close();
-//        Selection.reader.Open(Reader.Priority.COOPERATIVE);
+        //Selection.reader.Open(Reader.Priority.COOPERATIVE);
         Selection.closeAndOpenReader();
+        //identificationThread.stopIdentificationThread();
+        ThreadFlags.running = false;
+        
+        ArrayList<Fmd> fmdList = new ArrayList<>();
 
+        
         for (int attemptCounter = 0; attemptCounter < requiredFmdToEnroll; attemptCounter++) {
+            System.out.println("User ID to Enroll: " + userIdToEnroll);
             System.out.println("Attempt " + attemptCounter);
 
             //Calls the Override GetFmd method that is implemented from Engine.CreateEnrollmentFmd Class
             Fmd fmdToEnroll = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
             System.out.println("FMD returned");
 
-            Fingerprint.insertFmd(25, fmdToEnroll);
-            System.out.println("Added FMD to database");
+            fmdList.add(fmdToEnroll); // Add the Fmd to the list
             Prompt.prompt(Prompt.ANOTHER_CAPTURE);
+        }
+        
+        // Deletes all old fingerprints enrolled by user before inserting new fingerprints
+        //Fingerprint.destroyEnrolledFingerprintsByUserId(userIdToEnroll);
+        
+        // Insert all Fmds into the database
+        for (Fmd fmd : fmdList) {
+            Fingerprint.insertFmd(userIdToEnroll, fmd);
+            System.out.println("Added FMD to database");
         }
         
         Selection.reader.Close();
@@ -109,7 +128,16 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
         CaptureResult captureResult = captureEvent.captureResult;
 
         return captureResult;
-    }    
+    } 
+    
+    public void stopEnrollmentThread(){
+        try {
+            Selection.reader.Close();
+            System.out.println("Enrollment Thread Stopped");
+        } catch (UareUException ex) {
+            Logger.getLogger(EnrollmentThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     @Override
     public void run(){

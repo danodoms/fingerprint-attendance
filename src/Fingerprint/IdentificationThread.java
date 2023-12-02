@@ -38,6 +38,8 @@ public class IdentificationThread extends Thread{
     int falsePositiveRate = Engine.PROBABILITY_ONE / 100000; //sets how accurate the identification should be to return candidate
     int candidateCount = 1; //how many candidate Fmd/s to return
     
+    private boolean headlessMode = false;
+    
     
     //constructor with fingerprint display
     public IdentificationThread(ImageView imageview){
@@ -48,21 +50,19 @@ public class IdentificationThread extends Thread{
     
     //default constructor
     public IdentificationThread(){
+        headlessMode = true;
     }
     
      
     
     //called by the run method for starting the identification process
     public void startIdentification(ImageView imageview) throws InterruptedException, UareUException{
-//        Selection.reader.Close();
-//        Selection.reader.Open(Reader.Priority.COOPERATIVE);
         Selection.closeAndOpenReader();
-        while(true) {
+        while(ThreadFlags.running) {
             Fmd fmdToIdentify = getFmdFromCaptureThread(imageview);
             Fmd[] databaseFmds = getFmdsFromDatabase();
             compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
         }
-        //Selection.reader.Close();
     }
     
       
@@ -99,7 +99,7 @@ public class IdentificationThread extends Thread{
     
     
     //third method used in "startIdentification"
-    private boolean compareFmdToDatabaseFmds(Fmd fmdToIdentify, Fmd[] databaseFmds) throws UareUException{
+    private boolean compareFmdToDatabaseFmds(Fmd fmdToIdentify, Fmd[] databaseFmds) throws UareUException{     
         Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, databaseFmds, falsePositiveRate, candidateCount );
 
         if(candidateFmds.length != 0){
@@ -107,10 +107,14 @@ public class IdentificationThread extends Thread{
             //topCandidateFmd = databaseFmds[candidateFmds[0].fmd_index];
             int topCandidateFmdIndex = candidateFmds[0].fmd_index;
             int matchingUserId = fingerprintList.get(topCandidateFmdIndex).getUserId();
-            userIdentificationSuccess(matchingUserId);
+            if(!headlessMode){
+                userIdentificationSuccess(matchingUserId);
+            }
             return true;
         }else{
-            userIdentificationFailed();
+            if(!headlessMode){
+                userIdentificationFailed();
+            }
             System.out.println("No candidate/s found");
             return false;
         }
@@ -136,7 +140,7 @@ public class IdentificationThread extends Thread{
         //if(hasTimedInOrOut(userId))
         
         
-        AudioClip buzzer = new AudioClip(getClass().getResource("success.wav").toExternalForm());
+        AudioClip buzzer = new AudioClip(getClass().getResource("/Audio/success.wav").toExternalForm());
         buzzer.play();
       
         Platform.runLater(() -> {
@@ -148,7 +152,7 @@ public class IdentificationThread extends Thread{
     
     
     private void userIdentificationFailed(){
-        AudioClip buzzer = new AudioClip(getClass().getResource("fail.wav").toExternalForm());
+        AudioClip buzzer = new AudioClip(getClass().getResource("/Audio/fail.wav").toExternalForm());
         buzzer.play();
         
         
@@ -176,6 +180,8 @@ public class IdentificationThread extends Thread{
     
     
     public void stopIdentificationThread() throws UareUException{
+        ThreadFlags.running = false;
+        System.out.println("Identification Thread Stopped");
         Selection.reader.Close();
     }
    

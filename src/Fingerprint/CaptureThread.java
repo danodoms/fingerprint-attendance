@@ -57,7 +57,7 @@ public class CaptureThread extends Thread{
             Selection.reader.Open(Reader.Priority.COOPERATIVE);
             Selection.reader.StartStreaming();
             
-                while (true) {
+                while (ThreadFlags.running) {
                     System.out.println(counter); counter++;
 
                     System.out.println("Reader Status: " + Selection.reader.GetStatus());

@@ -16,8 +16,16 @@ import javafx.scene.image.ImageView;
  * @author admin
  */
 public class ImageUtil {
+    private static Image defaultImage = new Image("/Images/default_user_img.jpg");
+    
      public static Image byteArrayToImage(byte[] byteArray) {
+        if(byteArray == null){
+            System.out.println("ImageUtil: byteArray from database is NULL, replacing with default image");
+            return defaultImage;
+        }
+        
         ByteArrayInputStream inputStream = new ByteArrayInputStream(byteArray);
         return new Image(inputStream);
+        
     }
 }
