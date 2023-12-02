@@ -79,6 +79,10 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     PaneUtil paneUtil = new PaneUtil();
     boolean editMode = false;
     int selectedUserId = 0;
+    @FXML
+    private Label passwordLabel;
+    @FXML
+    private Label repeatPasswordLabel;
     
     
 
@@ -128,12 +132,22 @@ public class ADMIN_AddEmpCTRL implements Initializable {
             byte[] image = imageBytes;
 
             User candidateUser = new User(image, email, password, privilege, fname, mname, lname, suffix, sex, birthDate, contactNum, address); //Creates candidate user that will be checked by the prompt generator
-            String prompt = generatePrompt(candidateUser, repeatPassword);
+            String prompt = "";
+            if(editMode){
+                prompt = generatePrompt(candidateUser, repeatPassword, "update");
+            }else{
+                prompt = generatePrompt(candidateUser, repeatPassword, "add");
+            }
+            
 
             try {
                 if(prompt.isEmpty()){
                     if(editMode){
-                        User.updateUser(selectedUserId, fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
+                        if(password.isEmpty()){
+                            User.updateUserWithoutPassword(selectedUserId, fname, mname, lname, suffix, email, privilege, contactNum, sex, birthDate, address, image);
+                        }else{
+                            User.updateUser(selectedUserId, fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
+                        }
                         showModal("Success","Saved Changes");
                     }else{
                         User.addUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
@@ -150,7 +164,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
             }
     }
     
-    private String generatePrompt(User user, String repeatedPassword){
+    private String generatePrompt(User user, String repeatedPassword, String mode){
         ArrayList<String> promptList = new ArrayList<>();
         String filterPrompt = "";
         
@@ -158,7 +172,14 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         String mnamePrompt = Filter.OPTIONAL.name(user.getMname(), "Middle Name");
         String lnamePrompt = Filter.REQUIRED.name(user.getLname(), "Last Name");
         String emailPrompt = Filter.REQUIRED.email(user.getEmail());
-        String passwordPrompt = Filter.REQUIRED.password(user.getPassword(), repeatedPassword);
+        
+        String passwordPrompt = "";
+        if(mode.equalsIgnoreCase("add")){
+            passwordPrompt = Filter.REQUIRED.password(user.getPassword(), repeatedPassword);
+        }else{
+            passwordPrompt = Filter.OPTIONAL.password(user.getPassword(), repeatedPassword);
+        }
+        
         String privilegePrompt = Filter.REQUIRED.privilege(user.getPrivilege());
         
         //add prompts to promptList
@@ -296,7 +317,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         LnameField.setText(user.getLname());
         userSuffixChoiceBox.setValue(suffix);
         emailField.setText(user.getEmail());
-        passwordField.setText(user.getPassword());
+        //passwordField.setText(user.getPassword());
         privilegeChoiceBox.setValue(user.getPrivilege());
         contactNumField.setText(user.getContactNum());
         
@@ -312,6 +333,8 @@ public class ADMIN_AddEmpCTRL implements Initializable {
 
         // Set other fields as needed
         addEmployeeBtn.setText("Save Changes");
+        passwordLabel.setText("Change Password");
+        repeatPasswordLabel.setText("Repeat New Password");
     }
     
     private Image byteArrayToImage(byte[] byteArray) {

@@ -200,6 +200,49 @@ public class User {
             preparedStatement.executeUpdate();
         }
     }
+    
+    public static void updateUserWithoutPassword(
+        int userId,
+        String fname,
+        String mname,
+        String lname,
+        String suffix,
+        String email,
+        String privilege,
+        String contactNum,
+        String sex,
+        LocalDate birthDate,
+        String address,
+        byte[] image) throws SQLException 
+    {
+        String updateQuery = "UPDATE `user` SET `user_fname`=?, `user_mname`=?, `user_lname`=?, `suffix`=?, `email`=?, `privilege`=?, `user_cntct`=?, `sex`=?, `birth_date`=?, `address`=?, `user_img`=? WHERE `user_id`=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+            preparedStatement.setString(1, fname);
+            preparedStatement.setString(2, mname);
+            preparedStatement.setString(3, lname);
+            preparedStatement.setString(4, suffix);
+            preparedStatement.setString(5, email);
+            preparedStatement.setString(6, privilege);
+            preparedStatement.setString(7, contactNum);
+            preparedStatement.setString(8, sex);
+
+            if (birthDate != null) {
+                preparedStatement.setDate(9, Date.valueOf(birthDate.toString()));
+            } else {
+                preparedStatement.setNull(9, java.sql.Types.DATE);
+            }
+
+            preparedStatement.setString(10, address);
+            preparedStatement.setBytes(11, image);
+            preparedStatement.setInt(12, userId);
+
+            preparedStatement.executeUpdate();
+        }
+    }
+
 
    
     

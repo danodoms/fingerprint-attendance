@@ -77,15 +77,6 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     
     PaneUtil paneUtil = new PaneUtil();
     
-    // Instance variable to store the reference
-    @FXML
-    private static ADMIN_EmpMgmtCTRL instance;
-
-    // Method to return the instance
-    public static ADMIN_EmpMgmtCTRL getInstance() {
-        return instance;
-    }
-    
     /**
      * Initializes the controller class.
      */

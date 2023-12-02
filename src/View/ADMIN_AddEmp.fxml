@@ -44,13 +44,13 @@
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label text="Password *" />
+                  <Label fx:id="passwordLabel" text="Password *" />
                   <TextField fx:id="passwordField">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label text="Repeat Password *" />
+                  <Label fx:id="repeatPasswordLabel" text="Repeat Password *" />
                   <TextField fx:id="repeatPasswordField">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />

@@ -69,12 +69,6 @@
             <ChoiceBox fx:id="shiftFilter_choiceBox" prefHeight="49.0" prefWidth="134.0" />
          </children>
       </HBox>
-      <HBox layoutX="436.0" layoutY="482.0" prefHeight="40.0" prefWidth="332.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="112.0" text="Add Position" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="107.0" text="Edit" />
-            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="113.0" text="Deactivate" />
-         </children>
-      </HBox>
+      <HBox layoutX="436.0" layoutY="482.0" prefHeight="40.0" prefWidth="332.0" />
    </children>
 </AnchorPane>

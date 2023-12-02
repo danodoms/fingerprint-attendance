@@ -75,6 +75,32 @@ public class Filter {
             }
         }
         
+        public static String password(String password, String repeatPassword){
+            String prompt = "";
+            
+            if(password.equals("")){
+                return "";
+            }else{
+                if(password.length() < 8){
+                    prompt+= "Password should at least contain 8 characters" + "\n";
+                }
+                
+                if(!(Filter.containsUppercase(password))){
+                    prompt+= "Password should contain an uppercase letter" + "\n";
+                }
+                
+                if(!(Filter.containsNumbers(password))){
+                    prompt+= "Password should contain a number" + "\n";
+                }
+                
+                if(!(password.equals(repeatPassword))){
+                    prompt+= "Passwords doesn't match" + "\n";
+                }
+            }
+            
+            return prompt;
+        }
+        
         public static String contactNum(String contactNum, String fieldName){
         try {
             // Attempt to parse the contact number as an integer
