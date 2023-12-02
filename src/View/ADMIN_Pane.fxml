@@ -27,7 +27,7 @@
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />
                </VBox.margin></Button>
-            <Button fx:id="addEmployeeBtn11" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="180.0" text="Fingerprints">
+            <Button fx:id="fingerprintsBtn" mnemonicParsing="false" onAction="#openFingerprintsPane" prefHeight="40.0" prefWidth="180.0" text="Fingerprints">
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />
                </VBox.margin></Button>

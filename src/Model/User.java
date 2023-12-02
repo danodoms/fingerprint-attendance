@@ -7,6 +7,7 @@ package Model;
 import Utilities.DatabaseUtil;
 import Controller.*;
 import Utilities.Encryption;
+import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -421,6 +422,46 @@ public class User {
             e.printStackTrace();
         }
         return user;
+    }
+    
+    public static int getFingerprintCountByUserId(int id) {
+        int fingerprintCount = 0;
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             CallableStatement statement = (CallableStatement) connection.prepareCall("{CALL getUserFingerprintCount(?)}")) {
+
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            
+            if (rs.next()) {
+                fingerprintCount = rs.getInt("fingerprint_count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return fingerprintCount;
+    }
+
+    
+    public static String getLastFingerprintEnrollByUserId(int id){
+        String lastEnrollDate = "";
+        
+        try{
+            Connection connection = DatabaseUtil.getConnection();
+            CallableStatement statement = (CallableStatement) connection.prepareCall("{CALL getUserFingerprintCount(?)}");
+            statement.setInt(1,id);
+            
+            ResultSet rs = statement.executeQuery();
+
+            if(rs.next()){
+                lastEnrollDate = rs.getString("register_date");
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lastEnrollDate;
     }
     
     public int getCount() {

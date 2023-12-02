@@ -45,6 +45,10 @@ public class ADMIN_PaneCTRL implements Initializable {
     
     @FXML
     private Pane contentPane;
+    @FXML
+    private Button addEmployeeBtn1;
+    @FXML
+    private Button fingerprintsBtn;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -88,5 +92,11 @@ public class ADMIN_PaneCTRL implements Initializable {
     @FXML
     private void logOut(ActionEvent event) {
         paneUtil.exitAndOpenNewPane(logOutAdminBtn, paneUtil.LOGIN_PANE);
+    }
+
+    @FXML
+    private void openFingerprintsPane(ActionEvent event) throws IOException {
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_FINGERPRINTS));
+        contentPane.getChildren().setAll(view);
     }
 }
