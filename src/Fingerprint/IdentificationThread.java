@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import Utilities.*;
+import java.util.ArrayList;
 import javafx.scene.media.AudioClip;
 
 /**
@@ -120,6 +121,31 @@ public class IdentificationThread extends Thread{
         }
     }
     
+    //duplicate method, accepts additional Fmd ArrayList in addition to database Fmds for comparison purposes mainly on Enrollment Thread
+    private boolean compareFmdToDatabaseFmds(Fmd fmdToIdentify, Fmd[] databaseFmds, ArrayList<Fmd> fmdList) throws UareUException {
+        // Combine the input ArrayList with the databaseFmds
+        Fmd[] combinedFmds = new Fmd[databaseFmds.length + fmdList.size()];
+
+        // Copy databaseFmds to the beginning of the combinedFmds array
+        System.arraycopy(databaseFmds, 0, combinedFmds, 0, databaseFmds.length);
+
+        // Copy fmdList to the end of the combinedFmds array
+        for (int i = 0; i < fmdList.size(); i++) {
+            combinedFmds[databaseFmds.length + i] = fmdList.get(i);
+        }
+
+        Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, combinedFmds, falsePositiveRate, candidateCount );
+
+        if(candidateFmds.length != 0){
+            System.out.println("Candidate found");
+            return true;
+        }else{
+            System.out.println("No candidate/s found");
+            return false;
+        }
+    }
+
+    
     
     
     //this method is used by "compareFmdToDatabaseFmds" for display purposes
@@ -175,6 +201,11 @@ public class IdentificationThread extends Thread{
         return compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
     }
     
+    //duplicate method that accepts additional fmdList, mainly used on Erollment Thread
+    public boolean fmdIsAlreadyEnrolled(Fmd fmdToIdentify, ArrayList<Fmd> fmdList) throws UareUException{
+        Fmd[] databaseFmds = getFmdsFromDatabase();
+        return compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds, fmdList);
+    }
     
 
     

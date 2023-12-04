@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.ADMIN_FingerprintsCTRL">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_FingerprintsCTRL">
    <children>
       <TableView fx:id="userTable" layoutX="17.0" layoutY="19.0" onMouseClicked="#loadUserDetails" prefHeight="547.0" prefWidth="267.0">
         <columns>
@@ -38,7 +37,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Button fx:id="enrollBtn" mnemonicParsing="false" onAction="#openFpEnrollmentPane" prefHeight="25.0" prefWidth="173.0" text="Enroll">
+            <Button fx:id="enrollBtn" mnemonicParsing="false" onAction="#erollBtnAction" prefHeight="25.0" prefWidth="173.0" text="Enroll">
                <font>
                   <Font size="14.0" />
                </font>

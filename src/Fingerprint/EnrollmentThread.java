@@ -25,9 +25,10 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     private ImageView imageview;
     private int userIdToEnroll;
     private CaptureThread captureThread;
-    private int requiredFmdToEnroll = 4;
+    private int requiredFmdToEnroll = 1; //Default is 4
     public Engine engine = UareUGlobal.GetEngine();
     IdentificationThread identificationThread = new IdentificationThread();
+    ArrayList<Fmd> fmdList = new ArrayList<>();
     
     public EnrollmentThread(ImageView imageview, int userIdToEnroll){
         this.imageview = imageview;
@@ -45,7 +46,6 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
         //identificationThread.stopIdentificationThread();
         ThreadFlags.running = false;
         
-        ArrayList<Fmd> fmdList = new ArrayList<>();
 
         
         for (int attemptCounter = 0; attemptCounter < requiredFmdToEnroll; attemptCounter++) {
@@ -60,14 +60,16 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
             Prompt.prompt(Prompt.ANOTHER_CAPTURE);
         }
         
-        // Deletes all old fingerprints enrolled by user before inserting new fingerprints
-        //Fingerprint.destroyEnrolledFingerprintsByUserId(userIdToEnroll);
         
         // Insert all Fmds into the database
         for (Fmd fmd : fmdList) {
             Fingerprint.insertFmd(userIdToEnroll, fmd);
             System.out.println("Added FMD to database");
         }
+        
+        //Clears the current Fmd List to ensure integrity
+        fmdList.clear();
+        
         
         //Selection.reader.Close();
         Prompt.prompt(Prompt.DONE_CAPTURE);
@@ -96,7 +98,7 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
                 try{
                     Fmd fmdToEnroll = engine.CreateFmd(captureResult.image, Fmd.Format.ISO_19794_2_2005); //createFmd from captureResult image
                     
-                    if(!identificationThread.fmdIsAlreadyEnrolled(fmdToEnroll)){
+                    if(!identificationThread.fmdIsAlreadyEnrolled(fmdToEnroll, fmdList)){
                         prefmd = new Engine.PreEnrollmentFmd();
                         prefmd.fmd = fmdToEnroll;
                         prefmd.view_index = 0;

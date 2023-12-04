@@ -18,7 +18,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -99,7 +101,41 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
     }
 
     @FXML
-    private void openFpEnrollmentPane(ActionEvent event) {
+    private void erollBtnAction(ActionEvent event) {
+        User selectedUser = userTable.getSelectionModel().getSelectedItem();
+        int selectedUserId = selectedUser.getId();
+        
+        String enrollBtnText = enrollBtn.getText();
+        
+        if(!(enrollBtnText.equalsIgnoreCase("Enroll"))){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Re-Enroll");
+            alert.setHeaderText("Do you want to proceed?");
+            alert.setContentText("This action will destroy this User's Fingerprints stored in the database");
+
+            ButtonType yesButton = new ButtonType("Yes");
+            ButtonType noButton = new ButtonType("No");
+
+            alert.getButtonTypes().setAll(yesButton, noButton);
+
+            // Get the result of the prompt
+            alert.showAndWait().ifPresent(response -> {
+                if (response == yesButton) {
+                    System.out.println("User clicked Yes");
+                    // Perform actions for Yes
+                    Fingerprint.destroyEnrolledFingerprintsByUserId(selectedUserId);
+                    openFpEnrollmentPane();
+                } else if (response == noButton) {
+                    System.out.println("User clicked No");
+                    // Perform actions for No
+                }
+            });
+        }else{
+            openFpEnrollmentPane(); 
+        }
+    }
+    
+    private void openFpEnrollmentPane() {
         User selectedUser = userTable.getSelectionModel().getSelectedItem();
         int selectedUserId = selectedUser.getId();
         User userFromDb = User.getUserByUserId(selectedUserId);
@@ -132,6 +168,8 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
         }
         //paneUtil.openPane(paneUtil.ADD_EMPLOYEE_PANE);
     }
+
+
      
     
 }

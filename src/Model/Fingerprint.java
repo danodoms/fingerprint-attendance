@@ -152,7 +152,6 @@ public class Fingerprint {
         return fingerprintCount;
     }
 
-
     
 //    public static String getLastFingerprintEnrollByUserId(int id){
 //        String lastEnrollDate = "";
@@ -198,7 +197,28 @@ public class Fingerprint {
 
     
     public static void destroyEnrolledFingerprintsByUserId(int userId){
-        
+        // SQL query to delete enrolled fingerprints for the given user ID
+        String sqlQuery = "DELETE FROM fingerprint WHERE user_id = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+
+            // Set the user ID parameter in the prepared statement
+            preparedStatement.setInt(1, userId);
+
+            // Execute the update (delete) operation
+            int affectedRows = preparedStatement.executeUpdate();
+
+            // Check if any rows were affected
+            if (affectedRows > 0) {
+                System.out.println("Enrolled fingerprints for user ID " + userId + " deleted successfully.");
+            } else {
+                System.out.println("No enrolled fingerprints found for user ID " + userId + ".");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
     
