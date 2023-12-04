@@ -19,11 +19,11 @@
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />
                </VBox.margin></Button>
-            <Button fx:id="addEmployeeBtn" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="180.0" text="Employees">
+            <Button fx:id="employeesBtn" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="180.0" text="Employees">
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />
                </VBox.margin></Button>
-            <Button fx:id="addEmployeeBtn1" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="180.0" text="Assignment">
+            <Button fx:id="assignmentsBtn" mnemonicParsing="false" onAction="#openAssignmentsPane" prefHeight="40.0" prefWidth="180.0" text="Assignment">
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />
                </VBox.margin></Button>

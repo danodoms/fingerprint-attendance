@@ -27,9 +27,6 @@ import javafx.scene.layout.Pane;
  */
 public class ADMIN_PaneCTRL implements Initializable {
 
-    @FXML
-    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
-    private Button addEmployeeBtn;
 
     @FXML
     private Button dashBoardBtn, attendanceViewer, logOutAdminBtn, attendanceReportBtn;
@@ -46,9 +43,11 @@ public class ADMIN_PaneCTRL implements Initializable {
     @FXML
     private Pane contentPane;
     @FXML
-    private Button addEmployeeBtn1;
-    @FXML
     private Button fingerprintsBtn;
+    @FXML
+    private Button employeesBtn;
+    @FXML
+    private Button assignmentsBtn;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -97,6 +96,12 @@ public class ADMIN_PaneCTRL implements Initializable {
     @FXML
     private void openFingerprintsPane(ActionEvent event) throws IOException {
         view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_FINGERPRINTS));
+        contentPane.getChildren().setAll(view);
+    }
+
+    @FXML
+    private void openAssignmentsPane(ActionEvent event) throws IOException {
+         view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_ASSIGNMENTS));
         contentPane.getChildren().setAll(view);
     }
 }
