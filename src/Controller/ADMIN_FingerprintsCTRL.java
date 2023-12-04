@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.Fingerprint;
 import Model.User;
 import Utilities.ImageUtil;
 import Utilities.PaneUtil;
@@ -73,8 +74,8 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
     @FXML
     private void loadUserDetails(MouseEvent event) {
         User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        int fingerprintCount = User.getFingerprintCountByUserId(selectedUser.getId());
-        String lastFingerprintEnroll = User.getLastFingerprintEnrollByUserId(selectedUser.getId());
+        int fingerprintCount = Fingerprint.getFingerprintCountByUserId(selectedUser.getId());
+        String lastFingerprintEnroll = Fingerprint.getLastFingerprintEnrollByUserId(selectedUser.getId());
         byte[] userImage = User.getUserByUserId(selectedUser.getId()).getImage();
         
         

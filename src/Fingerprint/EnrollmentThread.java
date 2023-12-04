@@ -69,8 +69,9 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
             System.out.println("Added FMD to database");
         }
         
-        Selection.reader.Close();
+        //Selection.reader.Close();
         Prompt.prompt(Prompt.DONE_CAPTURE);
+        stopEnrollmentThread();
     }
     
         
