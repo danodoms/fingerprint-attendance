@@ -8,22 +8,40 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 */
 
 .button {
-    -fx-background-color: #3DAC78;
+/*    -fx-background-color: #3DAC78;*/
+/*    -fx-background-color: #1a1a1a;*/
+    -fx-background-color: transparent;
     -fx-border: none; 
     -fx-color: white;
     -fx-text-fill: white; 
     -fx-font-size: 14px; 
+    -fx-font-weight: bold;
+    -fx-border-radius: 100px;
+    -fx-alignment: CENTER_LEFT;
 }
 
 .button:hover {
-    -fx-background-color: #014421; 
+    -fx-background-color: #07f9a2; 
     -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a; 
 }
 
-#logOutAdminBtn {
-    -fx-background-color: #f44336;
+.button:pressed{
+    -fx-background-color: #07f9a2; 
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a; 
 }
+
+.navVbox {
+    -fx-background-color: linear-gradient(to bottom, #1a1a1a, #20272b);
+/*    -fx-background-color: #1a1a1a;*/
+}
+
+/*#logOutAdminBtn {
+    -fx-background-color: #;
+}*/
 
 #logOutAdminBtn:hover {
-    -fx-background-color: #d32f2f;
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
 }
