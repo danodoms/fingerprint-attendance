@@ -7,23 +7,49 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : User
 */
 
-.button {
-    -fx-background-color: #3DAC78;
+.navVbox .button {
+    -fx-background-color: transparent;
     -fx-border: none; 
     -fx-color: white;
     -fx-text-fill: white; 
     -fx-font-size: 14px; 
-}
-
-.button:hover {
-    -fx-background-color: #014421; 
     -fx-font-weight: bold;
+    -fx-border-radius: 100px;
+    -fx-alignment: CENTER_LEFT;
 }
 
-#logOutAdminBtn {
-    -fx-background-color: #f44336;
+.navVbox .button:hover {
+    -fx-background-color: #07f9a2; 
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a; 
 }
+
+.navVbox .button:pressed{
+    -fx-background-color: #07f9a2; 
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a; 
+}
+
+.navVbox {
+    -fx-background-color: linear-gradient(to bottom, #1a1a1a, #182526);
+/*    -fx-background-color: #1a1a1a;*/
+}
+
+
+.button {
+    -fx-background-color: #07f9a2;
+    -fx-border: none; 
+    -fx-color: white;
+/*    -fx-text-fill: white; */
+    -fx-font-size: 14px; 
+/*    -fx-font-weight: bold;*/
+    -fx-border-radius: 100px;
+    -fx-alignment: CENTER;
+}
+
+
 
 #logOutAdminBtn:hover {
-    -fx-background-color: #d32f2f;
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
 }

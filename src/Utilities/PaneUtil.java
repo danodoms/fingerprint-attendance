@@ -31,9 +31,18 @@ public class PaneUtil {
     public final String ADMIN_DASHBOARD_PANE = "/View/ADMIN_Dashboard.fxml";
     public final String ADMIN_EMP_CALENDAR_PANE = "/View/ADMIN_UserCalendar.fxml";
     
+    public final String RO_PANE = "/View/RO_Pane.fxml";
+    public final String ADMIN_EMP_MGMT = "/View/ADMIN_EmpMgmt.fxml";
+    public final String ADMIN_ADD_EMP = "/View/ADMIN_AddEmp.fxml";
+    public final String ADMIN_ASSIGNMENTS = "/View/ADMIN_Assignments.fxml";
+    public final String ADMIN_ATT_REPORTS = "/View/ADMIN_AttReports.fxml";
+    public final String ADMIN_ATTENDANCE = "/View/ADMIN_Attendance.fxml";
+    public final String ADMIN_DASHBOARD = "/View/ADMIN_Dashboard.fxml";
+    public final String ADMIN_FINGERPRINTS = "/View/ADMIN_Fingerprints.fxml";
+    
     //FINGERPRINT
-    public final String FP_ENROLLMENT_PANE = "/View/FP_Enrollment.fxml";
-    public final String FP_IDENTIFICATION_PANE = "/View/FP_Identification.fxml";
+    public final String FP_ENROLLMENT = "/View/FP_Enrollment.fxml";
+    public final String FP_IDENTIFICATION = "/View/FP_Identification.fxml";
     public final String FP_IDENTIFICATION_SUCCESS = "/View/FP_IdentificationSuccess.fxml";
     public final String FP_IDENTIFICATION_FAIL = "/View/FP_IdentificationFail.fxml";
     

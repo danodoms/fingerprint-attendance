@@ -8,6 +8,7 @@ import Utilities.DatabaseUtil;
 import java.util.Date;
 import Controller.*;
 import com.digitalpersona.uareu.Fmd;
+import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,6 +42,8 @@ public class Fingerprint {
         this.cbeffId = cbeffId;
         this.registerDate = registerDate;
     }
+    
+    
 
     public int getUserId() {
         return userId;
@@ -124,7 +127,99 @@ public class Fingerprint {
         e.printStackTrace();
     }
         return Fingerprints;
-    }        
+    }
+    
+    
+    public static int getFingerprintCountByUserId(int id) {
+        int fingerprintCount = 0;
+
+        // Use a standard SQL query instead of a stored procedure
+        String sqlQuery = "SELECT COUNT(*) AS fingerprint_count FROM fingerprint WHERE user_id = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                fingerprintCount = rs.getInt("fingerprint_count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return fingerprintCount;
+    }
+
+    
+//    public static String getLastFingerprintEnrollByUserId(int id){
+//        String lastEnrollDate = "";
+//        
+//        try{
+//            Connection connection = DatabaseUtil.getConnection();
+//            CallableStatement statement = (CallableStatement) connection.prepareCall("{CALL getUserFingerprintCount(?)}");
+//            statement.setInt(1,id);
+//            
+//            ResultSet rs = statement.executeQuery();
+//
+//            if(rs.next()){
+//                lastEnrollDate = rs.getString("register_date");
+//            }
+//            connection.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return lastEnrollDate;
+//    }
+    
+    public static String getLastFingerprintEnrollByUserId(int id) {
+        String lastEnrollDate = "";
+
+        // Use a standard SQL query instead of a stored procedure
+        String sqlQuery = "SELECT MAX(register_date) AS last_enroll_date FROM fingerprint WHERE user_id = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                lastEnrollDate = rs.getString("last_enroll_date");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lastEnrollDate;
+    }
+
+    
+    public static void destroyEnrolledFingerprintsByUserId(int userId){
+        // SQL query to delete enrolled fingerprints for the given user ID
+        String sqlQuery = "DELETE FROM fingerprint WHERE user_id = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+
+            // Set the user ID parameter in the prepared statement
+            preparedStatement.setInt(1, userId);
+
+            // Execute the update (delete) operation
+            int affectedRows = preparedStatement.executeUpdate();
+
+            // Check if any rows were affected
+            if (affectedRows > 0) {
+                System.out.println("Enrolled fingerprints for user ID " + userId + " deleted successfully.");
+            } else {
+                System.out.println("No enrolled fingerprints found for user ID " + userId + ".");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
     
 

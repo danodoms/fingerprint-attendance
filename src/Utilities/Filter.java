@@ -13,7 +13,7 @@ public class Filter {
         public static String name(String name, String fieldName){
             if(name.equals("")){
                 return fieldName + " can't be empty";
-            }else if (name.matches("[a-zA-Z]+")) {
+            }else if (name.matches("[a-zA-Z ]+")) {
                 return "";
             } else {
                 return "Invalid " + fieldName.toString();
@@ -73,6 +73,32 @@ public class Filter {
             } else {
                 return "Invalid " + fieldName.toString();
             }
+        }
+        
+        public static String password(String password, String repeatPassword){
+            String prompt = "";
+            
+            if(password.equals("")){
+                return "";
+            }else{
+                if(password.length() < 8){
+                    prompt+= "Password should at least contain 8 characters" + "\n";
+                }
+                
+                if(!(Filter.containsUppercase(password))){
+                    prompt+= "Password should contain an uppercase letter" + "\n";
+                }
+                
+                if(!(Filter.containsNumbers(password))){
+                    prompt+= "Password should contain a number" + "\n";
+                }
+                
+                if(!(password.equals(repeatPassword))){
+                    prompt+= "Passwords doesn't match" + "\n";
+                }
+            }
+            
+            return prompt;
         }
         
         public static String contactNum(String contactNum, String fieldName){

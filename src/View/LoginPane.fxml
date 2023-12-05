@@ -48,8 +48,13 @@
                <children>
                   <Pane fx:id="loginPane" prefHeight="539.0" prefWidth="495.0" style="-fx-border-radius: 25; -fx-border-width: 10; -fx-border-color: #1a1a1a; -fx-background-radius: 50;">
                      <children>
-                        <VBox layoutX="157.0" layoutY="371.0" prefHeight="129.0" prefWidth="179.0">
+                        <VBox layoutX="157.0" layoutY="355.0" prefHeight="129.0" prefWidth="179.0">
                            <children>
+                              <Label text="DEV TOOLS" textFill="#bdffdc">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
                               <Button fx:id="loginAdminBtn" mnemonicParsing="false" onAction="#openAdminPane" prefHeight="25.0" prefWidth="211.0" text="LOGIN AS ADMIN">
                                  <VBox.margin>
                                     <Insets top="7.0" />
@@ -60,12 +65,12 @@
                                     <Insets top="7.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button fx:id="fpEnrollmentShortcutBtn" mnemonicParsing="false" onAction="#openFpEnrollmentPane" prefHeight="25.0" prefWidth="185.0" text="fp_enrollment pane shortcut">
+                              <Button fx:id="fpEnrollmentShortcutBtn" disable="true" mnemonicParsing="false" onAction="#openFpEnrollmentPane" prefHeight="25.0" prefWidth="185.0" text="fp_enrollment pane shortcut">
                                  <VBox.margin>
                                     <Insets top="7.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button fx:id="fpIdentificationShortcutBtn" mnemonicParsing="false" onAction="#openFpIdentificationPane" prefHeight="25.0" prefWidth="194.0" text="fp_identification pane shortcut">
+                              <Button fx:id="fpIdentificationShortcutBtn" disable="true" mnemonicParsing="false" onAction="#openFpIdentificationPane" prefHeight="25.0" prefWidth="194.0" text="fp_identification pane shortcut">
                                  <VBox.margin>
                                     <Insets top="7.0" />
                                  </VBox.margin>

@@ -93,7 +93,10 @@ public class ADMIN_DashboardCTRL implements Initializable {
 
         // Add data to series
         for (User user : userList) {
-            if(user.getSex().equals("Female")){
+            if(user.getSex() == null){
+                System.out.println("Undefined Sex");
+            }
+            else if(user.getSex().equals("Female")){
                 series.getData().add(new BarChart.Data<>(user.getSex(), user.getCount()));
                 femaleCount.setText(user.getCount()+"");
             }else{

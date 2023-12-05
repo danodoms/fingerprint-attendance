@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import Utilities.*;
+import java.util.ArrayList;
 import javafx.scene.media.AudioClip;
 
 /**
@@ -38,6 +39,8 @@ public class IdentificationThread extends Thread{
     int falsePositiveRate = Engine.PROBABILITY_ONE / 100000; //sets how accurate the identification should be to return candidate
     int candidateCount = 1; //how many candidate Fmd/s to return
     
+    private boolean headlessMode = false;
+    
     
     //constructor with fingerprint display
     public IdentificationThread(ImageView imageview){
@@ -48,21 +51,19 @@ public class IdentificationThread extends Thread{
     
     //default constructor
     public IdentificationThread(){
+        headlessMode = true;
     }
     
      
     
     //called by the run method for starting the identification process
     public void startIdentification(ImageView imageview) throws InterruptedException, UareUException{
-//        Selection.reader.Close();
-//        Selection.reader.Open(Reader.Priority.COOPERATIVE);
         Selection.closeAndOpenReader();
-        while(true) {
+        while(ThreadFlags.running) {
             Fmd fmdToIdentify = getFmdFromCaptureThread(imageview);
             Fmd[] databaseFmds = getFmdsFromDatabase();
             compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
         }
-        //Selection.reader.Close();
     }
     
       
@@ -99,7 +100,7 @@ public class IdentificationThread extends Thread{
     
     
     //third method used in "startIdentification"
-    private boolean compareFmdToDatabaseFmds(Fmd fmdToIdentify, Fmd[] databaseFmds) throws UareUException{
+    private boolean compareFmdToDatabaseFmds(Fmd fmdToIdentify, Fmd[] databaseFmds) throws UareUException{     
         Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, databaseFmds, falsePositiveRate, candidateCount );
 
         if(candidateFmds.length != 0){
@@ -107,28 +108,61 @@ public class IdentificationThread extends Thread{
             //topCandidateFmd = databaseFmds[candidateFmds[0].fmd_index];
             int topCandidateFmdIndex = candidateFmds[0].fmd_index;
             int matchingUserId = fingerprintList.get(topCandidateFmdIndex).getUserId();
-            userIdentificationSuccess(matchingUserId);
+            if(!headlessMode){
+                userIdentificationSuccess(matchingUserId);
+            }
             return true;
         }else{
-            userIdentificationFailed();
+            if(!headlessMode){
+                userIdentificationFailed();
+            }
             System.out.println("No candidate/s found");
             return false;
         }
     }
+    
+    //duplicate method, accepts additional Fmd ArrayList in addition to database Fmds for comparison purposes mainly on Enrollment Thread
+    private boolean compareFmdToDatabaseFmds(Fmd fmdToIdentify, Fmd[] databaseFmds, ArrayList<Fmd> fmdList) throws UareUException {
+        // Combine the input ArrayList with the databaseFmds
+        Fmd[] combinedFmds = new Fmd[databaseFmds.length + fmdList.size()];
+
+        // Copy databaseFmds to the beginning of the combinedFmds array
+        System.arraycopy(databaseFmds, 0, combinedFmds, 0, databaseFmds.length);
+
+        // Copy fmdList to the end of the combinedFmds array
+        for (int i = 0; i < fmdList.size(); i++) {
+            combinedFmds[databaseFmds.length + i] = fmdList.get(i);
+        }
+
+        Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, combinedFmds, falsePositiveRate, candidateCount );
+
+        if(candidateFmds.length != 0){
+            System.out.println("Candidate found");
+            return true;
+        }else{
+            System.out.println("No candidate/s found");
+            return false;
+        }
+    }
+
     
     
     
     //this method is used by "compareFmdToDatabaseFmds" for display purposes
     private void userIdentificationSuccess(int userId){
         
-        userList = User.getUserByUserId(userId);
-        String fname = userList.get(0).getFname();
-        String mname = userList.get(0).getMname();
-        String lname = userList.get(0).getLname();
-        String suffix = userList.get(0).getSuffix();
-        byte[] userImage = userList.get(0).getImage();
+        User user = User.getUserByUserId(userId);
+        String fname = user.getFname();
+        String mname = user.getMname();
+        String lname = user.getLname();
+        String suffix = user.getSuffix();
+        if(suffix == null){
+            suffix = "";
+        }
         
-        String fullName = fname + " " + mname + " " + lname + " " + suffix;
+        byte[] userImage = user.getImage();
+        
+        String fullName = StringUtil.createFullNameWithInitial(fname, mname, lname, suffix);
         System.out.println("You are " + fullName);
         //SoundUtil.playSuccessSound();
         
@@ -136,7 +170,7 @@ public class IdentificationThread extends Thread{
         //if(hasTimedInOrOut(userId))
         
         
-        AudioClip buzzer = new AudioClip(getClass().getResource("success.wav").toExternalForm());
+        AudioClip buzzer = new AudioClip(getClass().getResource("/Audio/success.wav").toExternalForm());
         buzzer.play();
       
         Platform.runLater(() -> {
@@ -148,7 +182,7 @@ public class IdentificationThread extends Thread{
     
     
     private void userIdentificationFailed(){
-        AudioClip buzzer = new AudioClip(getClass().getResource("fail.wav").toExternalForm());
+        AudioClip buzzer = new AudioClip(getClass().getResource("/Audio/fail.wav").toExternalForm());
         buzzer.play();
         
         
@@ -171,11 +205,18 @@ public class IdentificationThread extends Thread{
         return compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
     }
     
+    //duplicate method that accepts additional fmdList, mainly used on Erollment Thread
+    public boolean fmdIsAlreadyEnrolled(Fmd fmdToIdentify, ArrayList<Fmd> fmdList) throws UareUException{
+        Fmd[] databaseFmds = getFmdsFromDatabase();
+        return compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds, fmdList);
+    }
     
 
     
     
     public void stopIdentificationThread() throws UareUException{
+        ThreadFlags.running = false;
+        System.out.println("Identification Thread Stopped");
         Selection.reader.Close();
     }
    

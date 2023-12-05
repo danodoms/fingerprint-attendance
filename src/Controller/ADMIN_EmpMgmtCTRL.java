@@ -8,20 +8,28 @@ import Model.Assignment;
 import Model.Department;
 import Model.Shift;
 import Model.User;
+import Utilities.DatabaseUtil;
 import Utilities.PaneUtil;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -43,13 +51,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     @FXML
     private TableColumn<User, Integer> col_user_id;
     @FXML
-    private TableColumn<User, String> col_fname;
-    @FXML
-    private TableColumn<User, String> col_mname;
-    @FXML
-    private TableColumn<User, String> col_lname;
-    @FXML
-    private TableColumn<User, String> col_suffix;
+    private TableColumn<User, String> col_name;
     @FXML
     private TableColumn<User, String> col_privilege;
     @FXML
@@ -68,18 +70,20 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     private TableColumn<Assignment, String> col_shift;
     @FXML
     private Button editUserBtn;
-
-    
-    PaneUtil paneUtil = new PaneUtil();
     @FXML
     private Button addEmpBtn;
+    @FXML
+    private Button deactivateUserBtn;
+    
+    PaneUtil paneUtil = new PaneUtil();
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        showUserTable();
+        loadUserTable();
         
         privilegeFilter_choiceBox.setValue("All");
         privilegeFilter_choiceBox.getItems().addAll("All","employee","admin","records officer");
@@ -94,10 +98,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
         
         //USER TABLE
         col_user_id.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
-        col_fname.setCellValueFactory(new PropertyValueFactory<User, String>("fname"));
-        col_mname.setCellValueFactory(new PropertyValueFactory<User, String>("mname"));
-        col_lname.setCellValueFactory(new PropertyValueFactory<User, String>("lname"));
-        col_suffix.setCellValueFactory(new PropertyValueFactory<User, String>("suffix"));
+        col_name.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
         col_privilege.setCellValueFactory(new PropertyValueFactory<User, String>("privilege"));
         col_email.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
         col_contact_num.setCellValueFactory(new PropertyValueFactory<User, String>("contactNum"));
@@ -110,8 +111,8 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
         col_shift.setCellValueFactory(new PropertyValueFactory<Assignment, String>("shift"));
     }    
     
-     public void showUserTable(){
-        ObservableList<User> users = User.getUsers();
+    public void loadUserTable(){
+        ObservableList<User> users = User.getActiveEmployees();
         userTable.setItems(users);
     }
      
@@ -128,11 +129,61 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
 
     @FXML
     private void openEditUserPane(ActionEvent event) {
-        paneUtil.openPane(paneUtil.ADD_EMPLOYEE_PANE);
+        User selectedUser = userTable.getSelectionModel().getSelectedItem();
+        int selectedUserId = selectedUser.getId();
+        User userFromDb = User.getUserByUserId(selectedUserId);
+        try {
+            // Load the AddUserForm.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.ADMIN_ADD_EMP));
+            Parent root = loader.load();
+
+            // Get the controller of the AddUserForm
+            ADMIN_AddEmpCTRL addUserFormController = loader.getController();
+
+            // Pass data to the AddUserFormController
+            addUserFormController.setDataForEdit(userFromDb);
+
+            // Show the AddUserForm in the original pane
+            Stage secondStage = new Stage();
+            secondStage.setScene(new Scene(root));
+            secondStage.initModality(Modality.APPLICATION_MODAL);
+            
+            // Set the onHidden event handler to reload userTable when add_employee_pane is closed
+            secondStage.setOnHidden(e -> {
+                // Reload userTable when the add_employee_pane is closed
+                loadUserTable();
+            });
+            
+            secondStage.show();
+            //originalPane.getChildren().add(addUserForm);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception
+        }
+        //paneUtil.openPane(paneUtil.ADD_EMPLOYEE_PANE);
     }
 
     @FXML
     private void openAddEmpPane(ActionEvent event) {
-         paneUtil.openModal(paneUtil.ADD_EMPLOYEE_PANE);
+         paneUtil.openModal(paneUtil.ADMIN_ADD_EMP);
+    }
+
+    @FXML
+    private void deactivateUser(ActionEvent event) {
+        User selectedItem = userTable.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+            int id = selectedItem.getId();
+            String query = "UPDATE user SET user_status = 0 WHERE user_id = " + id;
+
+            DatabaseUtil.executeQuery(query);
+            loadUserTable();
+            //clearFields();
+            //assignment_table.getItems().clear();
+        } else {
+            // Handle case when no row is selected or handle error.
+            // You can show a message or perform other actions here.
+        }
     }
 }

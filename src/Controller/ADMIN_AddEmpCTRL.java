@@ -30,7 +30,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -69,12 +71,20 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     private ChoiceBox<String> sexChoiceBox;
     @FXML
     private TextField addressField;
+    @FXML
+    private TextField repeatPasswordField;
     
     
     DatabaseUtil dbMethods = new DatabaseUtil();
-    PaneUtil method = new PaneUtil();
+    PaneUtil paneUtil = new PaneUtil();
+    boolean editMode = false;
+    int selectedUserId = 0;
     @FXML
-    private TextField repeatPasswordField;
+    private Label passwordLabel;
+    @FXML
+    private Label repeatPasswordLabel;
+    
+    
 
     /**
      * Initializes the controller class.
@@ -96,52 +106,65 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     }    
 
     @FXML
-    private void addEmployee(ActionEvent event) {
-        String fname = FnameField.getText();
-        String mname = MnameField.getText();
-        String lname = LnameField.getText();
-        String suffix = userSuffixChoiceBox.getValue();
-            if(suffix.equals("None")){
-                suffix = null;
-            }
-        
-        String email = emailField.getText();
-        String password = passwordField.getText();
-        String repeatPassword = repeatPasswordField.getText();
-        String privilege = privilegeChoiceBox.getValue();
-            if(privilege.equals("None")){
-                   privilege = null;
-               }
-        String contactNum = contactNumField.getText();
-        String sex = sexChoiceBox.getValue();
-            if(sex.equals("Select")){
-                sex = null;
-            }
-        LocalDate birthDate = dateOfBirthPicker.getValue();
-        String address = addressField.getText();
-        byte[] image = imageBytes;
-        
-        User candidateUser = new User(image, email, password, privilege, fname, mname, lname, suffix, sex, birthDate, contactNum, address);
-        String prompt = generatePrompt(candidateUser, repeatPassword);
-        
-        try {
-            if(prompt.equals("")){
-                User.addUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
-                showModal("Success","Employee added successfully!");
-                clearFields();
+    private void addEmployee(ActionEvent event) throws IOException {
+            String fname = FnameField.getText();
+            String mname = MnameField.getText();
+            String lname = LnameField.getText();
+            String suffix = userSuffixChoiceBox.getValue();
+                if(suffix.equals("None")){
+                    suffix = null;
+                }
+
+            String email = emailField.getText();
+            String password = passwordField.getText();
+            String repeatPassword = repeatPasswordField.getText();
+            String privilege = privilegeChoiceBox.getValue();
+                if(privilege.equals("None")){
+                       privilege = null;
+                   }
+            String contactNum = contactNumField.getText();
+            String sex = sexChoiceBox.getValue();
+                if(sex.equals("Select")){
+                    sex = null;
+                }
+            LocalDate birthDate = dateOfBirthPicker.getValue();
+            String address = addressField.getText();
+            byte[] image = imageBytes;
+
+            User candidateUser = new User(image, email, password, privilege, fname, mname, lname, suffix, sex, birthDate, contactNum, address); //Creates candidate user that will be checked by the prompt generator
+            String prompt = "";
+            if(editMode){
+                prompt = generatePrompt(candidateUser, repeatPassword, "update");
             }else{
-                showModal("Failed", prompt);
+                prompt = generatePrompt(candidateUser, repeatPassword, "add");
             }
-        } catch (SQLException ex) {
-            System.out.println("Database error, check inputs");
-            showModal("Failed", "Database error");
-            ex.printStackTrace();
-        }
-        
-        
+            
+
+            try {
+                if(prompt.isEmpty()){
+                    if(editMode){
+                        if(password.isEmpty()){
+                            User.updateUserWithoutPassword(selectedUserId, fname, mname, lname, suffix, email, privilege, contactNum, sex, birthDate, address, image);
+                        }else{
+                            User.updateUser(selectedUserId, fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
+                        }
+                        showModal("Success","Saved Changes");
+                    }else{
+                        User.addUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
+                        showModal("Success","Employee added successfully!");
+                    }
+                    clearFields();
+                }else{
+                    showModal("Failed", prompt);
+                }
+            } catch (SQLException ex) {
+                System.out.println("Database error, check inputs");
+                showModal("Failed", "Database error");
+                ex.printStackTrace();
+            }
     }
     
-    private String generatePrompt(User user, String repeatedPassword){
+    private String generatePrompt(User user, String repeatedPassword, String mode){
         ArrayList<String> promptList = new ArrayList<>();
         String filterPrompt = "";
         
@@ -149,7 +172,14 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         String mnamePrompt = Filter.OPTIONAL.name(user.getMname(), "Middle Name");
         String lnamePrompt = Filter.REQUIRED.name(user.getLname(), "Last Name");
         String emailPrompt = Filter.REQUIRED.email(user.getEmail());
-        String passwordPrompt = Filter.REQUIRED.password(user.getPassword(), repeatedPassword);
+        
+        String passwordPrompt = "";
+        if(mode.equalsIgnoreCase("add")){
+            passwordPrompt = Filter.REQUIRED.password(user.getPassword(), repeatedPassword);
+        }else{
+            passwordPrompt = Filter.OPTIONAL.password(user.getPassword(), repeatedPassword);
+        }
+        
         String privilegePrompt = Filter.REQUIRED.privilege(user.getPrivilege());
         
         //add prompts to promptList
@@ -208,14 +238,6 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         addressField.clear();
         repeatPasswordField.clear();
     }
-    
-
-//    private void updatePositionChoiceBox(ActionEvent event) {
-//        System.out.println("update position choice box");
-//        Department selectedDepartment = departmentChoiceBox.getValue();
-//        positionChoiceBox.setItems(Position.getPositionsByDepartmentId(selectedDepartment.getId()));
-//    }
-    
 
     @FXML
     private void selectImg(ActionEvent event) {
@@ -268,7 +290,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
 //    }
 
     private void openFingerprintPane(ActionEvent event) {
-        method.openPane(method.FP_ENROLLMENT_PANE);
+        paneUtil.openPane(paneUtil.FP_ENROLLMENT);
     }
     
     private byte[] readImageFile(File file) throws IOException {
@@ -277,6 +299,53 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         fis.read(data);
         fis.close();
         return data;
+    }
+    
+    public void setDataForEdit(User user) {
+        editMode = true;
+        selectedUserId = user.getId();
+        
+        // Set the user details in the form
+        String suffix = user.getSuffix();
+        
+        if(suffix == null || suffix.equals("")){
+            suffix = "None";
+        }
+        
+        FnameField.setText(user.getFname());
+        MnameField.setText(user.getMname());
+        LnameField.setText(user.getLname());
+        userSuffixChoiceBox.setValue(suffix);
+        emailField.setText(user.getEmail());
+        //passwordField.setText(user.getPassword());
+        privilegeChoiceBox.setValue(user.getPrivilege());
+        contactNumField.setText(user.getContactNum());
+        
+        if(user.getSex() == null){
+            sexChoiceBox.setValue("Select");
+        }else{
+            sexChoiceBox.setValue(user.getSex());
+        }
+        
+        dateOfBirthPicker.setValue(user.getBirthDate());
+        addressField.setText(user.getAddress());
+        userImage.setImage(byteArrayToImage(user.getImage()));
+
+        // Set other fields as needed
+        addEmployeeBtn.setText("Save Changes");
+        passwordLabel.setText("Change Password");
+        repeatPasswordLabel.setText("Repeat New Password");
+    }
+    
+    private Image byteArrayToImage(byte[] byteArray) {
+        // Convert byte array to JavaFX Image
+        try{
+        return new Image(new java.io.ByteArrayInputStream(byteArray));
+        } catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        
     }
 }
 

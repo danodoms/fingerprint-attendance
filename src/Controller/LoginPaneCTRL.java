@@ -39,7 +39,7 @@ public class LoginPaneCTRL implements Initializable {
      * Initializes the controller class.
      */
     
-    PaneUtil method = new PaneUtil();
+    
     @FXML
     private Button fpEnrollmentShortcutBtn;
     @FXML
@@ -80,6 +80,8 @@ public class LoginPaneCTRL implements Initializable {
     private CheckBox showPassCheckBox;
     @FXML
     private Label loginPrompt;
+    
+    PaneUtil paneUtil = new PaneUtil();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -160,10 +162,10 @@ public class LoginPaneCTRL implements Initializable {
         if(privilege.equalsIgnoreCase("employee")){
             System.out.println("Access denied");
         }else if(privilege.equalsIgnoreCase("admin")){
-            method.exitAndOpenNewPane(loginAdminBtn, method.ADMIN_PANE);
+            paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.ADMIN_PANE);
             System.out.println("Logged in as " + currentUser+"");
         }else if(privilege.equalsIgnoreCase("records officer")){
-            method.exitAndOpenNewPane(loginAdminBtn, method.RECORDS_OFFICER_PANE);
+            paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.RO_PANE);
             System.out.println("Logged in as " + currentUser+"");
         }
         
@@ -173,7 +175,7 @@ public class LoginPaneCTRL implements Initializable {
     
     @FXML
     private void openAdminPane(ActionEvent event) {
-        method.exitAndOpenNewPane(loginAdminBtn, method.ADMIN_PANE);
+        paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.ADMIN_PANE);
         System.out.println("Logged in as admin");
     }
 
@@ -181,7 +183,7 @@ public class LoginPaneCTRL implements Initializable {
     
     @FXML
     private void openRecordsOfficerPane(ActionEvent event) {
-        method.exitAndOpenNewPane(loginAdminBtn, method.RECORDS_OFFICER_PANE);
+        paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.RO_PANE);
         System.out.println("Logged in as records officer");
     }
 
@@ -189,14 +191,14 @@ public class LoginPaneCTRL implements Initializable {
     
     @FXML
     private void openFpEnrollmentPane(ActionEvent event) {
-        method.openPane(method.FP_ENROLLMENT_PANE);
+        paneUtil.openPane(paneUtil.FP_ENROLLMENT);
     }
 
     
     
     @FXML
     private void openFpIdentificationPane(ActionEvent event) {
-        method.openPane(method.FP_IDENTIFICATION_PANE);
+        paneUtil.openPane(paneUtil.FP_IDENTIFICATION);
     }
 
     
