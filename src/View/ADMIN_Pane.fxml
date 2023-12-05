@@ -50,7 +50,7 @@
                         </ImageView>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Images/attendance_icon.png" />
+                              <Image url="@../Images/calendar_icon.png" />
                            </image>
                            <VBox.margin>
                               <Insets bottom="15.0" left="10.0" top="10.0" />
