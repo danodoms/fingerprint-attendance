@@ -51,11 +51,12 @@ public class ADMIN_PaneCTRL implements Initializable {
         
         try {
             view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_DASHBOARD_PANE));
+            contentPane.getChildren().setAll(view);
         } catch (IOException ex) {
             Logger.getLogger(ADMIN_PaneCTRL.class.getName()).log(Level.SEVERE, null, ex);
         }
         //borderPaneOb.setCenter(view);
-        contentPane.getChildren().setAll(view);
+//        contentPane.getChildren().setAll(view);
     } 
     private void openEmployeeMgmtPane(ActionEvent event) {
         paneUtil.openPane(paneUtil.EMPLOYEE_MGMT_PANE);

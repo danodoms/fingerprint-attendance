@@ -69,16 +69,6 @@ public class Attendance {
         this.percentageNotLoggedIn = percentageNotLoggedIn;
     }
 
-//    private boolean loggedIn;
-
-//    public void setLoggedIn(boolean loggedIn) {
-//        this.loggedIn = loggedIn;
-//    }
-//
-//    public boolean isLoggedIn() {
-//        return loggedIn;
-//    }
-
     public Attendance(int id, Date date, String name, String timeIn, String notation) {
         this.id=id;
         this.date = date;
@@ -402,46 +392,6 @@ public void setTimeOutPm(String timeOutPm) {
              
              return attendance;
          }
-         
-//         public static ObservableList<Attendance> getEmpToPieChart() {
-//    ObservableList<Attendance> attendance = FXCollections.observableArrayList();
-//
-//    try (Connection connection = DatabaseUtil.getConnection();
-//         CallableStatement cstmt = (CallableStatement) connection.prepareCall("{CALL get_employee_status(?)}")) {
-//
-//        // Set the input parameter for the stored procedure
-//        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        cstmt.setDate(1, java.sql.Date.valueOf(currentDate));
-//
-//        // Execute the stored procedure
-//        boolean results = cstmt.execute();
-//
-//        // Handle the result set
-//        if (results) {
-//            ResultSet rs = cstmt.getResultSet();
-//            while (rs.next()) {
-//                // Process the result set from your stored procedure
-//                int totalEmployees = rs.getInt("total_employees_count");
-//                double percentageLoggedIn = rs.getDouble("percentage_logged_in");
-//                double percentageNotLoggedIn = rs.getDouble("percentage_not_logged_in");
-//
-//                // Create Attendance object and add to the list
-//                attendance.add(new Attendance(
-//                        rs.getInt("total_employees_count"),
-//                        rs.getDouble("percentage_logged_in"),
-//                        rs.getDouble("percentage_not_logged_in")
-//                ));
-//            }
-//        }
-//
-//    } catch (SQLException e) {
-//        e.printStackTrace();
-//    }
-//
-//    return attendance;
-//}
-
-         
          public static ObservableList<Attendance> getInstruction(){
         ObservableList<Attendance> attendance = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();
@@ -583,33 +533,7 @@ public void setTimeOutPm(String timeOutPm) {
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
-        // This is the query fron the  Attendance    
-//           String query = ("SELECT\n" +
-//"    CONCAT(u.user_fname, ' ', u.user_lname) AS employee_name, \n" +
-//"    c.date,\n" +
-//"    COALESCE(MAX(CASE WHEN c.time_notation = 'AM' THEN c.time_in END), '') AS timeInAM,\n" +
-//    "    COALESCE(MIN(CASE WHEN c.time_notation = 'AM' THEN c.time_out END), '') AS timeOutAM,\n" +
-//"    'AM' AS notationAM,\n" +
-//"    COALESCE(MAX(CASE WHEN c.time_notation = 'PM' THEN c.time_in END), '') AS timeInPM,\n" +
-//"    COALESCE(MIN(CASE WHEN c.time_notation = 'PM' THEN c.time_out END), '') AS timeOutPM,\n" +
-//"    'PM' AS notationPM,\n" +
-//"    CASE \n" +
-//"        WHEN EXISTS (\n" +
-//"            SELECT 1 \n" +
-//"            FROM attendance a\n" +
-//"            WHERE a.date = c.date \n" +
-//"            AND a.user_id = c.user_id\n" +
-//"            AND a.attendance_status = 2\n" +
-//"        ) THEN 2 \n" +
-//"        ELSE COALESCE(MAX(c.attendance_status), 0)\n" +
-//"    END AS attendance_status \n" +
-//"FROM attendance c \n" +
-//"JOIN user u ON c.user_id = u.user_id\n" +                     
-//"WHERE u.user_id = ?\n" +
-//"GROUP BY c.date \n" +
-//"ORDER BY c.date;");
-           
-            String query =("SELECT CONCAT(firstname,' ', lastname) AS name, timeInAM, timeOutAM, timeInPM, timeOutPM, attendance_status FROM dtr WHERE user_id=?;");
+            String query =("SELECT CONCAT(firstname,' ', lastname) AS name, timeInAM, timeOutAM, timeInPM, timeOutPM FROM dtr WHERE user_id=?;");
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, user_id);
             
@@ -622,11 +546,14 @@ public void setTimeOutPm(String timeOutPm) {
                 String timeOutAm1 = rs.getString("timeOutAM");
                 String timeInPm2 = rs.getString("timeInPM") ;
                 String timeOutPm2 = rs.getString("timeOutPM") ;
-                int statusInt = rs.getInt("attendance_status");
+                int statusInt =0;
                 String rs1Date = rs.getDate("date").toString();
-
+                if(timeInAm1==null || timeInPm2==null){
+                    statusInt=3;
+//                }else if(){
+//                    
+                }
                 // timeIn convertion from 24 hours to 12 hours.
-                
                 String statusString;
                 if (statusInt == 1) {
                     statusString = "Present";

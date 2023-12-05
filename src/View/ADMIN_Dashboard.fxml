@@ -8,17 +8,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Polyline?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="802.0" minHeight="600.0" minWidth="802.0" prefHeight="0.0" prefWidth="0.0" stylesheets="@../Style/dashboardBarChart.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_DashboardCTRL">
    <children>
       <Pane layoutX="1.0" prefHeight="600.0" prefWidth="803.0" style="-fx-background-color: linear-gradient(to bottom, #7AE582 50%, #9FFFCB 100%);">
          <children>
-            <Pane fx:id="piePane" layoutX="5.0" layoutY="54.0" prefHeight="441.0" prefWidth="423.0" style="-fx-background-color: white;">
+            <Pane fx:id="piePane" layoutX="5.0" layoutY="54.0" prefHeight="441.0" prefWidth="431.0" style="-fx-background-color: white;">
                <children>
                   <PieChart fx:id="pieChart" layoutX="-1.0" layoutY="121.0" prefHeight="308.0" prefWidth="434.0" style="-fx-padding: 0;" />
                   <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="-22.0" prefHeight="146.0" prefWidth="423.0" text="Text" textAlignment="CENTER">
@@ -32,36 +29,31 @@
                      </font>
                   </Label>
                </children></Pane>
-            <Pane layoutX="440.0" layoutY="54.0" prefHeight="441.0" prefWidth="354.0" style="-fx-background-color: white; -fx-border-color: #07f9a2;">
+            <Pane layoutX="444.0" layoutY="54.0" prefHeight="441.0" prefWidth="354.0" style="-fx-background-color: white; -fx-border-color: #07f9a2;">
                <children>
                   <Pane layoutX="181.0" layoutY="18.0" prefHeight="65.0" prefWidth="155.0" style="-fx-background-color: #8367C7;">
                      <children>
-                        <Label fx:id="maleCount" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="3.0" prefHeight="58.0" prefWidth="81.0" textAlignment="CENTER" textFill="#fcfafa">
+                        <Label fx:id="maleCount" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="3.0" prefHeight="58.0" prefWidth="81.0" textAlignment="CENTER" textFill="#fcfafa">
                            <font>
                               <Font name="System Bold" size="40.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="mView" fitHeight="65.0" fitWidth="67.0" layoutX="78.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#edeff2" height="14.0" layoutX="99.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="28.0" />
-                        <Circle fill="#ebebeb" layoutX="113.0" layoutY="22.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <ImageView fx:id="mView" fitHeight="65.0" fitWidth="67.0" layoutX="78.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" styleClass="mView" />
                      </children>
                   </Pane>
-                  <Pane fx:id="pinkPane" layoutX="13.0" layoutY="18.0" prefHeight="65.0" prefWidth="155.0">
+                  <Pane fx:id="pinkPane" layoutX="13.0" layoutY="18.0" prefHeight="65.0" prefWidth="155.0" styleClass="pinkPane">
                      <children>
-                        <Label fx:id="femaleCount" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="1.0" prefHeight="58.0" prefWidth="81.0" textAlignment="CENTER" textFill="#fcfafa">
+                        <Label fx:id="femaleCount" alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="1.0" prefHeight="58.0" prefWidth="81.0" textAlignment="CENTER" textFill="#fcfafa">
                            <font>
                               <Font name="System Bold" size="40.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="fView" fitHeight="65.0" fitWidth="67.0" layoutX="76.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
-                        <Circle fill="#ebebeb" layoutX="118.0" layoutY="22.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#edeff2" height="14.0" layoutX="105.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="28.0" />
-                        <Polyline fill="#f0f2ee" layoutX="121.0" layoutY="75.0" points="4.5, -57.0, 11.0, -45.5, -16.25, -45.5, -10.75, -57.0" strokeType="INSIDE" strokeWidth="0.0" />
+                        <ImageView fx:id="fView" fitHeight="65.0" fitWidth="67.0" layoutX="78.0" pickOnBounds="true" preserveRatio="true" styleClass="fView" />
                      </children>
                   </Pane>
                </children>
             </Pane>
-            <Line endX="-100.0" endY="449.5" layoutX="533.0" layoutY="50.0" startX="-100.0" />
+            <Line endX="-100.0" endY="449.5" layoutX="540.0" layoutY="50.0" startX="-100.0" />
             <Line endX="-100.0" endY="550.0" layoutX="900.0" layoutY="51.0" startX="-100.0" />
             <Line endX="701.5" endY="-0.5" layoutX="99.0" layoutY="501.0" startX="-100.0" />
             <Pane fx:id="paneBot" layoutX="7.0" layoutY="508.0" prefHeight="87.0" prefWidth="786.0" style="-fx-background: linear-gradient(from 0% 0%, to 100% 0%,                                     #98FF98, #66FF99, #00FF7F);">
@@ -74,7 +66,7 @@
                </children></Pane>
          </children>
       </Pane>
-      <BarChart fx:id="barChart" barGap="0.0" categoryGap="0.0" layoutX="429.0" layoutY="138.0" legendSide="TOP" legendVisible="false" prefHeight="353.0" prefWidth="361.0" stylesheets="@../Style/dashboardBarChart.css">
+      <BarChart fx:id="barChart" barGap="0.0" categoryGap="0.0" layoutX="439.0" layoutY="138.0" legendSide="TOP" legendVisible="false" prefHeight="353.0" prefWidth="361.0" stylesheets="@../Style/dashboardBarChart.css">
         <xAxis>
           <CategoryAxis fx:id="categoryAxis" endMargin="2.0" side="BOTTOM" startMargin="2.0" tickLabelGap="2.0">
                <tickLabelFont>
