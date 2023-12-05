@@ -33,6 +33,17 @@ public class StringUtil {
         return fullName;
     }
     
+    public static String formatFullNameWithInitial(String fullName, String delimiter){
+        String[] nameParts = fullName.split("\\$");
+        
+        String fName = nameParts.length > 0 ? nameParts[0] : "";
+        String mName = nameParts.length > 1 ? nameParts[1] : "";
+        String lName = nameParts.length > 2 ? nameParts[2] : "";
+        String suffix = nameParts.length > 3 ? nameParts[3] : "";
+        
+        return createFullNameWithInitial(fName, mName, lName, suffix);
+    }
+    
     private static String removeExtraSpaces(String text) {
         // Replace multiple spaces with a single space
         text = text.replaceAll("\\s+", " ");
