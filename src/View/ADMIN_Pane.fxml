@@ -50,6 +50,14 @@
                         </ImageView>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
+                              <Image url="@../Images/calendar_icon.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="10.0" top="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
                               <Image url="@../Images/employees_icon.png" />
                            </image>
                            <VBox.margin>
@@ -101,6 +109,11 @@
                            </VBox.margin>
                         </Button>
                         <Button fx:id="attendanceBtn" mnemonicParsing="false" onAction="#openAttendancePane" prefHeight="40.0" prefWidth="180.0" text="Attendance">
+                           <VBox.margin>
+                              <Insets left="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="calendarBtn" mnemonicParsing="false" onAction="#openEmpCalendar" prefHeight="40.0" prefWidth="180.0" text="Calendar">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>

@@ -31,6 +31,7 @@ public class PaneUtil {
     public final String ADMIN_ATTENDANCE = "/View/ADMIN_Attendance.fxml";
     public final String ADMIN_DASHBOARD = "/View/ADMIN_Dashboard.fxml";
     public final String ADMIN_FINGERPRINTS = "/View/ADMIN_Fingerprints.fxml";
+    public final String ADMIN_EMP_CALENDAR_PANE = "/View/ADMIN_UserCalendar.fxml";
     
     //FINGERPRINT
     public final String FP_ENROLLMENT = "/View/FP_Enrollment.fxml";

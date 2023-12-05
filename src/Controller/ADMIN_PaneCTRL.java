@@ -45,6 +45,8 @@ public class ADMIN_PaneCTRL implements Initializable {
     private Button attendanceBtn;
     @FXML
     private Button reportsBtn;
+    @FXML
+    private Button calendarBtn;
     
     private AnchorPane view;
     PaneUtil paneUtil = new PaneUtil();
@@ -58,13 +60,15 @@ public class ADMIN_PaneCTRL implements Initializable {
         
         try {
             view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_DASHBOARD));
+            contentPane.getChildren().setAll(view);
         } catch (IOException ex) {
             Logger.getLogger(ADMIN_PaneCTRL.class.getName()).log(Level.SEVERE, null, ex);
         }
         //borderPaneOb.setCenter(view);
+//        contentPane.getChildren().setAll(view);
         contentPane.getChildren().setAll(view);
         
-        Button[] buttonArray = {dashboardBtn, attendanceBtn, employeesBtn, assignmentsBtn, fingerprintsBtn, reportsBtn};
+        Button[] buttonArray = {dashboardBtn, attendanceBtn, calendarBtn, employeesBtn, assignmentsBtn, fingerprintsBtn, reportsBtn};
         buttonList = new ArrayList<>(Arrays.asList(buttonArray));
     } 
     
@@ -101,9 +105,16 @@ public class ADMIN_PaneCTRL implements Initializable {
         highlightButton(reportsBtn);
     }
     @FXML
+    private void openEmpCalendar(ActionEvent event) throws IOException{
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_EMP_CALENDAR_PANE));
+        contentPane.getChildren().setAll(view);
+        highlightButton(calendarBtn);
+    }
+    @FXML
     private void logOut(ActionEvent event) {
         paneUtil.exitAndOpenNewPane(logOutAdminBtn, paneUtil.LOGIN_PANE);
     }
+    
 
     @FXML
     private void openFingerprintsPane(ActionEvent event) throws IOException {
