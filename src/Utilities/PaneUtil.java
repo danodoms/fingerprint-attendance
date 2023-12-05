@@ -23,14 +23,6 @@ import javafx.stage.Stage;
 public class PaneUtil {
     public final String LOGIN_PANE = "/View/LoginPane.fxml";
     public final String ADMIN_PANE = "/View/ADMIN_Pane.fxml";
-    public final String RECORDS_OFFICER_PANE = "/View/RO_Pane.fxml";
-    public final String EMPLOYEE_MGMT_PANE = "/View/ADMIN_EmpMgmt.fxml";
-    public final String ADD_EMPLOYEE_PANE = "/View/ADMIN_AddEmp.fxml";
-    public final String ADMIN_ATT_REP_PANE = "/View/ADMIN_AttReports.fxml";
-    public final String ADMIN_ATTENDANCE_PANE = "/View/ADMIN_Attendance.fxml";
-    public final String ADMIN_DASHBOARD_PANE = "/View/ADMIN_Dashboard.fxml";
-    public final String ADMIN_EMP_CALENDAR_PANE = "/View/ADMIN_UserCalendar.fxml";
-    
     public final String RO_PANE = "/View/RO_Pane.fxml";
     public final String ADMIN_EMP_MGMT = "/View/ADMIN_EmpMgmt.fxml";
     public final String ADMIN_ADD_EMP = "/View/ADMIN_AddEmp.fxml";
@@ -39,6 +31,7 @@ public class PaneUtil {
     public final String ADMIN_ATTENDANCE = "/View/ADMIN_Attendance.fxml";
     public final String ADMIN_DASHBOARD = "/View/ADMIN_Dashboard.fxml";
     public final String ADMIN_FINGERPRINTS = "/View/ADMIN_Fingerprints.fxml";
+    public final String ADMIN_EMP_CALENDAR_PANE = "/View/ADMIN_UserCalendar.fxml";
     
     //FINGERPRINT
     public final String FP_ENROLLMENT = "/View/FP_Enrollment.fxml";

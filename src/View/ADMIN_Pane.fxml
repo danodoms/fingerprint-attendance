@@ -113,7 +113,7 @@
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="empCalendarViewer" mnemonicParsing="false" onAction="#openEmpCalendar" prefHeight="40.0" prefWidth="180.0" text="Calendar">
+                        <Button fx:id="calendarBtn" mnemonicParsing="false" onAction="#openEmpCalendar" prefHeight="40.0" prefWidth="180.0" text="Calendar">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
