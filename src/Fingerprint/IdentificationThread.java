@@ -156,9 +156,13 @@ public class IdentificationThread extends Thread{
         String mname = user.getMname();
         String lname = user.getLname();
         String suffix = user.getSuffix();
+        if(suffix == null){
+            suffix = "";
+        }
+        
         byte[] userImage = user.getImage();
         
-        String fullName = fname + " " + mname + " " + lname + " " + suffix;
+        String fullName = StringUtil.createFullNameWithInitial(fname, mname, lname, suffix);
         System.out.println("You are " + fullName);
         //SoundUtil.playSuccessSound();
         
