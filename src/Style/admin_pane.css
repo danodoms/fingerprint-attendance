@@ -53,3 +53,31 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-color: #f44336;
     -fx-text-fill: white;
 }
+
+
+
+
+
+.titled-pane > *.content{
+    -fx-background-color: transparent ;
+    -fx-border-color: transparent ;
+    
+}
+
+.titled-pane .title {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.titled-pane .arrow {
+    -fx-background-color: white;
+    -fx-alignment: center-right;
+}
+
+.titled-pane > .title > *.text {
+    -fx-fill: #fff;
+}
+
+
