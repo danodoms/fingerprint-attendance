@@ -5,11 +5,14 @@
 package Model;
 
 import Utilities.DatabaseUtil;
+import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,12 +25,69 @@ public class Assignment {
     private String position;
     private String department;
     private String shift;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private String dateAssigned;
+    private int status;
+    
+    //CALCULATED VARIABLE, NOT IN ACTUAL DATABASE TABLE
+    private String timeRange;
+
+    public String getTimeRange() {
+        timeRange = startTime.toString() + " - " + endTime.toString();
+        return timeRange;
+    }
+
+    public void setTimeRange(String timeRange) {
+        this.timeRange = timeRange;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getDateAssigned() {
+        return dateAssigned;
+    }
+
+    public void setDateAssigned(String dateAssigned) {
+        this.dateAssigned = dateAssigned;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Assignment(int id, String department, String position, String shift) {
         this.id = id;
         this.position = position;
         this.department = department;
         this.shift = shift;
+    }
+    
+    public Assignment(int id, String department, String position, String shift, String timeRange, String dateAssigned) {
+        this.id = id;
+        this.position = position;
+        this.department = department;
+        this.shift = shift;
+        this.timeRange = timeRange;
+        this.dateAssigned = dateAssigned;
     }
     
     
@@ -56,6 +116,34 @@ public class Assignment {
         }
         return assignments;
     }
+    
+    public static ObservableList<Assignment> getActiveAssignmentsByUserId(int user_id) {
+        ObservableList<Assignment> assignments = FXCollections.observableArrayList();
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             CallableStatement callableStatement = (CallableStatement) connection.prepareCall("{call get_user_active_assignments(?)}")) {
+
+            callableStatement.setInt(1, user_id);
+            ResultSet rs = callableStatement.executeQuery();
+
+            while (rs.next()) {
+                assignments.add(new Assignment(
+                        rs.getInt("assignment_id"),
+                        rs.getString("department_name"),
+                        rs.getString("position_name"),
+                        rs.getString("shift_name"),
+                        rs.getString("time_range"), // Assuming the time_range column is returned by the stored procedure
+                        rs.getString("date_assigned")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return assignments;
+    }
+
     
 
     public int getId() {
