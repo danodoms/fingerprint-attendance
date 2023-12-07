@@ -45,8 +45,17 @@ public class ADMIN_PaneCTRL implements Initializable {
     private Button attendanceBtn;
     @FXML
     private Button reportsBtn;
-    @FXML
     private Button calendarBtn;
+    @FXML
+    private Button holidaysBtn;
+    @FXML
+    private Button timeOffBtn;
+    @FXML
+    private Button departmentsBtn;
+    @FXML
+    private Button positionsBtn;
+    @FXML
+    private Button shiftsBtn;
     
     private AnchorPane view;
     PaneUtil paneUtil = new PaneUtil();
@@ -104,7 +113,6 @@ public class ADMIN_PaneCTRL implements Initializable {
         contentPane.getChildren().setAll(view);
         highlightButton(reportsBtn);
     }
-    @FXML
     private void openEmpCalendar(ActionEvent event) throws IOException{
         view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_EMP_CALENDAR_PANE));
         contentPane.getChildren().setAll(view);

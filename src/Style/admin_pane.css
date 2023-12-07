@@ -74,10 +74,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .titled-pane .arrow {
     -fx-background-color: white;
     -fx-alignment: center-right;
+    
 }
 
 .titled-pane > .title > *.text {
     -fx-fill: #fff;
 }
 
+
+.titled-pane > .title > .arrow-button > .arrow-container > .arrow > .arrow-icon {
+    -fx-background-color: transparent;
+    -fx-background-image: url('Images/calendar_icon.png');
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
 
