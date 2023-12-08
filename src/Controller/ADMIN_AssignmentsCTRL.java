@@ -10,6 +10,7 @@ import Model.Position;
 import Model.Shift;
 import Model.User;
 import Utilities.ImageUtil;
+import Utilities.Modal;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -250,9 +251,10 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         try{
             Assignment.addAssignment(userId, positionId, shiftId, startTime, endTime, dateAssigned);
         } catch(SQLException ex){
-            System.out.println("Error adding assigment");
+            Modal.showModal("Failed", "Database Error");
         }
         
+        Modal.showModal("Success", "Assignment Added");
         loadAssignmentTable(userId);
     }
 
