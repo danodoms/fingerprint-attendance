@@ -67,7 +67,7 @@ public class Shift {
     }
 
     public String getStartTime() {
-        return startTime;
+        return (startTime != null) ? startTime : "";
     }
 
     public void setStartTime(String startTime) {
@@ -75,7 +75,7 @@ public class Shift {
     }
 
     public String getEndTime() {
-        return endTime;
+        return (endTime != null) ? endTime : "";
     }
 
     public void setEndTime(String endTime) {

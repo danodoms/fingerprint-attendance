@@ -276,7 +276,7 @@ public void setTimeOutPm(String timeOutPm) {
                         }
                         
                     }
-                   if(out.equals("00:00:00")){
+                   if(out == null){
                        out = " ";
                    }
 

@@ -20,6 +20,7 @@ public class Prompt {
     public static final String ANOTHER_CAPTURE = "Place another finger";
     public static final String DONE_CAPTURE = "Enrollment Complete";
     public static final String ALREADY_ENROLLED = "Already Enrolled, Try another";
+    public static final String UNABLE_TO_ENROLL = "Unable to Enroll, Try again"; //Triggered when the 4 enrollment FMDs are not from the same finger
     
     public static void prompt(String promptType){
         Platform.runLater(() -> {

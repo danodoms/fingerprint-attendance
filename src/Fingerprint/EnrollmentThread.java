@@ -53,7 +53,19 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
             System.out.println("Attempt " + attemptCounter);
 
             //Calls the Override GetFmd method that is implemented from Engine.CreateEnrollmentFmd Class
-            Fmd fmdToEnroll = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
+            Fmd fmdToEnroll = null;
+            
+            boolean unableToEnroll = false;
+            
+            do{
+                try{
+                    fmdToEnroll = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
+                }catch(UareUException ex){
+                    unableToEnroll =  true;
+                    Prompt.prompt(Prompt.UNABLE_TO_ENROLL);
+                }
+            }while(unableToEnroll);
+
             System.out.println("FMD returned");
 
             fmdList.add(fmdToEnroll); // Add the Fmd to the list
