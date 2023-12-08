@@ -20,13 +20,13 @@ import javafx.collections.ObservableList;
  * @author admin
  */
 public class Position {
-    private int position_id;
+    private int id;
     private String position_name;
     private String position_description;
     private int department_ID;
     
-    public Position (int position_id, String position_name){
-        this.position_id = position_id;
+    public Position (int id, String position_name){
+        this.id = id;
         this.position_name = position_name;
     }
 //    public Position(String position_name){
@@ -42,11 +42,11 @@ public class Position {
         return position_name;
     }
     public int getId() {
-        return position_id;
+        return id;
     }
 
-    public void setId(int position_id) {
-        this.position_id = position_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPosition() {

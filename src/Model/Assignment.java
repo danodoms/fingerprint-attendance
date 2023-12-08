@@ -34,7 +34,10 @@ public class Assignment {
     private String timeRange;
 
     public String getTimeRange() {
-        timeRange = startTime.toString() + " - " + endTime.toString();
+        if (startTime != null && endTime != null) {
+            timeRange = startTime.toString() + " - " + endTime.toString();
+        }
+        
         return timeRange;
     }
 
@@ -142,6 +145,21 @@ public class Assignment {
         }
 
         return assignments;
+    }
+    
+    
+    public static void addAssignment(int userId, int positionId, int shiftId, String startTime, String endTime, String dateAssigned) throws SQLException{
+        String insertQuery = "INSERT INTO `assignment`(user_id, position_id, shift_id, start_time, end_time, date_assigned) VALUES (?, ?, ?, ?, ?, ?)";
+
+        PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(insertQuery);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, positionId);
+            preparedStatement.setInt(3, shiftId);
+            preparedStatement.setString(4, startTime);
+            preparedStatement.setString(5, endTime);
+            preparedStatement.setString(6, dateAssigned);
+            
+            preparedStatement.executeUpdate();
     }
 
     

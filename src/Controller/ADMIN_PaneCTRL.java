@@ -77,7 +77,7 @@ public class ADMIN_PaneCTRL implements Initializable {
 //        contentPane.getChildren().setAll(view);
         contentPane.getChildren().setAll(view);
         
-        Button[] buttonArray = {dashboardBtn, attendanceBtn, calendarBtn, employeesBtn, assignmentsBtn, fingerprintsBtn, reportsBtn};
+        Button[] buttonArray = {dashboardBtn, attendanceBtn, employeesBtn, assignmentsBtn, fingerprintsBtn, reportsBtn};
         buttonList = new ArrayList<>(Arrays.asList(buttonArray));
     } 
     

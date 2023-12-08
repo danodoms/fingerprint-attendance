@@ -115,6 +115,10 @@ public class User {
         this.count = count;      
     }
     
+    public User(byte[] image){
+        this.image = image;
+    }
+    
     public static void addUser(
         String fname,
         String mname,
@@ -348,6 +352,29 @@ public class User {
         }
 
         return user;
+    }
+    
+     public static byte[] getUserImageByUserId(int userId){
+        byte[] userImage = null;
+
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()) {
+
+            String query = "SELECT user_img FROM `user` WHERE user_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if (rs.next()) {   
+                  userImage =rs.getBytes("user_img");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userImage;
     }
     
     
