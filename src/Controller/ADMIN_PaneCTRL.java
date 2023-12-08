@@ -108,6 +108,7 @@ public class ADMIN_PaneCTRL implements Initializable {
     private void openEmpCalendar(ActionEvent event) throws IOException{
         view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_EMP_CALENDAR_PANE));
         contentPane.getChildren().setAll(view);
+        highlightButton(calendarBtn);
     }
     @FXML
     private void logOut(ActionEvent event) {
