@@ -182,9 +182,15 @@ public class ADMIN_PaneCTRL implements Initializable {
 
     @FXML
     private void openPositionsPane(ActionEvent event) throws IOException{
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_POSITIONS));
+        contentPane.getChildren().setAll(view);
+        highlightButton(positionsBtn);
     }
 
     @FXML
     private void openShiftsPane(ActionEvent event) throws IOException{
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_SHIFTS));
+        contentPane.getChildren().setAll(view);
+        highlightButton(shiftsBtn);
     }
 }

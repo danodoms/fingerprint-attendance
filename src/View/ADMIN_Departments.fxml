@@ -6,8 +6,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 
@@ -18,29 +21,15 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="departmentTable" layoutX="27.0" layoutY="75.0" onMouseClicked="#departmentSelected" prefHeight="403.0" prefWidth="745.0">
+      <TableView fx:id="departmentTable" layoutX="27.0" layoutY="75.0" onMouseClicked="#departmentSelected" prefHeight="500.0" prefWidth="452.0">
         <columns>
           <TableColumn fx:id="col_id" prefWidth="52.0" text="ID" />
-          <TableColumn fx:id="col_name" prefWidth="242.0" text="Name" />
-            <TableColumn fx:id="col_description" prefWidth="449.0" text="Description" />
+          <TableColumn fx:id="col_name" prefWidth="182.0" text="Name" />
+            <TableColumn fx:id="col_description" prefWidth="216.0" text="Description" />
         </columns>
       </TableView>
-      <HBox fx:id="buttonContainerHBox" layoutX="27.0" layoutY="486.0" prefHeight="58.0" prefWidth="745.0">
-         <children>
-            <Button fx:id="addBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" prefWidth="396.0" text="Add Department">
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="updateBtn" mnemonicParsing="false" prefHeight="73.0" prefWidth="200.0" text="Update">
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="deactivateBtn" mnemonicParsing="false" prefHeight="93.0" prefWidth="220.0" text="Deactivate" />
-         </children>
-      </HBox>
-      <HBox layoutX="564.0" layoutY="37.0" prefHeight="25.0" prefWidth="208.0">
+      <HBox fx:id="buttonContainerHBox" layoutX="27.0" layoutY="486.0" prefHeight="58.0" prefWidth="745.0" />
+      <HBox layoutX="271.0" layoutY="36.0" prefHeight="25.0" prefWidth="208.0">
          <children>
             <Label prefHeight="25.0" prefWidth="44.0" text="Status">
                <padding>
@@ -54,5 +43,47 @@
             </ChoiceBox>
          </children>
       </HBox>
+      <VBox layoutX="497.0" layoutY="160.0" prefHeight="302.0" prefWidth="275.0">
+         <children>
+            <Label text="Department Name">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="3.0" />
+               </VBox.margin>
+            </Label>
+            <TextField>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Description">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextArea prefHeight="67.0" prefWidth="275.0">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </TextArea>
+            <VBox prefHeight="125.0" prefWidth="275.0">
+               <children>
+                  <Button fx:id="addBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="84.0" prefWidth="274.0" text="Add Department">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="updateBtn" mnemonicParsing="false" prefHeight="83.0" prefWidth="274.0" text="Update">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="deactivateBtn" mnemonicParsing="false" prefHeight="85.0" prefWidth="274.0" text="Deactivate" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
