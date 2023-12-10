@@ -82,7 +82,7 @@ public class Shift {
         this.endTime = endTime;
     }
     
-        @Override
+    @Override
     public String toString() {
         return shiftName;
     }

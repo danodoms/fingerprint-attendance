@@ -4,9 +4,12 @@
  */
 package Utilities;
 
+import Model.Assignment;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -36,4 +39,31 @@ public class Modal {
         successStage.setScene(successScene);
         successStage.show();
     }
+    
+//    public static boolean showConfirmationModal(String title, String header, String content){
+//        boolean userResponse = false;
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle(title);
+//        alert.setHeaderText(header);
+//        alert.setContentText(content);
+//
+//        ButtonType yesButton = new ButtonType("Yes");
+//        ButtonType noButton = new ButtonType("No");
+//
+//        alert.getButtonTypes().setAll(yesButton, noButton);
+//
+//        // Get the result of the prompt
+//        alert.showAndWait().ifPresent(response -> {
+//            if (response == yesButton) {
+//                System.out.println("User clicked Yes");
+//                // Perform actions for Yes
+//                userResponse = true;
+//            } else if (response == noButton) {
+//                System.out.println("User clicked No");
+//                // Perform actions for No
+//            }
+//        });
+//        
+//        return userResponse;
+//    }
 }

@@ -406,7 +406,7 @@ public class User {
         ObservableList<User> activeEmp = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
-            ResultSet rs = statement.executeQuery("select * from activeemployeeview;");
+            ResultSet rs = statement.executeQuery("select * from active_employee_view;");
             
             while (rs.next()) {
                 LocalDate birthDate = null;

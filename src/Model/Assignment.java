@@ -22,8 +22,11 @@ import javafx.collections.ObservableList;
  */
 public class Assignment {
     private int id;
+    private int positionId;
     private String position;
+    private int departmentId;
     private String department;
+    private int shiftId;
     private String shift;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -39,6 +42,30 @@ public class Assignment {
         }
         
         return timeRange;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public int getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(int positionId) {
+        this.positionId = positionId;
+    }
+
+    public int getShiftId() {
+        return shiftId;
+    }
+
+    public void setShiftId(int shiftId) {
+        this.shiftId = shiftId;
     }
 
     public void setTimeRange(String timeRange) {
@@ -84,10 +111,13 @@ public class Assignment {
         this.shift = shift;
     }
     
-    public Assignment(int id, String department, String position, String shift, String timeRange, String dateAssigned) {
+    public Assignment(int id, int departmentId, String department, int positionId, String position, int shiftId, String shift, String timeRange, String dateAssigned) {
         this.id = id;
+        this.positionId = positionId;
         this.position = position;
+        this.departmentId = departmentId;
         this.department = department;
+        this.shiftId = shiftId;
         this.shift = shift;
         this.timeRange = timeRange;
         this.dateAssigned = dateAssigned;
@@ -132,8 +162,11 @@ public class Assignment {
             while (rs.next()) {
                 assignments.add(new Assignment(
                         rs.getInt("assignment_id"),
+                        rs.getInt("department_id"),
                         rs.getString("department_name"),
+                        rs.getInt("position_id"),
                         rs.getString("position_name"),
+                        rs.getInt("shift_id"),
                         rs.getString("shift_name"),
                         rs.getString("time_range"), // Assuming the time_range column is returned by the stored procedure
                         rs.getString("date_assigned")
@@ -160,6 +193,39 @@ public class Assignment {
             preparedStatement.setString(6, dateAssigned);
             
             preparedStatement.executeUpdate();
+    }
+    
+    public static void updateAssignment(int assignmentId, int positionId, int shiftId, String startTime, String endTime) throws SQLException{
+        String updateQuery = "UPDATE assignment SET position_id=?, shift_id=?, start_time=?, end_time=? WHERE assignment_id=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+            preparedStatement.setInt(1, positionId);
+            preparedStatement.setInt(2, shiftId);
+            preparedStatement.setString(3, startTime);
+            preparedStatement.setString(4, endTime);
+            preparedStatement.setInt(5, assignmentId);
+            
+            preparedStatement.executeUpdate();
+            
+            System.out.println("Executed updateAssignment");
+        }
+    }
+    
+    public static void deactivateAssignment(int assignmentId) {
+        String query = "UPDATE assignment SET status = 0 WHERE assignment_id = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, assignmentId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception or log it as needed
+        }
     }
 
     

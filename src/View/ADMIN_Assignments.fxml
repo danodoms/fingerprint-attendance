@@ -90,7 +90,7 @@
                                     </Label>
                                     <HBox prefHeight="0.0" prefWidth="126.0">
                                        <children>
-                                          <TextField fx:id="startTimeHourField" promptText="HR" style="-fx-alignment: CENTER;" />
+                                          <TextField fx:id="startTimeHourField" onKeyReleased="#filterTimeFields" promptText="HR" style="-fx-alignment: CENTER;" />
                                           <Label alignment="CENTER" prefHeight="0.0" prefWidth="4.0" text=":">
                                              <font>
                                                 <Font size="18.0" />
@@ -99,7 +99,7 @@
                                                 <Insets left="3.0" right="3.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <TextField fx:id="startTimeMinuteField" promptText="MN" style="-fx-alignment: CENTER;" />
+                                          <TextField fx:id="startTimeMinuteField" onKeyReleased="#filterTimeFields" promptText="MN" style="-fx-alignment: CENTER;" />
                                        </children>
                                        <VBox.margin>
                                           <Insets />
@@ -115,7 +115,7 @@
                                     <Label text="End Time" />
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <TextField fx:id="endTimeHourField" promptText="HR" style="-fx-alignment: CENTER;" />
+                                          <TextField fx:id="endTimeHourField" onKeyReleased="#filterTimeFields" promptText="HR" style="-fx-alignment: CENTER;" />
                                           <Label alignment="CENTER" prefHeight="0.0" prefWidth="4.0" text=":">
                                              <font>
                                                 <Font size="18.0" />
@@ -124,7 +124,7 @@
                                                 <Insets left="3.0" right="3.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <TextField fx:id="endTimeMinuteField" promptText="MN" style="-fx-alignment: CENTER;" />
+                                          <TextField fx:id="endTimeMinuteField" onKeyReleased="#filterTimeFields" promptText="MN" style="-fx-alignment: CENTER;" />
                                        </children>
                                     </HBox>
                                  </children>

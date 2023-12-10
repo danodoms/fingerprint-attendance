@@ -6,6 +6,7 @@ package Controller;
 
 import Model.Assignment;
 import Model.Department;
+import Model.Fingerprint;
 import Model.Position;
 import Model.Shift;
 import Model.User;
@@ -15,13 +16,19 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -30,6 +37,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
@@ -181,14 +189,45 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         showUpdateDeactivateBtnOnly();
         Assignment selectedItem = assignmentTable.getSelectionModel().getSelectedItem();
         String department = selectedItem.getDepartment();
+        int departmentId = selectedItem.getDepartmentId();
         String position = selectedItem.getPosition();
+        int positionId = selectedItem.getPositionId();
         String shift = selectedItem.getShift();
-        //String startTime = selectedItem.getStartTime();
-        //String endTime = selectedItem.getEndTime();
+        int shiftId = selectedItem.getShiftId();
+        String timeRange = selectedItem.getTimeRange();
         
-        departmentChoiceBox.setValue(new Department(department));
-        positionChoiceBox.setValue(new Position(position));
-        shiftChoiceBox.setValue(new Shift(shift));
+        String startTimeHour = "";
+        String startTimeMinute = "";
+        String endTimeHour = "";
+        String endTimeMinute = "";
+        
+        String[] times = timeRange.split(" - ");
+
+        if (times.length == 2) {
+            // Parse start time components
+            String startTime = times[0];
+            String[] startComponents = startTime.split(":");
+            startTimeHour = startComponents[0];
+            startTimeMinute = startComponents[1];
+
+            // Parse end time components
+            String endTime = times[1];
+            String[] endComponents = endTime.split(":");
+            endTimeHour = endComponents[0];
+            endTimeMinute = endComponents[1];
+        } else {
+            System.out.println("Invalid time range format");
+        }
+        
+        //TIME FIELDS
+        startTimeHourField.setText(startTimeHour);
+        startTimeMinuteField.setText(startTimeMinute);
+        endTimeHourField.setText(endTimeHour);
+        endTimeMinuteField.setText(endTimeMinute);
+        
+        departmentChoiceBox.setValue(new Department(departmentId,department));
+        positionChoiceBox.setValue(new Position(positionId, position));
+        shiftChoiceBox.setValue(new Shift(shiftId, shift));
 
         
     }
@@ -259,10 +298,118 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     }
 
     @FXML
-    private void updateAssignment(ActionEvent event) {
+    private void updateAssignment(ActionEvent event){
+        Assignment selectedItem = assignmentTable.getSelectionModel().getSelectedItem();
+        User selectedUser = userTable.getSelectionModel().getSelectedItem();
+        
+        int assignmentId = selectedItem.getId();
+        int positionId = positionChoiceBox.getValue().getId();
+        int shiftId = shiftChoiceBox.getValue().getId();
+        String startTime = startTimeHourField.getText() + ":" + startTimeMinuteField.getText();
+        String endTime = endTimeHourField.getText() + ":" + endTimeMinuteField.getText();
+        
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Update Assignment");
+        alert.setHeaderText("Do you want to proceed?");
+        alert.setContentText("This will update the selected assignment record");
+
+        ButtonType yesButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Get the result of the prompt
+        alert.showAndWait().ifPresent(response -> {
+            if (response == yesButton) {
+                System.out.println("User clicked Yes");
+                // Perform actions for Yes
+                try {
+                    Assignment.updateAssignment(assignmentId, positionId, shiftId, startTime, endTime);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ADMIN_AssignmentsCTRL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                loadAssignmentTable(selectedUser.getId());
+            } else if (response == noButton) {
+                System.out.println("User clicked No");
+                // Perform actions for No
+            }
+        });
+        
+        
+        
     }
 
     @FXML
     private void deactivateAssignment(ActionEvent event) {
+        Assignment selectedItem = assignmentTable.getSelectionModel().getSelectedItem();
+        User selectedUser = userTable.getSelectionModel().getSelectedItem();
+        int assignmentId = selectedItem.getId();
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Deactivate Assignment");
+        alert.setHeaderText("Do you want to proceed?");
+        alert.setContentText("This will deactivate the selected assignment record");
+
+        ButtonType yesButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Get the result of the prompt
+        alert.showAndWait().ifPresent(response -> {
+            if (response == yesButton) {
+                System.out.println("User clicked Yes");
+                // Perform actions for Yes
+                Assignment.deactivateAssignment(assignmentId);
+                loadAssignmentTable(selectedUser.getId());
+            } else if (response == noButton) {
+                System.out.println("User clicked No");
+                // Perform actions for No
+            }
+        });
     }
+    
+    
+    private String filterHour(String hour){
+        String[] hourArray = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+        
+        for (String hourArr : hourArray) {
+            if (hour.equals(hourArr)) {
+                return hour;
+            }
+        }
+        
+        return "";
+    }
+    
+    private String filterMinute(String minute) {
+        // Define the range for minutes (00 to 59)
+        int minMinute = 0;
+        int maxMinute = 59;
+
+        // Create an ArrayList to store the minute values
+        ArrayList<String> minuteList = new ArrayList<>();
+
+        // Populate the minuteList with values from minMinute to maxMinute
+        for (int i = minMinute; i <= maxMinute; i++) {
+            minuteList.add(String.format("%02d", i));
+        }
+
+        // Check if the provided minute is in the minuteList
+        if (minuteList.contains(minute)) {
+            return minute;
+        } else {
+            return "";
+        }
+    }
+
+    @FXML
+    private void filterTimeFields(KeyEvent event){   
+        startTimeHourField.setText(filterHour(startTimeHourField.getText()));
+        startTimeMinuteField.setText(filterMinute(startTimeMinuteField.getText()));
+        endTimeHourField.setText(filterHour(endTimeHourField.getText()));
+        endTimeMinuteField.setText(filterMinute(endTimeMinuteField.getText()));
+    }
+
 }
