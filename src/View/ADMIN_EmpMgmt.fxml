@@ -10,71 +10,94 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minWidth="790.0" prefHeight="541.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_EmpMgmtCTRL">
+<AnchorPane id="AnchorPane" minWidth="790.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_EmpMgmtCTRL">
    <children>
-      <TableView fx:id="userTable" layoutX="14.0" layoutY="51.0" onMouseClicked="#updateAssignmentTable" prefHeight="255.0" prefWidth="768.0">
+      <TableView fx:id="userTable" layoutX="23.0" layoutY="106.0" onMouseClicked="#userSelected" prefHeight="473.0" prefWidth="467.0">
         <columns>
-          <TableColumn fx:id="col_user_id" prefWidth="39.0" text="ID" />
-          <TableColumn fx:id="col_name" prefWidth="245.0" text="Name" />
-            <TableColumn fx:id="col_privilege" minWidth="0.0" prefWidth="91.0" text="Privilege" />
-            <TableColumn fx:id="col_email" prefWidth="135.0" text="Email" />
-            <TableColumn fx:id="col_contact_num" prefWidth="126.0" text="Contact No." />
-            <TableColumn fx:id="col_birthday" prefWidth="131.0" text="Birthday" />
+          <TableColumn fx:id="col_user_id" prefWidth="43.0" text="ID" />
+          <TableColumn fx:id="col_name" prefWidth="300.0" text="Name" />
+            <TableColumn fx:id="col_privilege" minWidth="0.0" prefWidth="132.0" text="Privilege" />
         </columns>
       </TableView>
-      <TableView fx:id="assignmentTable" layoutX="411.0" layoutY="323.0" prefHeight="147.0" prefWidth="372.0">
-         <columns>
-            <TableColumn fx:id="col_assignment_id" prefWidth="48.0" text="ID" />
-            <TableColumn fx:id="col_department" prefWidth="114.0" text="Department" />
-            <TableColumn fx:id="col_position" prefWidth="105.0" text="Position" />
-            <TableColumn fx:id="col_shift" prefWidth="104.0" text="Shift" />
-         </columns>
-      </TableView>
-      <ImageView fitHeight="147.0" fitWidth="178.0" layoutX="14.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Controller/default_user_img.jpg" />
-         </image>
-      </ImageView>
-      <HBox layoutX="26.0" layoutY="483.0" prefHeight="40.0" prefWidth="332.0">
+      <HBox layoutX="23.0" layoutY="70.0" prefHeight="26.0" prefWidth="467.0">
          <children>
-            <Button fx:id="addEmpBtn" mnemonicParsing="false" onAction="#openAddEmpPane" prefHeight="45.0" prefWidth="112.0" text="Add Employee">
-               <HBox.margin>
-                  <Insets right="8.0" />
-               </HBox.margin></Button>
-            <Button fx:id="editUserBtn" mnemonicParsing="false" onAction="#openEditUserPane" prefHeight="44.0" prefWidth="107.0" text="Edit">
-               <HBox.margin>
-                  <Insets right="8.0" />
-               </HBox.margin></Button>
-            <Button fx:id="deactivateUserBtn" mnemonicParsing="false" onAction="#deactivateUser" prefHeight="42.0" prefWidth="113.0" text="Deactivate" />
-         </children>
-      </HBox>
-      <HBox layoutX="229.0" layoutY="11.0" prefHeight="26.0" prefWidth="536.0">
-         <children>
-            <Label prefHeight="29.0" prefWidth="45.0" text="Privilege">
+            <Label prefHeight="26.0" prefWidth="50.0" text="Privilege">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
             </Label>
-            <ChoiceBox fx:id="privilegeFilter_choiceBox" prefHeight="219.0" prefWidth="110.0">
+            <ChoiceBox fx:id="privilegeFilter_choiceBox" prefHeight="26.0" prefWidth="79.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </ChoiceBox>
             <Label prefHeight="31.0" prefWidth="64.0" text="Department">
                <HBox.margin>
-                  <Insets left="20.0" right="5.0" />
+                  <Insets left="10.0" right="5.0" />
                </HBox.margin>
             </Label>
-            <ChoiceBox fx:id="departmentFilter_choiceBox" prefHeight="148.0" prefWidth="104.0" />
-            <Label prefHeight="52.0" prefWidth="24.0" text="Shift">
+            <ChoiceBox fx:id="departmentFilter_choiceBox" prefHeight="26.0" prefWidth="126.0" />
+            <Label prefHeight="26.0" prefWidth="35.0" text="Status">
                <HBox.margin>
-                  <Insets left="20.0" right="5.0" />
+                  <Insets left="10.0" right="5.0" />
                </HBox.margin>
             </Label>
-            <ChoiceBox fx:id="shiftFilter_choiceBox" prefHeight="49.0" prefWidth="134.0" />
+            <ChoiceBox fx:id="statusFilter_choiceBox" prefHeight="26.0" prefWidth="78.0" />
          </children>
       </HBox>
       <HBox layoutX="436.0" layoutY="482.0" prefHeight="40.0" prefWidth="332.0" />
+      <VBox layoutX="509.0" layoutY="277.0" prefHeight="26.0" prefWidth="259.0">
+         <children>
+            <Label fx:id="nameLabel" prefHeight="17.0" prefWidth="285.0" style="-fx-alignment: center;" text="Name Surname">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="emailLabel" prefHeight="17.0" prefWidth="285.0" style="-fx-alignment: center;" text="email@example.com">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <ImageView fx:id="userImageView" fitHeight="120.0" fitWidth="223.0" layoutX="580.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/default_user_img.jpg" />
+         </image>
+      </ImageView>
+      <VBox layoutX="509.0" layoutY="459.0" prefHeight="120.0" prefWidth="259.0">
+         <children>
+            <Button fx:id="addEmpBtn" mnemonicParsing="false" onAction="#openAddEmpPane" prefHeight="43.0" prefWidth="259.0" text="Add Employee">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="editUserBtn" mnemonicParsing="false" onAction="#openEditUserPane" prefHeight="39.0" prefWidth="264.0" text="Edit">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="deactivateUserBtn" mnemonicParsing="false" onAction="#deactivateUser" prefHeight="39.0" prefWidth="267.0" text="Deactivate" />
+         </children>
+      </VBox>
+      <Label layoutX="22.0" layoutY="21.0" text="Employees">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <VBox layoutX="563.0" layoutY="343.0" prefHeight="99.0" prefWidth="153.0">
+         <children>
+            <Label fx:id="birthDateLabel" prefHeight="10.0" prefWidth="153.0" style="-fx-alignment: center;" text="YYYY-MM-DD" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="contactNumLabel" prefHeight="10.0" prefWidth="153.0" style="-fx-alignment: center;" text="12345678900" textAlignment="CENTER" wrapText="true" />
+            <Label fx:id="addressLabel" prefHeight="54.0" prefWidth="187.0" style="-fx-alignment: center;" text="Street, City, Postal Code, Country" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

@@ -94,7 +94,9 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     private TextField endTimeHourField;
     @FXML
     private TextField endTimeMinuteField;
-
+    
+    User selectedUser = null;
+    Assignment selectedAssignment = null;
     /**
      * Initializes the controller class.
      */
@@ -172,11 +174,11 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     @FXML
     private void userSelected(MouseEvent event) {
         showAddBtnOnly();
-        User selectedItem = userTable.getSelectionModel().getSelectedItem();
-        loadAssignmentTable(selectedItem.getId());
+        selectedUser = userTable.getSelectionModel().getSelectedItem();
+        loadAssignmentTable(selectedUser.getId());
         
-        userNameLabel.setText(selectedItem.getFullName());
-        userImageView.setImage(ImageUtil.byteArrayToImage(User.getUserImageByUserId(selectedItem.getId())));
+        userNameLabel.setText(selectedUser.getFullName());
+        userImageView.setImage(ImageUtil.byteArrayToImage(User.getUserImageByUserId(selectedUser.getId())));
         userImageView.setVisible(true);
         userNameLabel.setVisible(true);
         
@@ -187,14 +189,14 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     @FXML
     private void assignmentSelected(MouseEvent event) {
         showUpdateDeactivateBtnOnly();
-        Assignment selectedItem = assignmentTable.getSelectionModel().getSelectedItem();
-        String department = selectedItem.getDepartment();
-        int departmentId = selectedItem.getDepartmentId();
-        String position = selectedItem.getPosition();
-        int positionId = selectedItem.getPositionId();
-        String shift = selectedItem.getShift();
-        int shiftId = selectedItem.getShiftId();
-        String timeRange = selectedItem.getTimeRange();
+        selectedAssignment = assignmentTable.getSelectionModel().getSelectedItem();
+        String department = selectedAssignment.getDepartment();
+        int departmentId = selectedAssignment.getDepartmentId();
+        String position = selectedAssignment.getPosition();
+        int positionId = selectedAssignment.getPositionId();
+        String shift = selectedAssignment.getShift();
+        int shiftId = selectedAssignment.getShiftId();
+        String timeRange = selectedAssignment.getTimeRange();
         
         String startTimeHour = "";
         String startTimeMinute = "";
@@ -267,6 +269,7 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         positionChoiceBox.setValue(null);
         shiftChoiceBox.setValue(new Shift(""));
         
+        //TIME FIELDS
         startTimeHourField.clear();
         startTimeMinuteField.clear();
         endTimeHourField.clear();
@@ -275,7 +278,7 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
 
     @FXML
     private void addAssignment(ActionEvent event) {
-        int userId = userTable.getSelectionModel().getSelectedItem().getId();
+        int userId = selectedUser.getId();
         int positionId = positionChoiceBox.getValue().getId();
         int shiftId = shiftChoiceBox.getValue().getId();
         
@@ -299,75 +302,34 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
 
     @FXML
     private void updateAssignment(ActionEvent event){
-        Assignment selectedItem = assignmentTable.getSelectionModel().getSelectedItem();
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        
-        int assignmentId = selectedItem.getId();
+        int assignmentId = selectedAssignment.getId();
         int positionId = positionChoiceBox.getValue().getId();
         int shiftId = shiftChoiceBox.getValue().getId();
         String startTime = startTimeHourField.getText() + ":" + startTimeMinuteField.getText();
         String endTime = endTimeHourField.getText() + ":" + endTimeMinuteField.getText();
         
         
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Update Assignment");
-        alert.setHeaderText("Do you want to proceed?");
-        alert.setContentText("This will update the selected assignment record");
-
-        ButtonType yesButton = new ButtonType("Yes");
-        ButtonType noButton = new ButtonType("No");
-
-        alert.getButtonTypes().setAll(yesButton, noButton);
-
-        // Get the result of the prompt
-        alert.showAndWait().ifPresent(response -> {
-            if (response == yesButton) {
-                System.out.println("User clicked Yes");
-                // Perform actions for Yes
-                try {
+        boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Do you want to proeed?", "This will update the selected assignment record");
+        if(actionIsConfirmed){
+            try {
                     Assignment.updateAssignment(assignmentId, positionId, shiftId, startTime, endTime);
                 } catch (SQLException ex) {
                     Logger.getLogger(ADMIN_AssignmentsCTRL.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 loadAssignmentTable(selectedUser.getId());
-            } else if (response == noButton) {
-                System.out.println("User clicked No");
-                // Perform actions for No
-            }
-        });
-        
-        
-        
+        }      
     }
 
     @FXML
     private void deactivateAssignment(ActionEvent event) {
-        Assignment selectedItem = assignmentTable.getSelectionModel().getSelectedItem();
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        int assignmentId = selectedItem.getId();
+        int assignmentId = selectedAssignment.getId();
         
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Deactivate Assignment");
-        alert.setHeaderText("Do you want to proceed?");
-        alert.setContentText("This will deactivate the selected assignment record");
-
-        ButtonType yesButton = new ButtonType("Yes");
-        ButtonType noButton = new ButtonType("No");
-
-        alert.getButtonTypes().setAll(yesButton, noButton);
-
-        // Get the result of the prompt
-        alert.showAndWait().ifPresent(response -> {
-            if (response == yesButton) {
-                System.out.println("User clicked Yes");
-                // Perform actions for Yes
-                Assignment.deactivateAssignment(assignmentId);
-                loadAssignmentTable(selectedUser.getId());
-            } else if (response == noButton) {
-                System.out.println("User clicked No");
-                // Perform actions for No
-            }
-        });
+        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate", "Do you want to proeed?", "This will deactivate the selected assignment record");
+        if(actionIsConfirmed){
+            Assignment.deactivateAssignment(assignmentId);
+            loadAssignmentTable(selectedUser.getId());
+        }
+        
     }
     
     

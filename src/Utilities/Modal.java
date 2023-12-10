@@ -40,30 +40,32 @@ public class Modal {
         successStage.show();
     }
     
-//    public static boolean showConfirmationModal(String title, String header, String content){
-//        boolean userResponse = false;
-//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//        alert.setTitle(title);
-//        alert.setHeaderText(header);
-//        alert.setContentText(content);
-//
-//        ButtonType yesButton = new ButtonType("Yes");
-//        ButtonType noButton = new ButtonType("No");
-//
-//        alert.getButtonTypes().setAll(yesButton, noButton);
-//
-//        // Get the result of the prompt
-//        alert.showAndWait().ifPresent(response -> {
-//            if (response == yesButton) {
-//                System.out.println("User clicked Yes");
-//                // Perform actions for Yes
-//                userResponse = true;
-//            } else if (response == noButton) {
-//                System.out.println("User clicked No");
-//                // Perform actions for No
-//            }
-//        });
-//        
-//        return userResponse;
-//    }
+    public static boolean showConfirmationModal(String title, String header, String content) {
+        final boolean[] userResponse = {false};
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+
+        ButtonType yesButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Get the result of the prompt
+        alert.showAndWait().ifPresent(response -> {
+            if (response == yesButton) {
+                System.out.println("User clicked Yes");
+                // Perform actions for Yes
+                userResponse[0] = true;
+            } else if (response == noButton) {
+                System.out.println("User clicked No");
+                // Perform actions for No
+            }
+            // Handle other button types if necessary
+        });
+
+        return userResponse[0];
+    }
 }
