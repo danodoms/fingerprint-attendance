@@ -77,7 +77,7 @@ public class ADMIN_PaneCTRL implements Initializable {
 //        contentPane.getChildren().setAll(view);
         contentPane.getChildren().setAll(view);
         
-        Button[] buttonArray = {dashboardBtn, attendanceBtn, employeesBtn, assignmentsBtn, fingerprintsBtn, reportsBtn};
+        Button[] buttonArray = {dashboardBtn, attendanceBtn, employeesBtn, assignmentsBtn, fingerprintsBtn, reportsBtn, departmentsBtn, positionsBtn, shiftsBtn};
         buttonList = new ArrayList<>(Arrays.asList(buttonArray));
     } 
     
@@ -171,5 +171,20 @@ public class ADMIN_PaneCTRL implements Initializable {
                 System.out.println("Set default style for button: " + btn.getText());
             }
         }
+    }
+
+    @FXML
+    private void openDepartmentsPane(ActionEvent event)throws IOException {
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_DEPARTMENTS));
+        contentPane.getChildren().setAll(view);
+        highlightButton(departmentsBtn);
+    }
+
+    @FXML
+    private void openPositionsPane(ActionEvent event) throws IOException{
+    }
+
+    @FXML
+    private void openShiftsPane(ActionEvent event) throws IOException{
     }
 }

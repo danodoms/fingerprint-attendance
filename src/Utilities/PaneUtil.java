@@ -27,6 +27,7 @@ public class PaneUtil {
     public final String ADMIN_EMP_MGMT = "/View/ADMIN_EmpMgmt.fxml";
     public final String ADMIN_ADD_EMP = "/View/ADMIN_AddEmp.fxml";
     public final String ADMIN_ASSIGNMENTS = "/View/ADMIN_Assignments.fxml";
+    public final String ADMIN_DEPARTMENTS = "/View/ADMIN_Departments.fxml";
     public final String ADMIN_ATT_REPORTS = "/View/ADMIN_AttReports.fxml";
     public final String ADMIN_ATTENDANCE = "/View/ADMIN_Attendance.fxml";
     public final String ADMIN_DASHBOARD = "/View/ADMIN_Dashboard.fxml";

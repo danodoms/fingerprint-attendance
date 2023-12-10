@@ -186,7 +186,7 @@
                                                       <Insets right="5.0" top="2.0" />
                                                    </HBox.margin>
                                                 </ImageView>
-                                                <Button fx:id="departmentsBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Department" />
+                                                <Button fx:id="departmentsBtn" mnemonicParsing="false" onAction="#openDepartmentsPane" prefHeight="40.0" prefWidth="180.0" text="Department" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="10.0" left="-7.0" />
@@ -202,7 +202,7 @@
                                                       <Insets right="5.0" top="2.0" />
                                                    </HBox.margin>
                                                 </ImageView>
-                                                <Button fx:id="positionsBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Position" />
+                                                <Button fx:id="positionsBtn" mnemonicParsing="false" onAction="#openPositionsPane" prefHeight="40.0" prefWidth="180.0" text="Position" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="10.0" left="-7.0" />
@@ -218,7 +218,7 @@
                                                       <Insets right="5.0" top="2.0" />
                                                    </HBox.margin>
                                                 </ImageView>
-                                                <Button fx:id="shiftsBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Shift" />
+                                                <Button fx:id="shiftsBtn" mnemonicParsing="false" onAction="#openShiftsPane" prefHeight="40.0" prefWidth="180.0" text="Shift" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets left="-7.0" />
