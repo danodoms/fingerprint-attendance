@@ -21,26 +21,34 @@ import javafx.collections.ObservableList;
  */
 public class Position {
     private int id;
-    private String position_name;
-    private String position_description;
-    private int department_ID;
+    private String position;
+    private String description;
+    private int departmentId;
     
-    public Position (int id, String position_name){
+    public Position (int id, String position){
         this.id = id;
-        this.position_name = position_name;
+        this.position = position;
     }
-//    public Position(String position_name){
-//        this.position_name = position_name;
+//    public Position(String position){
+//        this.position = position;
 //    }
     
-    public Position(String position_name){
-        this.position_name = position_name;
+    public Position (int id, int departmentId, String name, String description){
+        this.id = id;
+        this.departmentId = departmentId;
+        this.position = name;
+        this.description = description;
+    }
+    
+    public Position(String position){
+        this.position = position;
     }
     
     @Override
     public String toString() {
-        return position_name;
+        return position;
     }
+
     public int getId() {
         return id;
     }
@@ -50,55 +58,79 @@ public class Position {
     }
 
     public String getPosition() {
-        return position_name;
+        return position;
     }
 
-    public void setPosition(String position_name) {
-        this.position_name = position_name;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public String getPosition_description() {
-        return position_description;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPosition_description(String position_description) {
-        this.position_description = position_description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getDepartment_ID() {
-        return department_ID;
+    public int getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment_ID(int department_ID) {
-        this.department_ID = department_ID;
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
     
-        public static ObservableList<Position> getPositionsByDepartmentId(int departmentId) {
-    ObservableList<Position> positions = FXCollections.observableArrayList();
+    
+    
+    public static ObservableList<Position> getPositionsByDepartmentId(int departmentId) {
+        ObservableList<Position> positions = FXCollections.observableArrayList();
 
-    try (Connection connection = DatabaseUtil.getConnection();
-        Statement statement = connection.createStatement()) {
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()) {
 
-        String query = "SELECT position_id, position_name FROM position p JOIN department d ON p.department_id = d.department_id WHERE p.department_id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, departmentId);
+            String query = "SELECT position_id, position_name FROM position p JOIN department d ON p.department_id = d.department_id WHERE p.department_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, departmentId);
 
-        ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = preparedStatement.executeQuery();
 
-        while (rs.next()) {
-              positions.add(new Position(
-                            rs.getInt("position_id"),
-                          rs.getString("position_name")
-              ));
+            while (rs.next()) {
+                  positions.add(new Position(
+                                rs.getInt("position_id"),
+                              rs.getString("position_name")
+                  ));
+            }
+
+             System.out.println(positions);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        
-         System.out.println(positions);
 
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return positions;
     }
+    
+    public static ObservableList<Position> getPositions(){
+        ObservableList<Position> positions = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT * FROM position");
+            
+            while (rs.next()) {
+                  positions.add(new Position(
+                          rs.getInt("position_id"),
+                          rs.getInt("department_id"),
+                          rs.getString("position_name"),
+                          rs.getString("position_desc")
+                  ));
+            }
 
-    return positions;
-}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return positions;
+        
+    }
     
 }

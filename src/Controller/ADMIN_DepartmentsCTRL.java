@@ -6,14 +6,19 @@ package Controller;
 
 import Model.Assignment;
 import Model.Department;
+import Utilities.Modal;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -41,7 +46,12 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
     private TableColumn<Department, String> col_name;
     @FXML
     private TableColumn<Department, String> col_description;
-
+    @FXML
+    private TextField departmentNameField;
+    @FXML
+    private TextArea departmentDescTextArea;
+    
+    Department selectedDept= null;
     /**
      * Initializes the controller class.
      */
@@ -61,7 +71,21 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
         ObservableList<Department> departments = Department.getDepartments();
         departmentTable.setItems(departments);
     }
-//     public void showAddBtnOnly(){
+
+
+    @FXML
+    private void departmentSelected(MouseEvent event) {
+        //showUpdateDeactivateBtnOnly();
+        selectedDept = departmentTable.getSelectionModel().getSelectedItem();
+        
+        departmentNameField.setText(selectedDept.getDepartmentName());
+        //departmentDescTextArea.setText(selectedDept.getDescription());
+    }
+    
+    
+    
+    
+    //     public void showAddBtnOnly(){
 //        // Clear existing children in the HBox
 //        buttonContainerHBox.getChildren().clear();
 //
@@ -92,10 +116,28 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
 //    }
 
     @FXML
-    private void departmentSelected(MouseEvent event) {
-        //showUpdateDeactivateBtnOnly();
-        
+    private void addDepartment(ActionEvent event) {
     }
-    
+
+    @FXML
+    private void updateDepartment(ActionEvent event) throws SQLException {
+        boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Do you want to proceed?", "This action will update the currently selected department");
+        
+        if(actionIsConfirmed){
+            Department.updateDepartment(selectedDept.getId(), departmentNameField.getText());
+            loadDepartmentTable();
+        }
+    }
+
+    @FXML
+    private void deactivateDepartment(ActionEvent event) throws SQLException {
+        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate", "Do you want to proceed?", "This action will deactivate the currently selected department");
+        
+        if(actionIsConfirmed){
+            Department.deactivateDepartment(selectedDept.getId());
+            loadDepartmentTable();
+        }
+       
+    }
     
 }
