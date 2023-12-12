@@ -77,7 +77,7 @@ public class ADMIN_PaneCTRL implements Initializable {
 //        contentPane.getChildren().setAll(view);
         contentPane.getChildren().setAll(view);
         
-        Button[] buttonArray = {dashboardBtn, attendanceBtn, employeesBtn, assignmentsBtn, fingerprintsBtn, reportsBtn, departmentsBtn, positionsBtn, shiftsBtn};
+        Button[] buttonArray = {dashboardBtn, attendanceBtn, employeesBtn, assignmentsBtn, fingerprintsBtn, reportsBtn, departmentsBtn, positionsBtn, shiftsBtn, holidaysBtn};
         buttonList = new ArrayList<>(Arrays.asList(buttonArray));
     } 
     
@@ -192,5 +192,12 @@ public class ADMIN_PaneCTRL implements Initializable {
         view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_SHIFTS));
         contentPane.getChildren().setAll(view);
         highlightButton(shiftsBtn);
+    }
+
+    @FXML
+    private void openHolidaysPane(ActionEvent event) throws IOException {
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_EMP_CALENDAR_PANE));
+        contentPane.getChildren().setAll(view);
+        highlightButton(holidaysBtn);
     }
 }

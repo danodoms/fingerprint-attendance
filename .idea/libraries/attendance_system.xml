@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="attendance-system">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/attendance-system.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

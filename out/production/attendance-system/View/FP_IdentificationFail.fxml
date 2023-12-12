@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1a1a1a;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.FP_IdentificationFailCTRL">
+    <children>
+     <Label fx:id="failTitle" layoutX="197.0" layoutY="83.0" text="IDENTIFICATION FAILED" textFill="#07f9a2">
+        <font>
+           <Font name="System Bold" size="18.0" />
+        </font>
+     </Label>
+  </children>
+</AnchorPane>
