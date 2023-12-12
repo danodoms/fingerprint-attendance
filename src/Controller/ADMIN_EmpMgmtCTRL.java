@@ -5,16 +5,11 @@
 package Controller;
 
 import Model.Assignment;
-import Model.Department;
 import Model.Shift;
 import Model.User;
 import Utilities.DatabaseUtil;
 import Utilities.ImageUtil;
 import Utilities.PaneUtil;
-import java.io.IOException;
-import java.net.URL;
-import java.time.LocalDate;
-import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,18 +17,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -47,8 +42,6 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     private TableView<Assignment> assignmentTable;
     @FXML
     private ChoiceBox<String> privilegeFilter_choiceBox;
-    @FXML
-    private ChoiceBox<Department> departmentFilter_choiceBox;
     private ChoiceBox<Shift> shiftFilter_choiceBox;
     @FXML
     private TableColumn<User, Integer> col_user_id;
@@ -72,7 +65,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     
     PaneUtil paneUtil = new PaneUtil();
     @FXML
-    private ChoiceBox<?> statusFilter_choiceBox;
+    private ChoiceBox<String> statusFilter_choiceBox;
     @FXML
     private Label nameLabel;
     @FXML
@@ -85,21 +78,38 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     private Label addressLabel;
     @FXML
     private ImageView userImageView;
-    
+    @FXML
+    private TextField searchFilterField;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        loadUserTable();
-        
+
+        //INIT privilege FILTER CHOICEBOX
         privilegeFilter_choiceBox.setValue("All");
-        privilegeFilter_choiceBox.getItems().addAll("All","employee","admin","records officer");
-        
-        departmentFilter_choiceBox.setValue(new Department("All"));
-        departmentFilter_choiceBox.getItems().addAll(new Department("All"));
-        departmentFilter_choiceBox.getItems().addAll(Department.getDepartments());
+        privilegeFilter_choiceBox.getItems().addAll("All","Employee","Admin","Records Officer");
+
+        //init status filter choicebox
+        statusFilter_choiceBox.setValue("Active");
+        statusFilter_choiceBox.getItems().addAll("Active","Inactive");
+
+        //add event listener to searchFilterField that calls loadUserTable() when changed
+        searchFilterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadUserTable();
+        });
+
+        //add event listener for privilegeFilter_choiceBox that calls loadUserTable() when changed
+        privilegeFilter_choiceBox.setOnAction((event) -> {
+            loadUserTable();
+        });
+
+        //add event listener for statusFilter_choiceBox that calls loadUserTable() when changed
+        statusFilter_choiceBox.setOnAction((event) -> {
+            loadUserTable();
+        });
         
         //USER TABLE
         col_user_id.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
@@ -108,11 +118,48 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
         //col_email.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
         //col_contact_num.setCellValueFactory(new PropertyValueFactory<User, String>("contactNum"));
         //col_birthday.setCellValueFactory(new PropertyValueFactory<User, LocalDate>("birthDate"));
+
+        loadUserTable();
     }   
     
     public void loadUserTable(){
-        ObservableList<User> users = User.getActiveEmployees();
-        userTable.setItems(users);
+        ObservableList<User> users = User.getEmployees();
+
+        //filter usertable based on privilegeFilter_choiceBox, store in new list
+        ObservableList<User> filteredUsers = users.filtered(user -> {
+            String privilegeFilter = privilegeFilter_choiceBox.getValue().toString();
+            if(privilegeFilter.equalsIgnoreCase("All")){
+                return true;
+            }else{
+                return user.getPrivilege().equalsIgnoreCase(privilegeFilter);
+            }
+        });
+
+        //then, filter by statusFilter_choiceBox, store in new list, only active and inactive option
+        filteredUsers = filteredUsers.filtered(user -> {
+            String statusFilter = statusFilter_choiceBox.getValue().toString();
+            if(statusFilter.equalsIgnoreCase("Active")){
+                return user.getStatus() == 1;
+            }else if(statusFilter.equalsIgnoreCase("Inactive")){
+                return user.getStatus() == 0;
+            }
+            return false;
+        });
+
+
+
+        //then, filter based on searchFilterField, store in new list
+        filteredUsers = filteredUsers.filtered(user -> {
+            String searchFilter = searchFilterField.getText().toLowerCase();
+            if(searchFilter.isEmpty()){
+                return true;
+            }else{
+                return user.getFullName().toLowerCase().contains(searchFilter);
+            }
+        });
+
+
+        userTable.setItems(filteredUsers);
     }
      
 //    public void showAssignmentTable(int user_id){

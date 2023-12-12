@@ -5,19 +5,12 @@
 package Model;
 
 import Utilities.DatabaseUtil;
-import Controller.*;
 import Utilities.Encryption;
-import com.mysql.cj.jdbc.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.sql.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
+
+import java.sql.*;
+import java.time.LocalDate;
 
 /**
  *
@@ -108,6 +101,17 @@ public class User {
         this.email = email;
         this.contactNum = contactNum;
         this.birthDate = birthDate;
+    }
+
+    //employee constructor
+    public User(int id, String fullName, String privilege, String email, String contactNum, LocalDate birthDate, int status){
+        this.id = id;
+        this.fullName = fullName;
+        this.privilege = privilege;
+        this.email = email;
+        this.contactNum = contactNum;
+        this.birthDate = birthDate;
+        this.status = status;
     }
 
     public User(String sex, int count){
@@ -431,6 +435,38 @@ public class User {
             e.printStackTrace();
         }
         return activeEmp; 
+    }
+
+    public static ObservableList<User> getEmployees(){
+        ObservableList<User> activeEmp = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("select * from employee_view;");
+
+            while (rs.next()) {
+                LocalDate birthDate = null;
+                java.sql.Date sqlBirthDate = rs.getDate("birth_date");
+                if (sqlBirthDate != null) {
+                    birthDate = sqlBirthDate.toLocalDate();
+                }
+
+                activeEmp.add(new User(
+                        rs.getInt("user_id"),
+                        rs.getString("name"),
+                        rs.getString("privilege"),
+                        rs.getString("email"),
+                        rs.getString("user_cntct"),
+                        birthDate,
+                        rs.getInt("user_status")
+                ));
+            }
+
+            //System.out.println("Users: " + activeEmp);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return activeEmp;
     }
 
     public static ObservableList<User> getUserGender(){

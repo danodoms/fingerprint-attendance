@@ -8,9 +8,6 @@ import Model.Fingerprint;
 import Model.User;
 import Utilities.ImageUtil;
 import Utilities.PaneUtil;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,17 +15,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -55,6 +51,8 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
     private Label nameLabel;
     
     PaneUtil paneUtil = new PaneUtil();
+    @FXML
+    private ChoiceBox statusFilterChoiceBox;
 
     /**
      * Initializes the controller class.
@@ -64,13 +62,38 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
         // TODO
         col_id.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
-        
+
+        //INIT FILTER CHOICEBOX
+        statusFilterChoiceBox.getItems().addAll("All", "Enrolled", "Unenrolled");
+        statusFilterChoiceBox.setValue("All");
+
+        //add event listener to statusFilterChoiceBox that call loadUserTable() when changed
+        statusFilterChoiceBox.setOnAction((event) -> {
+            loadUserTable();
+        });
+
+
         loadUserTable();
     }    
     
      public void loadUserTable(){
         ObservableList<User> users = User.getActiveEmployees();
-        userTable.setItems(users);
+
+        //filter usertable based on statusFilterChoiceBox, store in new list, do it like this: iterate to user list, and check if user has fingerprints on database or not
+        ObservableList<User> filteredUsers = users.filtered(user -> {
+            String statusFilter = statusFilterChoiceBox.getValue().toString();
+            if(statusFilter.equalsIgnoreCase("All")){
+                return true;
+            }else if(statusFilter.equalsIgnoreCase("Enrolled")){
+                return Fingerprint.getFingerprintCountByUserId(user.getId()) > 0;
+            }else if(statusFilter.equalsIgnoreCase("Unenrolled")){
+                return Fingerprint.getFingerprintCountByUserId(user.getId()) == 0;
+            }
+            return false;
+        });
+
+
+        userTable.setItems(filteredUsers);
     }
 
     @FXML

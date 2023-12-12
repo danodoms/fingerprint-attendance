@@ -20,6 +20,7 @@ public class Position {
     private String position;
     private String description;
     private int departmentId;
+    private int status;
 
     
     public Position (int id, String position){
@@ -27,11 +28,12 @@ public class Position {
         this.position = position;
     }
     
-    public Position (int id, int departmentId, String name, String description){
+    public Position (int id, int departmentId, String name, String description, int status){
         this.id = id;
         this.departmentId = departmentId;
         this.position = name;
         this.description = description;
+        this.status = status;
     }
     
     public Position(String position){
@@ -45,6 +47,14 @@ public class Position {
 
     public int getId() {
         return id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public void setId(int id) {
@@ -116,7 +126,8 @@ public class Position {
                           rs.getInt("position_id"),
                           rs.getInt("department_id"),
                           rs.getString("position_name"),
-                          rs.getString("position_desc")
+                          rs.getString("position_desc"),
+                          rs.getInt("status")
                   ));
             }
 

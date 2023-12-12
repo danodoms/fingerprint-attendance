@@ -66,7 +66,26 @@ public class ADMIN_PositionsCTRL implements Initializable {
         col_id.setCellValueFactory(new PropertyValueFactory<Position, Integer>("id"));
         col_position.setCellValueFactory(new PropertyValueFactory<Position, String>("position"));
         col_description.setCellValueFactory(new PropertyValueFactory<Position, String>("description"));
-        
+
+        //init departmentFilterChoiceBox and all option
+        departmentFilterChoiceBox.getItems().add(new Department(0, "All"));
+        departmentFilterChoiceBox.getItems().addAll(Department.getDepartments());
+        departmentFilterChoiceBox.setValue(new Department(0, "All"));
+
+        //add lambda event trigger for deptchoicebox thatloads position table
+        departmentFilterChoiceBox.setOnAction((event) -> {
+            loadPositionTable();
+        });
+
+        //init status choicebox with active inactive option
+        statusFilterChoiceBox.getItems().addAll("Active", "Inactive");
+        statusFilterChoiceBox.setValue("Active");
+
+        //add lambda event trigger for statuschoicebox that loads position table
+        statusFilterChoiceBox.setOnAction((event) -> {
+            loadPositionTable();
+        });
+
         loadPositionTable();
         
         departmentChoiceBox.setOnMouseClicked(event -> {
@@ -74,11 +93,33 @@ public class ADMIN_PositionsCTRL implements Initializable {
             int selectedDepartmentId = departmentChoiceBox.getValue().getId();
             departmentChoiceBox.setItems(Department.getDepartments());
         });
+
     }
 
     private void loadPositionTable(){
         ObservableList<Position> positions = Position.getPositions();
-        positionTable.setItems(positions);
+
+        //first, filter the positions by department, store in a new list
+        ObservableList<Position> filteredPositions = positions.filtered(position -> {
+            if(departmentFilterChoiceBox.getValue().getId() == 0){
+                return true;
+            }else{
+                return position.getDepartmentId() == departmentFilterChoiceBox.getValue().getId();
+            }
+        });
+
+        //then, filter the new list by status, store in a new list
+        filteredPositions = filteredPositions.filtered(position -> {
+            if(statusFilterChoiceBox.getValue().equals("Active")){
+                return position.getStatus() == 1;
+            }else if(statusFilterChoiceBox.getValue().equals("Inactive")){
+                return position.getStatus() == 0;
+            }else{
+                return true;
+            }
+        });
+
+        positionTable.setItems(filteredPositions);
     }    
 
     @FXML
