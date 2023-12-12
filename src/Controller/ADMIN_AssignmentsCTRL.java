@@ -4,42 +4,28 @@
  */
 package Controller;
 
-import Model.Assignment;
-import Model.Department;
-import Model.Fingerprint;
-import Model.Position;
-import Model.Shift;
-import Model.User;
+import Model.*;
 import Utilities.ImageUtil;
 import Utilities.Modal;
-import java.net.URL;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -69,8 +55,6 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     @FXML
     private Label userNameLabel;
     @FXML
-    private ChoiceBox<String> userDeptFilterChoiceBox;
-    @FXML
     private ChoiceBox<Department> departmentChoiceBox;
     @FXML
     private ChoiceBox<Position> positionChoiceBox;
@@ -94,9 +78,16 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     private TextField endTimeHourField;
     @FXML
     private TextField endTimeMinuteField;
-    
+    @FXML
+    private ChoiceBox userAssignCntFilterChoiceBox;
+    @FXML
+    private ChoiceBox assignmentStatusFilterChoiceBox;
+
     User selectedUser = null;
     Assignment selectedAssignment = null;
+
+
+
     /**
      * Initializes the controller class.
      */
@@ -106,19 +97,40 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         //USER TABLE
         col_id.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
-        
+
+
+
         //ASSIGNMENT TABLE
         col_department.setCellValueFactory(new PropertyValueFactory<Assignment, String>("department"));
         col_position.setCellValueFactory(new PropertyValueFactory<Assignment, String>("position"));
         col_shift.setCellValueFactory(new PropertyValueFactory<Assignment, String>("shift"));
         col_time.setCellValueFactory(new PropertyValueFactory<Assignment, String>("timeRange"));
         col_dateAssigned.setCellValueFactory(new PropertyValueFactory<Assignment, String>("dateAssigned"));
-        
+
+
+
         //ASSIGNMENT CHOICEBOX
         departmentChoiceBox.getItems().addAll(Department.getDepartments());
         shiftChoiceBox.getItems().addAll(Shift.getShifts());
-        
-        
+
+        //USER ASSIGNMENT COUNT FILTER CHOICE BOX
+        userAssignCntFilterChoiceBox.getItems().addAll("All", "None", "1", "2", "More than 2");
+        userAssignCntFilterChoiceBox.setValue("All");
+
+        userAssignCntFilterChoiceBox.setOnAction((event) -> {
+            loadUserTable();
+        });
+
+
+        //ASSIGNMENT STATUS FILTER CHOICE BOX
+        assignmentStatusFilterChoiceBox.getItems().addAll("Active", "Inactive");
+        assignmentStatusFilterChoiceBox.setValue("Active");
+
+        assignmentStatusFilterChoiceBox.setOnAction((event) -> {
+            loadAssignmentTable(selectedUser.getId());
+        });
+
+
         positionChoiceBox.setOnMouseClicked(event -> {
             // Get the corresponding department from the departmentChoiceBox
             int selectedDepartmentId = departmentChoiceBox.getValue().getId();
@@ -163,12 +175,47 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     
     public void loadUserTable(){
         ObservableList<User> users = User.getActiveEmployees();
-        userTable.setItems(users);
+
+        //filter the users list based on their assignment count and store them in a new list
+        ObservableList<User> filteredUsers = users.filtered(user -> {
+            int assignmentCount = Assignment.getActiveAssignmentCountByUserId(user.getId());
+            String userAssignCntFilter = userAssignCntFilterChoiceBox.getValue().toString();
+
+            if(userAssignCntFilter.equals("All")){
+                return true;
+            }else if(userAssignCntFilter.equals("None")){
+                return assignmentCount == 0;
+            }else if(userAssignCntFilter.equals("1")){
+                return assignmentCount == 1;
+            }else if(userAssignCntFilter.equals("2")){
+                return assignmentCount == 2;
+            }else{
+                return assignmentCount > 2;
+            }
+        });
+
+        userTable.setItems(filteredUsers);
     }
     
     public void loadAssignmentTable(int user_id){
-        ObservableList<Assignment> assignments = Assignment.getActiveAssignmentsByUserId(user_id);
-        assignmentTable.setItems(assignments);
+        String statusFilter = (String) assignmentStatusFilterChoiceBox.getValue();
+        ObservableList<Assignment> assignments = Assignment.getAssignmentsByUserId(user_id);
+
+        //create a new observable list to store filtered assignments
+        ObservableList<Assignment> filteredAssignments = assignments.filtered(assignment -> {
+            if(statusFilter.equals("Active")){
+                return assignment.getStatus() == 1;
+            }else if(statusFilter.equals("Inactive")){
+                return assignment.getStatus() == 0;
+            }else{
+                return true;
+            }
+        });
+
+
+
+
+        assignmentTable.setItems(filteredAssignments);
     }    
 
     @FXML

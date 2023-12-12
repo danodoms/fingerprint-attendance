@@ -6,15 +6,11 @@ package Model;
 
 import Utilities.DatabaseUtil;
 import com.mysql.cj.jdbc.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.sql.*;
+import java.time.LocalTime;
 
 /**
  *
@@ -122,7 +118,19 @@ public class Assignment {
         this.timeRange = timeRange;
         this.dateAssigned = dateAssigned;
     }
-    
+
+    public Assignment(int id, int departmentId, String department, int positionId, String position, int shiftId, String shift, String timeRange, String dateAssigned, int status) {
+        this.id = id;
+        this.positionId = positionId;
+        this.position = position;
+        this.departmentId = departmentId;
+        this.department = department;
+        this.shiftId = shiftId;
+        this.shift = shift;
+        this.timeRange = timeRange;
+        this.dateAssigned = dateAssigned;
+        this.status = status;
+    }
     
     public static ObservableList<Assignment> getAssignmentByUserId(int user_id){
          ObservableList<Assignment> assignments = FXCollections.observableArrayList();
@@ -150,11 +158,41 @@ public class Assignment {
         return assignments;
     }
     
-    public static ObservableList<Assignment> getActiveAssignmentsByUserId(int user_id) {
+//    public static ObservableList<Assignment> getActiveAssignmentsByUserId(int user_id) {
+//        ObservableList<Assignment> assignments = FXCollections.observableArrayList();
+//
+//        try (Connection connection = DatabaseUtil.getConnection();
+//             CallableStatement callableStatement = (CallableStatement) connection.prepareCall("{call get_user_active_assignments(?)}")) {
+//
+//            callableStatement.setInt(1, user_id);
+//            ResultSet rs = callableStatement.executeQuery();
+//
+//            while (rs.next()) {
+//                assignments.add(new Assignment(
+//                        rs.getInt("assignment_id"),
+//                        rs.getInt("department_id"),
+//                        rs.getString("department_name"),
+//                        rs.getInt("position_id"),
+//                        rs.getString("position_name"),
+//                        rs.getInt("shift_id"),
+//                        rs.getString("shift_name"),
+//                        rs.getString("time_range"), // Assuming the time_range column is returned by the stored procedure
+//                        rs.getString("date_assigned")
+//                ));
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return assignments;
+//    }
+
+    public static ObservableList<Assignment> getAssignmentsByUserId(int user_id) {
         ObservableList<Assignment> assignments = FXCollections.observableArrayList();
 
         try (Connection connection = DatabaseUtil.getConnection();
-             CallableStatement callableStatement = (CallableStatement) connection.prepareCall("{call get_user_active_assignments(?)}")) {
+             CallableStatement callableStatement = (CallableStatement) connection.prepareCall("{call get_user_assignments(?)}")) {
 
             callableStatement.setInt(1, user_id);
             ResultSet rs = callableStatement.executeQuery();
@@ -169,7 +207,8 @@ public class Assignment {
                         rs.getInt("shift_id"),
                         rs.getString("shift_name"),
                         rs.getString("time_range"), // Assuming the time_range column is returned by the stored procedure
-                        rs.getString("date_assigned")
+                        rs.getString("date_assigned"),
+                        rs.getInt("status")
                 ));
             }
 
@@ -179,6 +218,30 @@ public class Assignment {
 
         return assignments;
     }
+    
+    //create method named getAssignmentCountByUserId with this query SELECT COUNT(*) FROM user u, assignment a WHERE u.user_id = a.user_id AND u.user_id = ?, dont use stored procedure
+    public static int getActiveAssignmentCountByUserId(int user_id) {
+        int assignmentCount = 0;
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+
+            String query = "SELECT COUNT(*) FROM user u, assignment a WHERE u.user_id = a.user_id AND u.user_id = ? AND status = 1";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, user_id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                assignmentCount = rs.getInt("COUNT(*)");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return assignmentCount;
+    }
+    
+    
     
     
     public static void addAssignment(int userId, int positionId, int shiftId, String startTime, String endTime, String dateAssigned) throws SQLException{
