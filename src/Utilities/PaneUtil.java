@@ -4,10 +4,8 @@
  */
 package Utilities;
 
-import java.io.IOException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.io.IOException;
 
 /**
  *
@@ -67,6 +68,9 @@ public class PaneUtil {
             secondStage.setScene(new Scene(root));
             secondStage.show();
 
+             // Set the application icon
+             secondStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/Images/program_icon.png")));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,6 +87,9 @@ public class PaneUtil {
             secondStage.setScene(new Scene(root));
             secondStage.initModality(Modality.APPLICATION_MODAL);
             secondStage.show();
+
+             // Set the application icon
+             secondStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/Images/program_icon.png")));
 
         } catch (IOException e) {
             e.printStackTrace();

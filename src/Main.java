@@ -3,24 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
 
-import Controller.LoginPaneCTRL;
 import Fingerprint.Selection;
-import static Fingerprint.Selection.waitAndGetReader;
 import com.digitalpersona.uareu.UareUException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,7 +36,9 @@ public class Main extends Application {
         
         // Create a scene with the loaded FXML content
         Scene scene = new Scene(root);
-        
+
+        // Set the application icon
+        primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/Images/program_icon.png")));
         
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);

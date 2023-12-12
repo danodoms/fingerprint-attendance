@@ -5,14 +5,10 @@
 package Model;
 
 import Utilities.DatabaseUtil;
-import Controller.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.sql.*;
 
 /**
  *
@@ -23,15 +19,25 @@ public class Shift {
     private String shiftName;
     private String startTime;
     private String endTime;
+    private int status;
 
     //CONSTRUCTOR
-    public Shift(int id, String shiftName, String startTime, String endTime) {
+    public Shift(int id, String shiftName, String startTime, String endTime, int status) {
         this.id = id;
         this.shiftName = shiftName;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.status = status;
     }
-    
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     //CONSTRUCTOR
     public Shift(String shiftName) {
         this.shiftName = shiftName;
@@ -88,28 +94,89 @@ public class Shift {
     }
     
     public static ObservableList<Shift> getShifts() {
-    ObservableList<Shift> shifts = FXCollections.observableArrayList();
+        ObservableList<Shift> shifts = FXCollections.observableArrayList();
 
-    try (Connection connection = DatabaseUtil.getConnection();
-        Statement statement = connection.createStatement()) {
-        String query = "SELECT * FROM `shift`";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        ResultSet rs = preparedStatement.executeQuery();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()) {
+            String query = "SELECT * FROM `shift`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
 
-        while (rs.next()) {            
-            shifts.add(new Shift(
-                         rs.getInt("shift_id"),
-                    rs.getString("shift_name"),
-                    rs.getString("start_time"),
-                      rs.getString("end_time")
-            ));
+            while (rs.next()) {
+                shifts.add(new Shift(
+                             rs.getInt("shift_id"),
+                        rs.getString("shift_name"),
+                        rs.getString("start_time"),
+                          rs.getString("end_time"),
+                        rs.getInt("status")
+                ));
+            }
+             System.out.println("SHIFTS: " + shifts);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-         System.out.println("SHIFTS: " + shifts);
-
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return shifts;
     }
-    return shifts;
-}    
+
+    //ADD SHIFT TO DATABASE
+    public static void addShift(String shiftName, String startTime, String endTime){
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+
+            String query = "INSERT INTO shift (shift_name, start_time, end_time) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, shiftName);
+            preparedStatement.setString(2, startTime);
+            preparedStatement.setString(3, endTime);
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("Shift added to database");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //UPDATE SHIFT
+    public static void updateShift(int id, String shiftName, String startTime, String endTime){
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+
+            String query = "UPDATE shift SET shift_name = ?, start_time = ?, end_time = ? WHERE shift_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, shiftName);
+            preparedStatement.setString(2, startTime);
+            preparedStatement.setString(3, endTime);
+            preparedStatement.setInt(4, id);
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("Shift updated in database");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //DEACTIVATE SHIFT
+    public static void deactivateShift(int id){
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+
+            String query = "UPDATE shift SET status = 0 WHERE shift_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("Shift deactivated in database");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

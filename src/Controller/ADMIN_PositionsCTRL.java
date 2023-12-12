@@ -6,19 +6,18 @@ package Controller;
 
 import Model.Department;
 import Model.Position;
-import java.net.URL;
-import java.util.ResourceBundle;
+import Utilities.Modal;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -53,6 +52,10 @@ public class ADMIN_PositionsCTRL implements Initializable {
     private TableView<Position> positionTable;
     
     Position selectedPosition = null;
+//    int positionId = selectedPosition.getId();
+//    String position = selectedPosition.getPosition();
+//    String positionDescription = selectedPosition.getDescription();
+//    int departmentId = selectedPosition.getDepartmentId();
 
     /**
      * Initializes the controller class.
@@ -86,5 +89,25 @@ public class ADMIN_PositionsCTRL implements Initializable {
         departmentChoiceBox.setValue(Department.getDepartmentById(selectedPosition.getDepartmentId()));
         positionDescTextArea.setText(selectedPosition.getDescription());
     }
-    
+
+    @FXML
+    public void addPosition(ActionEvent actionEvent) throws SQLException {
+        Position.addPosition(positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
+    }
+
+    @FXML
+    public void updatePosition(ActionEvent actionEvent) throws SQLException {
+        boolean actionIsConfirmed = Modal.showConfirmationModal("Update Position", "Are you sure you want to update this position?", "This action cannot be undone.");
+        if (actionIsConfirmed) {
+            Position.updatePosition(selectedPosition.getId(), positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
+        }
+    }
+
+    @FXML
+    public void deactivatePosition(ActionEvent actionEvent) throws SQLException {
+        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate Position", "Are you sure you want to deactivate this position?", "This action cannot be undone.");
+        if (actionIsConfirmed) {
+            Position.deactivatePosition(selectedPosition.getId());
+        }
+    }
 }

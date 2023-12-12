@@ -4,24 +4,20 @@
  */
 package Controller;
 
-import Model.Assignment;
 import Model.Department;
 import Utilities.Modal;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -116,7 +112,16 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
 //    }
 
     @FXML
-    private void addDepartment(ActionEvent event) {
+    private void addDepartment(ActionEvent event) throws SQLException {
+        String departmentName = departmentNameField.getText();
+        String departmentDesc = departmentDescTextArea.getText();
+
+        if(departmentName.isEmpty()){
+            Modal.showModal("Error", "Please fill up all fields");
+        }else{
+            Department.addDepartment(departmentName);
+            loadDepartmentTable();
+        }
     }
 
     @FXML
@@ -139,5 +144,4 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
         }
        
     }
-    
 }

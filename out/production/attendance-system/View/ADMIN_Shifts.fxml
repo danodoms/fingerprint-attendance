@@ -12,20 +12,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.ADMIN_ShiftsCTRL">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_ShiftsCTRL">
    <children>
       <Label layoutX="29.0" layoutY="31.0" text="Shift">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TableView layoutX="29.0" layoutY="66.0" prefHeight="509.0" prefWidth="414.0">
+      <TableView fx:id="shiftTable" layoutX="29.0" layoutY="66.0" onMouseClicked="#shiftSelected" prefHeight="509.0" prefWidth="414.0">
         <columns>
           <TableColumn fx:id="col_id" prefWidth="37.0" text="ID" />
           <TableColumn fx:id="col_shiftName" prefWidth="213.0" text="Shift" />
-            <TableColumn prefWidth="81.0" text="Start Time" />
-            <TableColumn text="End Time" />
+            <TableColumn fx:id="col_startTime" prefWidth="81.0" text="Start Time" />
+            <TableColumn fx:id="col_endTime" text="End Time" />
         </columns>
       </TableView>
       <VBox layoutX="484.0" layoutY="198.0" prefHeight="245.0" prefWidth="275.0">
@@ -110,17 +109,17 @@
             </HBox>
             <VBox prefHeight="125.0" prefWidth="275.0">
                <children>
-                  <Button fx:id="addBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="84.0" prefWidth="274.0" text="Add Shift">
+                  <Button fx:id="addBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addShift" prefHeight="84.0" prefWidth="274.0" text="Add Shift">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="updateBtn" mnemonicParsing="false" prefHeight="83.0" prefWidth="274.0" text="Update">
+                  <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateShift" prefHeight="83.0" prefWidth="274.0" text="Update">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="deactivateBtn" mnemonicParsing="false" prefHeight="85.0" prefWidth="274.0" text="Deactivate" />
+                  <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateShift" prefHeight="85.0" prefWidth="274.0" text="Deactivate" />
                </children>
             </VBox>
          </children>
