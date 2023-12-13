@@ -4,20 +4,19 @@
  */
 package Controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
-import Fingerprint.*;
-import static Fingerprint.Prompt.promptLabel;
+import Fingerprint.EnrollmentThread;
+import Fingerprint.Selection;
 import Model.User;
 import Utilities.ImageUtil;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import static Fingerprint.Prompt.promptLabel;
 /**
  * FXML Controller class
  *
@@ -38,6 +37,7 @@ public class FP_EnrollmentCTRL implements Initializable {
     
     private int userIdToEnroll;
 
+    EnrollmentThread enrollmentThread;
     /**
      * Initializes the controller class.
      */
@@ -48,12 +48,16 @@ public class FP_EnrollmentCTRL implements Initializable {
         
         setReaderStatusLabel();
         
-       
+        //make the enrollment thread stop when the window is closed, use lambda expression
+
+
+
+
         
         
         // Set an event handler for the window hiding event
-        //Stage stage = (Stage) nameLabel.getScene().getWindow();
-        //stage.setOnHiding(event -> enrollment.stopEnrollmentThread());
+//        Stage stage = (Stage) nameLabel.getScene().getWindow();
+//        stage.setOnHiding(event -> enrollmentThread.stopEnrollmentThread());
     }
     
     private void setReaderStatusLabel(){
@@ -75,8 +79,8 @@ public class FP_EnrollmentCTRL implements Initializable {
         userImageView.setImage(ImageUtil.byteArrayToImage(user.getImage()));
         
         
-        EnrollmentThread enrollment = new EnrollmentThread(fingerprintImage, userIdToEnroll);
-        enrollment.start();
+        enrollmentThread = new EnrollmentThread(fingerprintImage, userIdToEnroll);
+        enrollmentThread.start();
         
     }
     

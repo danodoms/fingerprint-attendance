@@ -4,25 +4,22 @@
  */
 package Fingerprint;
 
-import Controller.LoginPaneCTRL;
 import Model.Fingerprint;
 import Model.User;
+import Utilities.PaneUtil;
 import com.digitalpersona.uareu.Engine;
 import com.digitalpersona.uareu.Engine.Candidate;
 import com.digitalpersona.uareu.Fmd;
-import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import Utilities.*;
-import java.util.ArrayList;
 import javafx.scene.media.AudioClip;
+
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -38,6 +35,7 @@ public class IdentificationThread extends Thread{
     ObservableList<User> userList;
     int falsePositiveRate = Engine.PROBABILITY_ONE / 100000; //sets how accurate the identification should be to return candidate
     int candidateCount = 1; //how many candidate Fmd/s to return
+    int delayTimeInMs = 5000;
     
     private boolean headlessMode = false;
     
@@ -59,6 +57,9 @@ public class IdentificationThread extends Thread{
     //called by the run method for starting the identification process
     public void startIdentification(ImageView imageview) throws InterruptedException, UareUException{
         Selection.closeAndOpenReader();
+
+        //print identification thread started
+        System.out.println("Identification Thread Started");
         while(ThreadFlags.running) {
             Fmd fmdToIdentify = getFmdFromCaptureThread(imageview);
             Fmd[] databaseFmds = getFmdsFromDatabase();
@@ -152,18 +153,18 @@ public class IdentificationThread extends Thread{
     private void userIdentificationSuccess(int userId){
         
         User user = User.getUserByUserId(userId);
-        String fname = user.getFname();
-        String mname = user.getMname();
-        String lname = user.getLname();
-        String suffix = user.getSuffix();
-        if(suffix == null){
-            suffix = "";
-        }
+//        String fname = user.getFname();
+//        String mname = user.getMname();
+//        String lname = user.getLname();
+//        String suffix = user.getSuffix();
+//        if(suffix == null){
+//            suffix = "";
+//        }
         
-        byte[] userImage = user.getImage();
+//        byte[] userImage = user.getImage();
         
-        String fullName = StringUtil.createFullNameWithInitial(fname, mname, lname, suffix);
-        System.out.println("You are " + fullName);
+//        String fullName = StringUtil.createFullNameWithInitial(fname, mname, lname, suffix);
+//        System.out.println("You are " + fullName);
         //SoundUtil.playSuccessSound();
         
         //ADD A METHOD THAT VERIFIES FIRST IF USER HAS ALREADY TIMED IN/OUT, DO IT BY QUERYING THE ATTENDANCE RECORD
@@ -172,11 +173,17 @@ public class IdentificationThread extends Thread{
         
         AudioClip buzzer = new AudioClip(getClass().getResource("/Audio/success.wav").toExternalForm());
         buzzer.play();
-      
         Platform.runLater(() -> {
             //controllerUtils.openAndClosePane(controllerUtils.FP_IDENTIFICATION_SUCCESS, 2250);
-            identificationModal.displayIdentificationSuccess(2750, fullName, userImage);
-        });  
+            identificationModal.displayIdentificationSuccess(delayTimeInMs, user);
+        });
+
+        //make the thread sleep based on delayTimeInMs
+        try {
+            Thread.sleep(delayTimeInMs);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(IdentificationThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     

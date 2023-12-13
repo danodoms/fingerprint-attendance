@@ -4,8 +4,10 @@
  */
 package Fingerprint;
 
-import com.digitalpersona.uareu.*;
+import com.digitalpersona.uareu.Fid;
+import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.UareUException;
+import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 
 
@@ -27,24 +29,33 @@ public class CaptureThread extends Thread{
     public void startCapture(ImageView imageview) {
         int counter = 0;
         try {
-            String readerStatus = Selection.reader.GetStatus()+"";
+            //null checking for reader before executing the lines below
+            if(Selection.reader == null){
+                Platform.runLater(() -> {
+                    Selection.reader = Selection.getReader();
+                });
+            }else{
+                String readerStatus = Selection.reader.GetStatus()+"";
                 //while (!(readerStatus.equals("FAILURE"))) {
-                    System.out.println(counter); counter++;
+                System.out.println(counter); counter++;
 
-                    System.out.println("Reader Status: " + Selection.reader.GetStatus());
-                    Reader.CaptureResult captureResult = Selection.reader.Capture(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
-                    lastCapture = new CaptureEvent(captureResult, Selection.reader.GetStatus());
-                    System.out.println("Capture quality: " + captureResult.quality);
-                     readerStatus = Selection.reader.GetStatus()+"";
+                System.out.println("Reader Status: " + Selection.reader.GetStatus());
+                Reader.CaptureResult captureResult = Selection.reader.Capture(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
+                lastCapture = new CaptureEvent(captureResult, Selection.reader.GetStatus());
+                System.out.println("Capture quality: " + captureResult.quality);
+                readerStatus = Selection.reader.GetStatus()+"";
 
-                    //Store sigle fingerprint view
-                    Fid fid = captureResult.image;       
-                    Fid.Fiv view = fid.getViews()[0];
-                    
-                    //Display fingerprint image on imageview
-                    Display.displayFingerprint(view, imageview);
+                //Store sigle fingerprint view
+                Fid fid = captureResult.image;
+                Fid.Fiv view = fid.getViews()[0];
+
+                //Display fingerprint image on imageview
+                Display.displayFingerprint(view, imageview);
                 //}
                 //System.out.println("Reader timed out");
+            }
+
+
                 
             } catch (UareUException ex) {
                 ex.printStackTrace();

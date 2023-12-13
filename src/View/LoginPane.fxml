@@ -27,9 +27,9 @@
                         <Font name="Arial Bold" size="16.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="fpImageview" blendMode="DARKEN" fitHeight="144.0" fitWidth="141.0" layoutX="73.0" layoutY="199.0" preserveRatio="true">
+                  <ImageView fx:id="fpImageview" blendMode="DARKEN" fitHeight="144.0" fitWidth="141.0" layoutX="73.0" layoutY="199.0" preserveRatio="true" style="-fx-alignment: CENTER;">
                      <image>
-                        <Image url="@../Fingerprint/fp_placeholder.jpg" />
+                        <Image url="@../Images/fp_placeholder.jpg" />
                      </image>
                   </ImageView>
                   <Label fx:id="titleLabel" layoutX="123.0" layoutY="470.0" text="biolog" textFill="#00bf79">
@@ -37,11 +37,35 @@
                         <Font name="Arial Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dateTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="100.0" prefHeight="16.0" prefWidth="248.0" style="-fx-alignment: center;" text="Date - Time" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial Bold" size="14.0" />
-                     </font>
-                  </Label>
+                  <VBox layoutX="37.0" layoutY="89.0" prefHeight="50.0" prefWidth="213.0">
+                     <children>
+                        <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="248.0" style="-fx-alignment: CENTER;" text="Tuesday, July 8" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center;">
+                           <children>
+                              <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-alignment: CENTER;" text="10:45" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="36.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="notationLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-alignment: CENTER;" text="am" textAlignment="CENTER" translateY="5.0">
+                                 <font>
+                                    <Font name="Arial Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </Pane>
             <StackPane prefHeight="539.0" prefWidth="487.0">

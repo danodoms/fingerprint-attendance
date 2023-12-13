@@ -4,18 +4,15 @@
  */
 package Fingerprint;
 
-import com.digitalpersona.uareu.Engine;
+import Model.Fingerprint;
+import com.digitalpersona.uareu.*;
 import com.digitalpersona.uareu.Engine.PreEnrollmentFmd;
-import com.digitalpersona.uareu.Fmd;
-import com.digitalpersona.uareu.Reader;
-import com.digitalpersona.uareu.UareUException;
-import com.digitalpersona.uareu.UareUGlobal;
+import com.digitalpersona.uareu.Reader.CaptureResult;
+import javafx.scene.image.ImageView;
+
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.image.ImageView;
-import Model.*;
-import com.digitalpersona.uareu.Reader.CaptureResult;
-import java.util.ArrayList;
 
 /**
  *
@@ -44,7 +41,7 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
         //Selection.reader.Open(Reader.Priority.COOPERATIVE);
         Selection.closeAndOpenReader();
         //identificationThread.stopIdentificationThread();
-        ThreadFlags.running = false;
+        //ThreadFlags.running = false;
         
 
         
@@ -86,6 +83,9 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
         //Selection.reader.Close();
         Prompt.prompt(Prompt.DONE_CAPTURE);
         stopEnrollmentThread();
+
+        //print ennrollment thread stopped
+        System.out.println("Enrollment Thread Stopped");
     }
     
         

@@ -5,22 +5,22 @@ package Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
-import Utilities.PaneUtil;
 import Fingerprint.IdentificationThread;
 import Model.User;
 import Utilities.Encryption;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import Utilities.PaneUtil;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.event.ActionEvent;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 /**
  * FXML Controller class
@@ -44,8 +44,6 @@ public class LoginPaneCTRL implements Initializable {
     private Button fpEnrollmentShortcutBtn;
     @FXML
     private Button fpIdentificationShortcutBtn;
-    @FXML
-    private Label dateTimeLabel;
     @FXML
     private ImageView fpImageview;
     @FXML
@@ -82,6 +80,12 @@ public class LoginPaneCTRL implements Initializable {
     private Label loginPrompt;
     
     PaneUtil paneUtil = new PaneUtil();
+    @FXML
+    private Label dateLabel;
+    @FXML
+    private Label timeLabel;
+    @FXML
+    private Label notationLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -90,8 +94,19 @@ public class LoginPaneCTRL implements Initializable {
             @Override
             public void handle(long now) {
                 Platform.runLater(() -> {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, yyyy-MM-dd HH:mm:ss");
-                    dateTimeLabel.setText(LocalDateTime.now().format(formatter));
+                    //I want the date to be displayed in this format: Monday, January 8
+                    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd");
+                    dateLabel.setText(LocalDateTime.now().format(dateformatter));
+
+                    //I want the time to be displayed in this format: 12:00:00
+                    DateTimeFormatter timeformatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+                    timeLabel.setText(LocalDateTime.now().format(timeformatter));
+
+                    //I want the notation to be displayed in this format: am
+                    DateTimeFormatter notationformatter = DateTimeFormatter.ofPattern("a");
+                    notationLabel.setText(LocalDateTime.now().format(notationformatter));
+
+
                 });
             }
         };
