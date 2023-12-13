@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FP_IdentificationSuccessCTRL">
    <children>
-      <Label fx:id="nameLabel" layoutX="170.0" layoutY="68.0" prefHeight="0.0" prefWidth="390.0" style="-fx-alignment: CENTER-LEFT;" text="Surname," textFill="#07f9a2">
+      <Label fx:id="surnameLabel" layoutX="170.0" layoutY="68.0" prefHeight="0.0" prefWidth="390.0" style="-fx-alignment: CENTER-LEFT;" text="Surname," textFill="#07f9a2">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
@@ -19,32 +19,32 @@
             <Image url="@../Images/default_user_img.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="nameLabel1" alignment="CENTER" layoutX="67.0" layoutY="179.0" prefHeight="53.0" prefWidth="445.0" text="LOGGED IN" textAlignment="CENTER" textFill="#07f79f">
+      <Label fx:id="attendanceTypeLabel" alignment="CENTER" layoutX="67.0" layoutY="179.0" prefHeight="53.0" prefWidth="445.0" text="CLOCKED IN" textAlignment="CENTER" textFill="#07f79f">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
       <ProgressBar fx:id="progressBar" layoutX="43.0" layoutY="338.0" prefHeight="21.0" prefWidth="517.0" progress="1.0" style="-fx-skin: #07f79f;" />
-      <Label fx:id="nameLabel11" alignment="CENTER" layoutX="89.0" layoutY="224.0" prefHeight="55.0" prefWidth="402.0" text="07:50:34 AM" textFill="#07f9a2">
+      <Label fx:id="timeLabel" alignment="CENTER" layoutX="89.0" layoutY="224.0" prefHeight="55.0" prefWidth="402.0" text="07:50:34 AM" textFill="#07f9a2">
          <font>
             <Font name="System Bold" size="38.0" />
          </font>
       </Label>
-      <ImageView fitHeight="121.0" fitWidth="125.0" layoutX="433.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="115.0" fitWidth="115.0" layoutX="439.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/fp_id_success_icon.png" />
          </image>
       </ImageView>
-      <Label fx:id="nameLabel111" alignment="CENTER" layoutX="130.0" layoutY="279.0" prefHeight="27.0" prefWidth="320.0" text="Friday, July 9, 2023" textFill="#07f9a2">
+      <Label fx:id="dateLabel" alignment="CENTER" layoutX="130.0" layoutY="279.0" prefHeight="27.0" prefWidth="320.0" text="Friday, July 9, 2023" textFill="#07f9a2">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="nameLabel2" layoutX="170.0" layoutY="102.0" prefHeight="40.0" prefWidth="250.0" style="-fx-alignment: CENTER-LEFT;" text="First Name D." textFill="#07f9a2">
+      <Label fx:id="nameMnameLabel" layoutX="170.0" layoutY="102.0" prefHeight="40.0" prefWidth="250.0" style="-fx-alignment: CENTER-LEFT;" text="First Name D." textFill="#07f9a2">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
-      <Label fx:id="nameLabel12" layoutX="170.0" layoutY="47.0" prefHeight="25.0" prefWidth="158.0" text="Good Morning!" textFill="#07f79f" />
+      <Label fx:id="greetingLabel" layoutX="170.0" layoutY="47.0" prefHeight="25.0" prefWidth="158.0" text="Good Morning!" textFill="#07f79f" />
    </children>
 </AnchorPane>

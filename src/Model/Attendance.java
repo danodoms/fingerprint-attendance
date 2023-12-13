@@ -5,17 +5,13 @@
 package Model;
 
 import Utilities.DatabaseUtil;
-import com.mysql.cj.jdbc.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -593,4 +589,72 @@ public void setTimeOutPm(String timeOutPm) {
     }
         return attendance;
     }
+
+
+
+
+    public static void timeIn(int userId, String time){
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+
+            String query = "INSERT INTO attendance (user_id, date, time_in) VALUES (?, ?, ?);";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            preparedStatement.setString(3, time);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //create timeOut method where it  date is equal to today, user_id is equal to the given user_id and time_out is null
+    public static void timeOut(int userId, String time) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "UPDATE attendance SET time_out = ? WHERE user_id = ? AND date = ? AND time_out IS NULL")) {
+            statement.setString(1, time);
+            statement.setInt(2, userId);
+            statement.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean userHasTimeInToday(int userId) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_in IS NOT NULL ORDER by time_in desc limit 1")) {
+            statement.setInt(1, userId);
+            statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1) > 0; // Check if there is at least one record
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Assume no time-in record on error
+        }
+    }
+
+    public static boolean userHasTimeOutToday(int userId) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_out IS NOT NULL ORDER by time_out desc limit 1")) {
+            statement.setInt(1, userId);
+            statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1) > 0; // Check if there is at least one record
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Assume no time-out record on error
+        }
+    }
+
+
+
+
+
 }

@@ -11,7 +11,7 @@ package Utilities;
 public class StringUtil {
     public static String createFullName(String fName, String mName, String lName, String suffix){
         fName = convertNullToEmpty(fName);
-        mName = convertNullToEmpty(mName);
+        mName = convertToInitial(convertNullToEmpty(mName));
         lName = convertNullToEmpty(lName);
         suffix = convertNullToEmpty(suffix);
         
@@ -20,7 +20,22 @@ public class StringUtil {
         
         return fullName;
     }
-    
+
+    //create a method that will format the fullname like this: "Smith, John A. Jr." "Surname, Firstname MiddleInitial Suffix", make the return type array
+    public static String[] formatFullName(String fName, String mName, String lName, String suffix){
+        fName = convertNullToEmpty(fName);
+        mName = convertNullToEmpty(mName);
+        lName = convertNullToEmpty(lName);
+        suffix = convertNullToEmpty(suffix);
+
+        String[] nameParts = new String[2];
+        nameParts[0] = removeExtraSpaces(lName + ", ");
+        nameParts[1] = removeExtraSpaces(fName + " " + mName + " " + suffix);
+
+        return nameParts;
+    }
+
+
     public static String createFullNameWithInitial(String fName, String mName, String lName, String suffix){
         fName = convertNullToEmpty(fName);
         mName = convertToInitial(convertNullToEmpty(mName));
@@ -64,5 +79,20 @@ public class StringUtil {
             return middleName.substring(0, 1) + ".";
         }
     }
+
+    //craete a method that returns a greetings based on the time of day, use buuilt in methods
+    public static String getGreeting(){
+        String greeting = "";
+        int hour = java.time.LocalTime.now().getHour();
+        if(hour >= 0 && hour < 12){
+            greeting = "Good Morning";
+        }else if(hour >= 12 && hour < 18){
+            greeting = "Good Afternoon";
+        }else if(hour >= 18 && hour < 24){
+            greeting = "Good Evening";
+        }
+        return greeting;
+    }
+
 
 }

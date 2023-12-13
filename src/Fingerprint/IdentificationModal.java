@@ -7,7 +7,6 @@ package Fingerprint;
 import Controller.FP_IdentificationSuccessCTRL;
 import Model.User;
 import Utilities.PaneUtil;
-import Utilities.StringUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
@@ -49,11 +48,11 @@ public class IdentificationModal {
 //    }
 
     public void displayIdentificationSuccess(int delayTimeInMs, User user) {
-        String fname = user.getFname();
-        String mname = user.getMname();
-        String lname = user.getLname();
-        String suffix = user.getSuffix();
-        String fullName = StringUtil.createFullNameWithInitial(fname, mname, lname, suffix);
+//        String fname = user.getFname();
+//        String mname = user.getMname();
+//        String lname = user.getLname();
+//        String suffix = user.getSuffix();
+//        String fullName = StringUtil.createFullNameWithInitial(fname, mname, lname, suffix);
 
         try {
             // Load the FXML file
@@ -61,7 +60,7 @@ public class IdentificationModal {
             Parent root = loader.load();
 
             FP_IdentificationSuccessCTRL controller = loader.getController();  // Access the controller
-            controller.setUserData(delayTimeInMs, fullName, user.getImage());// Set user data
+            controller.setUserData(delayTimeInMs, user);// Set user data
 
             // Create a new stage for the window
             Stage stage = new Stage();
