@@ -48,11 +48,14 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
     private Label nameMnameLabel;
     @FXML
     private Label greetingLabel;
+    @FXML
+    private Label prevTimeInLabel;
 
     User userToTime;
     int getDelayTimeInMs;
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+
 
     /**
      * Initializes the controller class.
@@ -88,6 +91,7 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         surnameLabel.setText(formattedName[0]);
         nameMnameLabel.setText(formattedName[1]);
 
+        prevTimeInLabel.setVisible(false);
 
         addAttendance();
 
@@ -182,52 +186,27 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         Attendance.timeIn(userToTime.getId(), time);
 
         System.out.println("User timed in at " + time);
-        attendanceTypeLabel.setText("Time In");
+        attendanceTypeLabel.setText("Timed In");
         timeLabel.setText(LocalDateTime.now().format(timeFormatter));
         dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
     }
 
     public void timeOutUser(String time) {
-        // Insert the time in into the database
-        Attendance.timeOut(userToTime.getId(), time);
+
 
         System.out.println("User timed out at " + time);
-        attendanceTypeLabel.setText("Time Out");
+        attendanceTypeLabel.setText("Timed Out");
         timeLabel.setText(LocalDateTime.now().format(timeFormatter));
         dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
+        prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId())+" SINCE LAST TIME IN");
+        prevTimeInLabel.setVisible(true);
+
+        // Insert the time in into the database
+        Attendance.timeOut(userToTime.getId(), time);
     }
 
 
-    //make a similar method to isTimeWithinRange, but make it only check if time is still AM, the rangestart and rangeend will be predefined
-    public boolean isTime_AM(String timeToCheck) {
-        // Parse the input strings to LocalTime objects
-        LocalTime time = LocalTime.parse(timeToCheck);
-        LocalTime start = LocalTime.parse("00:00");
-        LocalTime end = LocalTime.parse("11:59");
 
-        // Check if the given time is within the range
-        return !time.isBefore(start) && !time.isAfter(end);
-    }
-
-    public boolean isTime_PM(String timeToCheck) {
-        // Parse the input strings to LocalTime objects
-        LocalTime time = LocalTime.parse(timeToCheck);
-        LocalTime start = LocalTime.parse("12:00");
-        LocalTime end = LocalTime.parse("23:59");
-
-        // Check if the given time is within the range
-        return !time.isBefore(start) && !time.isAfter(end);
-    }
-
-    public boolean isTime_LunchBreak(String timeToCheck) {
-        // Parse the input strings to LocalTime objects
-        LocalTime time = LocalTime.parse(timeToCheck);
-        LocalTime start = LocalTime.parse("12:00");
-        LocalTime end = LocalTime.parse("12:59");
-
-        // Check if the given time is within the range
-        return !time.isBefore(start) && !time.isAfter(end);
-    }
 
 
 
