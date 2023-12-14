@@ -87,10 +87,10 @@ public class Attendance {
         this.name = name;
         this.date = date;
         this.attendance_status = attendance_status;
-        this.timeIn = timeInAm;
-        this.timeOut = timeOutAm;
-        this.timeIn = timeInPm;
-        this.timeOut = timeOutPm;
+        this.timeInAm = timeInAm;
+        this.timeOutAm = timeOutAm;
+        this.timeInPm = timeInPm;
+        this.timeOutPm = timeOutPm;
     }
 
     public void setNotationAM(String notationAM) {
@@ -487,9 +487,9 @@ public void setTimeOutPm(String timeOutPm) {
                         }if(convertOut >= 13){
                             convertOut = convertOut - 12;
                             if(convertOut>9){
-                                out = (convertOut+"")+ ":"+splitIn[1]+":"+splitIn[2];
+                                out = (convertOut+"")+ ":"+splitOut[1]+":"+splitOut[2];
                             }else{
-                                out = "0"+(convertOut+"")+ ":"+splitIn[1]+":"+splitIn[2];
+                                out = "0"+(convertOut+"")+ ":"+splitOut[1]+":"+splitOut[2];
                             }
                         }
                         
@@ -529,7 +529,7 @@ public void setTimeOutPm(String timeOutPm) {
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
-            String query =("SELECT CONCAT(firstname,' ', lastname) AS name, timeInAM, timeOutAM, timeInPM, timeOutPM FROM dtr WHERE user_id=?;");
+            String query =("SELECT date, CONCAT(firstname,' ', lastname) AS name, timeInAm, timeOutAm, timeInPm, timeOutPm, status FROM dtr WHERE user_id=?;");
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, user_id);
             
@@ -538,25 +538,70 @@ public void setTimeOutPm(String timeOutPm) {
             // Iteration huhu -_- Sukol!! 
                while (rs.next()) {
                 String name = rs.getString("name");
-                String timeInAm1 = rs.getString("timeInAM") ;
-                String timeOutAm1 = rs.getString("timeOutAM");
-                String timeInPm2 = rs.getString("timeInPM") ;
-                String timeOutPm2 = rs.getString("timeOutPM") ;
-                int statusInt =0;
+                String timeInAm1 = rs.getString("timeInAm") ;
+                String timeOutAm1 = rs.getString("timeOutAm");
+                String in = rs.getString("timeInPm") ;
+                String out = rs.getString("timeOutPm") ;
+                int statusInt = rs.getInt("status");
                 String rs1Date = rs.getDate("date").toString();
-                if(timeInAm1==null || timeInPm2==null){
-                    statusInt=3;
-//                }else if(){
-//                    
-                }
+                
                 // timeIn convertion from 24 hours to 12 hours.
+                if(timeOutAm1!=null){
+                    String[] splitOut = timeInAm1.split(":");
+                        int convertIn = Integer.parseInt(splitOut[0]);
+                        if(convertIn > 12){
+                            convertIn = convertIn - 12;
+                            if(convertIn>9){
+                                timeOutAm1 = (convertIn+"")+ ":"+splitOut[1]+":"+splitOut[2];
+                            }else{
+                                timeOutAm1 = "0"+(convertIn+"")+ ":"+splitOut[1]+":"+splitOut[2];
+                            }
+                        }
+                }
+                else{
+                   timeOutAm1 = "    --";
+               }
+                if(timeInAm1==null){
+                   timeInAm1="    --";
+               }
+               if(in!=null){
+                        String[] splitIn = in.split(":");
+                        int convertIn = Integer.parseInt(splitIn[0]);
+                        if(convertIn > 12){
+                            convertIn = convertIn - 12;
+                            if(convertIn>9){
+                                in = (convertIn+"")+ ":"+splitIn[1]+":"+splitIn[2];
+                            }else{
+                                in = "0"+(convertIn+"")+ ":"+splitIn[1]+":"+splitIn[2];
+                            }
+                        }
+               }
+               else{
+                   in = "    --";
+               }
+                if(out!=null){
+                        String[] splitOut = out.split(":");
+                        int convertOut = Integer.parseInt(splitOut[0]);
+                        if(convertOut > 12){
+                            convertOut = convertOut - 12;
+                            if(convertOut>9){
+                                out = (convertOut+"")+ ":"+splitOut[1]+":"+splitOut[2];
+                            }else{
+                                out = "0"+(convertOut+"")+ ":"+splitOut[1]+":"+splitOut[2];
+                            }
+                        }
+                }
+                else{
+                   out = "    --";
+               }
+                
                 String statusString;
                 if (statusInt == 1) {
                     statusString = "Present";
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
-                    statusString = "No Out";
+                    statusString = "Absent";
                 } else {
                     statusString = "Overtime";
                 }
@@ -566,8 +611,8 @@ public void setTimeOutPm(String timeOutPm) {
                     rs.getDate("date"),
                     timeInAm1,
                     timeOutAm1,
-                    timeInPm2,
-                    timeOutPm2,
+                    in,
+                    out,
                     statusString
                 ));
             } 
@@ -575,18 +620,18 @@ public void setTimeOutPm(String timeOutPm) {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for (Attendance record : attendance) {
-        System.out.println("Employee Name: " + record.getName());
-        System.out.println("Date: " + record.getDate());
-        System.out.println("Time In (AM): " + record.getTimeInAm());
-        System.out.println("Time Out (AM): " + record.getTimeOutAm());
-        System.out.println("Time In (PM): " + record.getTimeInPm());
-        System.out.println("Time Out (PM): " + record.getTimeOutPm());
-        System.out.println("Attendance Status: " + record.getAttendance_status());
-
-        // Add a separator for better readability
-        System.out.println("----------------------------");
-    }
+//        for (Attendance record : attendance) {
+//            System.out.println("Employee Name: " + record.getName());
+//            System.out.println("Date: " + record.getDate());
+//            System.out.println("Time In (AM): " + record.getTimeInAm());
+//            System.out.println("Time Out (AM): " + record.getTimeOutAm());
+//            System.out.println("Time In (PM): " + record.getTimeInPm());
+//            System.out.println("Time Out (PM): " + record.getTimeOutPm());
+//            System.out.println("Attendance Status: " + record.getAttendance_status());
+//
+//            // Add a separator for better readability
+//            System.out.println("----------------------------");
+//        }
         return attendance;
     }
 

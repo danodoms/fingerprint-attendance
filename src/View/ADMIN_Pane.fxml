@@ -112,7 +112,7 @@
                                                       <Insets right="5.0" top="2.0" />
                                                    </HBox.margin>
                                                 </ImageView>
-                                                <Button fx:id="timeOffBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Time Off">
+                                                <Button fx:id="timeOffBtn" mnemonicParsing="false" onAction="#openTOCalendar" prefHeight="40.0" prefWidth="180.0" text="Time Off">
                                                    <HBox.margin>
                                                       <Insets />
                                                    </HBox.margin>
