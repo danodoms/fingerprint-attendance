@@ -93,7 +93,7 @@
                                                       <Insets right="5.0" top="2.0" />
                                                    </HBox.margin>
                                                 </ImageView>
-                                                <Button fx:id="holidaysBtn" mnemonicParsing="false" prefHeight="0.0" prefWidth="150.0" text="Holidays" />
+                                                <Button fx:id="holidaysBtn" mnemonicParsing="false" onAction="#openHoCalendar" prefHeight="0.0" prefWidth="150.0" text="Holidays" />
                                              </children>
                                              <opaqueInsets>
                                                 <Insets />
@@ -112,7 +112,7 @@
                                                       <Insets right="5.0" top="2.0" />
                                                    </HBox.margin>
                                                 </ImageView>
-                                                <Button fx:id="timeOffBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Time Off">
+                                                <Button fx:id="timeOffBtn" mnemonicParsing="false" onAction="#openTOCalendar" prefHeight="40.0" prefWidth="180.0" text="Time Off">
                                                    <HBox.margin>
                                                       <Insets />
                                                    </HBox.margin>
