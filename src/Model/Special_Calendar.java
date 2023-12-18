@@ -25,9 +25,18 @@ public class Special_Calendar {
     private int id;
     private String type;
     private String description;
+    private String attachment;
     private Date startDate;
     private Date endDate;
     private int total;
+
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
     
     public int getId() {
         return id;
@@ -85,6 +94,21 @@ public class Special_Calendar {
         this.endDate = endDate;
         this.total = total;
     }
+    public Special_Calendar(int id, String type, String description, String attachment, Date startDate, Date endDate) {
+        this.id = id;
+        this.type = type;
+        this.description = description;
+        this.attachment = attachment;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+    public Special_Calendar( String type, String description, String attachment, Date startDate, Date endDate) {
+        this.type = type;
+        this.description = description;
+        this.attachment = attachment;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
      public Special_Calendar(Date startDate,int total){
          this.startDate = startDate;
          this.total = total;
@@ -126,22 +150,84 @@ public class Special_Calendar {
     }
     return calendar;
 }
-//    private static int[] splitDateComponents(Date date) {
-//    // Convert java.sql.Date to java.util.Date.
-//    java.util.Date utilDate = new java.util.Date(date.getTime());
-//
-//    LocalDate localDate = utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//    int[] dateArray = {localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth()};
-//    return dateArray;
-//}
-//
-//     private static int calculateTotal(int[] startArray, int[] endArray) {
-//    LocalDate startDate = LocalDate.of(startArray[0], startArray[1], startArray[2]);
-//    LocalDate endDate = LocalDate.of(endArray[0], endArray[1], endArray[2]);
-//
-//    // Calculate the total taking into account year, month, and day differences using ChronoUnit.
-//    return (int) ChronoUnit.DAYS.between(startDate, endDate) + 1;
-//}
+    public static ObservableList<Special_Calendar> getSpecialCalendar(){
+        ObservableList<Special_Calendar> calendar = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()){
+            
+            ResultSet rs = statement.executeQuery("SELECT special_calendar_id as id,\n" +
+                                                    "       sc_type as type,\n" +
+                                                    "       sc_desc as description,\n" +
+                                                    "       attachment,\n" +
+                                                    "       start_date as startDate,\n" +
+                                                    "       end_date as endDate\n" +
+                                                    "FROM special_calendar\n" +
+                                                    "WHERE status = 1;");
+            
+            while (rs.next()) {
+                calendar.add(new Special_Calendar(
+              rs.getInt("id"),
+            rs.getString("type"),
+            rs.getString("description"),
+             rs.getString("attachment"),
+             rs.getDate("startDate"),
+              rs.getDate("endDate")
+    ));
+            }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return calendar;
+    }
+    
+    public static void updateSpecialCalendar(int id, String type, String description, String attachment, Date startDate, Date endDate) throws SQLException {
+    String insertQuery = "UPDATE special_calendar SET sc_type=?, sc_desc=?, attachment=?, start_date=?, end_date=? WHERE special_calendar_id=?";
+
+        PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(insertQuery);
+
+            preparedStatement.setString(1, type);
+            preparedStatement.setString(2, description);
+            preparedStatement.setString(3, attachment);
+            preparedStatement.setDate(4, (java.sql.Date) startDate);
+            preparedStatement.setDate(5, (java.sql.Date) endDate);
+            preparedStatement.setInt(6, id);
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("Executed Update Special Calendar");
+    }
+    
+    public static void addSpecialCalendar( String type, String description, String attachment, Date startDate, Date endDate) throws SQLException {
+        String addQuery = "INSERT INTO `special_calendar` (sc_type, sc_desc, attachment, start_date, end_date) VALUES (?,?,?,?,?)";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(addQuery)) {
+
+           preparedStatement.setString(1, type);
+            preparedStatement.setString(2, description);
+            preparedStatement.setString(3, attachment);
+            preparedStatement.setDate(4, (java.sql.Date) startDate);
+            preparedStatement.setDate(5, (java.sql.Date) endDate);
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("Executed Add Special Calendar");
+        }
+    }
+    public static void deactivateSpecialCalendar(int special_calendar_id) {
+        String query = "UPDATE special_calendar SET status = 0 WHERE special_calendar_id = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, special_calendar_id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception or log it as needed
+        }
+    }
 }
 

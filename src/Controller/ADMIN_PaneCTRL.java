@@ -70,6 +70,7 @@ public class ADMIN_PaneCTRL implements Initializable {
         try {
             view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_DASHBOARD));
             contentPane.getChildren().setAll(view);
+            highlightButton(dashboardBtn);
         } catch (IOException ex) {
             Logger.getLogger(ADMIN_PaneCTRL.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -121,7 +122,7 @@ public class ADMIN_PaneCTRL implements Initializable {
     }
     @FXML
     private void openTOCalendar(ActionEvent event) throws IOException{
-        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_EMP_CALENDAR_PANE));
+        view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_EMP_TIMEOFF_PANE));
         contentPane.getChildren().setAll(view);
         highlightButton(timeOffBtn);
     }
