@@ -505,9 +505,9 @@ public void setTimeOutPm(String timeOutPm) {
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
-                    statusString = "No Out";
+                    statusString = "Undertime";
                 } else {
-                    statusString = "Overtime";
+                    statusString = "No Out";
                 }
 
                 attendance.add(new Attendance(
@@ -603,9 +603,9 @@ public void setTimeOutPm(String timeOutPm) {
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
-                    statusString = "Absent";
+                    statusString = "Undertime";
                 } else {
-                    statusString = "Overtime";
+                    statusString = "No Out";
                 }
 
                 attendance.add(new Attendance(
