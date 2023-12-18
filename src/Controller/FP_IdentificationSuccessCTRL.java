@@ -145,7 +145,7 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
 
     public void timeInUser(String time) {
         // Insert the time in into the database
-        SoundUtil.playSuccessSound();
+        SoundUtil.playTimeInSound();
         Attendance.timeIn(userToTime.getId(), time);
 
         System.out.println("User timed in at " + time);

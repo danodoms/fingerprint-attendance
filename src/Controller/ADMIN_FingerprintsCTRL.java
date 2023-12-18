@@ -53,6 +53,8 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
     PaneUtil paneUtil = new PaneUtil();
     @FXML
     private ChoiceBox statusFilterChoiceBox;
+    @FXML
+    private TextField searchFilterField;
 
     /**
      * Initializes the controller class.
@@ -72,6 +74,10 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
             loadUserTable();
         });
 
+        //add event listener to searchFilterField that calls loadUserTable() when changed
+        searchFilterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadUserTable();
+        });
 
         loadUserTable();
     }    
@@ -91,6 +97,16 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
             }
             return false;
         });
+
+         //then, filter based on searchFilterField, store in new list
+         filteredUsers = filteredUsers.filtered(user -> {
+             String searchFilter = searchFilterField.getText().toLowerCase();
+             if(searchFilter.isEmpty()){
+                 return true;
+             }else{
+                 return user.getFullName().toLowerCase().contains(searchFilter);
+             }
+         });
 
 
         userTable.setItems(filteredUsers);

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +15,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_FingerprintsCTRL">
    <children>
-      <TableView fx:id="userTable" layoutX="21.0" layoutY="91.0" onMouseClicked="#loadUserDetails" prefHeight="477.0" prefWidth="267.0">
+      <TableView fx:id="userTable" layoutX="21.0" layoutY="108.0" onMouseClicked="#loadUserDetails" prefHeight="472.0" prefWidth="267.0">
         <columns>
           <TableColumn fx:id="col_id" prefWidth="41.0" text="ID" />
           <TableColumn fx:id="col_name" prefWidth="224.0" text="Name" />
@@ -63,11 +64,11 @@
       </Label>
       <Label layoutX="21.0" layoutY="19.0" text="Fingerprints">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="28.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="statusFilterChoiceBox" layoutX="177.0" layoutY="59.0" prefHeight="25.0" prefWidth="111.0" />
-      <Label layoutX="133.0" layoutY="63.0" prefHeight="17.0" prefWidth="43.0" text="Status" />
-      <Label layoutX="21.0" layoutY="63.0" prefHeight="17.0" prefWidth="52.0" text="Filter by" />
+      <ChoiceBox fx:id="statusFilterChoiceBox" layoutX="201.0" layoutY="76.0" prefHeight="25.0" prefWidth="87.0" />
+      <Label layoutX="160.0" layoutY="80.0" prefHeight="17.0" prefWidth="37.0" text="Status" />
+      <TextField fx:id="searchFilterField" layoutX="21.0" layoutY="76.0" prefHeight="25.0" prefWidth="130.0" promptText="Search" />
    </children>
 </AnchorPane>

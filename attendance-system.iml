@@ -12,4 +12,7 @@
     <orderEntry type="library" name="mysql-connector-j-8.1.0" level="application" />
     <orderEntry type="library" name="dpuareu" level="application" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="211eb524-93aa-46c8-9571-f82b0887931a" />
+  </component>
 </module>

@@ -26,6 +26,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
+//        Application.setUserAgentStylesheet("/Style/cupertino-dark.css");
         //Automatically Select Reader
         //Selection.reader = Selection.getReader();
         Selection.waitAndGetReader();

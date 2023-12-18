@@ -2,50 +2,108 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
 */
-/* 
+/*
     Created on : Dec 1, 2023, 6:02:14 AM
     Author     : User
 */
 
-.navVbox .button {
+.root {
+  -color-background-dark1: #B3C0C6;
+  -color-background: #D0D8DC;
+  -color-accent-primary: #07f9a2;
+  -color-accent-secondary: #c9ffec;
+  -color-base:   white;
+  -color-base-darker1:   #e6e6e6;
+ /* -color-base-gradient: linear-gradient(to bottom, #b3ebdd, #D0D8DC);*/
+  -color-base-gradient:  #07f9a2;
+
+}
+
+
+.navAnchorPane {
+    -fx-background-color: -color-base;
+}
+
+.contentPane {
+    -fx-background-color: -color-base-gradient;
+    -fx-border-color: -color-base;
+    -fx-background-radius: 20;
+    -fx-border-radius: 10px;
+    -fx-border-width: 10;
+}
+
+.tilePane {
+    -fx-background-color: -color-base;
+    -fx-background-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-color: -color-background;
+    -fx-border-radius: 8;
+}
+
+.headerPane {
+    -fx-background-color: -color-accent-primary;
+    -fx-background-radius: 10;
+}
+
+#navVbox .button {
     -fx-background-color: transparent;
-    -fx-border: none; 
-    -fx-color: white;
-    -fx-text-fill: white; 
-    -fx-font-size: 14px; 
+    -fx-border: none;
+    /*-fx-text-fill: white; */
+    -fx-text-fill: -color-accent-primary;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-border-radius: 100px;
     -fx-alignment: CENTER_LEFT;
 }
 
-.navVbox .button:hover {
-    -fx-background-color: #07f9a2; 
-    -fx-font-weight: bold;
-    -fx-text-fill: #1a1a1a; 
-}
-
-.navVbox .button:pressed{
-    -fx-background-color: #07f9a2; 
-    -fx-font-weight: bold;
-    -fx-text-fill: #1a1a1a; 
-}
-
-.navVbox {
-    -fx-background-color: linear-gradient(to bottom, #1a1a1a, #182526);
-/*    -fx-background-color: #1a1a1a;*/
-}
-
-
-.button {
-    -fx-background-color: #07f9a2;
-    -fx-border: none; 
+#navVbox .navButton {
+    -fx-background-color: transparent;
+    -fx-border: none;
     -fx-color: white;
-/*    -fx-text-fill: white; */
-    -fx-font-size: 14px; 
-/*    -fx-font-weight: bold;*/
+    /*-fx-text-fill: white; */
+    -fx-text-fill: #1a1a1a;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
     -fx-border-radius: 100px;
-    -fx-alignment: CENTER;
+    -fx-alignment: CENTER_LEFT;
 }
+
+
+
+#navVbox .button:hover {
+    /*-fx-background-color: #07f9a2; */
+    -fx-background-color: #1a1a1a;
+    -fx-font-weight: bold;
+    /*-fx-text-fill: #1a1a1a; */
+    -fx-text-fill: #07f9a2;
+}
+
+#navVbox .button:pressed{
+    -fx-background-color: #1a1a1a;
+    -fx-font-weight: bold;
+    -fx-text-fill: #07f9a2;
+}
+
+/*#navVbox .label {
+           -fx-text-fill: #1a1a1a;
+           *//*-fx-font-size: 14px;*//*
+           -fx-font-weight: bold;
+           }*/
+
+           #navVbox #labelTitleUp {
+               -fx-text-fill: #1a1a1a;
+               /*-fx-font-size: 14px;*/
+               -fx-font-weight: bold;
+               }
+
+#navVbox {
+    -fx-background-color: -color-base;
+    -fx-border-color: -color-base;
+    -fx-background-radius: 20;
+    -fx-border-radius: 10px;
+    -fx-border-width: 10;
+}
+
 
 
 
@@ -58,34 +116,80 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 
 
-.titled-pane > *.content{
+/*#navVbox .titled-pane > *.content{
     -fx-background-color: transparent ;
     -fx-border-color: transparent ;
-    
+
+}*/
+
+#navVbox .titled-pane > *.content{
+    -fx-background-color: transparent ;
+    -fx-border-color: transparent ;
+
 }
 
-.titled-pane .title {
+#navVbox #navAccordion {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
+}
+
+#navVbox .titled-pane .title {
+    -fx-background-color: transparent;
+    -fx-text-fill: #1a1a1a;
+    /*-fx-text-fill: white;*/
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 
-.titled-pane .arrow {
-    -fx-background-color: white;
+#navVbox .titled-pane .arrow {
+    -fx-background-color: #1a1a1a;
+    /*-fx-background-color: white;*/
     -fx-alignment: center-right;
-    
+
 }
 
-.titled-pane > .title > *.text {
-    -fx-fill: #fff;
+#navVbox .titled-pane > .title > *.text {
+    /*-fx-fill: #fff;*/
+    -fx-fill: #1a1a1a;
 }
 
 
-.titled-pane > .title > .arrow-button > .arrow-container > .arrow > .arrow-icon {
+#navVbox .titled-pane > .title > .arrow-button > .arrow-container > .arrow > .arrow-icon {
     -fx-background-color: transparent;
-    -fx-background-image: url('Images/calendar_icon.png');
+    -fx-background-image: url('/Images/calendar_icon.png');
     -fx-background-size: cover;
     -fx-background-position: center;
 }
+
+
+
+.button {
+    -fx-background-color: -color-accent-secondary;
+    -fx-border: none;
+    -fx-color: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 7;
+
+    -fx-alignment: CENTER;
+}
+
+.button: hover {
+    -fx-opacity: 0.85;
+
+}
+
+
+
+/*table view*/
+
+
+
+
+
+
+
+
+
+
+
 
