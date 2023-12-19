@@ -7,6 +7,7 @@ package Controller;
 import Model.*;
 import Utilities.ImageUtil;
 import Utilities.Modal;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +25,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -414,11 +417,26 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     }
 
     @FXML
-    private void filterTimeFields(KeyEvent event){   
-        startTimeHourField.setText(filterHour(startTimeHourField.getText()));
-        startTimeMinuteField.setText(filterMinute(startTimeMinuteField.getText()));
-        endTimeHourField.setText(filterHour(endTimeHourField.getText()));
-        endTimeMinuteField.setText(filterMinute(endTimeMinuteField.getText()));
+    private void filterTimeFields(KeyEvent event){
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+
+        executor.execute(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Platform.runLater(() -> {
+                startTimeHourField.setText(filterHour(startTimeHourField.getText()));
+                startTimeMinuteField.setText(filterMinute(startTimeMinuteField.getText()));
+                endTimeHourField.setText(filterHour(endTimeHourField.getText()));
+                endTimeMinuteField.setText(filterMinute(endTimeMinuteField.getText()));
+            });
+        });
+        executor.shutdown();
+
+
     }
 
 }

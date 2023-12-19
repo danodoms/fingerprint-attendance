@@ -4,10 +4,13 @@
  */
 package Controller;
 
+import Fingerprint.VerificationThread;
 import Model.Attendance;
 import Model.User;
 import Utilities.ImageUtil;
+import Utilities.SoundUtil;
 import Utilities.StringUtil;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,10 +20,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * FXML Controller class
@@ -48,11 +54,13 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
     private Label nameMnameLabel;
     @FXML
     private Label greetingLabel;
+    @FXML
+    private Label prevTimeInLabel;
 
     User userToTime;
-    int getDelayTimeInMs;
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+    int dailyAttendanceLimit = 2;
 
     /**
      * Initializes the controller class.
@@ -60,10 +68,8 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
     }    
-    
-    
+
      public void setUserData(int delayTimeInMs, User user) {
         userToTime = user;
         this.delayTimeInMs = delayTimeInMs;
@@ -88,74 +94,11 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         surnameLabel.setText(formattedName[0]);
         nameMnameLabel.setText(formattedName[1]);
 
-
-        addAttendance();
+        prevTimeInLabel.setVisible(false);
 
         loadProgressbar();
+        addAttendance();
     }
-
-
-    //Version 1
-//    public void addAttendance() {
-//        //MORNING
-//        if (isTimeWithinRange(getCurrentTime(), "00:00", "11:59")) {
-//            if (userHasTimeIn("00:00", "11:59") || userHasTimeIn("12:00", "23:59")){
-//                //PROMPT USER TO SCAN FINGERPRINT AGAIN TO TIMEOUT
-//                timeOutUser_PM();
-//            } else {
-//                timeInUser_AM();
-//            }
-//            //LUNCH BREAK
-//        } else if (isTimeWithinRange(getCurrentTime(), "12:00", "23:59")) {
-//            if (userHasTimeIn("00:00", "11:59") && userHasTimeOut("00:00", "11:59")) {
-//                timeInUser_PM();
-//            } else {
-//                if (userHasTimeIn("00:00", "11:59")) {
-//                    timeOutUser_PM();
-//                } else {
-//                    timInUser_PM
-//                }
-//            }
-//            //AFTERNOON TO MIDNIGHT
-//        } else if (isTimeWithinRange(getCurrentTime(), "12:00", "23:59")) {
-//            if (userHasTimeIn("12:00", "23:59")) {
-//                //PROMPT USER TO SCAN FINGERPRINT AGAIN TO TIMEOUT
-//                timeOutUser_PM();
-//            } else {
-//                timeInUser_PM();
-//            }
-//        }
-//    }
-
-
-    //PERFECT ALGORITHM, but for day shift only, fixed format
-//    public void addAttendance() {
-//        // Check if user has already timed in for the current period
-//        boolean hasTimedIn = userHasTimeIn(getCurrentPeriod());
-//
-//        // Check if user has timed out for the previous period
-//        boolean hasTimedOutPrevious = userHasTimeOut(getPreviousPeriod());
-//
-//        // Morning
-//        if (isTimeWithinRange(getCurrentTime(), "00:00", "11:59")) {
-//            if (hasTimedIn) {
-//                // Prompt user to scan fingerprint again to timeout
-//                timeOutUser(getCurrentPeriod());
-//            } else {
-//                timeInUser(getCurrentPeriod());
-//            }
-//        } else if (isTimeWithinRange(getCurrentTime(), "12:00", "23:59")) {
-//            if (hasTimedIn) {
-//                // Prompt user to scan fingerprint again to timeout
-//                timeOutUser(getCurrentPeriod());
-//            } else if (!hasTimedOutPrevious) {
-//                // User has not timed out for previous period, so prompt them to time out
-//                timeOutUser(getPreviousPeriod());
-//            } else {
-//                timeInUser(getCurrentPeriod());
-//            }
-//        }
-//    }
 
 
     //simplified method, but time out for lunch break is not enforced, meaning if the user needs to log out first before lunch break, before they can login in the next period, if they miss the lnchbreak time out
@@ -168,9 +111,32 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         boolean hasTimedOut = Attendance.userHasTimeOutToday(userToTime.getId());
         System.out.println("Has timed out: " + hasTimedOut);
 
-        // Time in or time out based on user's current status
-        if (hasTimedIn && !hasTimedOut) {
-            timeOutUser(getCurrentTime());
+        boolean hasTimedOutAM = Attendance.userHasTimeOutBetween(userToTime.getId(), "00:00", "11:59");
+        boolean hasTimedOutPM = Attendance.userHasTimeOutBetween(userToTime.getId(), "12:00", "23:59");
+        boolean hasReachedDailyAttendanceLimit = Attendance.userHasReachedDailyAttendanceLimit(userToTime.getId(), dailyAttendanceLimit);
+
+
+        if(hasReachedDailyAttendanceLimit){
+                SoundUtil.playDenySound();
+                attendanceTypeLabel.setText("ATTENDANCE LIMIT REACHED");
+                timeLabel.setText("DAILY LIMIT: " + dailyAttendanceLimit);
+                dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
+        }else if (hasTimedIn) {
+                timeOutUser(getCurrentTime());
+        } else if (hasTimedOutAM && LocalTime.now().isBefore(LocalTime.parse("12:00"))) {
+                SoundUtil.playDenySound();
+                attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
+
+                LocalTime currentTime = LocalTime.now();
+                LocalTime noonTime = LocalTime.of(12, 0);
+                Duration duration = Duration.between(currentTime, noonTime);
+
+                long hours = duration.toHours();
+                long minutes = duration.minusHours(hours).toMinutes();
+                String timeLeft = hours+" hours and "+minutes+" minutes";
+
+                timeLabel.setText(timeLeft);
+                dateLabel.setText("UNTIL YOUR NEXT TIME IN");
         } else {
             timeInUser(getCurrentTime());
         }
@@ -179,68 +145,66 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
 
     public void timeInUser(String time) {
         // Insert the time in into the database
+        SoundUtil.playTimeInSound();
         Attendance.timeIn(userToTime.getId(), time);
 
         System.out.println("User timed in at " + time);
-        attendanceTypeLabel.setText("Time In");
+        attendanceTypeLabel.setText("Timed In");
         timeLabel.setText(LocalDateTime.now().format(timeFormatter));
         dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
     }
+
+
 
     public void timeOutUser(String time) {
-        // Insert the time in into the database
-        Attendance.timeOut(userToTime.getId(), time);
+        SoundUtil.playPromptSound();
 
+        attendanceTypeLabel.setText("SCAN AGAIN TO TIME OUT");
+        timeLabel.setText("");
+        dateLabel.setText("");
+        prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId()) + " SINCE LAST TIME IN");
+        prevTimeInLabel.setVisible(true);
+
+        //delaytime is cusing issues currently
+        VerificationThread verificationThread = new VerificationThread(userToTime.getId(), delayTimeInMs);
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+
+            verificationThread.start();
+            try {
+                verificationThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (verificationThread.userIsVerified) {
+                Platform.runLater(() -> {
+                    timeOutActionConfirmed(time);
+                });
+            } else if(verificationThread.isCaptureCanceled){
+                Platform.runLater(() -> {
+                    SoundUtil.playFailSound();
+                });
+            }else{
+                Platform.runLater(() -> {
+                    attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
+                    SoundUtil.playFailSound();
+                });
+            }
+        });
+        executor.shutdown();
+    }
+
+    public void timeOutActionConfirmed(String time){
         System.out.println("User timed out at " + time);
-        attendanceTypeLabel.setText("Time Out");
+        attendanceTypeLabel.setText("Timed Out");
         timeLabel.setText(LocalDateTime.now().format(timeFormatter));
         dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
-    }
 
-
-    //make a similar method to isTimeWithinRange, but make it only check if time is still AM, the rangestart and rangeend will be predefined
-    public boolean isTime_AM(String timeToCheck) {
-        // Parse the input strings to LocalTime objects
-        LocalTime time = LocalTime.parse(timeToCheck);
-        LocalTime start = LocalTime.parse("00:00");
-        LocalTime end = LocalTime.parse("11:59");
-
-        // Check if the given time is within the range
-        return !time.isBefore(start) && !time.isAfter(end);
-    }
-
-    public boolean isTime_PM(String timeToCheck) {
-        // Parse the input strings to LocalTime objects
-        LocalTime time = LocalTime.parse(timeToCheck);
-        LocalTime start = LocalTime.parse("12:00");
-        LocalTime end = LocalTime.parse("23:59");
-
-        // Check if the given time is within the range
-        return !time.isBefore(start) && !time.isAfter(end);
-    }
-
-    public boolean isTime_LunchBreak(String timeToCheck) {
-        // Parse the input strings to LocalTime objects
-        LocalTime time = LocalTime.parse(timeToCheck);
-        LocalTime start = LocalTime.parse("12:00");
-        LocalTime end = LocalTime.parse("12:59");
-
-        // Check if the given time is within the range
-        return !time.isBefore(start) && !time.isAfter(end);
-    }
-
-
-
-
-
-    public static boolean isTimeWithinRange(String timeToCheck, String rangeStart, String rangeEnd) {
-        // Parse the input strings to LocalTime objects
-        LocalTime time = LocalTime.parse(timeToCheck);
-        LocalTime start = LocalTime.parse(rangeStart);
-        LocalTime end = LocalTime.parse(rangeEnd);
-
-        // Check if the given time is within the range
-        return !time.isBefore(start) && !time.isAfter(end);
+        // Insert the time into the database
+        Attendance.timeOut(userToTime.getId(), time);
+        SoundUtil.playTimeOutSound();
     }
 
     public static String getCurrentTime(){
@@ -248,7 +212,6 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         return time.toString();
     }
 
-    //make the progress bar decrease automatically in 3 seconds from 100 to 0 percent
     public void loadProgressbar(){
         Task<Void> task = new Task<Void>() {
             @Override
@@ -267,6 +230,4 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         thread.setDaemon(true);
         thread.start();
     }
-
-
 }

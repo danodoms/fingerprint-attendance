@@ -1,0 +1,57 @@
+
+L
+src/View/ADMIN_Pane_old.fxml,b\4\b42e7171f09e7cba6da25b256a92919fcf6fb5df
+M
+src/View/ADMIN_Dashboard.fxml,c\e\ce904eafbb5ab8e1464cd730369b4eed54e61ec3
+L
+src/Style/cupertino-dark.css,2\b\2b75f2d0a589b90cb28bb22a7ee7ae828f9f619a
+U
+%src/Controller/ADMIN_EmpMgmtCTRL.java,3\4\346347960c6d11a983239f1526ca8637b932ff5c
+Z
+*src/Controller/ADMIN_FingerprintsCTRL.java,9\2\920cf56150bc9f1ee112cf145298860d2a8a6c2b
+H
+src/Style/admin_pane.css,f\4\f4d27e31cb20a44588fa650b9ac435a87a6a76b0
+=
+src/Main.java,9\2\924f089edb4af5ee45c8a9d1129cd28e2b368138
+R
+"src/Controller/ADMIN_PaneCTRL.java,e\7\e7d124edbe0e04f7c124bf3f68182b7682dabc8e
+L
+src/Utilities/SoundUtil.java,e\d\edd30e257fd3d61955394790bf31ef5b34274733
+`
+0src/Controller/FP_IdentificationSuccessCTRL.java,8\2\822d59778e4b57e145abe05b8be83e7461f7debd
+H
+src/View/ADMIN_Pane.fxml,d\6\d6bef3ee47dc958f6c8b26b7b836b2e76834dc05
+L
+src/Style/admin_pane_old.css,c\1\c12722e8cb85814c47f0e2723e8f9408c8feacec
+K
+src/View/ADMIN_EmpMgmt.fxml,9\6\96116d6e809672d38b1b4dda8969b88a68119726
+O
+src/View/ADMIN_Assignments.fxml,f\4\f41e39b68f41c8b4a051611ec2164e39cb7b52c0
+P
+ src/View/ADMIN_Fingerprints.fxml,1\8\1873d4034e71aff2b5ec63314ed73c50d4edce16
+X
+(src/Controller/ADMIN_AttReportsCTRL.java,b\a\ba95508b047166636f38a7a6b6f6ede58114414c
+W
+'src/Controller/ADMIN_DashboardCTRL.java,e\4\e400c8d7e7b267d9985ace0962ffc9d134b929b0
+R
+"src/Fingerprint/CaptureThread.java,9\c\9cb45870c97111c8f58f946260efeb7bbf71cda3
+U
+%src/Fingerprint/EnrollmentThread.java,9\4\94b00d699f9e3a29d482489bb73cda969aba7304
+O
+src/View/FP_Identification.fxml,c\3\c376d3adabc4402ac609a727660e0f6f6862db69
+T
+$src/Controller/ADMIN_AddEmpCTRL.java,4\7\474a8393fde6075d3b78b0f001ba56060e479aef
+I
+src/Model/Attendance.java,e\d\edf76e4bf6ead7ff1e0f18b4a47bdeebcff31136
+O
+src/Model/Special_Calendar.java,d\a\da67de1aa51fa6ed90afa00fa03b066585d5ac9b
+I
+src/Model/Assignment.java,b\1\b120b4089d89157ac046092ad1cfd6d7443730b2
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+I
+src/Utilities/Filter.java,6\1\619dcec2f51cf2e1e26c65eaf8dd2effb63e29be
+L
+src/Utilities/ImageUtil.java,c\f\cf13ea9b3a806a912f3fbe7a539a472a8ec519f1
+H
+src/Utilities/Modal.java,1\4\143062ed54dda488fdb3bd0392bf750a2046319f

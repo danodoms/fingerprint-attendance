@@ -3,16 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
-import Utilities.DatabaseUtil;
-import Controller.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import Utilities.DatabaseUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.sql.*;
 
 /**
  *
@@ -21,6 +17,7 @@ import javafx.collections.ObservableList;
 public class Department {
     private int id;
     private String departmentName;
+    private int status;
    public static String defaultValue = "Select Department";
     
     public Department(int id, String departmentName){
@@ -31,7 +28,21 @@ public class Department {
     public Department(String departmentName){
         this.departmentName = departmentName;
     }
-    
+
+    public Department(int id, String departmentName, int status){
+        this.id = id;
+        this.departmentName = departmentName;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }
@@ -61,12 +72,13 @@ public class Department {
         ObservableList<Department> departments = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
-            ResultSet rs = statement.executeQuery("SELECT department_id, department_name FROM department");
+            ResultSet rs = statement.executeQuery("SELECT department_id, department_name, status FROM department");
             
             while (rs.next()) {
                   departments.add(new Department(
                           rs.getInt("department_id"),
-                 rs.getString("department_name")
+                        rs.getString("department_name"),
+                    rs.getInt("status")
                   ));
             }
 

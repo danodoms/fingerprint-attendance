@@ -79,9 +79,7 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     @FXML
     private ImageView userImageView;
     @FXML
-    private TextField searchFilterField;
-
-    /**
+    private TextField searchFilterField;    /**
      * Initializes the controller class.
      */
     @Override
@@ -145,8 +143,6 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
             }
             return false;
         });
-
-
 
         //then, filter based on searchFilterField, store in new list
         filteredUsers = filteredUsers.filtered(user -> {

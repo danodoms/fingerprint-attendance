@@ -5,15 +5,9 @@
 package Controller;
 
 import Model.Attendance;
-import static Model.Attendance.getEmpToPieChart;
 import Model.User;
-import static Model.User.getUserGender;
 import Utilities.DatabaseUtil;
 import Utilities.PaneUtil;
-import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -25,9 +19,16 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+
+import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import static Model.Attendance.getEmpToPieChart;
+import static Model.User.getUserGender;
 
 /**
  * FXML Controller class
@@ -69,8 +70,8 @@ public class ADMIN_DashboardCTRL implements Initializable {
                 Platform.runLater(() -> {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, yyyy-MM-dd");
                     DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm:ss");
-                    displayDateLabel.setText(LocalDateTime.now().format(formatter));
-                    timeLabel.setText(LocalDateTime.now().format(formatter1));
+                    //displayDateLabel.setText(LocalDateTime.now().format(formatter));
+                    //timeLabel.setText(LocalDateTime.now().format(formatter1));
                 });
             }
         };

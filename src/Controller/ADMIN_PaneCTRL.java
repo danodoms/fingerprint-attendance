@@ -149,14 +149,14 @@ public class ADMIN_PaneCTRL implements Initializable {
     
     // Event handler to set pressed style
     private void setPressedStyle(Button button) {
-        button.setStyle("-fx-background-color: #07f9a2;"
-                + "-fx-text-fill: #1a1a1a; ");
+        button.setStyle("-fx-background-color: #1a1a1a;"
+                + "-fx-text-fill: #07f9a2; ");
     }
 
     // Event handler to set default style
     private void setDefaultStyle(Button button) {
         button.setStyle("-fx-background-color: transparent;");
-        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #07f9a2"));
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #1a1a1a"));
         //button.setOnMouseEntered(e -> button.setStyle("-fx-text-fill: #1a1a1a;"));
         button.setOnMouseExited(e -> {
         if (!button.isFocused()) {

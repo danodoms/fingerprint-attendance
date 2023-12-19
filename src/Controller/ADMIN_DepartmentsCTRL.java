@@ -46,7 +46,9 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
     private TextField departmentNameField;
     @FXML
     private TextArea departmentDescTextArea;
-    
+    @FXML
+    private ChoiceBox statusFilterChoiceBox;
+
     Department selectedDept= null;
     /**
      * Initializes the controller class.
@@ -58,6 +60,15 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
         col_id.setCellValueFactory(new PropertyValueFactory<Department, String>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<Department, String>("departmentName"));
         //col_description.setCellValueFactory(new PropertyValueFactory<Department, String>());
+
+        //STATUS FILTER
+        statusFilterChoiceBox.getItems().addAll("Active", "Inactive");
+        statusFilterChoiceBox.setValue("Active");
+
+        statusFilterChoiceBox.setOnAction((event) -> {
+            loadDepartmentTable();
+        });
+
         
         loadDepartmentTable();
         //showAddBtnOnly();
@@ -65,7 +76,18 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
     
     private void loadDepartmentTable(){
         ObservableList<Department> departments = Department.getDepartments();
-        departmentTable.setItems(departments);
+
+        //filter the departements based on the status filter, store in a new observable list, use native methods
+        ObservableList<Department> filteredDepartments = departments.filtered(department -> {
+            if(statusFilterChoiceBox.getValue().equals("Active")){
+                return department.getStatus() == 1;
+            }else{
+                return department.getStatus() == 0;
+            }
+        });
+
+        departmentTable.setItems(filteredDepartments);
+
     }
 
 

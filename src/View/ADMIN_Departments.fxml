@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.ADMIN_DepartmentsCTRL">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_DepartmentsCTRL">
    <children>
       <Label layoutX="27.0" layoutY="31.0" text="Department">
          <font>
@@ -36,7 +35,7 @@
                   <Insets right="5.0" />
                </padding>
             </Label>
-            <ChoiceBox prefHeight="25.0" prefWidth="165.0">
+            <ChoiceBox fx:id="statusFilterChoiceBox" prefHeight="25.0" prefWidth="165.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>

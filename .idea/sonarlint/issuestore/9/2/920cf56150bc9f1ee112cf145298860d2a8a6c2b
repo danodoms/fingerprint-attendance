@@ -1,0 +1,25 @@
+
+E
+java:S37407"/Provide the parametrized type for this generic.(ãÿ¶í
+n
+java:S2293A"YReplace the type specification in this constructor call with the diamond operator ("<>").(áó„G
+t
+java:S2293B"YReplace the type specification in this constructor call with the diamond operator ("<>").(ó÷˜øÿÿÿÿ
+g	java:S101""MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(©Úûÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
+f	java:S116'"QRename this field "col_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒŞ¬—
+h	java:S116)"SRename this field "col_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨½¯”
+H
+java:S1135@"2Complete the task associated to this TODO comment.(…ïœ†
+N
+java:S1611I"3Remove the parentheses around the "event" parameter(–­•Íşÿÿÿÿ
+G
+java:S1602I",Remove useless curly braces around statement(–­•Íşÿÿÿÿ
+G
+java:S1602N",Remove useless curly braces around statement(÷Öªäøÿÿÿÿ
+F	java:S106Š"+Replace this use of System.out by a logger.(’¸¸ôûÿÿÿÿ
+A	java:S106£"+Replace this use of System.out by a logger.(¾…ı¸
+F	java:S106¨"+Replace this use of System.out by a logger.(ëÂş±ûÿÿÿÿ
+R	java:S125Å"<This block of commented-out lines of code should be removed.(ßÑÿ
+R	java:S125Ê"<This block of commented-out lines of code should be removed.(¶Ü‘î
+R	java:S125Ğ"<This block of commented-out lines of code should be removed.(öÇ‹Ë
