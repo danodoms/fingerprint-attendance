@@ -42,6 +42,7 @@ public class PaneUtil {
     public final String FP_IDENTIFICATION = "/View/FP_Identification.fxml";
     public final String FP_IDENTIFICATION_SUCCESS = "/View/FP_IdentificationSuccess.fxml";
     public final String FP_IDENTIFICATION_FAIL = "/View/FP_IdentificationFail.fxml";
+    public final String FP_CONFIRM_ACTION = "/View/FP_ConfirmAction.fxml";
     
     
     

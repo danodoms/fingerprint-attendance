@@ -48,12 +48,6 @@ public class IdentificationModal {
 //    }
 
     public void displayIdentificationSuccess(int delayTimeInMs, User user) {
-//        String fname = user.getFname();
-//        String mname = user.getMname();
-//        String lname = user.getLname();
-//        String suffix = user.getSuffix();
-//        String fullName = StringUtil.createFullNameWithInitial(fname, mname, lname, suffix);
-
         try {
             // Load the FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.FP_IDENTIFICATION_SUCCESS));
@@ -61,6 +55,27 @@ public class IdentificationModal {
 
             FP_IdentificationSuccessCTRL controller = loader.getController();  // Access the controller
             controller.setUserData(delayTimeInMs, user);// Set user data
+
+            // Create a new stage for the window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.millis(delayTimeInMs), event -> stage.close())
+            );
+            timeline.play();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void displayConfirmAction(int delayTimeInMs) {
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.FP_CONFIRM_ACTION));
+            Parent root = loader.load();
+
 
             // Create a new stage for the window
             Stage stage = new Stage();

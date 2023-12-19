@@ -9,6 +9,9 @@ package Fingerprint;
  * @author admin
  */
 public class ThreadFlags {
-    public static volatile boolean running = true;
-    
+    public static volatile boolean runIdentificationThread = false;
+    public static volatile boolean runVerificationThread = false;
+
+    //flag used by VerificationThread to check if fingerprint is matched
+    public static volatile boolean isFingerprintMatched = false;
 }

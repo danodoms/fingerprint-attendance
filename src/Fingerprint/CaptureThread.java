@@ -18,16 +18,20 @@ import javafx.scene.image.ImageView;
 public class CaptureThread extends Thread{
     private ImageView imageview;
     private CaptureEvent lastCapture;
-//    public Stage stage;
-//    public boolean isRunning = true;
+    private String threadName;
     
     public CaptureThread(ImageView imageview){
         this.imageview = imageview;
 
     }
+
+    public CaptureThread(String threadName){
+        this.threadName = threadName;
+
+    }
     
-    public void startCapture(ImageView imageview) {
-        int counter = 0;
+    public void startCapture() {
+        System.out.println(threadName + ": Capture Thread Started");
         try {
             //null checking for reader before executing the lines below
             if(Selection.reader == null){
@@ -35,31 +39,28 @@ public class CaptureThread extends Thread{
                     Selection.reader = Selection.getReader();
                 });
             }else{
-                String readerStatus = Selection.reader.GetStatus()+"";
-                //while (!(readerStatus.equals("FAILURE"))) {
-                System.out.println(counter); counter++;
-
                 System.out.println("Reader Status: " + Selection.reader.GetStatus());
                 Reader.CaptureResult captureResult = Selection.reader.Capture(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
+
                 lastCapture = new CaptureEvent(captureResult, Selection.reader.GetStatus());
                 System.out.println("Capture quality: " + captureResult.quality);
-                readerStatus = Selection.reader.GetStatus()+"";
 
                 //Store sigle fingerprint view
                 Fid fid = captureResult.image;
                 Fid.Fiv view = fid.getViews()[0];
 
                 //Display fingerprint image on imageview
-                Display.displayFingerprint(view, imageview);
-                //}
-                //System.out.println("Reader timed out");
+                if(imageview != null){
+                    Display.displayFingerprint(view, imageview);
+                }
             }
 
 
                 
             } catch (UareUException ex) {
                 ex.printStackTrace();
-        }
+            }
+        System.out.println(threadName + ": Capture Thread Stopped");
     }
     
     public void startStream(ImageView imageview) {
@@ -68,7 +69,7 @@ public class CaptureThread extends Thread{
             Selection.reader.Open(Reader.Priority.COOPERATIVE);
             Selection.reader.StartStreaming();
             
-                while (ThreadFlags.running) {
+                while (true) {
                     System.out.println(counter); counter++;
 
                     System.out.println("Reader Status: " + Selection.reader.GetStatus());
@@ -105,20 +106,9 @@ public class CaptureThread extends Thread{
     public CaptureEvent getLastCapture(){
         return lastCapture;
     }
-    
-//    public void stopCapture() {
-//        isRunning = false;
-//
-//        try {
-//            System.out.println("Capture Stopped");
-//            reader.Close();
-//        } catch (UareUException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
 
     @Override
     public void run(){
-        startCapture(imageview);
+        startCapture();
     }
 }

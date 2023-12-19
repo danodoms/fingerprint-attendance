@@ -3,10 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Utilities;
-import java.io.File;
+
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 /**
  *
@@ -18,16 +16,30 @@ public class SoundUtil {
 
     
      public static void playSuccessSound() {
-         
-//        String musicFile = "success.wav";     // For example
-//        Media sound = new Media(new File(musicFile).toURI().toString());
-//        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-//        mediaPlayer.play();
-        
-        
-//        AudioClip buzzer = new AudioClip(getClass().getResource("success.wav").toExternalForm());
-//        buzzer.play();
+         AudioClip buzzer = new AudioClip(SoundUtil.class.getResource("/Audio/success.wav").toExternalForm());
+         buzzer.play();
+     }
+
+     public static void playFailSound() {
+         AudioClip buzzer = new AudioClip(SoundUtil.class.getResource("/Audio/fail.wav").toExternalForm());
+         buzzer.play();
+     }
+
+    public static void playTimeOutSound() {
+        AudioClip buzzer = new AudioClip(SoundUtil.class.getResource("/Audio/timeOut.mp3").toExternalForm());
+        buzzer.play();
     }
+
+    public static void playPromptSound() {
+        AudioClip buzzer = new AudioClip(SoundUtil.class.getResource("/Audio/prompt.mp3").toExternalForm());
+        buzzer.play();
+    }
+
+    public static void playDenySound() {
+        AudioClip buzzer = new AudioClip(SoundUtil.class.getResource("/Audio/deny.mp3").toExternalForm());
+        buzzer.play();
+    }
+
     
     
 }

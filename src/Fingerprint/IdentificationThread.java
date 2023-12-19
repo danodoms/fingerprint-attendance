@@ -7,6 +7,7 @@ package Fingerprint;
 import Model.Fingerprint;
 import Model.User;
 import Utilities.PaneUtil;
+import Utilities.SoundUtil;
 import com.digitalpersona.uareu.Engine;
 import com.digitalpersona.uareu.Engine.Candidate;
 import com.digitalpersona.uareu.Fmd;
@@ -15,7 +16,6 @@ import com.digitalpersona.uareu.UareUGlobal;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.AudioClip;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -38,6 +38,8 @@ public class IdentificationThread extends Thread{
     int delayTimeInMs = 5000;
     
     private boolean headlessMode = false;
+
+    private boolean isFingerprintMatched = false;
     
     
     //constructor with fingerprint display
@@ -45,32 +47,37 @@ public class IdentificationThread extends Thread{
         this.imageview = imageview;
     }
     
-    
-    
+
     //default constructor
     public IdentificationThread(){
         headlessMode = true;
     }
-    
-     
+
     
     //called by the run method for starting the identification process
     public void startIdentification(ImageView imageview) throws InterruptedException, UareUException{
         Selection.closeAndOpenReader();
+        ThreadFlags.runIdentificationThread = true;
 
         //print identification thread started
         System.out.println("Identification Thread Started");
-        while(ThreadFlags.running) {
+        while(ThreadFlags.runIdentificationThread && ThreadFlags.runVerificationThread == false) {
             Fmd fmdToIdentify = getFmdFromCaptureThread(imageview);
             Fmd[] databaseFmds = getFmdsFromDatabase();
             compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
         }
+        ThreadFlags.runIdentificationThread = false;
+        System.out.println("Identification Thread Stopped");
     }
     
       
     
     //first method used in "startIdentification"
     private Fmd getFmdFromCaptureThread(ImageView imageview)throws UareUException, InterruptedException{
+        while(ThreadFlags.runVerificationThread){
+            System.out.println("Waiting for verification   thread to end capture");
+            Thread.sleep(1000);
+        }
         captureThread = new CaptureThread(imageview);
         captureThread.start();
         captureThread.join(0); //wait till done
@@ -153,26 +160,8 @@ public class IdentificationThread extends Thread{
     private void userIdentificationSuccess(int userId){
         
         User user = User.getUserByUserId(userId);
-//        String fname = user.getFname();
-//        String mname = user.getMname();
-//        String lname = user.getLname();
-//        String suffix = user.getSuffix();
-//        if(suffix == null){
-//            suffix = "";
-//        }
-        
-//        byte[] userImage = user.getImage();
-        
-//        String fullName = StringUtil.createFullNameWithInitial(fname, mname, lname, suffix);
-//        System.out.println("You are " + fullName);
+
         //SoundUtil.playSuccessSound();
-        
-        //ADD A METHOD THAT VERIFIES FIRST IF USER HAS ALREADY TIMED IN/OUT, DO IT BY QUERYING THE ATTENDANCE RECORD
-        //if(hasTimedInOrOut(userId))
-        
-        
-        AudioClip buzzer = new AudioClip(getClass().getResource("/Audio/success.wav").toExternalForm());
-        buzzer.play();
         Platform.runLater(() -> {
             //controllerUtils.openAndClosePane(controllerUtils.FP_IDENTIFICATION_SUCCESS, 2250);
             identificationModal.displayIdentificationSuccess(delayTimeInMs, user);
@@ -189,21 +178,12 @@ public class IdentificationThread extends Thread{
     
     
     private void userIdentificationFailed(){
-        AudioClip buzzer = new AudioClip(getClass().getResource("/Audio/fail.wav").toExternalForm());
-        buzzer.play();
-        
-        
+
+        SoundUtil.playFailSound();
         Platform.runLater(() -> {
             identificationModal.displayIdentificationFail(1500);
         });  
     }
-    
-    
-    
-    private void hasTimedInOrOut(){
-        
-    }
-    
     
     
     //This method is used by enrollmentThread to check if the current FMD captured is already enrolled
@@ -222,7 +202,7 @@ public class IdentificationThread extends Thread{
     
     
     public void stopIdentificationThread() throws UareUException{
-        ThreadFlags.running = false;
+        ThreadFlags.runIdentificationThread = false;
         System.out.println("Identification Thread Stopped");
         Selection.reader.Close();
     }

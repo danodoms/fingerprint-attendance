@@ -686,15 +686,49 @@ public void setTimeOutPm(String timeOutPm) {
         }
     }
 
+    public static boolean userHasTimeOutBetween(int userId, String startTime, String endTime) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     //"SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_in IS NOT NULL ORDER by time_in desc limit 1")) {
+                     "SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_out BETWEEN ? AND ?")){
+            statement.setInt(1, userId);
+            statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            statement.setString(3, startTime);
+            statement.setString(4, endTime);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1) > 0; // Check if there is at least one record
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Assume no time-in record on error
+        }
+    }
+
     public static boolean userHasTimeOutToday(int userId) {
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_out IS NOT NULL AND time_in IS NULL")) {
+                     "SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_out IS NOT NULL AND time_in IS NOT NULL")) {
             statement.setInt(1, userId);
             statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return resultSet.getInt(1) > 0; // Check if there is at least one record
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Assume no time-out record on error
+        }
+    }
+
+    public static boolean userHasReachedDailyAttendanceLimit(int userId, int attendanceLimit) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_in IS NOT NULL AND time_out IS NOT NULL")) {
+            statement.setInt(1, userId);
+            statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1) >= attendanceLimit; // Check if there is at least one record
         } catch (SQLException e) {
             e.printStackTrace();
             return false; // Assume no time-out record on error
