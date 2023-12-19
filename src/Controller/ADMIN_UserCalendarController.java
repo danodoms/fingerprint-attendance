@@ -119,7 +119,9 @@ public class ADMIN_UserCalendarController implements Initializable{
     public void clear(){
             typeComBox.setValue("Holiday");
             descField.setText("");
+            attachmentField.setText("");
             descField.setPromptText("Add description . . .");
+            attachmentField.setPromptText("Add Link . . .");
             startPicker.setValue(null);
             endPicker.setValue(null);
             insertBtn.setDisable(false);
