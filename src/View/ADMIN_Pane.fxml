@@ -51,7 +51,7 @@
             </VBox>
          </children>
       </HBox>
-      <VBox id="navVbox" layoutY="82.0" prefHeight="518.0" prefWidth="209.0" stylesheets="@../Style/admin_pane.css">
+      <VBox id="navVbox" layoutY="82.0" prefHeight="518.0" prefWidth="196.0" stylesheets="@../Style/admin_pane.css">
          <children>
             <VBox prefHeight="441.0" prefWidth="223.0" snapToPixel="false">
                <children>

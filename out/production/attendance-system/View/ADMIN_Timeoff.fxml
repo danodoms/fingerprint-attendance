@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="802.0" minHeight="600.0" minWidth="802.0" prefHeight="0.0" prefWidth="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_TimeoffCTRL">
+   <children>
+      <Pane prefHeight="600.0" prefWidth="803.0" style="-fx-background-color: linear-gradient(to bottom, #7AE582 50%, #9FFFCB 100%);">
+         <children>
+            <Pane layoutX="5.0" layoutY="54.0" prefHeight="542.0" prefWidth="218.0" style="-fx-background-color: white;">
+               <children>
+                  <TableView fx:id="empNameTable" layoutX="9.0" layoutY="72.0" onMouseClicked="#selectEmployeeTimeOff" prefHeight="464.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="user_id" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="empName" prefWidth="124.0" text="Employee Name" />
+                     </columns>
+                  </TableView>
+                  <TextField fx:id="searchBar" layoutX="9.0" layoutY="42.0" maxWidth="231.0" onKeyReleased="#filterBySearchBar" prefHeight="25.0" prefWidth="200.0" promptText="Search name..." />
+                  <Line endX="94.29289245605469" layoutX="108.0" layoutY="18.0" startX="-90.0" stroke="#07f9a2" strokeWidth="37.0" />
+                  <Line endX="-100.0" endY="549.0" layoutX="322.0" layoutY="-3.0" startX="-100.0" />
+                  <Label layoutX="14.0" layoutY="2.0" prefHeight="32.0" prefWidth="200.0" text="SELECT EMPLOYEE" textFill="#f8f4f4">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="230.0" layoutY="54.0" prefHeight="542.0" prefWidth="564.0" style="-fx-background-color: white; -fx-border-color: #07f9a2;">
+               <children>
+                  <Line endX="388.79290771484375" layoutX="157.0" layoutY="18.0" startX="-138.20709228515625" stroke="#07f9a2" strokeWidth="37.0" />
+                  <Label layoutX="160.0" layoutY="2.0" prefHeight="32.0" prefWidth="218.0" text="EMPLOYEE TIMEOFF" textFill="#f8f4f4">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="specialCalTable" layoutX="5.0" layoutY="42.0" prefHeight="262.0" prefWidth="551.0">
+                     <columns>
+                        <TableColumn fx:id="calTypeCol" prefWidth="88.0" text="Calendar Type" />
+                        <TableColumn fx:id="descCol" minWidth="102.0" prefWidth="115.0" text="Description" />
+                        <TableColumn fx:id="attachmentCol" minWidth="51.0" prefWidth="91.0" text="Attachment" />
+                        <TableColumn fx:id="startDCol" minWidth="57.0" prefWidth="87.0" text="Start Date" />
+                        <TableColumn fx:id="endDCol" minWidth="57.0" prefWidth="86.0" text="End Date" />
+                        <TableColumn fx:id="totalCol" maxWidth="99.0" minWidth="68.99993896484375" prefWidth="82.99993896484375" text="Total Day(s)" />
+                     </columns>
+                  </TableView>
+                  <Line endX="388.79290771484375" layoutX="157.0" layoutY="367.0" startX="-138.20709228515625" stroke="#07f9a2" strokeWidth="37.0" />
+                  <Label layoutX="113.0" layoutY="352.0" prefHeight="32.0" prefWidth="355.0" text="MANAGE EMPLOYEE TIMEOFF" textFill="#f8f4f4">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="186.0" layoutY="475.0" text="Start Date :" />
+                  <Label layoutX="192.0" layoutY="510.0" text="End Date :" />
+                  <DatePicker fx:id="startPicker" layoutX="249.0" layoutY="472.0" prefHeight="25.0" prefWidth="167.0" />
+                  <DatePicker fx:id="endPicker" layoutX="250.0" layoutY="506.0" prefHeight="25.0" prefWidth="167.0" />
+                  <TextField fx:id="descField" alignment="TOP_LEFT" layoutX="251.0" layoutY="403.0" prefHeight="25.0" prefWidth="167.0" promptText="Add Description . . ." />
+                  <Label layoutX="16.0" layoutY="403.0" text="Leave Type :" />
+                  <ChoiceBox fx:id="typeComBox" layoutX="86.0" layoutY="401.0" prefHeight="25.0" prefWidth="86.0" />
+                  <VBox alignment="CENTER" layoutX="426.0" layoutY="391.0" prefHeight="145.0" prefWidth="133.0">
+                     <children>
+                        <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateTimeoff" prefHeight="32.0" prefWidth="125.0" text="UPDATE">
+                           <opaqueInsets>
+                              <Insets bottom="2.0" left="2.0" top="2.0" />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="insertBtn" mnemonicParsing="false" onAction="#addTimeoff" prefHeight="32.0" prefWidth="125.0" text="INSERT">
+                           <opaqueInsets>
+                              <Insets left="2.0" top="2.0" />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateTimeoff" prefHeight="32.0" prefWidth="125.0" text="DEACTIVATE">
+                           <opaqueInsets>
+                              <Insets left="2.0" top="2.0" />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearManage" prefHeight="32.0" prefWidth="125.0" text="CLEAR">
+                           <opaqueInsets>
+                              <Insets left="2.0" top="2.0" />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets bottom="2.0" left="2.0" top="2.0" />
+                     </opaqueInsets>
+                  </VBox>
+                  <Button fx:id="selectBtn" layoutX="430.0" layoutY="310.0" mnemonicParsing="false" onAction="#handleSelectBtn" prefHeight="32.0" prefWidth="125.0" text="SELECT" />
+                  <Line endX="470.79290771484375" layoutX="99.0" layoutY="350.0" startX="-100.0" />
+                  <Label layoutX="178.0" layoutY="441.0" text="Attachment :" />
+                  <TextField fx:id="attachmentField" layoutX="250.0" layoutY="438.0" prefHeight="25.0" prefWidth="167.0" promptText="Add Link . . ." />
+                  <Label layoutX="8.0" layoutY="438.0" text="Employee ID :" />
+                  <Label fx:id="empIdLabel" layoutX="101.0" layoutY="439.0" prefHeight="17.0" prefWidth="73.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="43.0" layoutY="473.0" text="Off ID :" />
+                  <Label fx:id="userOffIdLabel" layoutX="101.0" layoutY="475.0" prefHeight="17.0" prefWidth="73.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="userOffIdLabelTag" layoutX="16.0" layoutY="511.0" text="User Off ID :" />
+                  <Label fx:id="timeOffIDLabel" layoutX="101.0" layoutY="511.0" prefHeight="17.0" prefWidth="73.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="180.0" layoutY="407.0" text="Description :" />
+                  <Line endX="332.5" endY="643.5" layoutX="-160.0" layoutY="-113.0" startX="332.5" startY="513.5" stroke="#215424" />
+                  <Line endX="322.79290771484375" endY="532.5" layoutX="-151.0" layoutY="-102.0" startX="151.0" startY="532.5" stroke="#215424" />
+                  <Line endX="322.79290771484375" endY="532.5" layoutX="-152.0" layoutY="-70.0" startX="151.0" startY="532.5" stroke="#215424" />
+                  <Line endX="322.79290771484375" endY="532.5" layoutX="-151.0" layoutY="-36.0" startX="151.0" startY="532.5" stroke="#215424" />
+               </children>
+            </Pane>
+            <Line endX="-100.0" endY="550.0" layoutX="900.0" layoutY="51.0" startX="-100.0" />
+            <Line endX="701.5" endY="-0.5" layoutX="101.0" layoutY="52.0" startX="-100.0" />
+         </children>
+      </Pane>
+      <Line fx:id="topLine" endX="651.0" layoutX="126.0" layoutY="25.0" startX="-100.0" stroke="#08c281" strokeMiterLimit="2.0" strokeWidth="51.0" />
+      <Label layoutX="209.0" layoutY="9.0" text="SPECIAL CALENDAR RECORD" textFill="#fcf7f7">
+         <font>
+            <Font name="Berlin Sans FB" size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

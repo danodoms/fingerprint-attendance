@@ -1,0 +1,21 @@
+
+g	java:S101&"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ÿÚúıÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
+q
+java:S2095y"VUse try-with-resources or close this "ScheduledExecutorService" in a "finally" clause.(ˆÁôÿÿÿÿÿ
+=
+java:S16591"'Declare "timeLabel" on a separate line.(Ï™Ã³
+B
+java:S2440'",Remove this instantiation of "DatabaseUtil".(éÿ¯
+P
+java:S1481G".Remove this unused "formatter" local variable.(¤íÜ½øÿÿÿÿ8‘©‡ëÇ1
+L
+java:S1481H"/Remove this unused "formatter1" local variable.(•¼Ø8•©‡ëÇ1
+X	java:S125I"<This block of commented-out lines of code should be removed.(÷ÌçÀ8š©‡ëÇ1
+Q	java:S125T"<This block of commented-out lines of code should be removed.(ùŸÿÔ
+W
+java:S3252\"AUse static access with "javafx.scene.chart.XYChart" for "Series".(ìç¶†
+W
+java:S3252]"AUse static access with "javafx.scene.chart.XYChart" for "Series".(ø­ı‡
+E	java:S106b"+Replace this use of System.out by a logger.(èâ€ıÿÿÿÿ
+V	java:S125o"<This block of commented-out lines of code should be removed.(®£¦Âûÿÿÿÿ

@@ -1,0 +1,14 @@
+
+n	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÄÍû
+P
+java:S1118":Add a private constructor to hide the implicit public one.(Æë…
+E	java:S106"+Replace this use of System.out by a logger.(’é©Ùúÿÿÿÿ
+O
+java:S1128"9Remove this unused import 'com.digitalpersona.uareu.Fid'.(¿šşá
+T
+java:S1128"9Remove this unused import 'java.awt.image.BufferedImage'.(×íĞ‡şÿÿÿÿ
+W
+java:S1128
+"<Remove this unused import 'javafx.embed.swing.SwingFXUtils'.(‡Ç›†ıÿÿÿÿ
+T
+java:S1128"9Remove this unused import 'javafx.scene.image.ImageView'.(áÿ®Ãüÿÿÿÿ

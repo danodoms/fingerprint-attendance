@@ -101,7 +101,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-border-color: -color-base;
     -fx-background-radius: 20;
     -fx-border-radius: 10px;
-    -fx-border-width: 10;
+    /*-fx-border-width: 10;*/
 }
 
 

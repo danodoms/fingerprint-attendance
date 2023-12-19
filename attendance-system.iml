@@ -11,6 +11,8 @@
     <orderEntry type="library" name="JavaFX" level="application" />
     <orderEntry type="library" name="mysql-connector-j-8.1.0" level="application" />
     <orderEntry type="library" name="dpuareu" level="application" />
+    <orderEntry type="library" name="poi-ooxml-3.10-FINAL" level="application" />
+    <orderEntry type="library" name="appengine-awt-1.0.0" level="application" />
   </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="211eb524-93aa-46c8-9571-f82b0887931a" />

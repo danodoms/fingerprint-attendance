@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -7,34 +8,64 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="802.0" minHeight="600.0" minWidth="802.0" prefHeight="0.0" prefWidth="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AttReportsCTRL">
    <children>
-      <Line endX="452.5" layoutX="329.0" layoutY="497.0" startX="303.5" stroke="#07f9a2" strokeWidth="37.0" />
       <TextField fx:id="searchBar" layoutX="12.0" layoutY="138.0" maxWidth="231.0" onKeyReleased="#filterBySearchBar" prefHeight="25.0" prefWidth="200.0" promptText="Search name..." />
       <Label layoutX="233.0" layoutY="525.0" prefHeight="18.0" prefWidth="56.0" text="Month :" />
       <ChoiceBox fx:id="monthChoiceBox" layoutX="233.0" layoutY="546.0" prefHeight="25.0" prefWidth="114.0" />
       <ChoiceBox fx:id="yearChoiceBox" layoutX="364.0" layoutY="546.0" prefHeight="25.0" prefWidth="114.0" />
       <Label layoutX="364.0" layoutY="526.0" prefHeight="18.0" prefWidth="37.0" text="Year :" />
-      <TableView fx:id="empNameTable" layoutX="11.0" layoutY="176.0" onMouseClicked="#selectEMployee" prefHeight="398.0" prefWidth="200.0">
+      <TableView fx:id="empNameTable" layoutX="11.0" layoutY="176.0" onMouseClicked="#selectEMployee" prefHeight="345.0" prefWidth="200.0">
         <columns>
             <TableColumn fx:id="user_id" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="empName" prefWidth="124.0" text="Employee Name" />
         </columns>
       </TableView>
-      <Label fx:id="monthYearLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="611.0" layoutY="192.0" prefHeight="26.0" prefWidth="160.0" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font></Label>
-      <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="610.0" layoutY="120.0" prefHeight="26.0" prefWidth="160.0" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font></Label>
       <Button fx:id="resetBtn" layoutX="495.0" layoutY="535.0" mnemonicParsing="false" onAction="#resetSelectedItems" prefHeight="37.0" prefWidth="95.0" text="RESET" />
-      <Label layoutX="609.0" layoutY="95.0" prefHeight="17.0" prefWidth="46.0" text="Name :" />
-      <Label layoutX="612.0" layoutY="168.0" prefHeight="17.0" prefWidth="77.0" text="Month/Year :" />
+      <VBox layoutX="601.0" layoutY="92.0" prefHeight="134.0" prefWidth="191.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="46.0" text="Name :">
+               <VBox.margin>
+                  <Insets left="5.0" top="2.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="191.0" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Line endX="91.29289245605469" endY="7.748603820800781E-7" startX="-100.0">
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </Line>
+            <Label prefHeight="17.0" prefWidth="77.0" text="Month/Year :">
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="monthYearLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="191.0" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Line endX="90.29289245605469" endY="-0.621320366859436" startX="-100.0">
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </Line>
+         </children>
+      </VBox>
       <Label fx:id="dateTimeLabel" layoutX="24.0" layoutY="99.0" prefHeight="21.0" prefWidth="200.0">
          <font>
             <Font size="20.0" />
@@ -75,10 +106,6 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="613.0" layoutY="336.0" prefHeight="17.0" prefWidth="138.0" text="Total Late :" />
-      <Label layoutX="613.0" layoutY="414.0" prefHeight="17.0" prefWidth="95.0" text="Total Absent :" />
-      <Line endX="58.5" layoutX="712.0" layoutY="399.0" startX="-100.0" />
-      <Line endX="54.5" layoutX="715.0" layoutY="463.0" startX="-100.0" />
       <Line endX="715.5" layoutX="78.0" layoutY="591.0" startX="-68.0" stroke="#08c281" strokeWidth="20.0" />
       <Line endX="5.0" endY="563.0" layoutX="-3.0" layoutY="18.0" startX="5.0" startY="-17.5" stroke="#659e78" strokeWidth="2.0" />
       <Line endX="5.5" endY="562.0" layoutX="795.0" layoutY="19.0" startX="5.0" startY="-17.5" stroke="#659e78" strokeWidth="2.0" />
@@ -88,35 +115,111 @@
             <Font name="Berlin Sans FB" size="30.0" />
          </font>
       </Label>
-      <Label fx:id="totalLate" alignment="CENTER" contentDisplay="CENTER" layoutX="616.0" layoutY="365.0" prefHeight="26.0" prefWidth="150.0" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="totalAbsent" alignment="CENTER" contentDisplay="CENTER" layoutX="617.0" layoutY="434.0" prefHeight="26.0" prefWidth="148.0">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="byPercent" alignment="CENTER" contentDisplay="CENTER" layoutX="608.0" layoutY="503.0" prefHeight="90.0" prefWidth="182.0" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="50.0" />
-         </font>
-      </Label>
-      <Label layoutX="650.0" layoutY="481.0" prefHeight="32.0" prefWidth="127.0" text="TARDINESS" textFill="#f8f8f8">
-         <font>
-            <Font name="System Bold" size="22.0" />
-         </font>
-      </Label>
-      <Label layoutX="611.0" layoutY="271.0" prefHeight="17.0" prefWidth="138.0" text="Total Working Days :" />
-      <Line endX="58.5" layoutX="712.0" layoutY="321.0" startX="-100.0" />
-      <Label fx:id="totalLogin" alignment="CENTER" contentDisplay="CENTER" layoutX="610.0" layoutY="293.0" prefHeight="26.0" prefWidth="160.0" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Line endX="58.5" layoutX="712.0" layoutY="222.0" startX="-100.0" />
-      <Line endX="58.5" layoutX="712.0" layoutY="148.0" startX="-100.0" />
-      <Line endX="107.5858154296875" layoutX="689.0" layoutY="254.0" startX="-93.5" stroke="#08c281" strokeWidth="6.0" />
+      <Line endX="107.5858154296875" layoutX="689.0" layoutY="232.0" startX="-93.5" stroke="#08c281" strokeWidth="6.0" />
+      <VBox layoutX="600.0" layoutY="235.0" prefHeight="241.0" prefWidth="95.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="101.0" text="Total Work Days :">
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="lateBtn" mnemonicParsing="false" onMouseClicked="#selectEMployeeLate" prefHeight="33.0" prefWidth="95.0" text="Late">
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="absentBtn" mnemonicParsing="false" onMouseClicked="#selectEMployeeAbsent" prefHeight="33.0" prefWidth="95.0" text="Absent">
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="tardBtn" mnemonicParsing="false" onMouseClicked="#selectEMployee" prefHeight="33.0" prefWidth="95.0" text="Tardiness">
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="696.0" layoutY="235.0" prefHeight="241.0" prefWidth="95.0">
+         <children>
+            <Label fx:id="totalLogin" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="56.0" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Label>
+            <Line endX="74.0" startX="-17.0">
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </Line>
+            <Label fx:id="totalLate" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="56.0" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Label>
+            <Line endX="74.0" startX="-17.0">
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </Line>
+            <Label fx:id="totalAbsent" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="56.0">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="35.0" />
+               </VBox.margin>
+            </Label>
+            <Line endX="74.0" startX="-17.0">
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </Line>
+            <Label fx:id="totalTardiness" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="56.0">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="35.0" />
+               </VBox.margin>
+            </Label>
+            <Line endX="74.0" startX="-17.0">
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </Line>
+         </children>
+      </VBox>
+      <VBox layoutX="601.0" layoutY="474.0" prefHeight="102.0" prefWidth="190.0">
+         <children>
+            <Line endX="456.5" startX="303.5" stroke="#07f9a2" strokeWidth="37.0">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Line>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="190.0" text="TARDINESS" textFill="#f8f8f8">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-35.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="byPercent" alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="192.0" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="50.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button fx:id="oneDTRBtn" layoutX="119.0" layoutY="546.0" mnemonicParsing="false" onAction="#generateDTR" prefHeight="25.0" prefWidth="92.0" text="by One" />
+      <Button fx:id="allDTRBtn" layoutX="12.0" layoutY="546.0" mnemonicParsing="false" onAction="#generateDTR" prefHeight="25.0" prefWidth="92.0" text="All" />
+      <Label layoutX="11.0" layoutY="525.0" prefHeight="18.0" prefWidth="163.0" text="Generate Daily TIme Record :" />
    </children>
 </AnchorPane>

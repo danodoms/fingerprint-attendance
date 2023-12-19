@@ -58,7 +58,12 @@ public class CaptureThread extends Thread{
                     cancelCaptureBasedOnDelayTime(delayTimeInMs);
                     Reader.CaptureResult captureResult = Selection.reader.Capture(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
 
+                    //remnove if statement if errors occur
+//                    if(captureResult != null){
+//                        lastCapture = new CaptureEvent(captureResult, Selection.reader.GetStatus());
+//                    }
                     lastCapture = new CaptureEvent(captureResult, Selection.reader.GetStatus());
+
                     System.out.println(threadName + "Capture quality: " + captureResult.quality);
                     runCapture = false;
 
