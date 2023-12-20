@@ -1,0 +1,42 @@
+
+_
+java:S1192h"IDefine a constant instead of duplicating this literal "On Leave" 3 times.(úÍó–
+f	java:S117k"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†Öıÿ
+g	java:S101/"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ª¥”ıÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
+Y
+java:S2583{"CChange this condition so that it does not always evaluate to "true"(¤×¤¡
+g	java:S1164"RRename this field "user_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™‰±›
+Z
+java:S16592"DDeclare "descCol" and all following declarations on a separate line.(ÚñÜ·
+;
+java:S16594"%Declare "user_id" on a separate line.(™‰±›
+?
+java:S16599")Declare "startPicker" on a separate line.(çï‰‘
+B
+java:S1659;"'Declare "startDCol" on a separate line.(°ø°­øÿÿÿÿ
+A
+java:S1659=",Declare "monthChoiceBox" on a separate line.(óªåv
+a
+java:S1659?"FDeclare "descField" and all following declarations on a separate line.(œÏıİûÿÿÿÿ
+a
+java:S1659A"FDeclare "insertBtn" and all following declarations on a separate line.(åÃÍîøÿÿÿÿ
+f
+java:S1659E"KDeclare "userOffIdLabel" and all following declarations on a separate line.(ÂÙÏ£øÿÿÿÿ
+R	java:S125Ó"<This block of commented-out lines of code should be removed.(ÕÅÈ»
+H
+java:S1172„",Remove this unused method parameter "event".(†¥ú…ûÿÿÿÿ
+c
+java:S1128"HRemove this unused import 'com.sun.javafx.logging.PlatformLogger.Level'.(„ŒØ†ùÿÿÿÿ
+K
+java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ
+9
+java:S1128"Remove this duplicated import.(›‘¬èıÿÿÿÿ
+P
+java:S1128$"5Remove this unused import 'javafx.scene.layout.Pane'.(êÄƒÄşÿÿÿÿ
+I
+java:S1128&"3Remove this unused import 'Utilities.DatabaseUtil'.(ÔÔ¢İ
+[
+java:S1128'"@Remove this unused import 'com.mysql.cj.jdbc.CallableStatement'.(¸õäßüÿÿÿÿ
+U
+java:S1128)"?Remove this unused import 'java.time.format.DateTimeFormatter'.(‰÷÷ª

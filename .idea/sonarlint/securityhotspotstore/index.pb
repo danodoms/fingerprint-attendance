@@ -81,3 +81,13 @@ M
 src/Utilities/StringUtil.java,f\b\fb55eabecb0be4d752c79a89bdb50014e82e4ef3
 K
 src/Fingerprint/Prompt.java,2\7\276405cc38aa5f8b7e7c9e9df4da475e81d8c0f7
+K
+src/View/ADMIN_Timeoff.fxml,1\8\18e5e5f9b10a3c6a8d645d3ef91966b1c1e07678
+`
+0src/Controller/ADMIN_UserCalendarController.java,c\4\c4c0fcf4c8880450ce12559cbec0a91b88f4b2c9
+O
+src/Style/dashboardBarChart.css,8\a\8ad54f00e211e6cf575c61294bcb901a976cba80
+U
+%src/Controller/ADMIN_TimeoffCTRL.java,5\c\5cf4f1348fcf93caf0d8d2a35228045130c2dc7a
+F
+src/Model/Timeoff.java,b\c\bcd983809e7b2711a19955bd0862dd2c7df85b83

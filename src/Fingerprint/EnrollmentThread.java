@@ -22,7 +22,7 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     private ImageView imageview;
     private int userIdToEnroll;
     private CaptureThread captureThread;
-    private int requiredFmdToEnroll = 2; //Default is 4
+    private int requiredFmdToEnroll = 1; //Default is 4
     public Engine engine = UareUGlobal.GetEngine();
     IdentificationThread identificationThread = new IdentificationThread();
     ArrayList<Fmd> fmdList = new ArrayList<>();

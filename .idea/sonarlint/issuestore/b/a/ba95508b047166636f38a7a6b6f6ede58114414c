@@ -1,211 +1,210 @@
 
 e
-java:S1192_"JDefine a constant instead of duplicating this literal "September" 4 times.(«ÎÇéşÿÿÿÿ
+java:S1192U"JDefine a constant instead of duplicating this literal "September" 4 times.(«ÎÇéşÿÿÿÿ
 \
-java:S1192]"FDefine a constant instead of duplicating this literal "March" 4 times.(Ì–Âµ
+java:S1192S"FDefine a constant instead of duplicating this literal "March" 4 times.(Ì–Âµ
 c
-java:S1192î"GDefine a constant instead of duplicating this literal "    --" 8 times.(Èçè™ÿÿÿÿÿ
+java:S1192ä"GDefine a constant instead of duplicating this literal "    --" 8 times.(Èçè™ÿÿÿÿÿ
 \
-java:S1192^"FDefine a constant instead of duplicating this literal "April" 4 times.(ÆÉó¬
+java:S1192T"FDefine a constant instead of duplicating this literal "April" 4 times.(ÆÉó¬
 b
-java:S1192_"GDefine a constant instead of duplicating this literal "August" 4 times.(«ÎÇéşÿÿÿÿ
+java:S1192U"GDefine a constant instead of duplicating this literal "August" 4 times.(«ÎÇéşÿÿÿÿ
 d
-java:S1192`"IDefine a constant instead of duplicating this literal "December" 4 times.(á…ûŞúÿÿÿÿ
+java:S1192V"IDefine a constant instead of duplicating this literal "December" 4 times.(á…ûŞúÿÿÿÿ
 c
-java:S1192_"HDefine a constant instead of duplicating this literal "October" 4 times.(«ÎÇéşÿÿÿÿ
+java:S1192U"HDefine a constant instead of duplicating this literal "October" 4 times.(«ÎÇéşÿÿÿÿ
 g
-java:S1192¾"PDefine a constant instead of duplicating this literal "Search name..." 10 times.(ë´¿
+java:S1192´"PDefine a constant instead of duplicating this literal "Search name..." 10 times.(ë´¿
 c
-java:S1192ä"GDefine a constant instead of duplicating this literal "Absent" 5 times.(ŸÈä¯üÿÿÿÿ
+java:S1192Ú"GDefine a constant instead of duplicating this literal "Absent" 5 times.(ŸÈä¯üÿÿÿÿ
 _
-java:S1192]"IDefine a constant instead of duplicating this literal "February" 4 times.(Ì–Âµ
+java:S1192S"IDefine a constant instead of duplicating this literal "February" 4 times.(Ì–Âµ
 ^
-java:S1192]"HDefine a constant instead of duplicating this literal "January" 4 times.(Ì–Âµ
+java:S1192S"HDefine a constant instead of duplicating this literal "January" 4 times.(Ì–Âµ
 d
-java:S1192`"IDefine a constant instead of duplicating this literal "November" 4 times.(á…ûŞúÿÿÿÿ
-o	java:S135Û"YReduce the total number of break and continue statements in this loop to use at most one.(Õ“Í×
-o	java:S135ã"YReduce the total number of break and continue statements in this loop to use at most one.(Õ“Í×
-o	java:S135ë"YReduce the total number of break and continue statements in this loop to use at most one.(Õ“Í×
-g	java:S117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿİˆÔ
-g	java:S117–"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïŞ­½
-l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àšä©úÿÿÿÿ
-g	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïŞ­½
-g	java:S117–"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­ ÀÀ
-g	java:S117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïŞ­½
-b	java:S1011"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(°†Ë·
+java:S1192V"IDefine a constant instead of duplicating this literal "November" 4 times.(á…ûŞúÿÿÿÿ
+o	java:S135Ñ"YReduce the total number of break and continue statements in this loop to use at most one.(Õ“Í×
+o	java:S135Ù"YReduce the total number of break and continue statements in this loop to use at most one.(Õ“Í×
+o	java:S135á"YReduce the total number of break and continue statements in this loop to use at most one.(Õ“Í×
+g	java:S117ü"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿİˆÔ
+g	java:S117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïŞ­½
+l	java:S117„"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àšä©úÿÿÿÿ
+g	java:S117”"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïŞ­½
+g	java:S117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­ ÀÀ
+g	java:S117œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïŞ­½
+b	java:S101'"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(°†Ë·
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
 a
-java:S2583Ó"CChange this condition so that it does not always evaluate to "true"(¤×¤¡8Ö­áêÇ1
+java:S2583É"CChange this condition so that it does not always evaluate to "true"(¤×¤¡8Ö­áêÇ1
 a
-java:S2583÷"CChange this condition so that it does not always evaluate to "true"(¤×¤¡8ß­áêÇ1
+java:S2583Û"CChange this condition so that it does not always evaluate to "true"(¤×¤¡8Ğ­áêÇ1
 a
-java:S2583å"CChange this condition so that it does not always evaluate to "true"(¤×¤¡8Ğ­áêÇ1
-g	java:S1165"RRename this field "user_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀĞÀœ
+java:S2583í"CChange this condition so that it does not always evaluate to "true"(¤×¤¡8ß­áêÇ1
+g	java:S116+"RRename this field "user_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀĞÀœ
 G
-java:S16593",Declare "tardinessTable" on a separate line.(Õ„ë‘úÿÿÿÿ
+java:S1659)",Declare "tardinessTable" on a separate line.(Õ„ë‘úÿÿÿÿ
 W
-java:S16595"ADeclare "tiAM" and all following declarations on a separate line.(ÀĞÀœ
+java:S1659+"ADeclare "tiAM" and all following declarations on a separate line.(ÀĞÀœ
 a
-java:S16599"FDeclare "nameLabel" and all following declarations on a separate line.(ŞÛøÿÿÿÿ
+java:S1659/"FDeclare "nameLabel" and all following declarations on a separate line.(ŞÛøÿÿÿÿ
 a
-java:S1659A"FDeclare "selectBtn" and all following declarations on a separate line.(ªïö¬ûÿÿÿÿ
+java:S16597"FDeclare "selectBtn" and all following declarations on a separate line.(ªïö¬ûÿÿÿÿ
 B
-java:S2440D",Remove this instantiation of "DatabaseUtil".(éÿ¯
-A	java:S106Š"+Replace this use of System.out by a logger.(à¤À÷
+java:S2440:",Remove this instantiation of "DatabaseUtil".(éÿ¯
+]	java:S125Q"<This block of commented-out lines of code should be removed.(…Èéøÿÿÿÿ8ÛË‚»È1
+A	java:S106€"+Replace this use of System.out by a logger.(à¤À÷
 @
-java:S1905“")Remove this unnecessary cast to "String".(û°¶Ù
+java:S1905‰")Remove this unnecessary cast to "String".(û°¶Ù
 @
-java:S1905”")Remove this unnecessary cast to "String".(‚°Ÿ‡
+java:S1905Š")Remove this unnecessary cast to "String".(‚°Ÿ‡
 @
-java:S1905£")Remove this unnecessary cast to "String".(û°¶Ù
+java:S1905™")Remove this unnecessary cast to "String".(û°¶Ù
 @
-java:S1905¤")Remove this unnecessary cast to "String".(‚°Ÿ‡
+java:S1905š")Remove this unnecessary cast to "String".(‚°Ÿ‡
 i
-java:S3776†"RRefactor this method to reduce its Cognitive Complexity from 80 to the 15 allowed.(ÿİˆÔ
+java:S3776ü"RRefactor this method to reduce its Cognitive Complexity from 80 to the 15 allowed.(ÿİˆÔ
 \
-java:S1854“"@Remove this useless assignment to local variable "selectedName".(«¨øÓûÿÿÿÿ
+java:S1854‰"@Remove this useless assignment to local variable "selectedName".(«¨øÓûÿÿÿÿ
 W
-java:S1854‘"@Remove this useless assignment to local variable "selectedYear".(‚°Ÿ‡
+java:S1854‡"@Remove this useless assignment to local variable "selectedYear".(‚°Ÿ‡
 Y
-java:S1854‰"=Remove this useless assignment to local variable "converted".(Ÿåß°øÿÿÿÿ
+java:S1854ÿ"=Remove this useless assignment to local variable "converted".(Ÿåß°øÿÿÿÿ
 =
-java:S1659”"'Declare "converted" on a separate line.(ÊÖ
+java:S1659Š"'Declare "converted" on a separate line.(ÊÖ
 @
-java:S1659–")Declare "SpecialDays" on a separate line.(ïŞ­½
+java:S1659Œ")Declare "SpecialDays" on a separate line.(ïŞ­½
 b
-java:S1659š"FDeclare "lateCount" and all following declarations on a separate line.(ø£’ûùÿÿÿÿ
+java:S1659"FDeclare "lateCount" and all following declarations on a separate line.(ø£’ûùÿÿÿÿ
 @
-java:S1905‘")Remove this unnecessary cast to "String".(‚°Ÿ‡
+java:S1905‡")Remove this unnecessary cast to "String".(‚°Ÿ‡
 H
-java:S1481‘"1Remove this unused "selectedYear" local variable.(‚°Ÿ‡
+java:S1481‡"1Remove this unused "selectedYear" local variable.(‚°Ÿ‡
 M
-java:S1481“"1Remove this unused "selectedName" local variable.(«¨øÓûÿÿÿÿ
+java:S1481‰"1Remove this unused "selectedName" local variable.(«¨øÓûÿÿÿÿ
 S
-java:S3972›"7Move this "if" to a new line or add the missing "else".(€ñßìşÿÿÿÿ
+java:S3972‘"7Move this "if" to a new line or add the missing "else".(€ñßìşÿÿÿÿ
 N
-java:S3972œ"7Move this "if" to a new line or add the missing "else".(ô—“Ø
+java:S3972’"7Move this "if" to a new line or add the missing "else".(ô—“Ø
 N
-java:S3972"7Move this "if" to a new line or add the missing "else".(°«¾
+java:S3972“"7Move this "if" to a new line or add the missing "else".(°«¾
 N
-java:S3972"7Move this "if" to a new line or add the missing "else".(ÄÂ‹Ş
+java:S3972”"7Move this "if" to a new line or add the missing "else".(ÄÂ‹Ş
 N
-java:S3972Ÿ"7Move this "if" to a new line or add the missing "else".(½êÂÎ
+java:S3972•"7Move this "if" to a new line or add the missing "else".(½êÂÎ
 S
-java:S3972 "7Move this "if" to a new line or add the missing "else".(öêÃÓıÿÿÿÿ
+java:S3972–"7Move this "if" to a new line or add the missing "else".(öêÃÓıÿÿÿÿ
 B
-java:S1905ª"&Remove this unnecessary cast to "int".(šĞÏ¯şÿÿÿÿ
-F	java:S106Â"+Replace this use of System.out by a logger.(ïë²üüÿÿÿÿ
-F	java:S106Ã"+Replace this use of System.out by a logger.(ÉÊŠÿÿÿÿÿ
-A	java:S106Å"+Replace this use of System.out by a logger.(ËúÂ³
+java:S1905 "&Remove this unnecessary cast to "int".(šĞÏ¯şÿÿÿÿ
+F	java:S106¸"+Replace this use of System.out by a logger.(ïë²üüÿÿÿÿ
+F	java:S106¹"+Replace this use of System.out by a logger.(ÉÊŠÿÿÿÿÿ
+A	java:S106»"+Replace this use of System.out by a logger.(ËúÂ³
 C
-java:S1125Ú"'Remove the unnecessary boolean literal.(ßÈ¢ıÿÿÿÿ
+java:S1125Ğ"'Remove the unnecessary boolean literal.(ßÈ¢ıÿÿÿÿ
 >
-java:S1125ë"'Remove the unnecessary boolean literal.(É’¶ô
+java:S1125á"'Remove the unnecessary boolean literal.(É’¶ô
 L
-java:S1751õ"5Remove this "break" statement or make it conditional.(›ûä·
+java:S1751ë"5Remove this "break" statement or make it conditional.(›ûä·
 <
-java:S1905†"&Remove this unnecessary cast to "int".(ÚÔ·
+java:S1905ü"&Remove this unnecessary cast to "int".(ÚÔ·
 n
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 80 to the 15 allowed.(àšä©úÿÿÿÿ
+java:S3776„"RRefactor this method to reduce its Cognitive Complexity from 80 to the 15 allowed.(àšä©úÿÿÿÿ
 \
-java:S1854›"@Remove this useless assignment to local variable "selectedName".(«¨øÓûÿÿÿÿ
+java:S1854‘"@Remove this useless assignment to local variable "selectedName".(«¨øÓûÿÿÿÿ
 W
-java:S1854™"@Remove this useless assignment to local variable "selectedYear".(‚°Ÿ‡
+java:S1854"@Remove this useless assignment to local variable "selectedYear".(‚°Ÿ‡
 Y
-java:S1854‘"=Remove this useless assignment to local variable "converted".(Ÿåß°øÿÿÿÿ
+java:S1854‡"=Remove this useless assignment to local variable "converted".(Ÿåß°øÿÿÿÿ
 =
-java:S1659œ"'Declare "converted" on a separate line.(ÊÖ
+java:S1659’"'Declare "converted" on a separate line.(ÊÖ
 @
-java:S1659")Declare "SpecialDays" on a separate line.(ïŞ­½
+java:S1659”")Declare "SpecialDays" on a separate line.(ïŞ­½
 b
-java:S1659¢"FDeclare "lateCount" and all following declarations on a separate line.(ø£’ûùÿÿÿÿ
+java:S1659˜"FDeclare "lateCount" and all following declarations on a separate line.(ø£’ûùÿÿÿÿ
 @
-java:S1905™")Remove this unnecessary cast to "String".(‚°Ÿ‡
+java:S1905")Remove this unnecessary cast to "String".(‚°Ÿ‡
 H
-java:S1481™"1Remove this unused "selectedYear" local variable.(‚°Ÿ‡
+java:S1481"1Remove this unused "selectedYear" local variable.(‚°Ÿ‡
 M
-java:S1481›"1Remove this unused "selectedName" local variable.(«¨øÓûÿÿÿÿ
+java:S1481‘"1Remove this unused "selectedName" local variable.(«¨øÓûÿÿÿÿ
 S
-java:S3972£"7Move this "if" to a new line or add the missing "else".(€ñßìşÿÿÿÿ
+java:S3972™"7Move this "if" to a new line or add the missing "else".(€ñßìşÿÿÿÿ
 N
-java:S3972¤"7Move this "if" to a new line or add the missing "else".(ô—“Ø
+java:S3972š"7Move this "if" to a new line or add the missing "else".(ô—“Ø
 N
-java:S3972¥"7Move this "if" to a new line or add the missing "else".(°«¾
+java:S3972›"7Move this "if" to a new line or add the missing "else".(°«¾
 N
-java:S3972¦"7Move this "if" to a new line or add the missing "else".(ÄÂ‹Ş
+java:S3972œ"7Move this "if" to a new line or add the missing "else".(ÄÂ‹Ş
 N
-java:S3972§"7Move this "if" to a new line or add the missing "else".(½êÂÎ
+java:S3972"7Move this "if" to a new line or add the missing "else".(½êÂÎ
 S
-java:S3972¨"7Move this "if" to a new line or add the missing "else".(öêÃÓıÿÿÿÿ
+java:S3972"7Move this "if" to a new line or add the missing "else".(öêÃÓıÿÿÿÿ
 B
-java:S1905²"&Remove this unnecessary cast to "int".(šĞÏ¯şÿÿÿÿ
-F	java:S106Ê"+Replace this use of System.out by a logger.(ïë²üüÿÿÿÿ
-F	java:S106Ë"+Replace this use of System.out by a logger.(ÉÊŠÿÿÿÿÿ
-A	java:S106Í"+Replace this use of System.out by a logger.(ËúÂ³
+java:S1905¨"&Remove this unnecessary cast to "int".(šĞÏ¯şÿÿÿÿ
+F	java:S106À"+Replace this use of System.out by a logger.(ïë²üüÿÿÿÿ
+F	java:S106Á"+Replace this use of System.out by a logger.(ÉÊŠÿÿÿÿÿ
+A	java:S106Ã"+Replace this use of System.out by a logger.(ËúÂ³
 C
-java:S1125â"'Remove the unnecessary boolean literal.(ßÈ¢ıÿÿÿÿ
-R	java:S125í"<This block of commented-out lines of code should be removed.(¥ëÙç
+java:S1125Ø"'Remove the unnecessary boolean literal.(ßÈ¢ıÿÿÿÿ
+R	java:S125ã"<This block of commented-out lines of code should be removed.(¥ëÙç
 >
-java:S1125ó"'Remove the unnecessary boolean literal.(É’¶ô
+java:S1125é"'Remove the unnecessary boolean literal.(É’¶ô
 F
-java:S1481ô"/Remove this unused "attendance" local variable.(Õ“Í×
-W	java:S125õ"<This block of commented-out lines of code should be removed.(ÌÚ¹Çùÿÿÿÿ
+java:S1481ê"/Remove this unused "attendance" local variable.(Õ“Í×
+W	java:S125ë"<This block of commented-out lines of code should be removed.(ÌÚ¹Çùÿÿÿÿ
 L
-java:S1751ı"5Remove this "break" statement or make it conditional.(›ûä·
+java:S1751ó"5Remove this "break" statement or make it conditional.(›ûä·
 C
-java:S1905"&Remove this unnecessary cast to "int".(ÚÔ·8¬°áêÇ1
+java:S1905„"&Remove this unnecessary cast to "int".(ÚÔ·8¬°áêÇ1
 i
-java:S3776–"RRefactor this method to reduce its Cognitive Complexity from 80 to the 15 allowed.(­ ÀÀ
+java:S3776Œ"RRefactor this method to reduce its Cognitive Complexity from 80 to the 15 allowed.(­ ÀÀ
 \
-java:S1854£"@Remove this useless assignment to local variable "selectedName".(«¨øÓûÿÿÿÿ
+java:S1854™"@Remove this useless assignment to local variable "selectedName".(«¨øÓûÿÿÿÿ
 W
-java:S1854¡"@Remove this useless assignment to local variable "selectedYear".(‚°Ÿ‡
+java:S1854—"@Remove this useless assignment to local variable "selectedYear".(‚°Ÿ‡
 Y
-java:S1854™"=Remove this useless assignment to local variable "converted".(Ÿåß°øÿÿÿÿ
+java:S1854"=Remove this useless assignment to local variable "converted".(Ÿåß°øÿÿÿÿ
 =
-java:S1659¤"'Declare "converted" on a separate line.(ÊÖ
+java:S1659š"'Declare "converted" on a separate line.(ÊÖ
 @
-java:S1659¦")Declare "SpecialDays" on a separate line.(ïŞ­½
+java:S1659œ")Declare "SpecialDays" on a separate line.(ïŞ­½
 b
-java:S1659ª"FDeclare "lateCount" and all following declarations on a separate line.(ø£’ûùÿÿÿÿ
+java:S1659 "FDeclare "lateCount" and all following declarations on a separate line.(ø£’ûùÿÿÿÿ
 @
-java:S1905¡")Remove this unnecessary cast to "String".(‚°Ÿ‡
+java:S1905—")Remove this unnecessary cast to "String".(‚°Ÿ‡
 H
-java:S1481¡"1Remove this unused "selectedYear" local variable.(‚°Ÿ‡
+java:S1481—"1Remove this unused "selectedYear" local variable.(‚°Ÿ‡
 M
-java:S1481£"1Remove this unused "selectedName" local variable.(«¨øÓûÿÿÿÿ
+java:S1481™"1Remove this unused "selectedName" local variable.(«¨øÓûÿÿÿÿ
 S
-java:S3972«"7Move this "if" to a new line or add the missing "else".(€ñßìşÿÿÿÿ
+java:S3972¡"7Move this "if" to a new line or add the missing "else".(€ñßìşÿÿÿÿ
 N
-java:S3972¬"7Move this "if" to a new line or add the missing "else".(ô—“Ø
+java:S3972¢"7Move this "if" to a new line or add the missing "else".(ô—“Ø
 N
-java:S3972­"7Move this "if" to a new line or add the missing "else".(°«¾
+java:S3972£"7Move this "if" to a new line or add the missing "else".(°«¾
 N
-java:S3972®"7Move this "if" to a new line or add the missing "else".(ÄÂ‹Ş
+java:S3972¤"7Move this "if" to a new line or add the missing "else".(ÄÂ‹Ş
 N
-java:S3972¯"7Move this "if" to a new line or add the missing "else".(½êÂÎ
+java:S3972¥"7Move this "if" to a new line or add the missing "else".(½êÂÎ
 S
-java:S3972°"7Move this "if" to a new line or add the missing "else".(öêÃÓıÿÿÿÿ
+java:S3972¦"7Move this "if" to a new line or add the missing "else".(öêÃÓıÿÿÿÿ
 I
-java:S1905º"&Remove this unnecessary cast to "int".(šĞÏ¯şÿÿÿÿ8Î°áêÇ1
-F	java:S106Ò"+Replace this use of System.out by a logger.(ïë²üüÿÿÿÿ
-F	java:S106Ó"+Replace this use of System.out by a logger.(ÉÊŠÿÿÿÿÿ
-A	java:S106Õ"+Replace this use of System.out by a logger.(ËúÂ³
+java:S1905°"&Remove this unnecessary cast to "int".(šĞÏ¯şÿÿÿÿ8Î°áêÇ1
+F	java:S106È"+Replace this use of System.out by a logger.(ïë²üüÿÿÿÿ
+F	java:S106É"+Replace this use of System.out by a logger.(ÉÊŠÿÿÿÿÿ
+A	java:S106Ë"+Replace this use of System.out by a logger.(ËúÂ³
 C
-java:S1125ê"'Remove the unnecessary boolean literal.(ßÈ¢ıÿÿÿÿ
-R	java:S125ï"<This block of commented-out lines of code should be removed.(¥ëÙç
+java:S1125à"'Remove the unnecessary boolean literal.(ßÈ¢ıÿÿÿÿ
+R	java:S125å"<This block of commented-out lines of code should be removed.(¥ëÙç
 >
-java:S1125û"'Remove the unnecessary boolean literal.(É’¶ô
+java:S1125ñ"'Remove the unnecessary boolean literal.(É’¶ô
 L
-java:S1751…"5Remove this "break" statement or make it conditional.(›ûä·
+java:S1751û"5Remove this "break" statement or make it conditional.(›ûä·
 C
-java:S1905–"&Remove this unnecessary cast to "int".(ÚÔ·8î°áêÇ1
-R	java:S125¦"<This block of commented-out lines of code should be removed.(–éÜ«
-D
-java:S1128"'Remove this unused import 'Model.User'.(×ÈğŠ8ô°áêÇ1
+java:S1905Œ"&Remove this unnecessary cast to "int".(ÚÔ·8î°áêÇ1
+R	java:S125œ"<This block of commented-out lines of code should be removed.(–éÜ«
 Ş
-java:S6541†"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 124 to 64, Complexity from 42 to 14, Nesting Level from 5 to 2, Number of Variables from 37 to 6.(ÿİˆÔ
+java:S6541ü"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 124 to 64, Complexity from 42 to 14, Nesting Level from 5 to 2, Number of Variables from 37 to 6.(ÿİˆÔ
 ã
-java:S6541"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 116 to 64, Complexity from 42 to 14, Nesting Level from 5 to 2, Number of Variables from 37 to 6.(àšä©úÿÿÿÿ
+java:S6541„"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 116 to 64, Complexity from 42 to 14, Nesting Level from 5 to 2, Number of Variables from 37 to 6.(àšä©úÿÿÿÿ
 Ş
-java:S6541–"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 123 to 64, Complexity from 42 to 14, Nesting Level from 5 to 2, Number of Variables from 37 to 6.(­ ÀÀ
+java:S6541Œ"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 123 to 64, Complexity from 42 to 14, Nesting Level from 5 to 2, Number of Variables from 37 to 6.(­ ÀÀ

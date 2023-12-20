@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" prefHeight="472.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AddEmpCTRL">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" prefHeight="472.0" prefWidth="534.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AddEmpCTRL">
    <children>
-      <HBox layoutX="14.0" layoutY="14.0" prefHeight="459.0" prefWidth="499.0">
+      <HBox layoutX="6.0" layoutY="6.0" prefHeight="461.0" prefWidth="522.0">
          <children>
-            <VBox prefHeight="454.0" prefWidth="186.0">
+            <VBox prefHeight="454.0" prefWidth="227.0">
                <children>
                   <Label text="Account Information">
                      <font>
@@ -28,35 +28,51 @@
                         <Insets bottom="12.0" />
                      </VBox.margin>
                   </Label>
-                  <ImageView fx:id="userImage" fitHeight="171.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/default_user_img.jpg" />
-                     </image>
-                  </ImageView>
+                  <Pane prefHeight="157.0" prefWidth="217.0">
+                     <children>
+                        <ImageView fx:id="userImage" fitHeight="141.0" fitWidth="142.0" layoutX="38.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/default_user_img.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
                   <Button fx:id="selectImageBtn" mnemonicParsing="false" onAction="#selectImg" prefHeight="25.0" prefWidth="267.0" text="Select Image">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </Button>
-                  <Label text="Email *" />
-                  <TextField fx:id="emailField">
+                  <Label text="Email *">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin></Label>
+                  <TextField fx:id="emailField" promptText="Email">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label fx:id="passwordLabel" text="Password *" />
-                  <TextField fx:id="passwordField">
+                  <Label fx:id="passwordLabel" text="Password *">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin></Label>
+                  <TextField fx:id="passwordField" promptText="Password">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label fx:id="repeatPasswordLabel" text="Repeat Password *" />
-                  <TextField fx:id="repeatPasswordField">
+                  <Label fx:id="repeatPasswordLabel" text="Repeat Password *">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin></Label>
+                  <TextField fx:id="repeatPasswordField" promptText="Repeat Password">
                      <VBox.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label text="Privilege *" />
+                  <Label text="Privilege *">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin></Label>
                   <ChoiceBox fx:id="privilegeChoiceBox" prefHeight="25.0" prefWidth="587.0">
                      <VBox.margin>
                         <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
@@ -70,8 +86,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <Pane prefHeight="459.0" prefWidth="90.0" />
-            <VBox prefHeight="459.0" prefWidth="378.0">
+            <VBox prefHeight="461.0" prefWidth="290.0">
                <children>
                   <Label text="Personal Information">
                      <font>
@@ -81,20 +96,29 @@
                         <Insets bottom="12.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="First Name *" />
-                  <TextField fx:id="FnameField" prefHeight="25.0" prefWidth="313.0">
+                  <Label text="First Name *">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin></Label>
+                  <TextField fx:id="FnameField" prefHeight="25.0" prefWidth="313.0" promptText="First Name">
                      <VBox.margin>
                         <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label text="Middle Name " />
-                  <TextField fx:id="MnameField">
+                  <Label text="Middle Name ">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin></Label>
+                  <TextField fx:id="MnameField" promptText="Middle Name">
                      <VBox.margin>
                         <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label text="Last Name *" />
-                  <TextField fx:id="LnameField">
+                  <Label text="Last Name *">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin></Label>
+                  <TextField fx:id="LnameField" promptText="Last Name">
                      <VBox.margin>
                         <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
@@ -103,7 +127,10 @@
                      <children>
                         <VBox prefHeight="50.0" prefWidth="69.0">
                            <children>
-                              <Label text="Suffix" />
+                              <Label text="Suffix">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin></Label>
                               <ChoiceBox fx:id="userSuffixChoiceBox" prefHeight="25.0" prefWidth="58.0">
                                  <VBox.margin>
                                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
@@ -113,7 +140,10 @@
                         </VBox>
                         <VBox prefHeight="50.0" prefWidth="93.0">
                            <children>
-                              <Label text="Sex" />
+                              <Label text="Sex">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin></Label>
                               <ChoiceBox fx:id="sexChoiceBox" prefHeight="25.0" prefWidth="587.0">
                                  <VBox.margin>
                                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
@@ -123,7 +153,10 @@
                         </VBox>
                         <VBox prefHeight="50.0" prefWidth="135.0">
                            <children>
-                              <Label text="Date Of Birth" />
+                              <Label text="Date Of Birth">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin></Label>
                               <DatePicker fx:id="dateOfBirthPicker" prefHeight="25.0" prefWidth="129.0">
                                  <VBox.margin>
                                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
@@ -136,13 +169,19 @@
                         <Insets bottom="12.0" />
                      </padding>
                   </HBox>
-                  <Label text="Contact Number" />
+                  <Label text="Contact Number">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin></Label>
                   <TextField fx:id="contactNumField">
                      <VBox.margin>
                         <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label text="Address" />
+                  <Label text="Address">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin></Label>
                   <TextField fx:id="addressField">
                      <VBox.margin>
                         <Insets bottom="12.0" left="4.0" right="4.0" top="4.0" />
