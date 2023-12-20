@@ -41,9 +41,9 @@ M
 java:S1444#"2Make this "public static defaultValue" field final(‹ƒŽ²ûÿÿÿÿ
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
 k
-java:S2095—"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
-k
 java:S2095ˆ"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
+k
+java:S2095—"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
 q	java:S116"\Rename this field "attendance_status" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úßêŽ
 <
 java:S1659"'Declare "timeOutAm" on a separate line.(†é­q

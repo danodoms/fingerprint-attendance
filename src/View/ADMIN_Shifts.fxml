@@ -9,134 +9,143 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_ShiftsCTRL">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_ShiftsCTRL">
    <children>
-      <Label layoutX="29.0" layoutY="31.0" text="Shift">
+      <Label layoutX="23.0" layoutY="20.0" text="Shift">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="shiftTable" layoutX="29.0" layoutY="66.0" onMouseClicked="#shiftSelected" prefHeight="509.0" prefWidth="414.0">
-        <columns>
-          <TableColumn fx:id="col_id" prefWidth="37.0" text="ID" />
-          <TableColumn fx:id="col_shiftName" prefWidth="213.0" text="Shift" />
-            <TableColumn fx:id="col_startTime" prefWidth="81.0" text="Start Time" />
-            <TableColumn fx:id="col_endTime" text="End Time" />
-        </columns>
-      </TableView>
-      <VBox layoutX="484.0" layoutY="198.0" prefHeight="245.0" prefWidth="275.0">
+      <Pane layoutX="473.0" layoutY="57.0" prefHeight="526.0" prefWidth="310.0" styleClass="tilePane">
          <children>
-            <Label text="Shift">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="3.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="shiftNameField">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </TextField>
-            <HBox prefHeight="0.0" prefWidth="256.0">
+            <VBox layoutX="18.0" layoutY="141.0" prefHeight="245.0" prefWidth="275.0">
                <children>
-                  <VBox prefHeight="42.0" prefWidth="167.0">
-                     <children>
-                        <Label text="Start Time">
-                           <VBox.margin>
-                              <Insets bottom="2.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <HBox prefHeight="0.0" prefWidth="126.0">
-                           <children>
-                              <TextField fx:id="startTimeHourField" promptText="HR" style="-fx-alignment: CENTER;" />
-                              <Label alignment="CENTER" prefHeight="0.0" prefWidth="4.0" text=":">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="3.0" right="3.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <TextField fx:id="startTimeMinuteField" promptText="MN" style="-fx-alignment: CENTER;" />
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </HBox>
-                     </children>
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox prefHeight="42.0" prefWidth="166.0">
-                     <children>
-                        <Label prefHeight="17.0" prefWidth="71.0" text="End Time">
-                           <VBox.margin>
-                              <Insets bottom="2.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <TextField fx:id="endTimeHourField" promptText="HR" style="-fx-alignment: CENTER;" />
-                              <Label alignment="CENTER" prefHeight="0.0" prefWidth="4.0" text=":">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="3.0" right="3.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <TextField fx:id="endTimeMinuteField" promptText="MN" style="-fx-alignment: CENTER;" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </HBox>
-            <VBox prefHeight="125.0" prefWidth="275.0">
-               <children>
-                  <Button fx:id="addBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addShift" prefHeight="84.0" prefWidth="274.0" text="Add Shift">
+                  <Label text="Shift">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
                      <VBox.margin>
-                        <Insets bottom="5.0" />
+                        <Insets bottom="3.0" />
                      </VBox.margin>
-                  </Button>
-                  <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateShift" prefHeight="83.0" prefWidth="274.0" text="Update">
+                  </Label>
+                  <TextField fx:id="shiftNameField">
                      <VBox.margin>
-                        <Insets bottom="5.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
-                  </Button>
-                  <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateShift" prefHeight="85.0" prefWidth="274.0" text="Deactivate" />
+                  </TextField>
+                  <HBox prefHeight="0.0" prefWidth="256.0">
+                     <children>
+                        <VBox prefHeight="42.0" prefWidth="167.0">
+                           <children>
+                              <Label text="Start Time">
+                                 <VBox.margin>
+                                    <Insets bottom="2.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <HBox prefHeight="0.0" prefWidth="126.0">
+                                 <children>
+                                    <TextField fx:id="startTimeHourField" promptText="HR" style="-fx-alignment: CENTER;" />
+                                    <Label alignment="CENTER" prefHeight="0.0" prefWidth="4.0" text=":">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="startTimeMinuteField" promptText="MN" style="-fx-alignment: CENTER;" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="42.0" prefWidth="166.0">
+                           <children>
+                              <Label prefHeight="17.0" prefWidth="71.0" text="End Time">
+                                 <VBox.margin>
+                                    <Insets bottom="2.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="endTimeHourField" promptText="HR" style="-fx-alignment: CENTER;" />
+                                    <Label alignment="CENTER" prefHeight="0.0" prefWidth="4.0" text=":">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="endTimeMinuteField" promptText="MN" style="-fx-alignment: CENTER;" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox prefHeight="125.0" prefWidth="275.0">
+                     <children>
+                        <Button fx:id="addBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addShift" prefHeight="84.0" prefWidth="274.0" text="Add Shift">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateShift" prefHeight="83.0" prefWidth="274.0" text="Update">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateShift" prefHeight="85.0" prefWidth="274.0" text="Deactivate" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>
-      </VBox>
-      <HBox layoutX="235.0" layoutY="36.0" prefHeight="25.0" prefWidth="208.0">
+      </Pane>
+      <Pane layoutX="19.0" layoutY="56.0" prefHeight="526.0" prefWidth="439.0" styleClass="tilePane">
          <children>
-            <Label prefHeight="25.0" prefWidth="44.0" text="Status">
-               <padding>
-                  <Insets right="5.0" />
-               </padding>
-            </Label>
-            <ChoiceBox fx:id="statusFilterChoiceBox" prefHeight="25.0" prefWidth="165.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </ChoiceBox>
+            <TableView fx:id="shiftTable" layoutX="10.0" layoutY="45.0" onMouseClicked="#shiftSelected" prefHeight="470.0" prefWidth="420.0">
+              <columns>
+                <TableColumn fx:id="col_id" prefWidth="37.0" text="ID" />
+                <TableColumn fx:id="col_shiftName" prefWidth="213.0" text="Shift" />
+                  <TableColumn fx:id="col_startTime" prefWidth="87.0" text="Start Time" />
+                  <TableColumn fx:id="col_endTime" minWidth="0.0" prefWidth="81.0" text="End Time" />
+              </columns>
+            </TableView>
+            <HBox layoutX="220.0" layoutY="10.0" prefHeight="25.0" prefWidth="208.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="44.0" text="Status">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+                  <ChoiceBox fx:id="statusFilterChoiceBox" prefHeight="25.0" prefWidth="165.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </ChoiceBox>
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </Pane>
    </children>
 </AnchorPane>

@@ -55,3 +55,29 @@ L
 src/Utilities/ImageUtil.java,c\f\cf13ea9b3a806a912f3fbe7a539a472a8ec519f1
 H
 src/Utilities/Modal.java,1\4\143062ed54dda488fdb3bd0392bf750a2046319f
+Y
+)src/Controller/ADMIN_AssignmentsCTRL.java,f\8\f8d02dde8f5b4dfa0b5012f564dfb25124a58fe0
+C
+src/Model/User.java,c\2\c2dc130222ee4e81f600f08946ef2f7e78b86653
+Q
+!src/Controller/LoginPaneCTRL.java,1\e\1e3fc7beff8e001149664fea5925f8a5cbd2e128
+Y
+)src/Controller/FP_IdentificationCTRL.java,b\e\be2bb34934bbef569e1ba4868cdb4556a0250d7a
+U
+%src/Controller/FP_EnrollmentCTRL.java,6\a\6a7d86513330783d1c6c37d017289386bb6813da
+Y
+)src/Fingerprint/IdentificationThread.java,4\2\4218d6c2999373916b6c2a44f48b7bec4ad25821
+W
+'src/Fingerprint/VerificationThread.java,3\f\3f9f1122b29a143b8badbded5d8516b63094e40f
+P
+ src/Fingerprint/ThreadFlags.java,2\d\2d3815a38f6e5096de51b65b0df4f4704e723fcc
+X
+(src/Controller/ADMIN_AttendanceCTRL.java,7\5\7502492b80e6eef79392a1e28ddcb4c39b484a79
+P
+ src/View/ADMIN_UserCalendar.fxml,4\1\412703adb35e09285e28ec804034ee5ffa23ad64
+K
+src/View/FP_Enrollment.fxml,a\3\a330744832cd610582d28d63a51c10e847cf9478
+M
+src/Utilities/StringUtil.java,f\b\fb55eabecb0be4d752c79a89bdb50014e82e4ef3
+K
+src/Fingerprint/Prompt.java,2\7\276405cc38aa5f8b7e7c9e9df4da475e81d8c0f7

@@ -10,20 +10,32 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_FingerprintsCTRL">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_FingerprintsCTRL">
    <children>
-      <TableView fx:id="userTable" layoutX="21.0" layoutY="108.0" onMouseClicked="#loadUserDetails" prefHeight="472.0" prefWidth="267.0">
-        <columns>
-          <TableColumn fx:id="col_id" prefWidth="41.0" text="ID" />
-          <TableColumn fx:id="col_name" prefWidth="224.0" text="Name" />
-        </columns>
-      </TableView>
-      <VBox layoutX="447.0" layoutY="345.0" prefHeight="200.0" prefWidth="170.0">
+      <Pane layoutX="21.0" layoutY="63.0" prefHeight="519.0" prefWidth="382.0" styleClass="tilePane">
          <children>
-            <Label prefHeight="20.0" prefWidth="180.0" style="-fx-alignment: center;" text="Fingerprints Enrolled">
+            <ChoiceBox fx:id="statusFilterChoiceBox" layoutX="272.0" layoutY="10.0" prefHeight="29.0" prefWidth="96.0" />
+            <Label layoutX="231.0" layoutY="16.0" prefHeight="17.0" prefWidth="37.0" text="Status" />
+            <TableView fx:id="userTable" layoutX="10.0" layoutY="46.0" onMouseClicked="#loadUserDetails" prefHeight="462.0" prefWidth="359.0">
+              <columns>
+                <TableColumn fx:id="col_id" prefWidth="41.0" text="ID" />
+                <TableColumn fx:id="col_name" prefWidth="313.0" text="Name" />
+              </columns>
+            </TableView>
+            <TextField fx:id="searchFilterField" layoutX="14.0" layoutY="10.0" prefHeight="29.0" prefWidth="207.0" promptText="Search" />
+         </children>
+      </Pane>
+      <Pane layoutX="414.0" layoutY="63.0" prefHeight="519.0" prefWidth="371.0" styleClass="tilePane">
+         <children>
+            <ImageView fx:id="userImageView" fitHeight="150.0" fitWidth="200.0" layoutX="112.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/default_user_img.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="115.0" layoutY="319.0" prefHeight="20.0" prefWidth="138.0" style="-fx-alignment: center;" text="Fingerprints Enrolled">
                <font>
                   <Font size="14.0" />
                </font>
@@ -31,44 +43,36 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Label fx:id="fingerprintCountLabel" prefHeight="35.0" prefWidth="176.0" style="-fx-alignment: center;" text="0">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </Label>
-            <Button fx:id="enrollBtn" mnemonicParsing="false" onAction="#erollBtnAction" prefHeight="25.0" prefWidth="173.0" text="Enroll">
+            <Button fx:id="enrollBtn" layoutX="101.0" layoutY="364.0" mnemonicParsing="false" onAction="#erollBtnAction" prefHeight="25.0" prefWidth="173.0" text="Enroll">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label prefHeight="20.0" prefWidth="180.0" style="-fx-alignment: center;" text="Last Enroll Date">
-               <padding>
-                  <Insets top="20.0" />
-               </padding>
+            <Label alignment="CENTER" layoutX="98.0" layoutY="409.0" prefHeight="27.0" prefWidth="180.0" style="-fx-alignment: center;" text="Last Enroll Date" />
+            <Label fx:id="lastEnrollDateLabel" layoutX="98.0" layoutY="431.0" prefHeight="20.0" prefWidth="180.0" style="-fx-alignment: center;" text="MM/DD/YYYY" />
+            <Label fx:id="nameLabel" layoutX="54.0" layoutY="192.0" prefHeight="17.0" prefWidth="267.0" style="-fx-alignment: center;" text="Name Surname">
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Label>
-            <Label fx:id="lastEnrollDateLabel" prefHeight="20.0" prefWidth="180.0" style="-fx-alignment: center;" text="MM/DD/YYYY" />
+            <Pane layoutX="142.0" layoutY="226.0" prefHeight="86.0" prefWidth="85.0" styleClass="tilePane">
+               <children>
+                  <Label fx:id="fingerprintCountLabel" layoutX="-10.0" layoutY="10.0" prefHeight="74.0" prefWidth="106.0" style="-fx-alignment: center;" text="0">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </Pane>
          </children>
-      </VBox>
-      <ImageView fx:id="userImageView" fitHeight="150.0" fitWidth="200.0" layoutX="456.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Controller/default_user_img.jpg" />
-         </image>
-      </ImageView>
-      <Label fx:id="nameLabel" layoutX="399.0" layoutY="291.0" prefHeight="17.0" prefWidth="267.0" style="-fx-alignment: center;" text="Name Surname">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="21.0" layoutY="19.0" text="Fingerprints">
+      </Pane>
+      <Label layoutX="22.0" layoutY="18.0" text="Fingerprints">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="statusFilterChoiceBox" layoutX="201.0" layoutY="76.0" prefHeight="25.0" prefWidth="87.0" />
-      <Label layoutX="160.0" layoutY="80.0" prefHeight="17.0" prefWidth="37.0" text="Status" />
-      <TextField fx:id="searchFilterField" layoutX="21.0" layoutY="76.0" prefHeight="25.0" prefWidth="130.0" promptText="Search" />
    </children>
 </AnchorPane>

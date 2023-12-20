@@ -74,8 +74,9 @@ public class FP_EnrollmentCTRL implements Initializable {
     
     public void setDataForEnrollment(User user){
         userIdToEnroll = user.getId();
-        
-        nameLabel.setText(user.getLname());
+
+
+        nameLabel.setText(user.getFullNameWithInitial());
         userImageView.setImage(ImageUtil.byteArrayToImage(user.getImage()));
         
         

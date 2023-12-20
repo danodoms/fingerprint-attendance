@@ -1,0 +1,10 @@
+
+n	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ã¡»«ÿÿÿÿÿ8Ôºú¨È1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î8Öºú¨È1
+
+java:S1450&"]Remove the "userIdToEnroll" field and declare it as a local variable in the relevant methods.(Ÿûıÿÿÿÿ8ˆ»ú¨È1
+X
+java:S2696/"6Make the enclosing method "static" or remove this set.(å¸Í‚ıÿÿÿÿ8Œ»ú¨È1
+O
+java:S1135."2Complete the task associated to this TODO comment.(…ïœ†8Œ»ú¨È1
+]	java:S125;"<This block of commented-out lines of code should be removed.(”ùñ‰ıÿÿÿÿ8»ú¨È1

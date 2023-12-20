@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="443.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FP_EnrollmentCTRL">
+<AnchorPane id="AnchorPane" prefHeight="443.0" prefWidth="707.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FP_EnrollmentCTRL">
    <children>
       <ImageView fx:id="fingerprintImage" accessibleText="fingerprint" fitHeight="285.0" fitWidth="250.0" layoutX="362.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -17,7 +17,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="enrollFingerprintLabel" layoutX="417.0" layoutY="381.0" text="Touch Sensor to begin">
+      <Label fx:id="enrollFingerprintLabel" alignment="CENTER" layoutX="336.0" layoutY="368.0" prefHeight="20.0" prefWidth="303.0" text="Touch Sensor to begin">
          <font>
             <Font size="14.0" />
          </font>

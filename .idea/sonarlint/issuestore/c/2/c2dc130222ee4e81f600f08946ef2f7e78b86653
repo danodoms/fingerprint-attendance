@@ -1,0 +1,39 @@
+
+n
+java:S1192¤"KDefine a constant instead of duplicating this literal "birth_date" 4 times.(âŸõäüÿÿÿÿ8®‰†©È1
+i
+java:S1192²"KDefine a constant instead of duplicating this literal "user_cntct" 4 times.(öıÁø8¯‰†©È1
+m
+java:S1192±"JDefine a constant instead of duplicating this literal "privilege" 5 times.(‰â³“úÿÿÿÿ8¯‰†©È1
+l
+java:S1192°"IDefine a constant instead of duplicating this literal "password" 3 times.(ÜØÖıÿÿÿÿ8¯‰†©È1
+d
+java:S1192¯"FDefine a constant instead of duplicating this literal "email" 5 times.(úÁŞ°8¯‰†©È1
+j
+java:S1192·"LDefine a constant instead of duplicating this literal "user_status" 3 times.(ÏØ¡¹8¯‰†©È1
+g
+java:S1192¶"IDefine a constant instead of duplicating this literal "user_img" 3 times.(¸ç™Ô8¯‰†©È1
+f
+java:S1192’"HDefine a constant instead of duplicating this literal "user_id" 5 times.(›ÆÊ8¯‰†©È1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“8·‰†©È1
+r
+java:S2095ù"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ8¯‹†©È1
+r
+java:S2095Ë"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ8¯‹†©È1
+r
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ8¯‹†©È1
+r
+java:S2095˜"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÛŞ‡¯üÿÿÿÿ8®‹†©È1
+
+java:S1450("bRemove the "fullNameWithInitial" field and declare it as a local variable in the relevant methods.(ŸĞ¯û8Šõ‹©È1
+c	java:S1073"BConstructor has 14 parameters, which is greater than 7 authorized.(ï÷Îšùÿÿÿÿ8·‹†©È1
+c	java:S107Z"BConstructor has 12 parameters, which is greater than 7 authorized.(¢­ŠØıÿÿÿÿ8·‹†©È1
+_	java:S107‡"=Method has 12 parameters, which is greater than 7 authorized.(Ã¼ìËüÿÿÿÿ8·‹†©È1
+Y	java:S107¯"=Method has 13 parameters, which is greater than 7 authorized.(‚é×S8·‹†©È1
+_	java:S107Ş"=Method has 12 parameters, which is greater than 7 authorized.(‡·Ã»ûÿÿÿÿ8·‹†©È1
+M	java:S106»"+Replace this use of System.out by a logger.(ÇŠê’úÿÿÿÿ8Ù‹†©È1
+H	java:S106é"+Replace this use of System.out by a logger.(Ø¼¢ƒ8Ş‹†©È1
+Y	java:S125¹"<This block of commented-out lines of code should be removed.(‰…Øö8è‹†©È1
+Y	java:S125Ù"<This block of commented-out lines of code should be removed.(‰…Øö8ì‹†©È1
+T
+java:S1068("7Remove this unused "fullNameWithInitial" private field.(ŸĞ¯û8Öõ‹©È1

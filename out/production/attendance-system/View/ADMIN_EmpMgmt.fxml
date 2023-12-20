@@ -58,51 +58,54 @@
             </HBox>
          </children>
       </Pane>
-      <HBox layoutX="436.0" layoutY="482.0" prefHeight="40.0" prefWidth="332.0" />
-      <VBox layoutX="509.0" layoutY="277.0" prefHeight="26.0" prefWidth="259.0">
+      <Pane layoutX="510.0" layoutY="63.0" prefHeight="518.0" prefWidth="271.0" styleClass="tilePane">
          <children>
-            <Label fx:id="nameLabel" prefHeight="17.0" prefWidth="285.0" style="-fx-alignment: center;" text="Name Surname">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="emailLabel" prefHeight="17.0" prefWidth="285.0" style="-fx-alignment: center;" text="email@example.com">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
+            <VBox layoutX="7.0" layoutY="201.0" prefHeight="26.0" prefWidth="259.0">
+               <children>
+                  <Label fx:id="nameLabel" prefHeight="17.0" prefWidth="285.0" style="-fx-alignment: center;" text="Name Surname">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="emailLabel" prefHeight="17.0" prefWidth="285.0" style="-fx-alignment: center;" text="email@example.com">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <ImageView fx:id="userImageView" fitHeight="120.0" fitWidth="223.0" layoutX="76.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/default_user_img.jpg" />
+               </image>
+            </ImageView>
+            <VBox layoutX="17.0" layoutY="377.0" prefHeight="120.0" prefWidth="238.0" spacing="10.0">
+               <children>
+                  <Button fx:id="addEmpBtn" mnemonicParsing="false" onAction="#openAddEmpPane" prefHeight="43.0" prefWidth="259.0" text="Add Employee">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="editUserBtn" mnemonicParsing="false" onAction="#openEditUserPane" prefHeight="39.0" prefWidth="264.0" text="Edit">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="deactivateUserBtn" mnemonicParsing="false" onAction="#deactivateUser" prefHeight="39.0" prefWidth="267.0" text="Deactivate" />
+               </children>
+            </VBox>
+            <VBox layoutX="60.0" layoutY="259.0" prefHeight="99.0" prefWidth="153.0">
+               <children>
+                  <Label fx:id="birthDateLabel" prefHeight="10.0" prefWidth="153.0" style="-fx-alignment: center;" text="YYYY-MM-DD" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="contactNumLabel" prefHeight="10.0" prefWidth="153.0" style="-fx-alignment: center;" text="12345678900" textAlignment="CENTER" wrapText="true" />
+                  <Label fx:id="addressLabel" prefHeight="54.0" prefWidth="187.0" style="-fx-alignment: center;" text="Street, City, Postal Code, Country" textAlignment="CENTER" wrapText="true" />
+               </children>
+            </VBox>
          </children>
-      </VBox>
-      <ImageView fx:id="userImageView" fitHeight="120.0" fitWidth="223.0" layoutX="580.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Images/default_user_img.jpg" />
-         </image>
-      </ImageView>
-      <VBox layoutX="509.0" layoutY="459.0" prefHeight="120.0" prefWidth="259.0">
-         <children>
-            <Button fx:id="addEmpBtn" mnemonicParsing="false" onAction="#openAddEmpPane" prefHeight="43.0" prefWidth="259.0" text="Add Employee">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="editUserBtn" mnemonicParsing="false" onAction="#openEditUserPane" prefHeight="39.0" prefWidth="264.0" text="Edit">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="deactivateUserBtn" mnemonicParsing="false" onAction="#deactivateUser" prefHeight="39.0" prefWidth="267.0" text="Deactivate" />
-         </children>
-      </VBox>
-      <VBox layoutX="563.0" layoutY="343.0" prefHeight="99.0" prefWidth="153.0">
-         <children>
-            <Label fx:id="birthDateLabel" prefHeight="10.0" prefWidth="153.0" style="-fx-alignment: center;" text="YYYY-MM-DD" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="contactNumLabel" prefHeight="10.0" prefWidth="153.0" style="-fx-alignment: center;" text="12345678900" textAlignment="CENTER" wrapText="true" />
-            <Label fx:id="addressLabel" prefHeight="54.0" prefWidth="187.0" style="-fx-alignment: center;" text="Street, City, Postal Code, Country" textAlignment="CENTER" wrapText="true" />
-         </children>
-      </VBox>
+      </Pane>
    </children>
 </AnchorPane>

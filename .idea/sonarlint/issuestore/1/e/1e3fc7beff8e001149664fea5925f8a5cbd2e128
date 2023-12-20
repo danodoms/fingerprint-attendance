@@ -1,0 +1,27 @@
+
+K
+java:S5411‚"(Use a primitive boolean expression here.(¬‰‘™şÿÿÿÿ8Š‹¼ƒÈ1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î8´²³ƒÈ1
+p
+java:S2095"MUse try-with-resources or close this "ExecutorService" in a "finally" clause.(’µ‘Êıÿÿÿÿ8§Œ¼ƒÈ1
+O
+java:S1135g"2Complete the task associated to this TODO comment.(…ïœ†8ÄŒ¼ƒÈ1
+J
+java:S1125"'Remove the unnecessary boolean literal.(«´› şÿÿÿÿ8İŒ¼ƒÈ1
+^	java:S125‘"<This block of commented-out lines of code should be removed.(›øñÈùÿÿÿÿ8ßŒ¼ƒÈ1
+|
+java:S2142–"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8áŒ¼ƒÈ1
+\
+java:S1854Â"9Remove this useless assignment to local variable "email".(ò¢ô¥şÿÿÿÿ8èŒ¼ƒÈ1
+H	java:S106²"+Replace this use of System.out by a logger.(®¸Æ”8ëŒ¼ƒÈ1
+M	java:S106½"+Replace this use of System.out by a logger.(¶ÎªÉüÿÿÿÿ8ïŒ¼ƒÈ1
+M
+java:S1481Â"*Remove this unused "email" local variable.(ò¢ô¥şÿÿÿÿ8òŒ¼ƒÈ1
+G	java:S106Ï"+Replace this use of System.out by a logger.(¢Å³8ûŒ¼ƒÈ1
+H	java:S106Ò"+Replace this use of System.out by a logger.(™¦€8şŒ¼ƒÈ1
+M	java:S106à"+Replace this use of System.out by a logger.(öÜ·¾ÿÿÿÿÿ8‚¼ƒÈ1
+M	java:S106ã"+Replace this use of System.out by a logger.(şÒóìøÿÿÿÿ8„¼ƒÈ1
+M	java:S106æ"+Replace this use of System.out by a logger.(şÒóìøÿÿÿÿ8…¼ƒÈ1
+M	java:S106ğ"+Replace this use of System.out by a logger.(øüÓ²şÿÿÿÿ8‰¼ƒÈ1
+^	java:S125ñ"<This block of commented-out lines of code should be removed.(ßÕÅüÿÿÿÿ8Š¼ƒÈ1
+F	java:S106ú"+Replace this use of System.out by a logger.(×¡)8›¼ƒÈ1

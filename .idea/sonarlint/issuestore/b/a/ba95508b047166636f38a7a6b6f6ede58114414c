@@ -35,11 +35,11 @@ g	java:S117¦"QRename this local variable to match the regular expression '^[a
 b	java:S1011"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(°†Ë·
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
 a
-java:S2583å"CChange this condition so that it does not always evaluate to "true"(¤×¤¡8Ð­áêÇ1
-a
 java:S2583Ó"CChange this condition so that it does not always evaluate to "true"(¤×¤¡8Ö­áêÇ1
 a
 java:S2583÷"CChange this condition so that it does not always evaluate to "true"(¤×¤¡8ß­áêÇ1
+a
+java:S2583å"CChange this condition so that it does not always evaluate to "true"(¤×¤¡8Ð­áêÇ1
 g	java:S1165"RRename this field "user_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÐÀœ
 G
 java:S16593",Declare "tardinessTable" on a separate line.(Õ„ë‘úÿÿÿÿ

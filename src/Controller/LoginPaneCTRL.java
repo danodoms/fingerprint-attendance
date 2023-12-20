@@ -96,6 +96,8 @@ public class LoginPaneCTRL implements Initializable {
     @FXML
     private Label scannerStatusSubtextLabel;
 
+    IdentificationThread identification = new IdentificationThread(fpImageview);
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -121,7 +123,7 @@ public class LoginPaneCTRL implements Initializable {
         };
         timer.start();
         
-        IdentificationThread identification = new IdentificationThread(fpImageview);
+
         identification.start();
         
         showPassCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -236,6 +238,8 @@ public class LoginPaneCTRL implements Initializable {
     private void openAdminPane(ActionEvent event) {
         paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.ADMIN_PANE);
         System.out.println("Logged in as admin");
+//        ThreadFlags.runIdentificationThread = false;
+        identification.stopThread();
     }
 
     

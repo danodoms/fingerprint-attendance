@@ -1,0 +1,17 @@
+
+y
+java:S1104"cMake runIdentificationThread a static final constant or non-public and provide accessors if needed.(ğ½ôä
+w
+java:S1104"aMake runVerificationThread a static final constant or non-public and provide accessors if needed.(û®â
+w
+java:S1104"\Make programIsRunning a static final constant or non-public and provide accessors if needed.(ç–…Öüÿÿÿÿ
+S
+java:S1444"=Make this "public static runIdentificationThread" field final(ğ½ôä
+Q
+java:S1444";Make this "public static runVerificationThread" field final(û®â
+Q
+java:S1444"6Make this "public static programIsRunning" field final(ç–…Öüÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—„Şäşÿÿÿÿ
+U
+java:S1118":Add a private constructor to hide the implicit public one.(¢¯††ıÿÿÿÿ
+V	java:S125"<This block of commented-out lines of code should be removed.(Ú¥«ãøÿÿÿÿ
