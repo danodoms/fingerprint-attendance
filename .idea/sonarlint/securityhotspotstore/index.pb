@@ -103,3 +103,15 @@ I
 src/Model/Department.java,6\4\64420f67808a9d18eb97aab395ee8be7a2b85812
 T
 $src/Controller/ADMIN_ShiftsCTRL.java,4\7\47ae17d651b46c072b9b7224a159d386f46f04b7
+X
+(src/Controller/FP_ConfirmActionCTRL.java,6\f\6f61017d4820f4baa891df21abcf5130e1211773
+X
+(src/Fingerprint/IdentificationModal.java,f\f\fffffc26d53c3e7b4f90a2ac3731c80f31bb6ff5
+D
+src/Model/Shift.java,5\3\535b8363f9c8b0d0816eb3211571961a3610c2df
+G
+src/View/LoginPane.fxml,2\2\228a04c0d11e289f4a4b80b509e4268ba655126a
+N
+src/View/ADMIN_AttReports.fxml,4\a\4aa936be95d96e8419be60d3f767da842e609c92
+J
+src/View/ADMIN_AddEmp.fxml,9\7\97d40fc5f3b8cc7dee6cfd251f4a99ec69a292aa

@@ -1,41 +1,39 @@
 
 Š
-java:S1319í"gThe type of "fmdList" should be an interface such as "List" rather than the implementation "ArrayList".(ö³°úÿÿÿÿ8«‘²ƒÈ1
-r	java:S117{"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œñ¥¦ÿÿÿÿÿ8­‘²ƒÈ1
+java:S1319î"gThe type of "fmdList" should be an interface such as "List" rather than the implementation "ArrayList".(ö³°úÿÿÿÿ8«‘²ƒÈ1
+r	java:S117|"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œñ¥¦ÿÿÿÿÿ8­‘²ƒÈ1
 ‡
-java:S1488o"eImmediately return this expression instead of assigning it to the temporary variable "fmdToIdentify".(ƒ×Ùëÿÿÿÿÿ8°‘²ƒÈ1
+java:S1488p"eImmediately return this expression instead of assigning it to the temporary variable "fmdToIdentify".(ƒ×Ùëÿÿÿÿÿ8°‘²ƒÈ1
 {	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—„Şäşÿÿÿÿ8±©°ƒÈ1
 c
-java:S2259n"AA "NullPointerException" could be thrown; "evt" is nullable here.(Æœ¤Óşÿÿÿÿ8Š’²ƒÈ1
-~
-java:S1450!"\Remove the "captureThread" field and declare it as a local variable in the relevant methods.(·Áâ½ıÿÿÿÿ8ê©°ƒÈ1
+java:S2259o"AA "NullPointerException" could be thrown; "evt" is nullable here.(Æœ¤Óşÿÿÿÿ8Š’²ƒÈ1
 ]	java:S125:"<This block of commented-out lines of code should be removed.(ãÉñßıÿÿÿÿ8õ©°ƒÈ1
 L	java:S106M"+Replace this use of System.out by a logger.(£ïÄØùÿÿÿÿ8ö©°ƒÈ1
 L	java:S106S"+Replace this use of System.out by a logger.(œ½Ìğıÿÿÿÿ8ù©°ƒÈ1
-L	java:S106_"+Replace this use of System.out by a logger.(ÂÓ·Îÿÿÿÿÿ8£’²ƒÈ1
-M	java:S106Œ"+Replace this use of System.out by a logger.(Ô©Ë‚şÿÿÿÿ8«’²ƒÈ1
-H	java:S106’"+Replace this use of System.out by a logger.(¥ é´8¬’²ƒÈ1
-Y	java:S125“"<This block of commented-out lines of code should be removed.(ËŒ“š8­’²ƒÈ1
-H	java:S106"+Replace this use of System.out by a logger.(·úµâ8°’²ƒÈ1
-H	java:S106³"+Replace this use of System.out by a logger.(¥ é´8µ’²ƒÈ1
-H	java:S106¶"+Replace this use of System.out by a logger.(·úµâ8¶’²ƒÈ1
-Y	java:S125Ã"<This block of commented-out lines of code should be removed.(§Üğ”8’ª°ƒÈ1
+L	java:S106`"+Replace this use of System.out by a logger.(ÂÓ·Îÿÿÿÿÿ8£’²ƒÈ1
+M	java:S106"+Replace this use of System.out by a logger.(Ô©Ë‚şÿÿÿÿ8«’²ƒÈ1
+H	java:S106“"+Replace this use of System.out by a logger.(¥ é´8¬’²ƒÈ1
+Y	java:S125”"<This block of commented-out lines of code should be removed.(ËŒ“š8­’²ƒÈ1
+H	java:S106Ÿ"+Replace this use of System.out by a logger.(·úµâ8°’²ƒÈ1
+H	java:S106´"+Replace this use of System.out by a logger.(¥ é´8µ’²ƒÈ1
+H	java:S106·"+Replace this use of System.out by a logger.(·úµâ8¶’²ƒÈ1
+Y	java:S125Ä"<This block of commented-out lines of code should be removed.(§Üğ”8’ª°ƒÈ1
 J
-java:S1602Ä",Remove useless curly braces around statement(ÃÉş©8¹’²ƒÈ1
-X	java:S125Å"<This block of commented-out lines of code should be removed.(’‡Ø|8»’²ƒÈ1
+java:S1602Å",Remove useless curly braces around statement(ÃÉş©8¹’²ƒÈ1
+X	java:S125Æ"<This block of commented-out lines of code should be removed.(’‡Ø|8»’²ƒÈ1
 
-java:S2142Ö"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(è®ã¶øÿÿÿÿ8¼’²ƒÈ1
+java:S2142×"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(è®ã¶øÿÿÿÿ8¼’²ƒÈ1
 E
-java:S1125Ë"'Remove the unnecessary boolean literal.(ôÍ…à8¾’²ƒÈ1
-M	java:S106Ï"+Replace this use of System.out by a logger.(ÂÓ·Îÿÿÿÿÿ8Á’²ƒÈ1
+java:S1125Ì"'Remove the unnecessary boolean literal.(ôÍ…à8¾’²ƒÈ1
+M	java:S106Ğ"+Replace this use of System.out by a logger.(ÂÓ·Îÿÿÿÿÿ8Á’²ƒÈ1
 J
-java:S1602à",Remove useless curly braces around statement(ÃÉş©8Æ’²ƒÈ1
+java:S1602á",Remove useless curly braces around statement(ÃÉş©8Æ’²ƒÈ1
 Y
-java:S2696ö"6Make the enclosing method "static" or remove this set.(Ìü˜™úÿÿÿÿ8Ì’²ƒÈ1
-M	java:S106÷"+Replace this use of System.out by a logger.(œ½Ìğıÿÿÿÿ8Í’²ƒÈ1
+java:S2696÷"6Make the enclosing method "static" or remove this set.(Ìü˜™úÿÿÿÿ8Ì’²ƒÈ1
+M	java:S106ø"+Replace this use of System.out by a logger.(œ½Ìğıÿÿÿÿ8Í’²ƒÈ1
 h
-java:S2147‚"ECombine this catch with the one at line 256, which has the same body.(Ï“ßıÿÿÿÿ8Ğ’²ƒÈ1
+java:S2147ƒ"ECombine this catch with the one at line 257, which has the same body.(Ï“ßıÿÿÿÿ8Ğ’²ƒÈ1
 
-java:S2142€"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(è®ã¶øÿÿÿÿ8Ñ’²ƒÈ1
+java:S2142"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(è®ã¶øÿÿÿÿ8Ñ’²ƒÈ1
 U
 java:S1068*"8Remove this unused "isFingerprintMatched" private field.(“éÁ‘8§ª°ƒÈ1

@@ -1,87 +1,89 @@
 
-c
-java:S1192´"GDefine a constant instead of duplicating this literal "    --" 4 times.(ŒÛëíùÿÿÿÿ
+j
+java:S1192ç"GDefine a constant instead of duplicating this literal "    --" 4 times.(ŒÛëíùÿÿÿÿ8ß¢úÓÈ1
+r
+java:S1192“"TDefine a constant instead of duplicating this literal "FROM attendance c 
+" 4 times.(‹ƒ–8ß¢úÓÈ1
+l
+java:S1192"IDefine a constant instead of duplicating this literal "notation" 8 times.(Œúü…üÿÿÿÿ8à¢úÓÈ1
+l
+java:S1192ï"IDefine a constant instead of duplicating this literal "00:00:00" 3 times.(É¢Çıúÿÿÿÿ8à¢úÓÈ1
 k
-java:S1192ú"TDefine a constant instead of duplicating this literal "FROM attendance c 
-" 4 times.(‹ƒ–
+java:S1192¹"HDefine a constant instead of duplicating this literal "Present" 4 times.( ®«Ûúÿÿÿÿ8à¢úÓÈ1
+›
+java:S1192—"xDefine a constant instead of duplicating this literal "JOIN department d ON p.department_id = d.department_id " 4 times.(èÍú…øÿÿÿÿ8à¢úÓÈ1
+p
+java:S1192›"RDefine a constant instead of duplicating this literal "attendance_status" 4 times.(ê í‚8à¢úÓÈ1
+
+java:S1192–"rDefine a constant instead of duplicating this literal "JOIN position p ON a.position_id = p.position_id " 4 times.(­Š§8à¢úÓÈ1
+ 
+java:S1192‘"Define a constant instead of duplicating this literal "SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date, " 4 times.(°ç¬‡8à¢úÓÈ1
+½
+java:S1192’"ŸDefine a constant instead of duplicating this literal "c.time_in as timeIn, c.time_out as timeOut, c.time_notation as notation, c.attendance_status 
+" 4 times.(°öç8à¢úÓÈ1
 e
-java:S1192…"IDefine a constant instead of duplicating this literal "notation" 8 times.(Œúü…üÿÿÿÿ
-e
-java:S1192Ö"IDefine a constant instead of duplicating this literal "00:00:00" 3 times.(É¢Çıúÿÿÿÿ
-d
-java:S1192 "HDefine a constant instead of duplicating this literal "Present" 4 times.( ®«Ûúÿÿÿÿ
-”
-java:S1192ş"xDefine a constant instead of duplicating this literal "JOIN department d ON p.department_id = d.department_id " 4 times.(èÍú…øÿÿÿÿ
-i
-java:S1192‚"RDefine a constant instead of duplicating this literal "attendance_status" 4 times.(ê í‚
+java:S1192·"GDefine a constant instead of duplicating this literal "No Out" 5 times.(ä¸ùÌ8à¢úÓÈ1
 ‰
-java:S1192ı"rDefine a constant instead of duplicating this literal "JOIN position p ON a.position_id = p.position_id " 4 times.(­Š§
-™
-java:S1192ø"Define a constant instead of duplicating this literal "SELECT CONCAT(u.user_fname, ' ', u.user_lname) AS name, c.date, " 4 times.(°ç¬‡
-¶
-java:S1192ù"ŸDefine a constant instead of duplicating this literal "c.time_in as timeIn, c.time_out as timeOut, c.time_notation as notation, c.attendance_status 
-" 4 times.(°öç
-^
-java:S1192"GDefine a constant instead of duplicating this literal "No Out" 5 times.(ä¸ùÌ
-‚
-java:S1192û"fDefine a constant instead of duplicating this literal "JOIN user u ON c.user_id = u.user_id " 4 times.(Ûƒıøÿÿÿÿ
-d
-java:S1192„"HDefine a constant instead of duplicating this literal "timeOut" 4 times.(³Íñ³øÿÿÿÿ
-ˆ
-java:S1192ü"lDefine a constant instead of duplicating this literal "JOIN assignment a ON u.user_id = a.user_id " 4 times.(›öÍúÿÿÿÿ
-^
-java:S1192ƒ"GDefine a constant instead of duplicating this literal "timeIn" 4 times.(Ø¨ÆÉ
-f	java:S117X"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“ÆŒ
-k	java:S117q"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íØšàıÿÿÿÿ
-l	java:S117²"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÅàƒŠùÿÿÿÿ
-g	java:S117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó”§í
-s
-java:S1104#"XMake defaultValue a static final constant or non-public and provide accessors if needed.(‹ƒ²ûÿÿÿÿ
-M
-java:S1444#"2Make this "public static defaultValue" field final(‹ƒ²ûÿÿÿÿ
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
+java:S1192”"fDefine a constant instead of duplicating this literal "JOIN user u ON c.user_id = u.user_id " 4 times.(Ûƒıøÿÿÿÿ8á¢úÓÈ1
 k
-java:S2095ˆ"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
-k
-java:S2095—"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
-q	java:S116"\Rename this field "attendance_status" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úßê
-<
-java:S1659"'Declare "timeOutAm" on a separate line.(†é­q
-B
-java:S1659"'Declare "timeOutPm" on a separate line.(Ä¾òÒüÿÿÿÿ
-d	java:S100ˆ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢¤µô
-i	java:S100²"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÅàƒŠùÿÿÿÿ
-n
-java:S3776ó"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(¸­œÎıÿÿÿÿ
-I
-java:S6126ø"2Replace this String concatenation with Text block.(°ç¬‡
-S
-java:S3972"7Move this "if" to a new line or add the missing "else".(ÖîÊÉùÿÿÿÿ
-i
-java:S3776³"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(èôî²
-I
-java:S6126¸"2Replace this String concatenation with Text block.(°ç¬‡
-S
-java:S3972Ï"7Move this "if" to a new line or add the missing "else".(ÖîÊÉùÿÿÿÿ
-L
-java:S1481ø"0Remove this unused "currentDate" local variable.(¹³æÀüÿÿÿÿ
-n
-java:S3776‰"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Ê•¹¿ıÿÿÿÿ
-I
-java:S6126"2Replace this String concatenation with Text block.(°ç¬‡
-S
-java:S3972¥"7Move this "if" to a new line or add the missing "else".(ÖîÊÉùÿÿÿÿ
-i
-java:S3776É"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(æé¯¦
-I
-java:S6126Î"2Replace this String concatenation with Text block.(°ç¬‡
-i
-java:S3776‘"RRefactor this method to reduce its Cognitive Complexity from 42 to the 15 allowed.(ó”§í
+java:S1192"HDefine a constant instead of duplicating this literal "timeOut" 4 times.(³Íñ³øÿÿÿÿ8á¢úÓÈ1
+
+java:S1192•"lDefine a constant instead of duplicating this literal "JOIN assignment a ON u.user_id = a.user_id " 4 times.(›öÍúÿÿÿÿ8á¢úÓÈ1
+e
+java:S1192œ"GDefine a constant instead of duplicating this literal "timeIn" 4 times.(Ø¨ÆÉ8á¢úÓÈ1
+m	java:S117q"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“ÆŒ8ä¢úÓÈ1
+s	java:S117Š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íØšàıÿÿÿÿ8ä¢úÓÈ1
+s	java:S117Ë"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÅàƒŠùÿÿÿÿ8ä¢úÓÈ1
+n	java:S117Ä"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó”§í8ä¢úÓÈ1
+z
+java:S1104#"XMake defaultValue a static final constant or non-public and provide accessors if needed.(‹ƒ²ûÿÿÿÿ8æ¢úÓÈ1
+T
+java:S1444#"2Make this "public static defaultValue" field final(‹ƒ²ûÿÿÿÿ8ç¢úÓÈ1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“8í¢úÓÈ1
+r
+java:S2095Ê"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ8¥ÃúÓÈ1
+r
+java:S2095»"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ8¥ÃúÓÈ1
+x	java:S116"\Rename this field "attendance_status" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úßê8§ÃúÓÈ1
 C
-java:S1481¤",Remove this unused "rs1Date" local variable.(¢ú›
-R	java:S125ñ"<This block of commented-out lines of code should be removed.(¢–í±
-W	java:S125¤"<This block of commented-out lines of code should be removed.(¤Ùıùÿÿÿÿ
-W	java:S125´"<This block of commented-out lines of code should be removed.(¤Ùıùÿÿÿÿ
-W	java:S125å"<This block of commented-out lines of code should be removed.(¤Ùıùÿÿÿÿ
-İ
-java:S6541‘"ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 89 to 64, Complexity from 15 to 14, Nesting Level from 5 to 2, Number of Variables from 22 to 6.(ó”§í
+java:S1659"'Declare "timeOutAm" on a separate line.(†é­q8«ÃúÓÈ1
+I
+java:S1659"'Declare "timeOutPm" on a separate line.(Ä¾òÒüÿÿÿÿ8¬ÃúÓÈ1
+k	java:S100¡"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢¤µô8¹ÃúÓÈ1
+p	java:S100Ë"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÅàƒŠùÿÿÿÿ8¼ÃúÓÈ1
+u
+java:S3776Œ"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(¸­œÎıÿÿÿÿ8ÃÃúÓÈ1
+P
+java:S6126‘"2Replace this String concatenation with Text block.(°ç¬‡8ÅÃúÓÈ1
+Z
+java:S3972¨"7Move this "if" to a new line or add the missing "else".(ÖîÊÉùÿÿÿÿ8ÈÃúÓÈ1
+p
+java:S3776Ì"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(èôî²8ÊÃúÓÈ1
+P
+java:S6126Ñ"2Replace this String concatenation with Text block.(°ç¬‡8ËÃúÓÈ1
+Z
+java:S3972è"7Move this "if" to a new line or add the missing "else".(ÖîÊÉùÿÿÿÿ8ÎÃúÓÈ1
+S
+java:S1481‘"0Remove this unused "currentDate" local variable.(¹³æÀüÿÿÿÿ8ÒÃúÓÈ1
+S
+java:S1481¨"0Remove this unused "currentDate" local variable.(¹³æÀüÿÿÿÿ8ÖÃúÓÈ1
+u
+java:S3776¼"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Ê•¹¿ıÿÿÿÿ8ØÃúÓÈ1
+P
+java:S6126Á"2Replace this String concatenation with Text block.(°ç¬‡8ÚÃúÓÈ1
+Z
+java:S3972Ø"7Move this "if" to a new line or add the missing "else".(ÖîÊÉùÿÿÿÿ8İÃúÓÈ1
+p
+java:S3776ü"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(æé¯¦8ßÃúÓÈ1
+P
+java:S6126"2Replace this String concatenation with Text block.(°ç¬‡8áÃúÓÈ1
+p
+java:S3776Ä"RRefactor this method to reduce its Cognitive Complexity from 42 to the 15 allowed.(ó”§í8æÃúÓÈ1
+J
+java:S1481×",Remove this unused "rs1Date" local variable.(¢ú›8êÃúÓÈ1
+Y	java:S125¤"<This block of commented-out lines of code should be removed.(¢–í±8îÃúÓÈ1
+^	java:S125×"<This block of commented-out lines of code should be removed.(¤Ùıùÿÿÿÿ8õÃúÓÈ1
+^	java:S125ç"<This block of commented-out lines of code should be removed.(¤Ùıùÿÿÿÿ8÷ÃúÓÈ1
+^	java:S125˜"<This block of commented-out lines of code should be removed.(¤Ùıùÿÿÿÿ8ÿÃúÓÈ1
+ä
+java:S6541Ä"ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 89 to 64, Complexity from 15 to 14, Nesting Level from 5 to 2, Number of Variables from 22 to 6.(ó”§í8‡ÄúÓÈ1

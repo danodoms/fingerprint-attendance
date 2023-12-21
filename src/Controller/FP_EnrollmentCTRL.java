@@ -52,10 +52,12 @@ public class FP_EnrollmentCTRL implements Initializable {
 
 
 
+        //stop enrollment thread when window is closed
+
 
         
         
-        // Set an event handler for the window hiding event
+// Set an event handler for the window hiding event
 //        Stage stage = (Stage) nameLabel.getScene().getWindow();
 //        stage.setOnHiding(event -> enrollmentThread.stopEnrollmentThread());
     }

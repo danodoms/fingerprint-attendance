@@ -10,8 +10,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .root {
   -color-background-dark1: #B3C0C6;
   -color-background: #D0D8DC;
-  -color-accent-primary: #81ecae;
-  /*-color-accent-primary: #07f9a2;*/
+  /*-color-accent-primary: #81ecae;*/
+
+  -color-accent-primary: linear-gradient(to bottom, #a3f8c2, #81ecae, #5ddc99);
   -color-accent-secondary: #c9ffec;
   -color-base:   white;
   -color-base-darker1:   #e6e6e6;
@@ -19,6 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
   -color-base-gradient: #81ecae;
   -color-text: #3b3b3b;
   -color-red: #f44336;
+  -color-red: linear-gradient(to bottom, #ff6f66, #f44336, #d32f2f);;
 
 }
 
@@ -227,7 +229,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 
 
-TextField{
+TextField,
+.password-field{
     -fx-background-color: -color-base;
     -fx-text-fill: -color-bacground-dark1;
 
@@ -238,7 +241,14 @@ TextField{
     -fx-border-radius: 5px;
 }
 
-
+.check-box{
+    /*-fx-background-color: -color-base;
+    -fx-text-fill: -color-bacground-dark1;
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 5px;
+    -fx-border-style: solid;*/
+}
 
 /* Style for ChoiceBox */
 .choice-box {

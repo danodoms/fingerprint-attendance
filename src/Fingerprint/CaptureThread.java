@@ -148,6 +148,15 @@ public class CaptureThread extends Thread{
         }
     }
 
+    public void stopThread (){
+        try {
+            Selection.reader.CancelCapture();
+        } catch (UareUException e) {
+            throw new RuntimeException(e);
+        }
+        isCaptureCanceled = true;
+    }
+
     @Override
     public void run(){
         startCapture();

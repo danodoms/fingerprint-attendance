@@ -26,6 +26,7 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     public Engine engine = UareUGlobal.GetEngine();
     IdentificationThread identificationThread = new IdentificationThread();
     ArrayList<Fmd> fmdList = new ArrayList<>();
+    boolean runThisThread = true;
     
     public EnrollmentThread(ImageView imageview, int userIdToEnroll){
         this.imageview = imageview;
@@ -37,37 +38,35 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     
     
     public void startEnrollment(ImageView imageview) throws UareUException{
-//        Selection.reader.Close();
-        //Selection.reader.Open(Reader.Priority.COOPERATIVE);
         Selection.closeAndOpenReader();
-        //identificationThread.stopIdentificationThread();
-        //ThreadFlags.running = false;
-        
 
-        
-        for (int attemptCounter = 0; attemptCounter < requiredFmdToEnroll; attemptCounter++) {
-            System.out.println("User ID to Enroll: " + userIdToEnroll);
-            System.out.println("Attempt " + attemptCounter);
+        if(runThisThread){
+            for (int attemptCounter = 0; attemptCounter < requiredFmdToEnroll; attemptCounter++) {
+                System.out.println("User ID to Enroll: " + userIdToEnroll);
+                System.out.println("Attempt " + attemptCounter);
 
-            //Calls the Override GetFmd method that is implemented from Engine.CreateEnrollmentFmd Class
-            Fmd fmdToEnroll = null;
-            
-            boolean unableToEnroll = false;
-            
-            do{
-                try{
-                    fmdToEnroll = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
-                }catch(UareUException ex){
-                    unableToEnroll =  true;
-                    Prompt.prompt(Prompt.UNABLE_TO_ENROLL);
-                }
-            }while(unableToEnroll);
+                //Calls the Override GetFmd method that is implemented from Engine.CreateEnrollmentFmd Class
+                Fmd fmdToEnroll = null;
 
-            System.out.println("FMD returned");
+                boolean unableToEnroll = false;
 
-            fmdList.add(fmdToEnroll); // Add the Fmd to the list
-            Prompt.prompt(Prompt.ANOTHER_CAPTURE);
+                do{
+                    try{
+                        fmdToEnroll = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
+                    }catch(UareUException ex){
+                        unableToEnroll =  true;
+                        Prompt.prompt(Prompt.UNABLE_TO_ENROLL);
+                        stopEnrollmentThread();
+                    }
+                }while(unableToEnroll);
+
+                System.out.println("FMD returned");
+
+                fmdList.add(fmdToEnroll); // Add the Fmd to the list
+                Prompt.prompt(Prompt.ANOTHER_CAPTURE);
+            }
         }
+
         
         
         // Insert all Fmds into the database
@@ -146,12 +145,9 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     } 
     
     public void stopEnrollmentThread(){
-        try {
-            Selection.reader.Close();
-            System.out.println("Enrollment Thread Stopped");
-        } catch (UareUException ex) {
-            Logger.getLogger(EnrollmentThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        runThisThread = false;
+        captureThread.stopThread();
+        System.out.println("Enrollment Thread Stopped");
     }
     
     @Override

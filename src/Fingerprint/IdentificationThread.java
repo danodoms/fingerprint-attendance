@@ -86,6 +86,7 @@ public class IdentificationThread extends Thread{
     //create method that stops thread
     public void stopThread(){
         runThisThread = false;
+        captureThread.stopThread();
     }
       
     

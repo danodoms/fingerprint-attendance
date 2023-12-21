@@ -11,203 +11,128 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="539.0" prefWidth="778.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginPaneCTRL">
+<AnchorPane id="AnchorPane" focusTraversable="true" prefHeight="539.0" prefWidth="778.0" style="-fx-background-color: -color-base;" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginPaneCTRL">
    <children>
-      <HBox prefHeight="539.0" prefWidth="778.0" style="-fx-background-color: #1a1a1a;">
+      <VBox layoutX="445.0" layoutY="373.0" prefHeight="104.0" prefWidth="179.0">
          <children>
-            <Pane prefHeight="539.0" prefWidth="291.0" style="-fx-background-color: #07f9a2; -fx-background-radius: 40; -fx-border-width: 10; -fx-border-color: #1a1a1a; -fx-border-radius: 25;">
+            <Label text="DEV TOOLS" textFill="#bdffdc">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="loginAdminBtn" mnemonicParsing="false" onAction="#openAdminPane" prefHeight="15.0" prefWidth="179.0" styleClass="red" text="LOGIN AS ADMIN">
+               <VBox.margin>
+                  <Insets top="7.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="loginRecordsOfficerBtn" mnemonicParsing="false" onAction="#openRecordsOfficerPane" prefHeight="25.0" prefWidth="185.0" styleClass="red" text="LOGIN AS RECORDS OFFICER">
+               <VBox.margin>
+                  <Insets top="7.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="411.0" layoutY="133.0" prefHeight="186.0" prefWidth="248.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="37.0" prefWidth="253.0" text="Welcome">
+               <font>
+                  <Font name="Arial Bold" size="32.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="12.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="emailField" prefHeight="106.0" prefWidth="248.0" promptText="Email">
+               <opaqueInsets>
+                  <Insets bottom="12.0" />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets bottom="7.0" />
+               </VBox.margin>
+            </TextField>
+            <PasswordField fx:id="passwordField" prefHeight="59.0" prefWidth="248.0" promptText="Password">
+               <VBox.margin>
+                  <Insets bottom="7.0" />
+               </VBox.margin>
+            </PasswordField>
+            <CheckBox fx:id="showPassCheckBox" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="9.0" prefWidth="252.0" text="Show Password" textFill="#2c2c2c">
+               <VBox.margin>
+                  <Insets bottom="12.0" />
+               </VBox.margin>
+            </CheckBox>
+            <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#authenticate" prefHeight="60.0" prefWidth="248.0" text="Login" textFill="#1b1b1b">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="7.0" top="7.0" />
+               </padding></Button>
+            <Label fx:id="loginPrompt" focusTraversable="false" prefHeight="32.0" prefWidth="248.0" style="-fx-alignment: center;" text="Invalid Credentials" textAlignment="CENTER" textFill="#ff572d">
+               <VBox.margin>
+                  <Insets top="7.0" />
+               </VBox.margin></Label>
+         </children>
+      </VBox>
+      <Pane layoutX="8.0" layoutY="10.0" prefHeight="523.0" prefWidth="285.0" style="-fx-background-color: -color-accent-primary;" styleClass="tilePane">
+         <children>
+            <Label alignment="CENTER" layoutX="94.0" layoutY="172.0" text="TIME IN/OUT" textFill="#2c4036">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="fpImageview" blendMode="DARKEN" fitHeight="144.0" fitWidth="141.0" layoutX="73.0" layoutY="199.0" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/fp_placeholder.jpg" />
+               </image>
+            </ImageView>
+            <Label fx:id="titleLabel" alignment="CENTER" layoutX="79.0" layoutY="470.0" text="attendance system" textFill="#00bf79">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <VBox layoutX="37.0" layoutY="89.0" prefHeight="50.0" prefWidth="213.0">
                <children>
-                  <Label layoutX="96.0" layoutY="172.0" text="Clock In/Out" textFill="#2c4036">
-                     <font>
-                        <Font name="Arial Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="fpImageview" blendMode="DARKEN" fitHeight="144.0" fitWidth="141.0" layoutX="73.0" layoutY="199.0" preserveRatio="true" style="-fx-alignment: CENTER;">
-                     <image>
-                        <Image url="@../Images/fp_placeholder.jpg" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="titleLabel" layoutX="123.0" layoutY="470.0" text="biolog" textFill="#00bf79">
+                  <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="248.0" text="Tuesday, July 8" textAlignment="CENTER">
                      <font>
                         <Font name="Arial Bold" size="14.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="2.0" />
+                     </VBox.margin>
                   </Label>
-                  <VBox layoutX="37.0" layoutY="89.0" prefHeight="50.0" prefWidth="213.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center;">
                      <children>
-                        <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="248.0" style="-fx-alignment: CENTER;" text="Tuesday, July 8" textAlignment="CENTER">
+                        <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-alignment: CENTER;" text="10:45" textAlignment="CENTER">
                            <font>
-                              <Font name="Arial Bold" size="14.0" />
+                              <Font name="Arial Bold" size="36.0" />
                            </font>
-                           <VBox.margin>
-                              <Insets bottom="2.0" />
-                           </VBox.margin>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
                         </Label>
-                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center;">
-                           <children>
-                              <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-alignment: CENTER;" text="10:45" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Arial Bold" size="36.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Label fx:id="notationLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-alignment: CENTER;" text="am" textAlignment="CENTER" translateY="5.0">
-                                 <font>
-                                    <Font name="Arial Bold" size="20.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
+                        <Label fx:id="notationLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-alignment: CENTER;" text="am" textAlignment="CENTER" translateY="5.0">
+                           <font>
+                              <Font name="Arial Bold" size="20.0" />
+                           </font>
+                        </Label>
                      </children>
-                  </VBox>
-                  <Label fx:id="scannerStatusLabel" alignment="CENTER" layoutX="51.0" layoutY="407.0" prefHeight="20.0" prefWidth="189.0" text="Reader Connected" textFill="#2c4036">
-                     <font>
-                        <Font name="Arial Bold" size="10.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="scannerStatusSubtextLabel" alignment="CENTER" layoutX="51.0" layoutY="420.0" prefHeight="20.0" prefWidth="189.0" text="READY FOR CAPTURE" textFill="#2c4036">
-                     <font>
-                        <Font name="Arial Bold" size="10.0" />
-                     </font>
-                  </Label>
+                  </HBox>
                </children>
-            </Pane>
-            <StackPane prefHeight="539.0" prefWidth="487.0">
-               <children>
-                  <Pane fx:id="loginPane" prefHeight="539.0" prefWidth="495.0" style="-fx-border-radius: 25; -fx-border-width: 10; -fx-border-color: #1a1a1a; -fx-background-radius: 50;">
-                     <children>
-                        <VBox layoutX="157.0" layoutY="355.0" prefHeight="129.0" prefWidth="179.0">
-                           <children>
-                              <Label text="DEV TOOLS" textFill="#bdffdc">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Button fx:id="loginAdminBtn" mnemonicParsing="false" onAction="#openAdminPane" prefHeight="25.0" prefWidth="211.0" text="LOGIN AS ADMIN">
-                                 <VBox.margin>
-                                    <Insets top="7.0" />
-                                 </VBox.margin>
-                              </Button>
-                              <Button fx:id="loginRecordsOfficerBtn" mnemonicParsing="false" onAction="#openRecordsOfficerPane" prefHeight="25.0" prefWidth="185.0" text="LOGIN AS RECORDS OFFICER">
-                                 <VBox.margin>
-                                    <Insets top="7.0" />
-                                 </VBox.margin>
-                              </Button>
-                              <Button fx:id="fpEnrollmentShortcutBtn" disable="true" mnemonicParsing="false" onAction="#openFpEnrollmentPane" prefHeight="25.0" prefWidth="185.0" text="fp_enrollment pane shortcut">
-                                 <VBox.margin>
-                                    <Insets top="7.0" />
-                                 </VBox.margin>
-                              </Button>
-                              <Button fx:id="fpIdentificationShortcutBtn" disable="true" mnemonicParsing="false" onAction="#openFpIdentificationPane" prefHeight="25.0" prefWidth="194.0" text="fp_identification pane shortcut">
-                                 <VBox.margin>
-                                    <Insets top="7.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                        </VBox>
-                        <VBox layoutX="122.0" layoutY="105.0" prefHeight="236.0" prefWidth="248.0">
-                           <children>
-                              <Label prefHeight="37.0" prefWidth="253.0" style="-fx-alignment: center;" text="Login" textFill="#6effbe">
-                                 <font>
-                                    <Font name="Arial Bold" size="32.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="12.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="Email Address" textFill="#07f9a2" />
-                              <TextField fx:id="emailField" prefHeight="25.0" prefWidth="240.0">
-                                 <opaqueInsets>
-                                    <Insets bottom="12.0" />
-                                 </opaqueInsets>
-                                 <VBox.margin>
-                                    <Insets bottom="4.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <Label text="Password" textFill="#07f9a2" />
-                              <PasswordField fx:id="passwordField" prefHeight="25.0" prefWidth="193.0">
-                                 <VBox.margin>
-                                    <Insets bottom="4.0" />
-                                 </VBox.margin>
-                              </PasswordField>
-                              <CheckBox fx:id="showPassCheckBox" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="9.0" prefWidth="252.0" text="Show Password" textFill="#07f9a2">
-                                 <VBox.margin>
-                                    <Insets bottom="12.0" />
-                                 </VBox.margin>
-                              </CheckBox>
-                              <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#authenticate" prefHeight="33.0" prefWidth="248.0" style="-fx-background-color: #07f9a2;" text="Login" textFill="#1b1b1b" />
-                              <Label fx:id="loginPrompt" focusTraversable="false" prefHeight="32.0" prefWidth="248.0" style="-fx-alignment: center;" text="Invalid Credentials" textAlignment="CENTER" textFill="#ff572d" visible="false" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="fpEnrollmentPane" prefHeight="539.0" prefWidth="487.0" visible="false">
-                     <children>
-                        <ImageView fx:id="userImage" fitHeight="111.0" fitWidth="120.0" layoutX="189.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../Downloads/default_user_img.jpg" />
-                           </image>
-                        </ImageView>
-                        <Circle fill="#1fffbd" layoutX="245.0" layoutY="314.0" radius="52.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label fx:id="userNameLabel" layoutX="108.0" layoutY="188.0" prefHeight="25.0" prefWidth="272.0" style="-fx-alignment: center;" text="Lorem D. Ipsum" textAlignment="CENTER" textFill="#96ffcd">
-                           <font>
-                              <Font name="Segoe UI Symbol" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="180.0" layoutY="224.0" prefHeight="38.0" prefWidth="131.0" style="-fx-alignment: center;" text="Fingerprints Enrolled" textAlignment="CENTER" textFill="#91ffce">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="fpCountLabel" contentDisplay="CENTER" layoutX="223.0" layoutY="277.0" prefHeight="74.0" prefWidth="42.0" style="-fx-alignment: center;" text="4" textAlignment="CENTER">
-                           <font>
-                              <Font name="Arial" size="64.0" />
-                           </font>
-                        </Label>
-                        <VBox layoutX="150.0" layoutY="384.0" prefHeight="117.0" prefWidth="179.0">
-                           <children>
-                              <Button fx:id="enrollFpBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="179.0" style="-fx-background-color: #07f9a2;" text="Reenroll Fingerprints" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Button>
-                              <Label prefHeight="50.0" prefWidth="179.0" style="-fx-alignment: center;" text="Last Enroll" textAlignment="CENTER" textFill="#a1ffc9">
-                                 <font>
-                                    <Font name="Arial" size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="lastEnrollDateLabel" contentDisplay="CENTER" prefHeight="21.0" prefWidth="179.0" style="-fx-alignment: center;" text="30 Days ago" textAlignment="CENTER" textFill="#a1ffc9">
-                                 <font>
-                                    <Font name="Arial" size="20.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="fpIdentificationPane" prefHeight="200.0" prefWidth="200.0" visible="false">
-                     <children>
-                        <ImageView fx:id="fpIdentificationUserImage" fitHeight="150.0" fitWidth="200.0" layoutX="169.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../Downloads/sample.jpg" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="fpIdentificationUserName" layoutX="74.0" layoutY="322.0" prefHeight="17.0" prefWidth="340.0" style="-fx-alignment: center;" text="Lorem D. Ipsum" textFill="#9effb2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </children>
-            </StackPane>
+            </VBox>
+            <Label fx:id="scannerStatusLabel" alignment="CENTER" layoutX="51.0" layoutY="407.0" prefHeight="20.0" prefWidth="189.0" text="Reader Connected" textFill="#2c4036">
+               <font>
+                  <Font name="Arial Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="scannerStatusSubtextLabel" alignment="CENTER" layoutX="51.0" layoutY="420.0" prefHeight="20.0" prefWidth="189.0" text="READY FOR CAPTURE" textFill="#2c4036">
+               <font>
+                  <Font name="Arial Bold" size="10.0" />
+               </font>
+            </Label>
          </children>
-      </HBox>
+      </Pane>
    </children>
 </AnchorPane>

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" prefHeight="472.0" prefWidth="534.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AddEmpCTRL">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" prefHeight="472.0" prefWidth="534.0" style="-fx-background-color: -color-base;" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_AddEmpCTRL">
    <children>
       <HBox layoutX="6.0" layoutY="6.0" prefHeight="461.0" prefWidth="522.0">
          <children>

@@ -36,8 +36,33 @@ public class Attendance {
     private int totalEmployees;
     private double percentageLoggedIn;
     private double percentageNotLoggedIn;
-    
-    public Attendance(int totalEmployees, double percentageLoggedIn,double percentageNotLoggedIn){
+    private String time;
+    private String type;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Attendance(String name,  String time, String type, Date date) {
+        this.date = date;
+        this.name = name;
+        this.time = time;
+        this.type = type;
+    }
+
+    public Attendance(int totalEmployees, double percentageLoggedIn, double percentageNotLoggedIn){
         this.totalEmployees = totalEmployees;
         this.percentageLoggedIn=percentageLoggedIn;
         this.percentageNotLoggedIn=percentageNotLoggedIn;
@@ -390,6 +415,32 @@ public void setTimeOutPm(String timeOutPm) {
              
              return attendance;
          }
+
+
+    public static ObservableList<Attendance> getRecentAttendance(){
+        ObservableList<Attendance> recentAttendance = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+            String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            ResultSet rs = statement.executeQuery("SELECT * FROM recent_attendance_view;");
+
+            while (rs.next()){
+
+                recentAttendance.add(new Attendance(
+                        rs.getString("name"),
+                        rs.getString("event_time"),
+                        rs.getString("event_type"),
+                        rs.getDate("date")
+                ));
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return recentAttendance;
+    }
+
+
          public static ObservableList<Attendance> getInstruction(){
         ObservableList<Attendance> attendance = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();

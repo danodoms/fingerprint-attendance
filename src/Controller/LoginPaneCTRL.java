@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -96,10 +97,21 @@ public class LoginPaneCTRL implements Initializable {
     @FXML
     private Label scannerStatusSubtextLabel;
 
-    IdentificationThread identification = new IdentificationThread(fpImageview);
+    IdentificationThread identification;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        loginPrompt.setVisible(false);
+
+        identification = new IdentificationThread(fpImageview);
+        //set an image for fpImageview
+        String fpAnimationImagePath = "/Images/fp_scan_animation.gif";
+        String fpImagePath = "/Images/fp_placeholder.jpg";
+
+        Image fpImage = new Image(fpImagePath);
+        fpImageview.setImage(fpImage);
+
         // TODO
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -171,8 +183,8 @@ public class LoginPaneCTRL implements Initializable {
 
 
     }
-    
-    
+
+
     @FXML
     private void authenticate(ActionEvent event) {
         System.out.println("authenticating");
@@ -248,6 +260,7 @@ public class LoginPaneCTRL implements Initializable {
     private void openRecordsOfficerPane(ActionEvent event) {
         paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.RO_PANE);
         System.out.println("Logged in as records officer");
+        identification.stopThread();
     }
 
     

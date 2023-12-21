@@ -1,9 +1,9 @@
 
 >
-java:S16043"(Make this anonymous inner class a lambda(®Þñç
+java:S16044"(Make this anonymous inner class a lambda(®Þñç
 0
 java:S1220""Move this file to a named package.
-V	java:S125"<This block of commented-out lines of code should be removed.(²÷ÿÿÿÿÿ
-@	java:S1065"+Replace this use of System.out by a logger.(Ù­ó§
+]	java:S125"<This block of commented-out lines of code should be removed.(á²Ñõüÿÿÿÿ8ý“ÙÐÈ1
+@	java:S1066"+Replace this use of System.out by a logger.(Ù­ó§
 L
-java:S26967"6Make the enclosing method "static" or remove this set.(ÑÆ×¸
+java:S26968"6Make the enclosing method "static" or remove this set.(ÑÆ×¸
