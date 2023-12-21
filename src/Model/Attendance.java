@@ -340,7 +340,7 @@ public void setTimeOutPm(String timeOutPm) {
                 String out= rs.getString("timeOut");
                 String notationPM = rs.getString("notation");
                 String statusString;
-                    if(notationPM.equals("PM")){
+                    if(notationPM.equals("PM") && out !=null){
                         String[] splitIn = in.split(":");
                         String[] splitOut = out.split(":");
                         int convertIn = Integer.parseInt(splitIn[0]);
@@ -493,6 +493,65 @@ public void setTimeOutPm(String timeOutPm) {
         }
 
         return recentAttendance;
+    }
+
+    //i want to make a method that returns the count of time in from the getRecentAttendance method
+    public static int getTimeInCountToday(){
+//        int count = 0;
+//        try (Connection connection = DatabaseUtil.getConnection();
+//             Statement statement = connection.createStatement()){
+//            ResultSet rs = statement.executeQuery("SELECT COUNT(*) FROM recent_attendance_view WHERE event_type = 'Time In';");
+//
+//            while (rs.next()){
+//                count = rs.getInt("COUNT(*)");
+//            }
+//        }catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return count;
+
+        ObservableList<Attendance> recentAttendance = FXCollections.observableArrayList();
+        recentAttendance = getRecentAttendance();
+
+        ObservableList<Attendance> timeInAttendance = FXCollections.observableArrayList();
+        for (Attendance attendance : recentAttendance) {
+            if(attendance.getType().equals("Time In")){
+                timeInAttendance.add(attendance);
+            }
+        }
+
+        return timeInAttendance.size();
+    }
+
+    //i want to make a method that returns the count of time out from the getRecentAttendance method
+    public static int getTimeOutCountToday(){
+//        int count = 0;
+//        try (Connection connection = DatabaseUtil.getConnection();
+//             Statement statement = connection.createStatement()){
+//            ResultSet rs = statement.executeQuery("SELECT COUNT(*) FROM recent_attendance_view WHERE event_type = 'Time Out';");
+//
+//            while (rs.next()){
+//                count = rs.getInt("COUNT(*)");
+//            }
+//        }catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return count;
+
+
+        ObservableList<Attendance> recentAttendance = FXCollections.observableArrayList();
+        recentAttendance = getRecentAttendance();
+
+        ObservableList<Attendance> timeOutAttendance = FXCollections.observableArrayList();
+        for (Attendance attendance : recentAttendance) {
+            if(attendance.getType().equals("Time Out")){
+                timeOutAttendance.add(attendance);
+            }
+        }
+
+        return timeOutAttendance.size();
     }
 
 

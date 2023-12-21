@@ -17,4 +17,4 @@ G	java:S106t"+Replace this use of System.out by a logger.(«ãòÛ8úÍäÏÈ1
 L	java:S106z"+Replace this use of System.out by a logger.(‘¯¾ûÿÿÿÿ8úÍäÏÈ1
 
 java:S2142†"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(è®ã¶øÿÿÿÿ8ÎãÏÈ1
-M	java:S106–"+Replace this use of System.out by a logger.(ÜÏ¦Äşÿÿÿÿ8ÄÏçÏÈ1
+M	java:S106˜"+Replace this use of System.out by a logger.(ÜÏ¦Äşÿÿÿÿ8ùš•Â1

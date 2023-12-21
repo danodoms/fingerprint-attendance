@@ -13,11 +13,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
   /*-color-accent-primary: #81ecae;*/
 
   -color-accent-primary: linear-gradient(to bottom, #a3f8c2, #81ecae, #5ddc99);
+  -color-accent-primary-to-bottom-right: linear-gradient(to bottom right, #a3f8c2, #81ecae, #5ddc99);
   -color-accent-secondary: #c9ffec;
   -color-base:   white;
+  //i want a gradient from top left corner to bottom right corner
+  -color-base-gradient: linear-gradient(to bottom right, -color-base, #f0f0f0);
   -color-base-darker1:   #e6e6e6;
- /* -color-base-gradient: linear-gradient(to bottom, #b3ebdd, #D0D8DC);*/
-  -color-base-gradient: #81ecae;
   -color-text: #3b3b3b;
   -color-red: #f44336;
   -color-red: linear-gradient(to bottom, #ff6f66, #f44336, #d32f2f);;
@@ -35,7 +36,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .contentPane {
-    -fx-background-color: -color-base-gradient;
+    -fx-background-color: -color-background;
     -fx-border-color: -color-base;
     -fx-background-radius: 20;
     -fx-border-radius: 10px;
@@ -43,9 +44,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .tilePane {
-    -fx-background-color: -color-base;
+    -fx-background-color: -color-base-gradient;
     -fx-background-radius: 10;
-    -fx-border-width: 2;
+   /* -fx-border-width: 2;
+    -fx-border-color: -color-background;
+    -fx-border-radius: 8;*/
+}
+
+.outline {
+  -fx-border-width: 2;
     -fx-border-color: -color-background;
     -fx-border-radius: 8;
 }
@@ -230,7 +237,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 
 TextField,
-.password-field{
+.password-field,
+.text-area{
     -fx-background-color: -color-base;
     -fx-text-fill: -color-bacground-dark1;
 

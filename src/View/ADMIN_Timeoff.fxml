@@ -92,39 +92,35 @@
                      </children>
                   </HBox>
                   <Button fx:id="selectBtn" layoutX="416.0" layoutY="37.0" mnemonicParsing="false" onAction="#handleSelectBtn" prefHeight="32.0" prefWidth="125.0" text="SELECT" />
-                  <Label layoutX="244.0" layoutY="16.0" text="Employee ID :" />
-                  <Label fx:id="empIdLabel" layoutX="337.0" layoutY="17.0" prefHeight="17.0" prefWidth="25.0" text="0">
+                  <Label layoutX="315.0" layoutY="16.0" opacity="0.1" text="Employee ID :" />
+                  <Label fx:id="empIdLabel" layoutX="391.0" layoutY="15.0" opacity="0.1" prefHeight="17.0" prefWidth="25.0" text="0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="257.0" layoutY="35.0" text="UserOff ID :" />
-                  <Label fx:id="userOffIdLabel" layoutX="340.0" layoutY="35.0" prefHeight="17.0" prefWidth="25.0" text="0">
+                  <Label layoutX="327.0" layoutY="38.0" opacity="0.1" text="UserOff ID :" />
+                  <Label fx:id="userOffIdLabel" layoutX="391.0" layoutY="37.0" opacity="0.1" prefHeight="17.0" prefWidth="25.0" text="0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="userOffIdLabelTag" layoutX="254.0" layoutY="57.0" text="Time Off ID :" />
-                  <Label fx:id="timeOffIDLabel" layoutX="337.0" layoutY="56.0" prefHeight="17.0" prefWidth="25.0" text="0">
+                  <Label fx:id="userOffIdLabelTag" layoutX="324.0" layoutY="57.0" opacity="0.1" text="Time Off ID :" />
+                  <Label fx:id="timeOffIDLabel" layoutX="391.0" layoutY="56.0" opacity="0.1" prefHeight="17.0" prefWidth="25.0" text="0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="74.0" layoutY="45.0" prefHeight="5.0" prefWidth="200.0" text="Name Surname" textFill="#f8f4f4">
+                  <Label fx:id="userNameLabel" layoutX="74.0" layoutY="45.0" prefHeight="26.0" prefWidth="312.0" text="Name Surname" textFill="#f8f4f4">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="52.0" fitWidth="61.0" layoutX="12.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="userImageView" fitHeight="52.0" fitWidth="61.0" layoutX="12.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/default_user_img.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="75.0" layoutY="29.0" prefHeight="0.0" prefWidth="200.0" text="Manage Timeoff for" textFill="#f8f4f4">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
+                  <Label fx:id="manageUserLabel" layoutX="75.0" layoutY="29.0" prefHeight="0.0" prefWidth="200.0" text="Manage Timeoff for" textFill="#f8f4f4" />
                   <VBox layoutX="14.0" layoutY="404.0" prefHeight="146.0" prefWidth="304.0">
                      <children>
                         <Label text="Description :">

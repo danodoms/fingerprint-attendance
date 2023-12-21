@@ -59,7 +59,7 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
         //DEPARTMENT TABLE
         col_id.setCellValueFactory(new PropertyValueFactory<Department, String>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<Department, String>("departmentName"));
-        //col_description.setCellValueFactory(new PropertyValueFactory<Department, String>());
+        col_description.setCellValueFactory(new PropertyValueFactory<Department, String>("description"));
 
         //STATUS FILTER
         statusFilterChoiceBox.getItems().addAll("Active", "Inactive");
@@ -73,9 +73,18 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             loadDepartmentTable();
         });
-        
+
+        addBtn.setDisable(true);
         loadDepartmentTable();
         //showAddBtnOnly();
+
+        departmentNameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.isEmpty()){
+                addBtn.setDisable(true);
+            }else{
+                addBtn.setDisable(false);
+            }
+        });
     }
     
     private void loadDepartmentTable(){
@@ -109,44 +118,15 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
     @FXML
     private void departmentSelected(MouseEvent event) {
         //showUpdateDeactivateBtnOnly();
+        addBtn.setDisable(true);
         selectedDept = departmentTable.getSelectionModel().getSelectedItem();
         
         departmentNameField.setText(selectedDept.getDepartmentName());
-        //departmentDescTextArea.setText(selectedDept.getDescription());
+        departmentDescTextArea.setText(selectedDept.getDescription());
     }
     
     
-    
-    
-    //     public void showAddBtnOnly(){
-//        // Clear existing children in the HBox
-//        buttonContainerHBox.getChildren().clear();
-//
-//        // Add the addBtn with Hgrow set to ALWAYS
-//        HBox.setHgrow(addBtn, javafx.scene.layout.Priority.ALWAYS);
-//        buttonContainerHBox.getChildren().add(addBtn);
-//
-//        // Set visibility for other buttons
-//        addBtn.setVisible(true);
-//        updateBtn.setVisible(false);
-//        deactivateBtn.setVisible(false);
-//    }
-//    
-//    public void showUpdateDeactivateBtnOnly(){
-//        // Clear existing children in the HBox
-//        buttonContainerHBox.getChildren().clear();
-//
-//        // Add the addBtn with Hgrow set to ALWAYS
-//        HBox.setHgrow(updateBtn, javafx.scene.layout.Priority.ALWAYS);
-//        HBox.setHgrow(deactivateBtn, javafx.scene.layout.Priority.ALWAYS);
-//        buttonContainerHBox.getChildren().add(updateBtn);
-//        buttonContainerHBox.getChildren().add(deactivateBtn);
-//
-//        // Set visibility for other buttons
-//        addBtn.setVisible(false);
-//        updateBtn.setVisible(true);
-//        deactivateBtn.setVisible(true);
-//    }
+
 
     @FXML
     private void addDepartment(ActionEvent event) throws SQLException {
@@ -156,8 +136,9 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
         if(departmentName.isEmpty()){
             Modal.showModal("Error", "Please fill up all fields");
         }else{
-            Department.addDepartment(departmentName);
+            Department.addDepartment(departmentName, departmentDesc);
             loadDepartmentTable();
+            clearFields();
         }
     }
 
@@ -166,8 +147,9 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
         boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Do you want to proceed?", "This action will update the currently selected department");
         
         if(actionIsConfirmed){
-            Department.updateDepartment(selectedDept.getId(), departmentNameField.getText());
+            Department.updateDepartment(selectedDept.getId(), departmentNameField.getText(), departmentDescTextArea.getText());
             loadDepartmentTable();
+            clearFields();
         }
     }
 
@@ -178,7 +160,13 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
         if(actionIsConfirmed){
             Department.deactivateDepartment(selectedDept.getId());
             loadDepartmentTable();
+            clearFields();
         }
        
+    }
+
+    private void clearFields(){
+        departmentNameField.setText("");
+        departmentDescTextArea.setText("");
     }
 }

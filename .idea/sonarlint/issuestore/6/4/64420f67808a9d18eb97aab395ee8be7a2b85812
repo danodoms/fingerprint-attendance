@@ -1,12 +1,16 @@
 
+p
+java:S1192Y"NDefine a constant instead of duplicating this literal "department_id" 3 times.(ÕÅìÍşÿÿÿÿ8À¹«ÛÈ1
+r
+java:S1192Z"PDefine a constant instead of duplicating this literal "department_name" 3 times.(¾™×’ûÿÿÿÿ8Á¹«ÛÈ1
 s
-java:S1104"XMake defaultValue a static final constant or non-public and provide accessors if needed.(ÓèÆ“üÿÿÿÿ
+java:S1104"XMake defaultValue a static final constant or non-public and provide accessors if needed.(ÓèÆ“üÿÿÿÿ
 M
-java:S1444"2Make this "public static defaultValue" field final(ÓèÆ“üÿÿÿÿ
+java:S1444"2Make this "public static defaultValue" field final(ÓèÆ“üÿÿÿÿ
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
-j
-java:S2095v"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÛŞ‡¯üÿÿÿÿ
-j
-java:S2095a"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
-A	java:S106‡"+Replace this use of System.out by a logger.(Õ€è­
-A	java:S106”"+Replace this use of System.out by a logger.(›´ùÆ
+k
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
+k
+java:S2095–"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÛŞ‡¯üÿÿÿÿ
+A	java:S106ª"+Replace this use of System.out by a logger.(Õ€è­
+A	java:S106·"+Replace this use of System.out by a logger.(›´ùÆ

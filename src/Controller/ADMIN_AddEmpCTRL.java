@@ -5,38 +5,31 @@ package Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
+import Model.User;
 import Utilities.DatabaseUtil;
+import Utilities.Filter;
 import Utilities.PaneUtil;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import Model.*;
-import Utilities.Filter;
-import java.io.File;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
+import java.util.ResourceBundle;
 
 
 
@@ -253,6 +246,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
                 if (imageBytes != null) {
                     // Store the imageBytes in the database or perform other actions
                     System.out.println("Image selected and read as bytes.");
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -347,6 +341,30 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         }
         
     }
+
+
+
+
+    //CODE BY BARDDDDDD AIIIIIII
+//    public static boolean checkFileSize(File imageFile) {
+//        return imageFile.length() > (1024 * 1024); // 1MB
+//    }
+//
+//    public static BufferedImage loadImage(String imagePath) throws IOException {
+//        return ImageIO.read(new File(imagePath));
+//    }
+//
+//    public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
+//        Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+//        BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+//        resizedImage.getGraphics().drawImage(resultingImage, 0, 0, null);
+//        return resizedImage;
+//    }
+//
+//    public static void saveImage(BufferedImage resizedImage, String outputPath, String format) throws IOException {
+//        ImageIO.write(resizedImage, format, new File(outputPath));
+//    }
+
 }
 
     

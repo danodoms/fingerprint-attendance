@@ -41,10 +41,10 @@ Y
 java:S1858Š"B"getValue" returns a string, there's no need to call "toString()".(ˆï±º
 R	java:S125¡"<This block of commented-out lines of code should be removed.(´½«¾
 H
-java:S1602Ê",Remove useless curly braces around statement(øÔÐ›ýÿÿÿÿ
-R	java:S125Ð"<This block of commented-out lines of code should be removed.(¶Ü‘î
-R	java:S125Ö"<This block of commented-out lines of code should be removed.(öÇ‹Ë
-W	java:S125è"<This block of commented-out lines of code should be removed.( š¯åúÿÿÿÿ
+java:S1602É",Remove useless curly braces around statement(øÔÐ›ýÿÿÿÿ
+R	java:S125Ï"<This block of commented-out lines of code should be removed.(¶Ü‘î
+R	java:S125Õ"<This block of commented-out lines of code should be removed.(öÇ‹Ë
+W	java:S125ç"<This block of commented-out lines of code should be removed.( š¯åúÿÿÿÿ
 N
 java:S1068*"3Remove this unused "assignmentTable" private field.(‚•Ø‡øÿÿÿÿ
 O
