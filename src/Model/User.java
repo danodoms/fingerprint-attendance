@@ -6,6 +6,7 @@ package Model;
 
 import Utilities.DatabaseUtil;
 import Utilities.Encryption;
+import Utilities.StringUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -36,8 +37,16 @@ public class User {
     private String fullName;
     private int count;   
 
-   
-    
+   private String fullNameWithInitial;
+
+    public String getFullNameWithInitial() {
+        return StringUtil.createFullNameWithInitial(fname, mname, lname, suffix);
+    }
+
+    public void setFullNameWithInitial(String fullNameWithInitial) {
+        this.fullNameWithInitial = fullNameWithInitial;
+    }
+
     //Full Constructor
     public User(
         int id,

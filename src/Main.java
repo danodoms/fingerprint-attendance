@@ -25,7 +25,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-//        Application.setUserAgentStylesheet("/Style/cupertino-dark.css");
+//        Application.setUserAgentStylesheet("/Style/admin_pane.css");
         //Automatically Select Reader
         //Selection.reader = Selection.getReader();
         Selection.waitAndGetReader();
@@ -39,6 +39,7 @@ public class Main extends Application {
         
         // Create a scene with the loaded FXML content
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/Style/admin_pane.css").toExternalForm());
 
         // Set the application icon
         primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/Images/program_icon.png")));

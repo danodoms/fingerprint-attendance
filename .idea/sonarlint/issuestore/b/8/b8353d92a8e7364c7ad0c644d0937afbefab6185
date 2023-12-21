@@ -1,0 +1,29 @@
+
+{
+java:S2293D"YReplace the type specification in this constructor call with the diamond operator ("<>").(äòúÑıÿÿÿÿ8¼ªùÍÈ1
+{
+java:S2293E"YReplace the type specification in this constructor call with the diamond operator ("<>").(èç­íşÿÿÿÿ8¼ªùÍÈ1
+{
+java:S2293F"YReplace the type specification in this constructor call with the diamond operator ("<>").(¿˜ÿ’ùÿÿÿÿ8¼ªùÍÈ1
+i
+java:S1192S"GDefine a constant instead of duplicating this literal "Active" 3 times.(Î¥¨Óıÿÿÿÿ8½ªùÍÈ1
+h	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Å­›A8¾ªùÍÈ1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î8ÀªùÍÈ1
+r	java:S116$"QRename this field "col_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àÍªûÿÿÿÿ8€«ùÍÈ1
+s	java:S116&"WRename this field "col_position" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïû¡í8€«ùÍÈ1
+v	java:S116("ZRename this field "col_description" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´ËØ£8€«ùÍÈ1
+X	java:S1259"<This block of commented-out lines of code should be removed.(ÚÓÏø8ˆ«ùÍÈ1
+O
+java:S1135C"2Complete the task associated to this TODO comment.(…ïœ†8‰«ùÍÈ1
+P
+java:S1611N"3Remove the parentheses around the "event" parameter(íåÖ£8Œ«ùÍÈ1
+I
+java:S1602N",Remove useless curly braces around statement(íåÖ£8«ùÍÈ1
+U
+java:S1611W"3Remove the parentheses around the "event" parameter(–­•Íşÿÿÿÿ8«ùÍÈ1
+N
+java:S1602W",Remove useless curly braces around statement(–­•Íşÿÿÿÿ8«ùÍÈ1
+V
+java:S1481_"9Remove this unused "selectedDepartmentId" local variable.(óäéø8«ùÍÈ1
+I
+java:S1602d",Remove useless curly braces around statement(ÏÅÎ8‘«ùÍÈ1

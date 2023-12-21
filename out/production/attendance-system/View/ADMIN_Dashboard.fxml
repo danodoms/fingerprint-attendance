@@ -15,9 +15,9 @@
 
 <AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="802.0" minHeight="600.0" minWidth="802.0" prefHeight="0.0" prefWidth="0.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_DashboardCTRL">
    <children>
-      <Pane layoutX="21.0" layoutY="17.0" prefHeight="45.0" prefWidth="760.0" styleClass="headerPane">
+      <Pane layoutX="21.0" layoutY="17.0" prefHeight="45.0" prefWidth="760.0" styleClass="tilePane">
          <children>
-            <Label layoutX="8.0" layoutY="2.0" text="Dashboard" textFill="#1a1a1a">
+            <Label layoutX="8.0" layoutY="6.0" text="Dashboard" textFill="#1a1a1a">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
@@ -74,11 +74,11 @@
       <Pane fx:id="piePane1" layoutX="23.0" layoutY="285.0" prefHeight="293.0" prefWidth="521.0" styleClass="tilePane">
          <children>
             <Label layoutX="14.0" layoutY="12.0" text="Recent Attendance" />
-            <TableView layoutX="14.0" layoutY="36.0" prefHeight="243.0" prefWidth="491.0">
+            <TableView fx:id="recentAttendanceTable" layoutX="14.0" layoutY="36.0" prefHeight="243.0" prefWidth="491.0">
               <columns>
-                <TableColumn prefWidth="257.0" text="Name" />
-                <TableColumn minWidth="0.0" prefWidth="120.0" text="Time" />
-                  <TableColumn minWidth="0.0" prefWidth="113.0" text="Type" />
+                <TableColumn fx:id="col_name" prefWidth="257.0" text="Name" />
+                <TableColumn fx:id="col_time" minWidth="0.0" prefWidth="120.0" text="Time" />
+                  <TableColumn fx:id="col_type" minWidth="0.0" prefWidth="113.0" text="Type" />
               </columns>
             </TableView>
          </children>

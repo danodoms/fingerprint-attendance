@@ -1,0 +1,14 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
+k
+java:S2095”"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
+k
+java:S2095©"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
+k
+java:S2095€"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
+j
+java:S2095f"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(â…ÍÆÿÿÿÿÿ
+E	java:S106r"+Replace this use of System.out by a logger.(…úÑùÿÿÿÿ
+F	java:S106‡"+Replace this use of System.out by a logger.(Â±ëıÿÿÿÿ
+F	java:S106œ"+Replace this use of System.out by a logger.(Åä›Üşÿÿÿÿ
+F	java:S106®"+Replace this use of System.out by a logger.(ÙÓ½ıÿÿÿÿ

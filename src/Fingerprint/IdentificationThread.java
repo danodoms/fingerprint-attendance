@@ -40,7 +40,7 @@ public class IdentificationThread extends Thread{
     private boolean headlessMode = false;
 
     private boolean isFingerprintMatched = false;
-    
+    private boolean runThisThread = true;
     
     //constructor with fingerprint display
     public IdentificationThread(ImageView imageview){
@@ -55,21 +55,39 @@ public class IdentificationThread extends Thread{
 
     
     //called by the run method for starting the identification process
+//    public void startIdentification(ImageView imageview) throws InterruptedException, UareUException{
+//        Selection.closeAndOpenReader();
+//
+//        ThreadFlags.runIdentificationThread = true;
+//        System.out.println("Identification Thread Started");
+//        while(ThreadFlags.runIdentificationThread) {
+//            Fmd fmdToIdentify = getFmdFromCaptureThread(imageview);
+//            Fmd[] databaseFmds = getFmdsFromDatabase();
+//            compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
+//        }
+//        //ThreadFlags.runIdentificationThread = false;
+//        System.out.println("Identification Thread Stopped");
+//    }
+
+
     public void startIdentification(ImageView imageview) throws InterruptedException, UareUException{
         Selection.closeAndOpenReader();
-        ThreadFlags.runIdentificationThread = true;
 
-        //print identification thread started
+
         System.out.println("Identification Thread Started");
-        while(ThreadFlags.runIdentificationThread) {
+        while(runThisThread) {
             Fmd fmdToIdentify = getFmdFromCaptureThread(imageview);
             Fmd[] databaseFmds = getFmdsFromDatabase();
             compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
         }
-        ThreadFlags.runIdentificationThread = false;
         System.out.println("Identification Thread Stopped");
     }
-    
+
+    //create method that stops thread
+    public void stopThread(){
+        runThisThread = false;
+        captureThread.stopThread();
+    }
       
     
     //first method used in "startIdentification"

@@ -1,21 +1,34 @@
 
-g	java:S101&"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ÿÚúıÿÿÿÿ
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
-q
-java:S2095y"VUse try-with-resources or close this "ScheduledExecutorService" in a "finally" clause.(ˆÁôÿÿÿÿÿ
-=
-java:S16591"'Declare "timeLabel" on a separate line.(Ï™Ã³
-B
-java:S2440'",Remove this instantiation of "DatabaseUtil".(éÿ¯
-P
-java:S1481G".Remove this unused "formatter" local variable.(¤íÜ½øÿÿÿÿ8‘©‡ëÇ1
 L
-java:S1481H"/Remove this unused "formatter1" local variable.(•¼Ø8•©‡ëÇ1
-X	java:S125I"<This block of commented-out lines of code should be removed.(÷ÌçÀ8š©‡ëÇ1
-Q	java:S125T"<This block of commented-out lines of code should be removed.(ùŸÿÔ
-W
-java:S3252\"AUse static access with "javafx.scene.chart.XYChart" for "Series".(ìç¶†
-W
-java:S3252]"AUse static access with "javafx.scene.chart.XYChart" for "Series".(ø­ı‡
-E	java:S106b"+Replace this use of System.out by a logger.(èâ€ıÿÿÿÿ
-V	java:S125o"<This block of commented-out lines of code should be removed.(®£¦Âûÿÿÿÿ
+java:S3740J"/Provide the parametrized type for this generic.(è­ê8Ç¹ŠÔÈ1
+L
+java:S3740L"/Provide the parametrized type for this generic.(øßà×8û˜ÔÈ1
+Q
+java:S3740N"/Provide the parametrized type for this generic.(¥Ã¤õşÿÿÿÿ8û˜ÔÈ1
+Q
+java:S3740P"/Provide the parametrized type for this generic.(‹æµ¢ûÿÿÿÿ8û˜ÔÈ1
+n	java:S101+"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ÿÚúıÿÿÿÿ8Ê¹ŠÔÈ1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î8Ë¹ŠÔÈ1
+y
+java:S2095Ÿ"VUse try-with-resources or close this "ScheduledExecutorService" in a "finally" clause.(ˆÁôÿÿÿÿÿ8â²™ÔÈ1
+o	java:S116L"SRename this field "col_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øßà×8ˆ»ŠÔÈ1
+t	java:S116N"SRename this field "col_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥Ã¤õşÿÿÿÿ8ˆ»ŠÔÈ1
+t	java:S116P"SRename this field "col_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹æµ¢ûÿÿÿÿ8‰»ŠÔÈ1
+I
+java:S2440,",Remove this instantiation of "DatabaseUtil".(éÿ¯8»ŠÔÈ1
+P
+java:S1481c".Remove this unused "formatter" local variable.(¤íÜ½øÿÿÿÿ8š»ŠÔÈ1
+L
+java:S1481d"/Remove this unused "formatter1" local variable.(•¼Ø8›»ŠÔÈ1
+X	java:S125e"<This block of commented-out lines of code should be removed.(÷ÌçÀ8›»ŠÔÈ1
+I
+java:S1602m",Remove useless curly braces around statement(¥—ığ8”å™ÔÈ1
+i
+java:S1612m"LReplace this lambda with method reference 'this::loadRecentAttendanceTable'.(¥—ığ8–å™ÔÈ1
+X	java:S125u"<This block of commented-out lines of code should be removed.(ùŸÿÔ8à³™ÔÈ1
+^
+java:S3252}"AUse static access with "javafx.scene.chart.XYChart" for "Series".(ìç¶†8â³™ÔÈ1
+^
+java:S3252~"AUse static access with "javafx.scene.chart.XYChart" for "Series".(ø­ı‡8ä³™ÔÈ1
+M	java:S106ƒ"+Replace this use of System.out by a logger.(èâ€ıÿÿÿÿ8å³™ÔÈ1
+^	java:S125•"<This block of commented-out lines of code should be removed.(®£¦Âûÿÿÿÿ8ë³™ÔÈ1

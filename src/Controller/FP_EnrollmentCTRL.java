@@ -52,10 +52,12 @@ public class FP_EnrollmentCTRL implements Initializable {
 
 
 
+        //stop enrollment thread when window is closed
+
 
         
         
-        // Set an event handler for the window hiding event
+// Set an event handler for the window hiding event
 //        Stage stage = (Stage) nameLabel.getScene().getWindow();
 //        stage.setOnHiding(event -> enrollmentThread.stopEnrollmentThread());
     }
@@ -74,8 +76,9 @@ public class FP_EnrollmentCTRL implements Initializable {
     
     public void setDataForEnrollment(User user){
         userIdToEnroll = user.getId();
-        
-        nameLabel.setText(user.getLname());
+
+
+        nameLabel.setText(user.getFullNameWithInitial());
         userImageView.setImage(ImageUtil.byteArrayToImage(user.getImage()));
         
         

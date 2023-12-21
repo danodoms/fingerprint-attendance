@@ -1,24 +1,20 @@
 
-a	java:S112²"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-b	java:S101$"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ë©Åµ
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
-d
-java:S2095«"MUse try-with-resources or close this "ExecutorService" in a "finally" clause.(‡˜ä
-H
-java:S1135F"2Complete the task associated to this TODO comment.(…ïœ†
-W
-java:S1854s"ARemove this useless assignment to local variable "hasTimedOutPM".(øÒŒ
-E	java:S106l"+Replace this use of System.out by a logger.(„é€Óıÿÿÿÿ
-E	java:S106p"+Replace this use of System.out by a logger.(¾ÂÀ¸øÿÿÿÿ
-H
-java:S1481s"2Remove this unused "hasTimedOutPM" local variable.(øÒŒ
-A	java:S106—"+Replace this use of System.out by a logger.(ÍÊ½û
-u
-java:S2142±"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
-C
-java:S1602¶",Remove useless curly braces around statement(ÃÉş©
-C
-java:S1602º",Remove useless curly braces around statement(ÃÉş©
-\
-java:S1612º"EReplace this lambda with method reference 'SoundUtil::playFailSound'.(ÃÉş©
-A	java:S106È"+Replace this use of System.out by a logger.(ãÇ–¯
+h	java:S112¿"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8éâì¬È1
+i	java:S101$"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ë©Åµ8îâì¬È1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î8ñâì¬È1
+k
+java:S2095¸"MUse try-with-resources or close this "ExecutorService" in a "finally" clause.(‡˜ä8Ããì¬È1
+O
+java:S1135F"2Complete the task associated to this TODO comment.(…ïœ†8Ëãì¬È1
+L	java:S106l"+Replace this use of System.out by a logger.(„é€Óıÿÿÿÿ8Ñãì¬È1
+L	java:S106p"+Replace this use of System.out by a logger.(¾ÂÀ¸øÿÿÿÿ8Òãì¬È1
+H	java:S106¤"+Replace this use of System.out by a logger.(ÍÊ½û8Ûãì¬È1
+|
+java:S2142¾"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8âãì¬È1
+J
+java:S1602Ã",Remove useless curly braces around statement(ÃÉş©8äãì¬È1
+J
+java:S1602Ç",Remove useless curly braces around statement(ÃÉş©8åãì¬È1
+c
+java:S1612Ç"EReplace this lambda with method reference 'SoundUtil::playFailSound'.(ÃÉş©8åãì¬È1
+H	java:S106Õ"+Replace this use of System.out by a logger.(ãÇ–¯8çãì¬È1

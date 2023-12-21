@@ -13,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,8 +25,6 @@ import java.util.ResourceBundle;
  */
 public class ADMIN_DepartmentsCTRL implements Initializable {
 
-    @FXML
-    private HBox buttonContainerHBox;
     @FXML
     private Button addBtn;
     @FXML
@@ -50,6 +47,9 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
     private ChoiceBox statusFilterChoiceBox;
 
     Department selectedDept= null;
+    @FXML
+    private TextField searchField;
+
     /**
      * Initializes the controller class.
      */
@@ -69,6 +69,10 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
             loadDepartmentTable();
         });
 
+        //add event listener to searchFilterField that calls loadUserTable() when changed
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadDepartmentTable();
+        });
         
         loadDepartmentTable();
         //showAddBtnOnly();
@@ -79,10 +83,21 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
 
         //filter the departements based on the status filter, store in a new observable list, use native methods
         ObservableList<Department> filteredDepartments = departments.filtered(department -> {
-            if(statusFilterChoiceBox.getValue().equals("Active")){
+            String statusFilter = statusFilterChoiceBox.getValue().toString();
+            if(statusFilter.equals("Active")){
                 return department.getStatus() == 1;
             }else{
                 return department.getStatus() == 0;
+            }
+        });
+
+        //add code that filters department based on searchField
+        filteredDepartments = filteredDepartments.filtered(department -> {
+            String searchFilter = searchField.getText().toLowerCase();
+            if(searchFilter.isEmpty()){
+                return true;
+            }else{
+                return department.getDepartmentName().toLowerCase().contains(searchFilter);
             }
         });
 

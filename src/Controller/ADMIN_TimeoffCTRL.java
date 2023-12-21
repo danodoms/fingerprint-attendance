@@ -5,41 +5,30 @@
 package Controller;
 
 import Model.Attendance;
-import static Model.Attendance.getEmpName;
-import static Model.Timeoff.getTimeoffByUserId;
 import Model.Timeoff;
 import Model.User;
 import Utilities.Modal;
-import com.sun.javafx.logging.PlatformLogger.Level;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.io.IOException;
-import java.net.URL;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import Utilities.DatabaseUtil;
-import com.mysql.cj.jdbc.CallableStatement;
+
+import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
-import javafx.scene.control.Label;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ResourceBundle;
+
+import static Model.Attendance.getEmpName;
+import static Model.Timeoff.getTimeoffByUserId;
 /**
  *
  * @author User
@@ -68,9 +57,8 @@ public class ADMIN_TimeoffCTRL implements Initializable{
     @FXML
     private Label empIdLabel, userOffIdLabel, timeOffIDLabel, userOffIdLabelTag;
     
-    User selectedUser = null;
-    Timeoff selectedUserTimeoff = null;
-    Timeoff selectedoffID = null;
+    User selectedUser;
+    Timeoff selectedUserTimeoff;
 
     @FXML
     private Line topLine;
@@ -97,6 +85,8 @@ public class ADMIN_TimeoffCTRL implements Initializable{
         Attendance selectedItem = empNameTable.getSelectionModel().getSelectedItem();
         showTimeoffTable(selectedItem.getId());
         clear();
+
+
         empIdLabel.setText(selectedItem.getId()+"");
         deactivateBtn.setDisable(true);
         updateBtn.setDisable(true);
@@ -115,30 +105,30 @@ public class ADMIN_TimeoffCTRL implements Initializable{
     }
      @FXML
     private void handleSelectBtn(ActionEvent event) {
-        Timeoff selectedItem = specialCalTable.getSelectionModel().getSelectedItem();
-        userOffIdLabel.setText(selectedItem.getOffId()+"");
-        timeOffIDLabel.setText(selectedItem.getUserOffId()+"");
+        selectedUserTimeoff = specialCalTable.getSelectionModel().getSelectedItem();
+//        userOffIdLabel.setText(selectedItem.getOffId()+"");
+//        timeOffIDLabel.setText(selectedItem.getUserOffId()+"");
             updateBtn.setDisable(false);
             deactivateBtn.setDisable(false);
             userOffIdLabelTag.setDisable(false);
 
-        if (selectedItem != null) {
+        if (selectedUserTimeoff != null) {
 
             // Assuming startDate is of type java.sql.Date
-            java.sql.Date startDate = (java.sql.Date) selectedItem.getStartDate();
+            java.sql.Date startDate = (java.sql.Date) selectedUserTimeoff.getStartDate();
             java.util.Date utilStartDate = new java.util.Date(startDate.getTime()); // Convert to java.util.Date
             Instant instantStart = utilStartDate.toInstant();
             LocalDate sDate = instantStart.atZone(ZoneId.systemDefault()).toLocalDate();
 
             // Similarly, for endDate
-            java.sql.Date endDate = (java.sql.Date) selectedItem.getEndDate();
+            java.sql.Date endDate = (java.sql.Date) selectedUserTimeoff.getEndDate();
             java.util.Date utilEndDate = new java.util.Date(endDate.getTime()); // Convert to java.util.Date
             Instant instantEnd = utilEndDate.toInstant();
             LocalDate eDate = instantEnd.atZone(ZoneId.systemDefault()).toLocalDate();
 
-            typeComBox.setValue(selectedItem.getType());
-            descField.setText(selectedItem.getDescription());
-            attachmentField.setText(selectedItem.getAttachment());
+            typeComBox.setValue(selectedUserTimeoff.getType());
+            descField.setText(selectedUserTimeoff.getDescription());
+            attachmentField.setText(selectedUserTimeoff.getAttachment());
             startPicker.setValue(sDate);
             endPicker.setValue(eDate);
             insertBtn.setDisable(true);
@@ -160,7 +150,7 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
     String desription = descField.getText();
     String attachment = attachmentField.getText();
     int userId = Integer.parseInt(empIdLabel.getText());
-    int offID = Integer.parseInt(userOffIdLabel.getText());
+    int offID = selectedUserTimeoff.getOffId();
     Date startDate = Date.valueOf(localStartDate);
     Date endDate = Date.valueOf(localEndDate);
 

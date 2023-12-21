@@ -10,13 +10,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .root {
   -color-background-dark1: #B3C0C6;
   -color-background: #D0D8DC;
-  -color-accent-primary: #07f9a2;
+  /*-color-accent-primary: #81ecae;*/
+
+  -color-accent-primary: linear-gradient(to bottom, #a3f8c2, #81ecae, #5ddc99);
   -color-accent-secondary: #c9ffec;
   -color-base:   white;
   -color-base-darker1:   #e6e6e6;
  /* -color-base-gradient: linear-gradient(to bottom, #b3ebdd, #D0D8DC);*/
-  -color-base-gradient:  #07f9a2;
+  -color-base-gradient: #81ecae;
+  -color-text: #3b3b3b;
+  -color-red: #f44336;
+  -color-red: linear-gradient(to bottom, #ff6f66, #f44336, #d32f2f);;
 
+}
+
+.label {
+    -fx-text-fill: -color-text;
+    -fx-font-family: "Arial";
 }
 
 
@@ -59,6 +69,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 #navVbox .navButton {
     -fx-background-color: transparent;
     -fx-border: none;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
     -fx-color: white;
     /*-fx-text-fill: white; */
     -fx-text-fill: #1a1a1a;
@@ -163,29 +175,122 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 
 .button {
-    -fx-background-color: -color-accent-secondary;
+    -fx-background-color: -color-base;
     -fx-border: none;
-    -fx-color: white;
+    -fx-color: -color-;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-background-radius: 7;
+    -fx-text-fill: -color-text;
 
     -fx-alignment: CENTER;
+
+    -fx-border-width: 2px;
+        -fx-border-color: -color-accent-primary;
+        -fx-background-radius: 10px;
+        -fx-border-radius: 7px;
 }
 
 .button: hover {
     -fx-opacity: 0.85;
+    -fx-background-color: -color-accent-primary;
 
 }
 
 
 
 /*table view*/
+.table-view{
+    -fx-background-color: -color-base;
+    -fx-padding:0px;
+    -fx-border-color: -color-background;
+    /*-fx-border-color:linear-gradient(to bottom right, #2f3f89,#9231b5);*/
+    -fx-border-width:2px;
+    -fx-border-radius:8px;
+}
+.table-view .table-column{
+    /*-fx-alignment: CENTER;*/
+}
+.table-view .column-header-background{
+    -fx-background-color: -color-base-darker1;
+    /*-fx-background-color: -color-accent-primary;*/
+    -fx-background-radius:8px 8px 0px 0px;
+    -fx-background-inset: 0 0 0 0;
+    -fx-border-width: 10px;
+}
+.table-view .column-header, .filter{
+    -fx-background-color:transparent;
+    -fx-size:40px;
+}
+.table-view .column-header .label{
+    -fx-text-fill: -color-text;
+    -fx-font-family:"Arial";
+}
 
 
 
+TextField,
+.password-field{
+    -fx-background-color: -color-base;
+    -fx-text-fill: -color-bacground-dark1;
 
 
+    -fx-border-width: 1.5px;
+    -fx-border-color: -color-background;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 5px;
+}
+
+.check-box{
+    /*-fx-background-color: -color-base;
+    -fx-text-fill: -color-bacground-dark1;
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 5px;
+    -fx-border-style: solid;*/
+}
+
+/* Style for ChoiceBox */
+.choice-box {
+    -fx-background-color: -color-base-darker1;
+    -fx-border-width: 1.5px;
+    -fx-border-color: -color-background;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 7px;
+}
+
+/* Style for ChoiceBox when hovered */
+.choice-box:hover {
+    -fx-background-color: -color-accent-primary;
+}
+
+/* Style for ChoiceBox when focused */
+.choice-box:focused {
+    -fx-border-color: -color-accent-primary;
+/*    -fx-border-radius: 10px;*/
+
+}
+
+/* Style for ChoiceBox popup menu */
+.choice-box .menu-item {
+    -fx-text-fill: #333333;
+}
+
+/* Style for ChoiceBox popup menu item when hovered */
+.choice-box .menu-item:hover {
+    -fx-background-color: #007acc;
+    -fx-text-fill: white;
+}
+
+.red {
+    -fx-border-color: -color-red;
+    /*-fx-text-fill: white;*/
+}
+
+.red: hover {
+    -fx-background-color: -color-red;
+    -fx-text-fill: white;
+}
 
 
 

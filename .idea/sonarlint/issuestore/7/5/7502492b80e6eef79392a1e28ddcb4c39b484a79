@@ -1,0 +1,23 @@
+
+j
+java:S1192"ODefine a constant instead of duplicating this literal "Administrative" 3 times.(öçëåúÿÿÿÿ
+h
+java:S1192Š"LDefine a constant instead of duplicating this literal "Instruction" 3 times.(İâæ„ıÿÿÿÿ
+g	java:S101%"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ú‘òøÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
+]
+java:S1659+"BDeclare "tiCol" and all following declarations on a separate line.(ú³Èúÿÿÿÿ
+B
+java:S24408",Remove this instantiation of "DatabaseUtil".(éÿ¯
+m
+java:S3776m"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(²€Şúıÿÿÿÿ
+d
+java:S1871†"MThis branch's code block is the same as the block for the branch on line 130.(’—Åí
+i
+java:S3776—"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(¤¡Ù–
+d
+java:S1871°"MThis branch's code block is the same as the block for the branch on line 172.(’—Åí
+o
+java:S3776¿"SRefactor this method to reduce its Cognitive Complexity from 105 to the 15 allowed.(áÍÕåûÿÿÿÿ
+â
+java:S6541¿"ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 79 to 64, Complexity from 52 to 14, Nesting Level from 4 to 2, Number of Variables from 15 to 6.(áÍÕåûÿÿÿÿ

@@ -19,6 +19,11 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -45,8 +50,6 @@ public class ADMIN_DashboardCTRL implements Initializable {
     @FXML
     private CategoryAxis categoryAxis;
 
-    @FXML
-    private Label displayDateLabel, timeLabel;
 
     @FXML
     private NumberAxis numberAxis;
@@ -59,9 +62,34 @@ public class ADMIN_DashboardCTRL implements Initializable {
     
     @FXML
     private PieChart pieChart;
+    @FXML
+    private Pane piePane;
+    @FXML
+    private ImageView fView;
+    @FXML
+    private ImageView mView;
+    @FXML
+    private Pane piePane1;
+    @FXML
+    private TableView recentAttendanceTable;
+    @FXML
+    private TableColumn col_name;
+    @FXML
+    private TableColumn col_time;
+    @FXML
+    private TableColumn col_type;
+    @FXML
+    private Pane piePane2;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+
+        //RECENT ATTENDANCE TABLE
+        col_name.setCellValueFactory(new PropertyValueFactory<Attendance, String>("name"));
+        col_time.setCellValueFactory(new PropertyValueFactory<Attendance, String>("time"));
+        col_type.setCellValueFactory(new PropertyValueFactory<Attendance, String>("type"));
+
        
        ObservableList<User> userList = getUserGender();
        AnimationTimer timer = new AnimationTimer() {
@@ -76,7 +104,12 @@ public class ADMIN_DashboardCTRL implements Initializable {
             }
         };
         timer.start();
-       
+
+        //run this on a separate thread
+        new Thread(() -> {
+            loadRecentAttendanceTable();
+        }).start();
+
        
     // Populate the bar chart
     populateBarChart(userList);
@@ -106,6 +139,11 @@ public class ADMIN_DashboardCTRL implements Initializable {
             }
         }
         barChart.getData().addAll(series, series1);
+    }
+
+    private void loadRecentAttendanceTable(){
+        ObservableList<Attendance> attendanceList = Attendance.getRecentAttendance();
+        recentAttendanceTable.setItems(attendanceList);
     }
 
 //     private void populatePieChart() {
