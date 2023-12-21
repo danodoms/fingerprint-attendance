@@ -60,7 +60,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Pane layoutX="142.0" layoutY="249.0" prefHeight="86.0" prefWidth="85.0" styleClass="tilePane">
+            <Pane layoutX="142.0" layoutY="249.0" prefHeight="86.0" prefWidth="85.0" style="-fx-background-color: -color-accent-primary-to-bottom-right;" styleClass="tilePane">
                <children>
                   <Label fx:id="fingerprintCountLabel" layoutX="-10.0" layoutY="10.0" prefHeight="74.0" prefWidth="106.0" style="-fx-alignment: center;" text="0">
                      <font>

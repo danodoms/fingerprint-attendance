@@ -71,7 +71,7 @@ public class ADMIN_PositionsCTRL implements Initializable {
 
         //init departmentFilterChoiceBox and all option
         departmentFilterChoiceBox.getItems().add(new Department(0, "All"));
-        departmentFilterChoiceBox.getItems().addAll(Department.getDepartments());
+        departmentFilterChoiceBox.getItems().addAll(Department.getActiveDepartments());
         departmentFilterChoiceBox.setValue(new Department(0, "All"));
 
         //add lambda event trigger for deptchoicebox thatloads position table
@@ -92,8 +92,7 @@ public class ADMIN_PositionsCTRL implements Initializable {
         
         departmentChoiceBox.setOnMouseClicked(event -> {
             // Get the corresponding department from the departmentChoiceBox
-            int selectedDepartmentId = departmentChoiceBox.getValue().getId();
-            departmentChoiceBox.setItems(Department.getDepartments());
+            departmentChoiceBox.setItems(Department.getActiveDepartments());
         });
 
         //add event listener to searchFilterField that calls loadUserTable() when changed
@@ -151,6 +150,8 @@ public class ADMIN_PositionsCTRL implements Initializable {
     @FXML
     public void addPosition(ActionEvent actionEvent) throws SQLException {
         Position.addPosition(positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
+        loadPositionTable();
+        clearFields();
     }
 
     @FXML
@@ -158,6 +159,8 @@ public class ADMIN_PositionsCTRL implements Initializable {
         boolean actionIsConfirmed = Modal.showConfirmationModal("Update Position", "Are you sure you want to update this position?", "This action cannot be undone.");
         if (actionIsConfirmed) {
             Position.updatePosition(selectedPosition.getId(), positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
+            loadPositionTable();
+            clearFields();
         }
     }
 
@@ -166,6 +169,14 @@ public class ADMIN_PositionsCTRL implements Initializable {
         boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate Position", "Are you sure you want to deactivate this position?", "This action cannot be undone.");
         if (actionIsConfirmed) {
             Position.deactivatePosition(selectedPosition.getId());
+            loadPositionTable();
+            clearFields();
         }
+    }
+
+    public void clearFields(){
+        positionTitleField.setText("");
+        departmentChoiceBox.setValue(null);
+        positionDescTextArea.setText("");
     }
 }

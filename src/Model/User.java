@@ -40,6 +40,8 @@ public class User {
    private String fullNameWithInitial;
 
     public String getFullNameWithInitial() {
+        //print the full name with initial
+        System.out.println("Full Name with Initial: " + StringUtil.createFullNameWithInitial(fname, mname, lname, suffix));
         return StringUtil.createFullNameWithInitial(fname, mname, lname, suffix);
     }
 

@@ -88,7 +88,7 @@
             </ImageView>
             <VBox layoutX="599.0" layoutY="175.0" prefHeight="265.0" prefWidth="154.0" spacing="7.0">
                <children>
-                  <Pane prefHeight="34.0" prefWidth="148.0" styleClass="tilePane">
+                  <Pane prefHeight="34.0" prefWidth="148.0" styleClass="tilePane, outline">
                      <children>
                         <Label layoutX="8.0" layoutY="5.0" prefHeight="23.0" prefWidth="75.0" text="Working Days" />
                         <Label fx:id="totalLogin" alignment="CENTER" contentDisplay="RIGHT" layoutX="85.0" layoutY="4.0" prefHeight="27.0" prefWidth="56.0" text="0" textAlignment="CENTER">
@@ -98,11 +98,11 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane prefHeight="34.0" prefWidth="148.0" styleClass="tilePane">
+                  <Pane prefHeight="34.0" prefWidth="148.0" styleClass="tilePane, outline">
                      <children>
                         <HBox prefHeight="34.0" prefWidth="148.0">
                            <children>
-                              <Button fx:id="lateBtn" mnemonicParsing="false" onMouseClicked="#selectEMployeeLate" prefHeight="34.0" prefWidth="78.0" text="Late" />
+                              <Button fx:id="lateBtn" mnemonicParsing="false" onMouseClicked="#selectEMployeeLate" prefHeight="34.0" prefWidth="78.0" styleClass="red" text="Late" />
                               <Label fx:id="totalLate" alignment="CENTER" contentDisplay="RIGHT" prefHeight="34.0" prefWidth="76.0" text="0" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
@@ -112,11 +112,11 @@
                         </HBox>
                      </children>
                   </Pane>
-                  <Pane prefHeight="34.0" prefWidth="148.0" styleClass="tilePane">
+                  <Pane prefHeight="34.0" prefWidth="148.0" styleClass="tilePane, outline">
                      <children>
                         <HBox prefHeight="26.0" prefWidth="148.0">
                            <children>
-                              <Button fx:id="absentBtn" mnemonicParsing="false" onMouseClicked="#selectEMployeeAbsent" prefHeight="34.0" prefWidth="75.0" text="Absent" />
+                              <Button fx:id="absentBtn" mnemonicParsing="false" onMouseClicked="#selectEMployeeAbsent" prefHeight="34.0" prefWidth="75.0" styleClass="red" text="Absent" />
                               <Label fx:id="totalAbsent" alignment="CENTER" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="72.0" text="0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
@@ -126,11 +126,11 @@
                         </HBox>
                      </children>
                   </Pane>
-                  <Pane prefHeight="34.0" prefWidth="148.0" styleClass="tilePane">
+                  <Pane prefHeight="34.0" prefWidth="148.0" styleClass="tilePane, outline">
                      <children>
                         <HBox layoutY="2.0" prefHeight="0.0" prefWidth="148.0">
                            <children>
-                              <Button fx:id="tardBtn" mnemonicParsing="false" onMouseClicked="#selectEMployee" prefHeight="34.0" prefWidth="77.0" text="Tardy">
+                              <Button fx:id="tardBtn" mnemonicParsing="false" onMouseClicked="#selectEMployee" prefHeight="34.0" prefWidth="77.0" styleClass="red" text="Tardy">
                                  <HBox.margin>
                                     <Insets top="-2.0" />
                                  </HBox.margin>
@@ -144,7 +144,7 @@
                         </HBox>
                      </children>
                   </Pane>
-                  <Pane prefHeight="87.0" prefWidth="148.0" styleClass="tilePane">
+                  <Pane prefHeight="87.0" prefWidth="148.0" styleClass="tilePane, outline">
                      <children>
                         <VBox layoutY="15.0" prefHeight="34.0" prefWidth="154.0">
                            <children>

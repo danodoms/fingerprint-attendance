@@ -1,29 +1,28 @@
 
 L
-java:S3740/"/Provide the parametrized type for this generic.(ãÿ¶í8éý ÎÈ1
+java:S3740/"/Provide the parametrized type for this generic.(ãÿ¶í8ÔÿïÚÈ1
 {
-java:S2293<"YReplace the type specification in this constructor call with the diamond operator ("<>").(ðÜµ—úÿÿÿÿ8êý ÎÈ1
+java:S2293<"YReplace the type specification in this constructor call with the diamond operator ("<>").(ðÜµ—úÿÿÿÿ8ÕÿïÚÈ1
 {
-java:S2293="YReplace the type specification in this constructor call with the diamond operator ("<>").(ª‚™Žúÿÿÿÿ8êý ÎÈ1
+java:S2293="YReplace the type specification in this constructor call with the diamond operator ("<>").(ª‚™Žúÿÿÿÿ8ÖÿïÚÈ1
+v
+java:S2293>"YReplace the type specification in this constructor call with the diamond operator ("<>").(”ÙÊÇ8ÖÿïÚÈ1
 i
-java:S1192A"GDefine a constant instead of duplicating this literal "Active" 3 times.(Î¥¨Óýÿÿÿÿ8ÎÏ¨ÎÈ1
-n	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(‡÷äÌüÿÿÿÿ8ëý ÎÈ1
-v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î8îý ÎÈ1
-r	java:S116%"QRename this field "col_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜‰…úÿÿÿÿ8ªþ ÎÈ1
-t	java:S116'"SRename this field "col_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åëúµûÿÿÿÿ8ªþ ÎÈ1
-{	java:S116)"ZRename this field "col_description" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´Ï¼šûÿÿÿÿ8ªþ ÎÈ1
+java:S1192A"GDefine a constant instead of duplicating this literal "Active" 3 times.(Î¥¨Óýÿÿÿÿ8×ÿïÚÈ1
+n	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(‡÷äÌüÿÿÿÿ8ØÿïÚÈ1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î8ÚÿïÚÈ1
+r	java:S116%"QRename this field "col_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜‰…úÿÿÿÿ8™€ðÚÈ1
+t	java:S116'"SRename this field "col_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åëúµûÿÿÿÿ8™€ðÚÈ1
+{	java:S116)"ZRename this field "col_description" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´Ï¼šûÿÿÿÿ8š€ðÚÈ1
 O
-java:S1135:"2Complete the task associated to this TODO comment.(…ïœ†8°þ ÎÈ1
-X	java:S125>"<This block of commented-out lines of code should be removed.(“ìÑ¸8²þ ÎÈ1
+java:S1135:"2Complete the task associated to this TODO comment.(…ïœ†8¡€ðÚÈ1
 U
-java:S1611D"3Remove the parentheses around the "event" parameter(–­•Íþÿÿÿÿ8²þ ÎÈ1
+java:S1611D"3Remove the parentheses around the "event" parameter(–­•Íþÿÿÿÿ8¥€ðÚÈ1
 N
-java:S1602D",Remove useless curly braces around statement(–­•Íþÿÿÿÿ8³þ ÎÈ1
+java:S1602D",Remove useless curly braces around statement(–­•Íþÿÿÿÿ8¥€ðÚÈ1
 I
-java:S1602I",Remove useless curly braces around statement(ÏÅÎ8´þ ÎÈ1
-W	java:S125N"<This block of commented-out lines of code should be removed.(Ò“-8µþ ÎÈ1
-]	java:S125o"<This block of commented-out lines of code should be removed.(­¯îÿÿÿÿÿ8»þ ÎÈ1
-X	java:S125s"<This block of commented-out lines of code should be removed.(ùÏ‰¥8½þ ÎÈ1
-]	java:S125y"<This block of commented-out lines of code should be removed.(É”ª¢þÿÿÿÿ8¿þ ÎÈ1
-V
-java:S1481š"3Remove this unused "departmentDesc" local variable.(ˆ«¥þÿÿÿÿ8Áþ ÎÈ1
+java:S1602I",Remove useless curly braces around statement(ÏÅÎ8¦€ðÚÈ1
+W	java:S125O"<This block of commented-out lines of code should be removed.(Ò“-8§€ðÚÈ1
+d
+java:S1126R"BReplace this if-then-else statement by a single method invocation.(©Ä‹Ñûÿÿÿÿ8˜Ô‡ÛÈ1
+]	java:S125x"<This block of commented-out lines of code should be removed.(­¯îÿÿÿÿÿ8¬€ðÚÈ1

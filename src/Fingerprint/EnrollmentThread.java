@@ -145,9 +145,13 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     } 
     
     public void stopEnrollmentThread(){
-        runThisThread = false;
-        captureThread.stopThread();
-        System.out.println("Enrollment Thread Stopped");
+
+        if(captureThread != null){
+            runThisThread = false;
+            captureThread.stopThread();
+            System.out.println("Enrollment Thread Stopped");
+        }
+
     }
     
     @Override

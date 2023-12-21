@@ -18,8 +18,17 @@ public class Department {
     private int id;
     private String departmentName;
     private int status;
+    private String description;
    public static String defaultValue = "Select Department";
-    
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Department(int id, String departmentName){
         this.id = id;
         this.departmentName = departmentName;
@@ -29,9 +38,10 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    public Department(int id, String departmentName, int status){
+    public Department(int id, String departmentName, String description, int status){
         this.id = id;
         this.departmentName = departmentName;
+        this.description = description;
         this.status = status;
     }
 
@@ -72,12 +82,13 @@ public class Department {
         ObservableList<Department> departments = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
-            ResultSet rs = statement.executeQuery("SELECT department_id, department_name, status FROM department");
+            ResultSet rs = statement.executeQuery("SELECT department_id, department_name, description, status FROM department");
             
             while (rs.next()) {
                   departments.add(new Department(
                           rs.getInt("department_id"),
                         rs.getString("department_name"),
+                    rs.getString("description"),
                     rs.getInt("status")
                   ));
             }
@@ -86,6 +97,27 @@ public class Department {
             e.printStackTrace();
         }
         return departments;  
+    }
+
+    public static ObservableList<Department> getActiveDepartments(){
+        ObservableList<Department> departments = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+            ResultSet rs = statement.executeQuery("SELECT department_id, department_name, description, status FROM department WHERE status=1");
+
+            while (rs.next()) {
+                departments.add(new Department(
+                        rs.getInt("department_id"),
+                        rs.getString("department_name"),
+                        rs.getString("description"),
+                        rs.getInt("status")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return departments;
     }
     
     public static Department getDepartmentById(int departmentId){
@@ -112,23 +144,26 @@ public class Department {
         return department;
     }
     
-    public static void addDepartment(String departmentName) throws SQLException{
-        String insertQuery = "INSERT INTO department (department_name) VALUES (?)";
+    public static void addDepartment(String departmentName, String description) throws SQLException{
+        String insertQuery = "INSERT INTO department (department_name, description) VALUES (?, ?)";
 
         PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(insertQuery);
             preparedStatement.setString(1, departmentName);
-            
+            preparedStatement.setString(2, description);
+
             preparedStatement.executeUpdate();
     }
     
-    public static void updateDepartment(int departmentId, String departmentName) throws SQLException{
-        String updateQuery = "UPDATE department SET department_name=? WHERE department_id=?";
+    public static void updateDepartment(int departmentId, String departmentName, String description) throws SQLException{
+        String updateQuery = "UPDATE department SET department_name=?, description=? WHERE department_id=?";
 
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 
             preparedStatement.setString(1, departmentName);
-            preparedStatement.setInt(2, departmentId);
+            preparedStatement.setString(2, description);
+            preparedStatement.setInt(3, departmentId);
+
             
             preparedStatement.executeUpdate();
             

@@ -134,5 +134,15 @@
             </Label>
          </children>
       </Pane>
+      <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="381.0" layoutY="184.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/email_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="23.0" fitWidth="29.0" layoutX="381.0" layoutY="221.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/password_icon.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
