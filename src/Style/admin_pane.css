@@ -173,7 +173,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-alignment: CENTER;
 }
 
-.button: hover {
+.button:hover {
     -fx-opacity: 0.85;
 
 }

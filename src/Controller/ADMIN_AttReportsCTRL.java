@@ -310,7 +310,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                             }
                         }
                     }
- // -------------------------naay bug, pag saturday or sunday ang holiday. magDouble ang minus sa working days.
+                    
                 for (int k = 1; k <= daysInMonth; k++) {
                     LocalDate localDate1 = LocalDate.of(year, month, k);
                 // Check if the day is not Saturday (DayOfWeek.SATURDAY) or Sunday (DayOfWeek.SUNDAY)

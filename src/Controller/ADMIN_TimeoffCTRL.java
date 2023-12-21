@@ -102,6 +102,8 @@ public class ADMIN_TimeoffCTRL implements Initializable{
         updateBtn.setDisable(true);
         userOffIdLabelTag.setDisable(true);
         typeComBox.setValue("On Leave");
+        searchBar.setText("");
+        searchBar.setPromptText("Search name...");
         
     }
     public void showTimeoffTable(int user_id){
