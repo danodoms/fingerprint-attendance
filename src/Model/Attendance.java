@@ -21,6 +21,8 @@ import java.util.Date;
  */
 public class Attendance {
     private int id;
+    private String dtrDate;
+    private int day;
     private Date date;
     private String attendance_status;
     private String timeIn;
@@ -38,6 +40,22 @@ public class Attendance {
     private double percentageNotLoggedIn;
     private String time;
     private String type;
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public String getDtrDate() {
+        return dtrDate;
+    }
+
+    public void setDtrDate(String dtrDate) {
+        this.dtrDate = dtrDate;
+    }
 
     public String getTime() {
         return time;
@@ -92,6 +110,16 @@ public class Attendance {
         this.percentageNotLoggedIn = percentageNotLoggedIn;
     }
 
+    public Attendance(String dtrDate, int day, int id, String name, String timeInAm, String timeOutAm, String timeInPm, String timeOutPm) {
+        this.dtrDate = dtrDate;
+        this.day = day;
+        this.id=id;
+        this.name = name;
+        this.timeInAm = timeInAm;
+        this.timeOutAm = timeOutAm;
+        this.timeInPm = timeInPm;
+        this.timeOutPm = timeOutPm;
+    }
     public Attendance(int id, Date date, String name, String timeIn, String notation) {
         this.id=id;
         this.date = date;
@@ -225,6 +253,33 @@ public void setTimeInPm(String timeInPm) {
 public void setTimeOutPm(String timeOutPm) {
     this.timeOutPm = timeOutPm;
 }   
+
+    public static ObservableList<Attendance> getDtrForDocx(){
+        ObservableList<Attendance>dtrDocx = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()){
+            
+            ResultSet rs = statement.executeQuery("SELECT * FROM `attendance_summary_view`");
+            
+            while (rs.next()) {
+                dtrDocx.add(new Attendance(
+                        rs.getString("dtrDate"),
+                        rs.getInt("day"),
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("timeInAm"),
+                        rs.getString("timeOutAm"),
+                        rs.getString("timeInPm"),
+                        rs.getString("timeOutPm")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dtrDocx;
+    }
+
     public static ObservableList<Attendance> getYearforLabel(){
         ObservableList<Attendance>empName = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();

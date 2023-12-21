@@ -124,18 +124,6 @@ public class Special_Calendar {
         ResultSet rs = statement.executeQuery();
 
         while (rs.next()) {
-//    Date startDate = rs.getDate("startDate");
-//    Date endDate = rs.getDate("endDate");
-//    
-//    // Splitting startDate components into an int array.
-//    int[] startArray = splitDateComponents(startDate);
-//    
-//    // Splitting endDate components into an int array.
-//    int[] endArray = splitDateComponents(endDate);
-//    
-//    // Calculate the total taking into account year, month, and day differences.
-//    int total = calculateTotal(startArray, endArray);
-
     calendar.add(new Special_Calendar(
             rs.getInt("id"),
             rs.getString("type"),

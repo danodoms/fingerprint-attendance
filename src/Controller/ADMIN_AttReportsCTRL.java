@@ -19,7 +19,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.io.FileOutputStream;
 import java.net.URL;
@@ -31,6 +32,17 @@ import java.util.*;
 
 import static Model.Attendance.*;
 import static Model.Special_Calendar.getCalendarByUserId;
+import java.io.File;
+import java.io.FileInputStream;
+import java.math.BigInteger;
+import org.apache.poi.xwpf.usermodel.IBodyElement;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTHMerge;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTc;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTcPr;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTVMerge;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
 
 /**
  *
@@ -103,34 +115,183 @@ public class ADMIN_AttReportsCTRL implements Initializable{
     }     
     }
     
+   private static void mergeCellsHorizontally(XWPFTable table, int row, int startCol, int endCol) {
+    System.out.println("Row: " + row + ", StartCol: " + startCol + ", EndCol: " + endCol);
+
+    // Validate table index and row existence
+    if (table == null || row < 0 || row >= table.getNumberOfRows()) {
+        System.out.println("Invalid table or row index.");
+        return;
+    }
+
+    XWPFTableRow tableRow = table.getRow(row);
+    if (tableRow == null) {
+        System.out.println("Row does not exist in the table.");
+        return;
+    }
+
+    // Validate column indices
+    if (startCol < 0 || endCol < 0 || startCol >= tableRow.getTableCells().size() || endCol >= tableRow.getTableCells().size()) {
+        System.out.println("Invalid column indices.");
+        return;
+    }
+
+    for (int col = startCol; col <= endCol; col++) {
+        XWPFTableCell cell = tableRow.getCell(col);
+        if (col == startCol) {
+            // Set the grid span for the first cell
+            cell.getCTTc().addNewTcPr().addNewGridSpan().setVal(BigInteger.valueOf(endCol - startCol + 1));
+        } else {
+            // Remove the merged cells from the row
+            List<CTTc> tcList = tableRow.getCtRow().getTcList();
+            if (col < tcList.size()) {
+                tcList.remove(col);
+                System.out.println("------------------removed.");
+            } 
+        }
+    }
+}
+
+    
     @FXML
     public void generateDTR(ActionEvent event){
         generateDOCX();
     }
     
     private void generateDOCX() {
-        try {
-            // Create a new XWPFDocument
-            XWPFDocument document = new XWPFDocument();
+    try {
+        FileInputStream templateFile = new FileInputStream(new File("DTR.docx"));
+        XWPFDocument doc = new XWPFDocument(templateFile);
+        String monthYearText = monthYearLabel.getText().toUpperCase();
+        String[] monthYear = monthYearText.split(" , ");
+        String nameText = nameLabel.getText().toUpperCase();
 
-            // Create a paragraph
-            XWPFParagraph paragraph = document.createParagraph();
+        String[] name = nameText.split(" ");
+        String monthToNum = "";
 
-            // Create a run and add text to it
-            XWPFRun run = paragraph.createRun();
-            run.setText("Hello, I'm Under the Water, Please Help me!");
+        int tardiness;
+        int daysInMonth = 0, lateCount = 0, absentCount = 0;
+        if (monthYear[0].equals("JANUARY")) { monthToNum = "1"; }
+        if (monthYear[0].equals("FEBRUARY")) { monthToNum = "2"; }
+        if (monthYear[0].equals("MARCH")) { monthToNum = "3"; }
+        if (monthYear[0].equals("APRIL")) { monthToNum = "4"; }
+        if (monthYear[0].equals("MAY")) { monthToNum = "5"; }
+        if (monthYear[0].equals("JUNE")) { monthToNum = "6"; }
+        if (monthYear[0].equals("JULY")) { monthToNum = "7"; }
+        if (monthYear[0].equals("AUGUST")) { monthToNum = "8"; }
+        if (monthYear[0].equals("SEPTEMBER")) { monthToNum = "9"; }
+        if (monthYear[0].equals("OCTOBER")) { monthToNum = "10"; }
+        if (monthYear[0].equals("NOVEMBER")) { monthToNum = "11"; }
+        if (monthYear[0].equals("DECEMBER")) { monthToNum = "12"; }
 
-            // Save the document to a file
-            try (FileOutputStream out = new FileOutputStream("sample.docx")) {
-                document.write(out);
+        int year = Integer.parseInt(monthYear[1]);
+        int month = Integer.parseInt(monthToNum);
+        YearMonth yearMonth = YearMonth.of(year, month);
+        daysInMonth = yearMonth.lengthOfMonth();
+
+        // Define target texts
+        String targetNameText = "Name:";
+        String targetMonthText = "For the month of";
+
+        boolean targetNameFound = false;
+        boolean targetMonthFound = false;
+
+        for (IBodyElement element : doc.getBodyElements()) {
+            if (element instanceof XWPFParagraph) {
+                XWPFParagraph paragraph = (XWPFParagraph) element;
+
+                // Check for "Name:" target text
+                if (paragraph.getText().contains(targetNameText)) {
+                    // Add a run to the paragraph
+                    XWPFRun run = paragraph.createRun();
+                    run.setText("       " + nameLabel.getText().toUpperCase());
+
+                    // You can customize the font, size, etc. for the new run if needed
+                    run.setFontFamily("Times New Roman");
+                    run.setFontSize(12);
+
+                    targetNameFound = true;
+                }
+
+                // Check for "For the month of" target text
+                if (paragraph.getText().contains(targetMonthText)) {
+                    // Add a run to the paragraph
+                    XWPFRun run = paragraph.createRun();
+                    run.setText(" " + monthYearLabel.getText().toUpperCase());
+
+                    // You can customize the font, size, etc. for the new run if needed
+                    run.setFontFamily("Times New Roman");
+                    run.setFontSize(12);
+
+                    targetMonthFound = true;
+                }
+            } else if (element instanceof XWPFTable) {
+                ObservableList<Attendance> dtrList = getDtrForDocx();
+                int targetColumnIndex = 1; // 0-based index of the target column
+                XWPFTable table = (XWPFTable) element;
+                int counter = 0;
+                List<XWPFTableRow> rows = table.getRows();
+
+                for (int targetRowIndex = 2; targetRowIndex <= 32; targetRowIndex++) {
+                    counter++;
+                    LocalDate localDate = LocalDate.of(year, month, counter);
+                    XWPFTableRow targetRow = table.getRow(targetRowIndex);
+                    int rowC =counter +1;
+                    if (counter <= daysInMonth) {
+                        for (Attendance attendance : dtrList) {
+                            if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
+                                mergeCellsHorizontally(table, rowC, 1, 4);
+                                XWPFTableCell targetCell = targetRow.getCell(1);
+                                targetCell.setText("SATURDAY");
+                               
+                            } else if (localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                                mergeCellsHorizontally(table, rowC, 1, 4);
+                                XWPFTableCell targetCell = targetRow.getCell(1);
+                                targetCell.setText("SUNDAY");
+                                
+                                    CTTcPr tcpr = targetCell.getCTTc().isSetTcPr() ? targetCell.getCTTc().getTcPr() : targetCell.getCTTc().addNewTcPr();
+                                    tcpr.addNewGridSpan().setVal(BigInteger.valueOf(1));
+                                
+                            } else if ((attendance.getName().toUpperCase()).equals(nameLabel.getText().toUpperCase())
+                                    && (attendance.getDtrDate().toUpperCase()).equals(monthYearLabel.getText().toUpperCase())
+                                    && (targetRowIndex - 1) == attendance.getDay()) {
+
+                                XWPFTableCell targetCell = targetRow.getCell(targetColumnIndex);
+                                targetCell.setText(attendance.getTimeInAm());
+                                targetCell = targetRow.getCell(targetColumnIndex + 1);
+                                targetCell.setText(attendance.getTimeOutAm());
+                                targetCell = targetRow.getCell(targetColumnIndex + 2);
+                                targetCell.setText(attendance.getTimeInPm());
+                                targetCell = targetRow.getCell(targetColumnIndex + 3);
+                                targetCell.setText(attendance.getTimeOutPm());
+
+                                System.out.println(attendance.getTimeInAm() + ", " + attendance.getTimeOutAm());
+                            }
+                        }
+
+                    }
+                }
             }
-
-            System.out.println("DOCX file generated successfully.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+        if (targetNameFound && targetMonthFound) {
+
+            FileOutputStream fileOutputStream = new FileOutputStream(name[1] + "_" + monthYear[0] + "_" + monthYear[1] + ".docx");
+            doc.write(fileOutputStream);
+            fileOutputStream.close();
+
+            System.out.println("-----------------Text added successfully.");
+        } else {
+            System.out.println("-----------------Target text(s) not found.");
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
+
+
+
     
    public void selectYear() {
         try {
@@ -277,7 +438,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                 if(dateOnCTRL[0].equals("September")){monthToNum="9";}if(dateOnCTRL[0].equals("October")){monthToNum="10";}
                 if(dateOnCTRL[0].equals("November")){monthToNum="11";}if(dateOnCTRL[0].equals("December")){monthToNum="12";}
                  
-        int year= Integer.parseInt(dateOnCTRL[2]);
+                int year= Integer.parseInt(dateOnCTRL[2]);
                 int month = Integer.parseInt(monthToNum);
                 YearMonth yearMonth = YearMonth.of(year, month);
                 daysInMonth = yearMonth.lengthOfMonth();
@@ -671,5 +832,17 @@ public class ADMIN_AttReportsCTRL implements Initializable{
 //            nameLabel.setText(selectedItem.getName());
 //        }
 //    }
+
+    private void removeTableCells(XWPFTableRow targetRow, int i, int i0) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void removeCells(XWPFTableRow targetRow, int i, int i0) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void removeCellContent(XWPFTableRow targetRow, int i, int i0) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 
