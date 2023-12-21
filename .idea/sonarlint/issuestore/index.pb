@@ -91,3 +91,15 @@ U
 %src/Controller/ADMIN_TimeoffCTRL.java,5\c\5cf4f1348fcf93caf0d8d2a35228045130c2dc7a
 F
 src/Model/Timeoff.java,b\c\bcd983809e7b2711a19955bd0862dd2c7df85b83
+G
+src/Model/Position.java,1\3\1392a9fdfb88dbc15e2320c826741f88b57ff38f
+M
+src/View/ADMIN_Positions.fxml,4\e\4e761c6161c4b953791dcc9d2b014316db293dfd
+W
+'src/Controller/ADMIN_PositionsCTRL.java,b\8\b8353d92a8e7364c7ad0c644d0937afbefab6185
+Y
+)src/Controller/ADMIN_DepartmentsCTRL.java,7\a\7af5c296bdefcb22d90cefd16c0bcc4fc5adb85d
+I
+src/Model/Department.java,6\4\64420f67808a9d18eb97aab395ee8be7a2b85812
+T
+$src/Controller/ADMIN_ShiftsCTRL.java,4\7\47ae17d651b46c072b9b7224a159d386f46f04b7

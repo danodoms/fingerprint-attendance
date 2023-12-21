@@ -1,0 +1,23 @@
+
+E
+java:S37402"/Provide the parametrized type for this generic.(®ÿÑÇ
+J
+java:S37404"/Provide the parametrized type for this generic.(—ëÄØşÿÿÿÿ
+J
+java:S37406"/Provide the parametrized type for this generic.(Æ®Û‹ùÿÿÿÿ
+b
+java:S1192I"GDefine a constant instead of duplicating this literal "Active" 3 times.(‹×ı°şÿÿÿÿ
+b	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(éÀğŞ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
+f	java:S116"QRename this field "col_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Ö•Ü
+r	java:S116"XRename this field "col_shiftName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ğÚîùÿÿÿÿ
+r	java:S1164"XRename this field "col_startTime" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—ëÄØşÿÿÿÿ
+p	java:S1166"VRename this field "col_endTime" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ®Û‹ùÿÿÿÿ
+H
+java:S1135A"2Complete the task associated to this TODO comment.(…ïœ†
+N
+java:S1611M"3Remove the parentheses around the "event" parameter(–­•Íşÿÿÿÿ
+G
+java:S1602M",Remove useless curly braces around statement(–­•Íşÿÿÿÿ
+I
+java:S1602R",Remove useless curly braces around statement(ÏÅÎ8…ÚÍÎÈ1

@@ -54,6 +54,9 @@ public class ADMIN_ShiftsCTRL implements Initializable {
     private TableColumn col_endTime;
 
     Shift selectedShift = null;
+    @FXML
+    private TextField searchField;
+
     /**
      * Initializes the controller class.
      */
@@ -75,6 +78,11 @@ public class ADMIN_ShiftsCTRL implements Initializable {
             loadShiftTable();
         });
 
+        //add event listener to searchFilterField that calls loadUserTable() when changed
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadShiftTable();
+        });
+
         loadShiftTable();
     }
 
@@ -91,6 +99,16 @@ public class ADMIN_ShiftsCTRL implements Initializable {
                 return shift.getStatus() == 0;
             }else{
                 return true;
+            }
+        });
+
+        //filter by searchField
+        filteredShifts = filteredShifts.filtered(shift -> {
+            String searchFilter = searchField.getText().toLowerCase();
+            if(searchFilter.isEmpty()){
+                return true;
+            }else{
+                return shift.getShiftName().toLowerCase().contains(searchFilter);
             }
         });
 

@@ -18,6 +18,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
  /* -color-base-gradient: linear-gradient(to bottom, #b3ebdd, #D0D8DC);*/
   -color-base-gradient: #81ecae;
   -color-text: #3b3b3b;
+  -color-red: #f44336;
 
 }
 
@@ -271,8 +272,15 @@ TextField{
     -fx-text-fill: white;
 }
 
+.red {
+    -fx-border-color: -color-red;
+    /*-fx-text-fill: white;*/
+}
 
-
+.red: hover {
+    -fx-background-color: -color-red;
+    -fx-text-fill: white;
+}
 
 
 

@@ -52,6 +52,8 @@ public class ADMIN_PositionsCTRL implements Initializable {
     private TableView<Position> positionTable;
     
     Position selectedPosition = null;
+    @FXML
+    private TextField searchField;
 //    int positionId = selectedPosition.getId();
 //    String position = selectedPosition.getPosition();
 //    String positionDescription = selectedPosition.getDescription();
@@ -94,6 +96,11 @@ public class ADMIN_PositionsCTRL implements Initializable {
             departmentChoiceBox.setItems(Department.getDepartments());
         });
 
+        //add event listener to searchFilterField that calls loadUserTable() when changed
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadPositionTable();
+        });
+
     }
 
     private void loadPositionTable(){
@@ -108,7 +115,7 @@ public class ADMIN_PositionsCTRL implements Initializable {
             }
         });
 
-        //then, filter the new list by status, store in a new list
+        //filter the new list by status, store in a new list
         filteredPositions = filteredPositions.filtered(position -> {
             if(statusFilterChoiceBox.getValue().equals("Active")){
                 return position.getStatus() == 1;
@@ -116,6 +123,16 @@ public class ADMIN_PositionsCTRL implements Initializable {
                 return position.getStatus() == 0;
             }else{
                 return true;
+            }
+        });
+
+        //then, filter based on searchFilterField, store in new list
+        filteredPositions = filteredPositions.filtered(position -> {
+            String searchFilter = searchField.getText().toLowerCase();
+            if(searchFilter.isEmpty()){
+                return true;
+            }else{
+                return position.getPosition().toLowerCase().contains(searchFilter);
             }
         });
 

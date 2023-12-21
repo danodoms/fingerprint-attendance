@@ -4,26 +4,26 @@ java:S3740U"/Provide the parametrized type for this generic.(Ÿ×½Í
 J
 java:S3740W"/Provide the parametrized type for this generic.(”“×ûÿÿÿÿ
 n
-java:S2293e"YReplace the type specification in this constructor call with the diamond operator ("<>").(áó„G
+java:S2293h"YReplace the type specification in this constructor call with the diamond operator ("<>").(áó„G
 t
-java:S2293f"YReplace the type specification in this constructor call with the diamond operator ("<>").(ó÷˜øÿÿÿÿ
+java:S2293i"YReplace the type specification in this constructor call with the diamond operator ("<>").(ó÷˜øÿÿÿÿ
 t
-java:S2293k"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã‡Ùéüÿÿÿÿ
+java:S2293n"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã‡Ùéüÿÿÿÿ
 t
-java:S2293l"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÖÍó¿ıÿÿÿÿ
+java:S2293o"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÖÍó¿ıÿÿÿÿ
 t
-java:S2293m"YReplace the type specification in this constructor call with the diamond operator ("<>").(ˆ“øûüÿÿÿÿ
+java:S2293p"YReplace the type specification in this constructor call with the diamond operator ("<>").(ˆ“øûüÿÿÿÿ
 t
-java:S2293n"YReplace the type specification in this constructor call with the diamond operator ("<>").(ğ£Ş¹ıÿÿÿÿ
+java:S2293q"YReplace the type specification in this constructor call with the diamond operator ("<>").(ğ£Ş¹ıÿÿÿÿ
 t
-java:S2293o"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢¤³‰ûÿÿÿÿ
+java:S2293r"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢¤³‰ûÿÿÿÿ
 ^
-java:S1192"GDefine a constant instead of duplicating this literal "Active" 3 times.(–¡ß
-l	java:S117Ë"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎˆŸòùÿÿÿÿ
+java:S1192„"GDefine a constant instead of duplicating this literal "Active" 3 times.(–¡ß
+l	java:S117Ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎˆŸòùÿÿÿÿ
 g	java:S101&"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(àÎ‚ïşÿÿÿÿ
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
 i
-java:S2095¥"MUse try-with-resources or close this "ExecutorService" in a "finally" clause.(’µ‘Êıÿÿÿÿ
+java:S2095¹"MUse try-with-resources or close this "ExecutorService" in a "finally" clause.(’µ‘Êıÿÿÿÿ
 f	java:S116)"QRename this field "col_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒŞ¬—
 h	java:S116+"SRename this field "col_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨½¯”
 s	java:S116/"YRename this field "col_department" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Òá³ûÿÿÿÿ
@@ -32,17 +32,19 @@ n	java:S1163"TRename this field "col_shift" to match the regular expression '^
 m	java:S1165"SRename this field "col_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É­ëçıÿÿÿÿ
 u	java:S1167"[Rename this field "col_dateAssigned" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªúÚ®ıÿÿÿÿ
 H
-java:S1135c"2Complete the task associated to this TODO comment.(…ïœ†
+java:S1135f"2Complete the task associated to this TODO comment.(…ïœ†
 N
-java:S1611{"3Remove the parentheses around the "event" parameter(îâ£Çøÿÿÿÿ
+java:S1611~"3Remove the parentheses around the "event" parameter(îâ£Çøÿÿÿÿ
 G
-java:S1602{",Remove useless curly braces around statement(îâ£Çøÿÿÿÿ
+java:S1602~",Remove useless curly braces around statement(îâ£Çøÿÿÿÿ
 O
-java:S1611„"3Remove the parentheses around the "event" parameter(Î¼µ˜üÿÿÿÿ
+java:S1611‡"3Remove the parentheses around the "event" parameter(Î¼µ˜üÿÿÿÿ
 H
-java:S1602„",Remove useless curly braces around statement(Î¼µ˜üÿÿÿÿ
-F	java:S106Œ"+Replace this use of System.out by a logger.(ûú‰÷ûÿÿÿÿ
-Q	java:S125‘"<This block of commented-out lines of code should be removed.(‰ºš
-F	java:S106"+Replace this use of System.out by a logger.(‘½Ö¼şÿÿÿÿ
+java:S1602‡",Remove useless curly braces around statement(Î¼µ˜üÿÿÿÿ
+J
+java:S1602Œ",Remove useless curly braces around statement(ÏÅÎ8ç±¼ÍÈ1
+F	java:S106”"+Replace this use of System.out by a logger.(ûú‰÷ûÿÿÿÿ
+Q	java:S125™"<This block of commented-out lines of code should be removed.(‰ºš
+F	java:S106£"+Replace this use of System.out by a logger.(‘½Ö¼şÿÿÿÿ
 u
-java:S2142ª"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
+java:S2142¾"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€

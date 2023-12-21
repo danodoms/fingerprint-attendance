@@ -11,6 +11,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -35,86 +36,80 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="238.0" layoutY="18.0" prefHeight="569.0" prefWidth="556.0" styleClass="tilePane">
+            <Pane layoutX="238.0" layoutY="18.0" prefHeight="569.0" prefWidth="550.0" styleClass="tilePane">
                <children>
-                  <TableView fx:id="specialCalTable" layoutX="9.0" layoutY="77.0" prefHeight="262.0" prefWidth="538.0">
+                  <TableView fx:id="specialCalTable" layoutX="9.0" layoutY="77.0" prefHeight="304.0" prefWidth="530.0">
                      <columns>
                         <TableColumn fx:id="calTypeCol" prefWidth="67.0" text="Type" />
                         <TableColumn fx:id="descCol" minWidth="102.0" prefWidth="129.0" text="Description" />
                         <TableColumn fx:id="attachmentCol" minWidth="51.0" prefWidth="98.0" text="Attachment" />
                         <TableColumn fx:id="startDCol" minWidth="57.0" prefWidth="78.0" text="Start Date" />
                         <TableColumn fx:id="endDCol" minWidth="57.0" prefWidth="82.0" text="End Date" />
-                        <TableColumn fx:id="totalCol" maxWidth="99.0" minWidth="57.0" prefWidth="81.0" text="Total Day(s)" />
+                        <TableColumn fx:id="totalCol" maxWidth="99.0" minWidth="57.0" prefWidth="81.0" text="Day(s)" />
                      </columns>
                   </TableView>
-                  <Label layoutX="186.0" layoutY="475.0" text="Start Date :" />
-                  <Label layoutX="192.0" layoutY="510.0" text="End Date :" />
-                  <DatePicker fx:id="startPicker" layoutX="249.0" layoutY="472.0" prefHeight="25.0" prefWidth="167.0" />
-                  <DatePicker fx:id="endPicker" layoutX="250.0" layoutY="506.0" prefHeight="25.0" prefWidth="167.0" />
-                  <TextField fx:id="descField" alignment="TOP_LEFT" layoutX="251.0" layoutY="403.0" prefHeight="25.0" prefWidth="167.0" promptText="Add Description . . ." />
-                  <Label layoutX="16.0" layoutY="403.0" text="Type " />
-                  <ChoiceBox fx:id="typeComBox" layoutX="86.0" layoutY="401.0" prefHeight="25.0" prefWidth="86.0" />
-                  <VBox alignment="CENTER" layoutX="426.0" layoutY="391.0" prefHeight="145.0" prefWidth="133.0">
+                  <HBox layoutX="330.0" layoutY="393.0" prefHeight="157.0" prefWidth="206.0">
                      <children>
-                        <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateTimeoff" prefHeight="32.0" prefWidth="125.0" text="UPDATE">
+                        <VBox alignment="CENTER" prefHeight="157.0" prefWidth="219.0" spacing="7.0">
+                           <children>
+                              <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateTimeoff" prefHeight="34.0" prefWidth="403.0" text="UPDATE">
+                                 <opaqueInsets>
+                                    <Insets bottom="2.0" left="2.0" top="2.0" />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="insertBtn" mnemonicParsing="false" onAction="#addTimeoff" prefHeight="34.0" prefWidth="376.0" text="INSERT">
+                                 <opaqueInsets>
+                                    <Insets left="2.0" top="2.0" />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateTimeoff" prefHeight="34.0" prefWidth="339.0" text="DEACTIVATE">
+                                 <opaqueInsets>
+                                    <Insets left="2.0" top="2.0" />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearManage" prefHeight="34.0" prefWidth="368.0" text="CLEAR">
+                                 <opaqueInsets>
+                                    <Insets left="2.0" top="2.0" />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
                            <opaqueInsets>
                               <Insets bottom="2.0" left="2.0" top="2.0" />
                            </opaqueInsets>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="insertBtn" mnemonicParsing="false" onAction="#addTimeoff" prefHeight="32.0" prefWidth="125.0" text="INSERT">
-                           <opaqueInsets>
-                              <Insets left="2.0" top="2.0" />
-                           </opaqueInsets>
-                           <VBox.margin>
-                              <Insets top="3.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateTimeoff" prefHeight="32.0" prefWidth="125.0" text="DEACTIVATE">
-                           <opaqueInsets>
-                              <Insets left="2.0" top="2.0" />
-                           </opaqueInsets>
-                           <VBox.margin>
-                              <Insets top="3.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearManage" prefHeight="32.0" prefWidth="125.0" text="CLEAR">
-                           <opaqueInsets>
-                              <Insets left="2.0" top="2.0" />
-                           </opaqueInsets>
-                           <VBox.margin>
-                              <Insets top="3.0" />
-                           </VBox.margin>
-                        </Button>
+                        </VBox>
                      </children>
-                     <opaqueInsets>
-                        <Insets bottom="2.0" left="2.0" top="2.0" />
-                     </opaqueInsets>
-                  </VBox>
-                  <Button fx:id="selectBtn" layoutX="420.0" layoutY="37.0" mnemonicParsing="false" onAction="#handleSelectBtn" prefHeight="32.0" prefWidth="125.0" text="SELECT" />
-                  <Label layoutX="178.0" layoutY="441.0" text="Attachment :" />
-                  <TextField fx:id="attachmentField" layoutX="250.0" layoutY="438.0" prefHeight="25.0" prefWidth="167.0" promptText="Add Link . . ." />
-                  <Label layoutX="8.0" layoutY="438.0" text="Employee ID :" />
-                  <Label fx:id="empIdLabel" layoutX="101.0" layoutY="439.0" prefHeight="17.0" prefWidth="73.0">
+                  </HBox>
+                  <Button fx:id="selectBtn" layoutX="416.0" layoutY="37.0" mnemonicParsing="false" onAction="#handleSelectBtn" prefHeight="32.0" prefWidth="125.0" text="SELECT" />
+                  <Label layoutX="244.0" layoutY="16.0" text="Employee ID :" />
+                  <Label fx:id="empIdLabel" layoutX="337.0" layoutY="17.0" prefHeight="17.0" prefWidth="25.0" text="0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="43.0" layoutY="473.0" text="Off ID :" />
-                  <Label fx:id="userOffIdLabel" layoutX="101.0" layoutY="475.0" prefHeight="17.0" prefWidth="73.0">
+                  <Label layoutX="257.0" layoutY="35.0" text="UserOff ID :" />
+                  <Label fx:id="userOffIdLabel" layoutX="340.0" layoutY="35.0" prefHeight="17.0" prefWidth="25.0" text="0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="userOffIdLabelTag" layoutX="16.0" layoutY="511.0" text="User Off ID :" />
-                  <Label fx:id="timeOffIDLabel" layoutX="101.0" layoutY="511.0" prefHeight="17.0" prefWidth="73.0">
+                  <Label fx:id="userOffIdLabelTag" layoutX="254.0" layoutY="57.0" text="Time Off ID :" />
+                  <Label fx:id="timeOffIDLabel" layoutX="337.0" layoutY="56.0" prefHeight="17.0" prefWidth="25.0" text="0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="180.0" layoutY="407.0" text="Description :" />
                   <Label layoutX="74.0" layoutY="45.0" prefHeight="5.0" prefWidth="200.0" text="Name Surname" textFill="#f8f4f4">
                      <font>
                         <Font name="System Bold" size="22.0" />
@@ -130,6 +125,63 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
+                  <VBox layoutX="14.0" layoutY="404.0" prefHeight="146.0" prefWidth="304.0">
+                     <children>
+                        <Label text="Description :">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="descField" alignment="TOP_LEFT" prefHeight="29.0" prefWidth="302.0" promptText="Add Description . . .">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <HBox prefHeight="94.0" prefWidth="331.0" spacing="7.0">
+                           <children>
+                              <VBox prefHeight="210.0" prefWidth="171.0">
+                                 <children>
+                                    <Label text="Timeoff Type ">
+                                       <VBox.margin>
+                                          <Insets bottom="2.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <ChoiceBox fx:id="typeComBox" prefHeight="27.0" prefWidth="167.0">
+                                       <VBox.margin>
+                                          <Insets bottom="7.0" />
+                                       </VBox.margin>
+                                    </ChoiceBox>
+                                    <Label text="Attachment :" />
+                                    <TextField fx:id="attachmentField" prefHeight="25.0" prefWidth="167.0" promptText="Add Link . . ." />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="95.0" prefWidth="124.0">
+                                 <children>
+                                    <Label text="Start Date :">
+                                       <VBox.margin>
+                                          <Insets bottom="2.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <DatePicker fx:id="startPicker" prefHeight="27.0" prefWidth="138.0">
+                                       <VBox.margin>
+                                          <Insets bottom="6.0" />
+                                       </VBox.margin>
+                                    </DatePicker>
+                                    <Label text="End Date :">
+                                       <VBox.margin>
+                                          <Insets bottom="2.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <DatePicker fx:id="endPicker" prefHeight="28.0" prefWidth="154.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </Pane>
          </children>

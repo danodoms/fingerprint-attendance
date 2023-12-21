@@ -21,7 +21,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label fx:id="nameLabel" alignment="CENTER" layoutX="111.0" layoutY="328.0" prefHeight="20.0" prefWidth="366.0" text="Name Surname">
+            <Label fx:id="nameLabel" alignment="CENTER" layoutX="111.0" layoutY="50.0" prefHeight="20.0" prefWidth="366.0" text="Name Surname">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -31,19 +31,14 @@
                   <Image url="@../Images/default_user_img.jpg" />
                </image>
             </ImageView>
-            <ImageView fx:id="fingerprintImage" accessibleText="fingerprint" fitHeight="240.0" fitWidth="233.0" layoutX="178.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fingerprintImage" accessibleText="fingerprint" fitHeight="240.0" fitWidth="233.0" layoutX="180.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/fp_placeholder.jpg" />
                </image>
             </ImageView>
-            <Label fx:id="nameLabel1" alignment="CENTER" layoutX="217.0" layoutY="297.0" prefHeight="35.0" prefWidth="156.0" text="Enrolling Fingerprints for">
+            <Label fx:id="nameLabel1" alignment="CENTER" layoutX="217.0" layoutY="19.0" prefHeight="35.0" prefWidth="156.0" text="Enrolling Fingerprints for">
                <font>
                   <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="189.0" layoutY="14.0" prefHeight="35.0" prefWidth="212.0" text="Enroll Fingerprint">
-               <font>
-                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
             <Pane layoutX="15.0" layoutY="361.0" prefHeight="47.0" prefWidth="559.0" styleClass="tilePane">

@@ -88,7 +88,10 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
 
     User selectedUser = null;
     Assignment selectedAssignment = null;
-
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Label manageUserLabel;
 
 
     /**
@@ -133,6 +136,11 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
             loadAssignmentTable(selectedUser.getId());
         });
 
+        //add event listener to searchFilterField that calls loadUserTable() when changed
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadUserTable();
+        });
+
 
         positionChoiceBox.setOnMouseClicked(event -> {
             // Get the corresponding department from the departmentChoiceBox
@@ -172,6 +180,7 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         
         userImageView.setVisible(false);
         userNameLabel.setVisible(false);
+        manageUserLabel.setVisible(false);
         
         loadUserTable();
     }    
@@ -194,6 +203,16 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
                 return assignmentCount == 2;
             }else{
                 return assignmentCount > 2;
+            }
+        });
+
+        //then, filter based on searchFilterField, store in new list
+        filteredUsers = filteredUsers.filtered(user -> {
+            String searchFilter = searchField.getText().toLowerCase();
+            if(searchFilter.isEmpty()){
+                return true;
+            }else{
+                return user.getFullName().toLowerCase().contains(searchFilter);
             }
         });
 
@@ -231,6 +250,7 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         userImageView.setImage(ImageUtil.byteArrayToImage(User.getUserImageByUserId(selectedUser.getId())));
         userImageView.setVisible(true);
         userNameLabel.setVisible(true);
+        manageUserLabel.setVisible(true);
         
         clearFields();
         

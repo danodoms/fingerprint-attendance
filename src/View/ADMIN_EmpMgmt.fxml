@@ -17,25 +17,25 @@
 
 <AnchorPane id="AnchorPane" minWidth="790.0" prefHeight="600.0" prefWidth="800.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_EmpMgmtCTRL">
    <children>
-      <Label layoutX="22.0" layoutY="21.0" text="Employees">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <Pane layoutX="21.0" layoutY="63.0" prefHeight="518.0" prefWidth="478.0" styleClass="tilePane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="301.0" AnchorPane.topAnchor="63.0">
+      <Pane layoutX="21.0" layoutY="21.0" prefHeight="560.0" prefWidth="478.0" styleClass="tilePane" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="301.0" AnchorPane.topAnchor="21.0">
          <children>
-            <TableView fx:id="userTable" layoutX="14.0" layoutY="50.0" onMouseClicked="#userSelected" prefHeight="452.0" prefWidth="451.0">
+            <TableView fx:id="userTable" layoutX="14.0" layoutY="94.0" onMouseClicked="#userSelected" prefHeight="452.0" prefWidth="451.0">
               <columns>
                 <TableColumn fx:id="col_user_id" prefWidth="43.0" text="ID" />
                 <TableColumn fx:id="col_name" prefWidth="300.0" text="Name" />
                   <TableColumn fx:id="col_privilege" minWidth="0.0" prefWidth="132.0" text="Privilege" />
               </columns>
             </TableView>
-            <HBox layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="451.0">
+            <HBox layoutX="14.0" layoutY="54.0" prefHeight="26.0" prefWidth="451.0">
                <children>
+                  <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="187.0" promptText="Search">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
                   <Label prefHeight="26.0" prefWidth="50.0" text="Privilege">
                      <HBox.margin>
-                        <Insets right="5.0" />
+                        <Insets left="10.0" right="5.0" />
                      </HBox.margin>
                   </Label>
                   <ChoiceBox fx:id="privilegeFilter_choiceBox" prefHeight="26.0" prefWidth="79.0">
@@ -49,18 +49,18 @@
                      </HBox.margin>
                   </Label>
                   <ChoiceBox fx:id="statusFilter_choiceBox" prefHeight="26.0" prefWidth="72.0" />
-                  <TextField fx:id="searchFilterField" prefHeight="25.0" prefWidth="187.0" promptText="Search">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </TextField>
                </children>
             </HBox>
+            <Label layoutX="14.0" layoutY="14.0" text="Employees">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <Pane layoutX="510.0" layoutY="63.0" prefHeight="518.0" prefWidth="271.0" styleClass="tilePane">
+      <Pane layoutX="510.0" layoutY="21.0" prefHeight="560.0" prefWidth="271.0" styleClass="tilePane">
          <children>
-            <VBox layoutX="7.0" layoutY="201.0" prefHeight="26.0" prefWidth="259.0">
+            <VBox layoutX="6.0" layoutY="248.0" prefHeight="26.0" prefWidth="259.0">
                <children>
                   <Label fx:id="nameLabel" prefHeight="17.0" prefWidth="285.0" style="-fx-alignment: center;" text="Name Surname">
                      <font>
@@ -74,12 +74,12 @@
                   </Label>
                </children>
             </VBox>
-            <ImageView fx:id="userImageView" fitHeight="120.0" fitWidth="223.0" layoutX="76.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="userImageView" fitHeight="120.0" fitWidth="223.0" layoutX="75.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/default_user_img.jpg" />
                </image>
             </ImageView>
-            <VBox layoutX="17.0" layoutY="377.0" prefHeight="120.0" prefWidth="238.0" spacing="10.0">
+            <VBox layoutX="16.0" layoutY="422.0" prefHeight="120.0" prefWidth="238.0" spacing="10.0">
                <children>
                   <Button fx:id="addEmpBtn" mnemonicParsing="false" onAction="#openAddEmpPane" prefHeight="43.0" prefWidth="259.0" text="Add Employee">
                      <VBox.margin>
@@ -91,10 +91,10 @@
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="deactivateUserBtn" mnemonicParsing="false" onAction="#deactivateUser" prefHeight="39.0" prefWidth="267.0" text="Deactivate" />
+                  <Button fx:id="deactivateUserBtn" mnemonicParsing="false" onAction="#deactivateUser" prefHeight="39.0" prefWidth="267.0" styleClass="red" text="Deactivate" />
                </children>
             </VBox>
-            <VBox layoutX="60.0" layoutY="259.0" prefHeight="99.0" prefWidth="153.0">
+            <VBox layoutX="59.0" layoutY="306.0" prefHeight="99.0" prefWidth="153.0">
                <children>
                   <Label fx:id="birthDateLabel" prefHeight="10.0" prefWidth="153.0" style="-fx-alignment: center;" text="YYYY-MM-DD" textAlignment="CENTER" wrapText="true">
                      <font>

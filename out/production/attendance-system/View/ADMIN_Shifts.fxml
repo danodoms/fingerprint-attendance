@@ -15,14 +15,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_ShiftsCTRL">
    <children>
-      <Label layoutX="23.0" layoutY="20.0" text="Shift">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <Pane layoutX="473.0" layoutY="57.0" prefHeight="526.0" prefWidth="310.0" styleClass="tilePane">
+      <Pane layoutX="473.0" layoutY="22.0" prefHeight="561.0" prefWidth="310.0" styleClass="tilePane">
          <children>
-            <VBox layoutX="18.0" layoutY="141.0" prefHeight="245.0" prefWidth="275.0">
+            <VBox layoutX="18.0" layoutY="149.0" prefHeight="245.0" prefWidth="275.0">
                <children>
                   <Label text="Shift">
                      <font>
@@ -114,37 +109,43 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateShift" prefHeight="85.0" prefWidth="274.0" text="Deactivate" />
+                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateShift" prefHeight="85.0" prefWidth="274.0" styleClass="red" text="Deactivate" />
                      </children>
                   </VBox>
                </children>
             </VBox>
          </children>
       </Pane>
-      <Pane layoutX="19.0" layoutY="56.0" prefHeight="526.0" prefWidth="439.0" styleClass="tilePane">
+      <Pane layoutX="19.0" layoutY="21.0" prefHeight="561.0" prefWidth="445.0" styleClass="tilePane">
          <children>
-            <TableView fx:id="shiftTable" layoutX="10.0" layoutY="45.0" onMouseClicked="#shiftSelected" prefHeight="470.0" prefWidth="420.0">
+            <TableView fx:id="shiftTable" layoutX="10.0" layoutY="77.0" onMouseClicked="#shiftSelected" prefHeight="475.0" prefWidth="427.0">
               <columns>
                 <TableColumn fx:id="col_id" prefWidth="37.0" text="ID" />
                 <TableColumn fx:id="col_shiftName" prefWidth="213.0" text="Shift" />
                   <TableColumn fx:id="col_startTime" prefWidth="87.0" text="Start Time" />
-                  <TableColumn fx:id="col_endTime" minWidth="0.0" prefWidth="81.0" text="End Time" />
+                  <TableColumn fx:id="col_endTime" minWidth="0.0" prefWidth="87.0" text="End Time" />
               </columns>
             </TableView>
-            <HBox layoutX="220.0" layoutY="10.0" prefHeight="25.0" prefWidth="208.0">
+            <HBox layoutX="220.0" layoutY="43.0" prefHeight="27.0" prefWidth="217.0">
                <children>
                   <Label prefHeight="25.0" prefWidth="44.0" text="Status">
                      <padding>
                         <Insets right="5.0" />
                      </padding>
                   </Label>
-                  <ChoiceBox fx:id="statusFilterChoiceBox" prefHeight="25.0" prefWidth="165.0">
+                  <ChoiceBox fx:id="statusFilterChoiceBox" prefHeight="27.0" prefWidth="175.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </ChoiceBox>
                </children>
             </HBox>
+            <Label layoutX="11.0" layoutY="7.0" text="Shift">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="searchField" layoutX="10.0" layoutY="42.0" prefHeight="29.0" prefWidth="202.0" promptText="Search" />
          </children>
       </Pane>
    </children>
