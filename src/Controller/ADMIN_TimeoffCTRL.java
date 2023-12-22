@@ -7,6 +7,7 @@ package Controller;
 import Model.Attendance;
 import Model.Timeoff;
 import Model.User;
+import Utilities.ImageUtil;
 import Utilities.Modal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,9 +16,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Line;
 
 import java.net.URL;
 import java.sql.Date;
@@ -47,7 +48,7 @@ public class ADMIN_TimeoffCTRL implements Initializable{
     @FXML
     private TableColumn<Timeoff, Date> endDCol, startDCol;
     @FXML
-    private ChoiceBox<String> typeComBox, monthChoiceBox;
+    private ChoiceBox<String> typeComBox;
     @FXML
     private TextField searchBar, descField, attachmentField;
     @FXML
@@ -61,10 +62,13 @@ public class ADMIN_TimeoffCTRL implements Initializable{
     Timeoff selectedUserTimeoff;
 
     @FXML
-    private Line topLine;
-
-    @FXML
     private TableColumn<Timeoff, Integer> totalCol;
+    @FXML
+    private Label userNameLabel;
+    @FXML
+    private ImageView userImageView;
+    @FXML
+    private Label manageUserLabel;
 
 
     @FXML
@@ -84,6 +88,7 @@ public class ADMIN_TimeoffCTRL implements Initializable{
     public void selectEmployeeTimeOff(MouseEvent event) {
         Attendance selectedItem = empNameTable.getSelectionModel().getSelectedItem();
         showTimeoffTable(selectedItem.getId());
+        selectedUser = User.getUserByUserId(selectedItem.getId());
         clear();
 
 
@@ -92,8 +97,19 @@ public class ADMIN_TimeoffCTRL implements Initializable{
         updateBtn.setDisable(true);
         userOffIdLabelTag.setDisable(true);
         typeComBox.setValue("On Leave");
+//<<<<<<< HEAD
         searchBar.setText("");
         searchBar.setPromptText("Search name...");
+//=======
+
+
+        userNameLabel.setText(selectedUser.getFullNameWithInitial());
+        userImageView.setImage(ImageUtil.byteArrayToImage(selectedUser.getImage()));
+
+        manageUserLabel.setVisible(true);
+        userImageView.setVisible(true);
+        userNameLabel.setVisible(true);
+//>>>>>>> dano
         
     }
     public void showTimeoffTable(int user_id){
@@ -199,7 +215,11 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        userImageView.setVisible(false);
+        userNameLabel.setVisible(false);
+        manageUserLabel.setVisible(false);
         setTable();
+
 //        ObservableList<String> monthList = FXCollections.observableArrayList();
 //        monthList.addAll("January", "February", "March", 
 //                "April", "May", "June", "July", 
@@ -249,9 +269,12 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
         deactivateBtn.setDisable(true);
         userOffIdLabelTag.setDisable(true);
     }
+
+    @FXML
     public void clearManage(ActionEvent event){
             clear();
     }
+
     public void clear(){
             typeComBox.setValue("");
             attachmentField.setText("");
@@ -268,5 +291,6 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
             deactivateBtn.setDisable(false);
             userOffIdLabelTag.setDisable(false);
     }
-    
+
+
 }

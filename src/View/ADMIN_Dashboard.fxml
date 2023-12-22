@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -11,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="802.0" minHeight="600.0" minWidth="802.0" prefHeight="0.0" prefWidth="0.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_DashboardCTRL">
@@ -24,13 +26,19 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="piePane" layoutX="23.0" layoutY="71.0" prefHeight="200.0" prefWidth="250.0" styleClass="tilePane">
+      <Pane fx:id="piePane" layoutX="23.0" layoutY="71.0" prefHeight="200.0" prefWidth="257.0" styleClass="tilePane">
          <children>
-            <PieChart fx:id="pieChart" layoutY="20.0" prefHeight="182.0" prefWidth="250.0" style="-fx-padding: 0;" />
+            <PieChart fx:id="pieChart" labelsVisible="false" layoutY="20.0" legendSide="RIGHT" prefHeight="182.0" prefWidth="257.0" />
             <Label layoutX="13.0" layoutY="10.0" text="Login Percentile" />
+            <Circle layoutX="129.0" layoutY="111.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -color-base;" />
+            <Label fx:id="attendancePercentLabel" alignment="CENTER" layoutX="82.0" layoutY="91.0" prefHeight="41.0" prefWidth="94.0" text="0">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <Pane layoutX="292.0" layoutY="71.0" prefHeight="200.0" prefWidth="250.0" styleClass="tilePane">
+      <Pane layoutX="285.0" layoutY="71.0" prefHeight="200.0" prefWidth="257.0" styleClass="tilePane">
          <children>
             <BarChart fx:id="barChart" barGap="0.0" categoryGap="0.0" layoutX="6.0" layoutY="36.0" legendSide="TOP" legendVisible="false" prefHeight="164.0" prefWidth="230.0" stylesheets="@../Style/dashboardBarChart.css">
               <xAxis>
@@ -71,7 +79,7 @@
             <Label layoutX="15.0" layoutY="12.0" text="Gender Metrics" />
          </children>
       </Pane>
-      <Pane fx:id="piePane1" layoutX="23.0" layoutY="285.0" prefHeight="293.0" prefWidth="521.0" styleClass="tilePane">
+      <Pane fx:id="piePane1" layoutX="23.0" layoutY="277.0" prefHeight="301.0" prefWidth="521.0" styleClass="tilePane">
          <children>
             <Label layoutX="14.0" layoutY="12.0" text="Recent Attendance" />
             <TableView fx:id="recentAttendanceTable" layoutX="14.0" layoutY="36.0" prefHeight="243.0" prefWidth="491.0">
@@ -83,10 +91,35 @@
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="piePane2" layoutX="561.0" layoutY="71.0" prefHeight="508.0" prefWidth="221.0" styleClass="tilePane">
+      <Pane fx:id="piePane21111" layoutX="547.0" layoutY="71.0" prefHeight="58.0" prefWidth="112.0" styleClass="tilePane">
          <children>
-            <Label layoutX="13.0" layoutY="10.0" text="Chart" />
+            <Label layoutX="8.0" layoutY="6.0" prefHeight="15.0" prefWidth="102.0" text="TIME IN" />
+            <Label fx:id="timeInCountLabel" alignment="BOTTOM_RIGHT" layoutY="18.0" prefHeight="38.0" prefWidth="112.0" text="0">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+               <padding>
+                  <Insets bottom="4.0" right="10.0" />
+               </padding>
+            </Label>
          </children>
       </Pane>
+      <Pane fx:id="piePane211111" layoutX="663.0" layoutY="71.0" prefHeight="58.0" prefWidth="118.0" styleClass="tilePane">
+         <children>
+            <Label layoutX="9.0" layoutY="6.0" prefHeight="15.0" prefWidth="67.0" text="TIME OUT" />
+            <Label fx:id="timeOutCountLabel" alignment="BOTTOM_RIGHT" layoutX="3.0" layoutY="18.0" prefHeight="41.0" prefWidth="112.0" text="0">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+               <padding>
+                  <Insets bottom="4.0" right="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="piePane211112" layoutX="547.0" layoutY="134.0" prefHeight="58.0" prefWidth="112.0" styleClass="tilePane" />
+      <Pane fx:id="piePane2111121" layoutX="663.0" layoutY="134.0" prefHeight="58.0" prefWidth="118.0" styleClass="tilePane" />
+      <Pane fx:id="piePane2111122" layoutX="546.0" layoutY="197.0" prefHeight="74.0" prefWidth="236.0" styleClass="tilePane" />
+      <Pane fx:id="piePane21111221" layoutX="547.0" layoutY="277.0" prefHeight="301.0" prefWidth="236.0" styleClass="tilePane" />
    </children>
 </AnchorPane>

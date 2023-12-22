@@ -1,27 +1,23 @@
 
 f
-java:S1192^"IDefine a constant instead of duplicating this literal "On Leave" 3 times.(úÍó–8ÙÊ¦½È1
-m	java:S117a"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†Öıÿ8ÜÊ¦½È1
-n	java:S101$"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ª¥”ıÿÿÿÿ8ßÊ¦½È1
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
-n	java:S116)"RRename this field "user_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™‰±›8ÆË¦½È1
+java:S1192c"IDefine a constant instead of duplicating this literal "On Leave" 3 times.(úÍó–8ó¯ñõÈ1
+m	java:S117s"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†Öıÿ8ø¯ñõÈ1
+n	java:S101%"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ª¥”ıÿÿÿÿ8ú¯ñõÈ1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î8‚°ñõÈ1
+n	java:S116*"RRename this field "user_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™‰±›8Ï³ñõÈ1
 a
-java:S1659'"DDeclare "descCol" and all following declarations on a separate line.(ÚñÜ·8ÊË¦½È1
+java:S1659("DDeclare "descCol" and all following declarations on a separate line.(ÚñÜ·8Ø³ñõÈ1
 B
-java:S1659)"%Declare "user_id" on a separate line.(™‰±›8ÊË¦½È1
+java:S1659*"%Declare "user_id" on a separate line.(™‰±›8Ù³ñõÈ1
 F
-java:S1659.")Declare "startPicker" on a separate line.(çï‰‘8ËË¦½È1
+java:S1659/")Declare "startPicker" on a separate line.(çï‰‘8Ù³ñõÈ1
 I
-java:S16590"'Declare "startDCol" on a separate line.(°ø°­øÿÿÿÿ8ËË¦½È1
-A
-java:S16592",Declare "monthChoiceBox" on a separate line.(óªåv
-a
-java:S16594"FDeclare "descField" and all following declarations on a separate line.(œÏıİûÿÿÿÿ
+java:S16591"'Declare "startDCol" on a separate line.(°ø°­øÿÿÿÿ8Ù³ñõÈ1
 h
-java:S16596"FDeclare "insertBtn" and all following declarations on a separate line.(åÃÍîøÿÿÿÿ8ÍË¦½È1
+java:S16595"FDeclare "descField" and all following declarations on a separate line.(œÏıİûÿÿÿÿ8Ú³ñõÈ1
+h
+java:S16597"FDeclare "insertBtn" and all following declarations on a separate line.(åÃÍîøÿÿÿÿ8Û³ñõÈ1
 m
-java:S1659:"KDeclare "userOffIdLabel" and all following declarations on a separate line.(ÂÙÏ£øÿÿÿÿ8ÍË¦½È1
-]	java:S125k"<This block of commented-out lines of code should be removed.(…·¤úşÿÿÿÿ8Œ¾«½È1
-Y	java:S125É"<This block of commented-out lines of code should be removed.(ÕÅÈ»8°Ì¦½È1
-O
-java:S1172ú",Remove this unused method parameter "event".(†¥ú…ûÿÿÿÿ8½Ì¦½È1
+java:S1659;"KDeclare "userOffIdLabel" and all following declarations on a separate line.(ÂÙÏ£øÿÿÿÿ8Û³ñõÈ1
+]	java:S125}"<This block of commented-out lines of code should be removed.(…·¤úşÿÿÿÿ8¥´ñõÈ1
+Y	java:S125ß"<This block of commented-out lines of code should be removed.(ÕÅÈ»8è´ñõÈ1

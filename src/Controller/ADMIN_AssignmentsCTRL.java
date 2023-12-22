@@ -116,7 +116,7 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
 
 
         //ASSIGNMENT CHOICEBOX
-        departmentChoiceBox.getItems().addAll(Department.getDepartments());
+        departmentChoiceBox.getItems().addAll(Department.getActiveDepartments());
         shiftChoiceBox.getItems().addAll(Shift.getShifts());
 
         //USER ASSIGNMENT COUNT FILTER CHOICE BOX

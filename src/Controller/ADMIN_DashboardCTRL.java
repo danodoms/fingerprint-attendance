@@ -79,11 +79,27 @@ public class ADMIN_DashboardCTRL implements Initializable {
     @FXML
     private TableColumn col_type;
     @FXML
-    private Pane piePane2;
+    private Pane piePane21111;
+    @FXML
+    private Label timeInCountLabel;
+    @FXML
+    private Pane piePane211111;
+    @FXML
+    private Label timeOutCountLabel;
+    @FXML
+    private Pane piePane211112;
+    @FXML
+    private Pane piePane2111121;
+    @FXML
+    private Pane piePane2111122;
+    @FXML
+    private Pane piePane21111221;
+    @FXML
+    private Label attendancePercentLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+//        pieChart.setLegendVisible(false);
 
         //RECENT ATTENDANCE TABLE
         col_name.setCellValueFactory(new PropertyValueFactory<Attendance, String>("name"));
@@ -105,10 +121,9 @@ public class ADMIN_DashboardCTRL implements Initializable {
         };
         timer.start();
 
-        //run this on a separate thread
-        new Thread(() -> {
-            loadRecentAttendanceTable();
-        }).start();
+
+        loadMetrics();
+
 
        
     // Populate the bar chart
@@ -146,26 +161,36 @@ public class ADMIN_DashboardCTRL implements Initializable {
         recentAttendanceTable.setItems(attendanceList);
     }
 
-//     private void populatePieChart() {
-//        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-//            
-//            for (Attendance attendance : getEmpToPieChart()) {
-//            pieChartData.add(new PieChart.Data("Logged In", attendance.getPercentageLoggedIn()));
-//            pieChartData.add(new PieChart.Data("Not Logged In", attendance.getPercentageNotLoggedIn()));
-//                }
-//            pieChart.setData(pieChartData);
-//     }
-    private void schedulePieChartRefresh() {
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-        // Schedule the refresh every 10 seconds, adjust the interval as needed
-        scheduler.scheduleAtFixedRate(this::populatePieChart, 0, 10, TimeUnit.SECONDS);
+
+
+
+    private void loadMetrics(){
+        new Thread(() -> {
+            timeInCountLabel.setText(Attendance.getTimeInCountToday()+"");
+            timeOutCountLabel.setText(Attendance.getTimeOutCountToday()+"");
+            loadRecentAttendanceTable();
+        }).start();
     }
 
+    private void schedulePieChartRefresh() {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+
+        // Schedule the refresh every 10 seconds, adjust the interval as needed
+        scheduler.scheduleAtFixedRate(this::populatePieChart, 0, 30, TimeUnit.SECONDS);
+    }
+
+
+
     private void populatePieChart() {
+
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         for (Attendance attendance : getEmpToPieChart()) {
+            double percentage = attendance.getPercentageLoggedIn();
+            int roundedValue = (int) Math.round(percentage);
+            attendancePercentLabel.setText(roundedValue+"%");
+
             pieChartData.add(new PieChart.Data("Logged In", attendance.getPercentageLoggedIn()));
             pieChartData.add(new PieChart.Data("Not Logged In", attendance.getPercentageNotLoggedIn()));
         }

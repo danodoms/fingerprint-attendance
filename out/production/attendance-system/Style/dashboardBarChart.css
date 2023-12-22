@@ -16,7 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-bar-fill: #8367C7;  
 }
 .mView{
-    -fx-image: url('file:///C:/Users/User/Downloads/download.png');
+    /*-fx-image: url('file:///C:/Users/User/Downloads/download.png');*/
     /* Other styling properties if needed */
 }
 /*#pinkPane {
@@ -84,11 +84,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .fView {
-    -fx-image: url('../images/female.png');
+   /* -fx-image: url('../images/female.png');*/
 }
 
 .mView {
-    -fx-image: url('../images/male.png');
+    /*-fx-image: url('../images/male.png');*/
 }
 .pinkPane{
     -fx-background-color: #FF97C4;

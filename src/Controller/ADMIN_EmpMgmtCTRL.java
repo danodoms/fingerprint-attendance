@@ -190,7 +190,6 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
             // Get the controller of the AddUserForm
             ADMIN_AddEmpCTRL addUserFormController = loader.getController();
 
-            // Pass data to the AddUserFormController
             addUserFormController.setDataForEdit(userFromDb);
 
             // Show the AddUserForm in the original pane
