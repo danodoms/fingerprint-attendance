@@ -268,7 +268,6 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                                 System.out.println(attendance.getTimeInAm() + ", " + attendance.getTimeOutAm());
                             }
                         }
-
                     }
                 }
             }
