@@ -240,12 +240,12 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                     if (counter <= daysInMonth) {
                         for (Attendance attendance : dtrList) {
                             if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
-                                mergeCellsHorizontally(table, rowC, 1, 4);
+                                mergeCellsHorizontally(table, rowC, 1, 5);
                                 XWPFTableCell targetCell = targetRow.getCell(1);
                                 targetCell.setText("SATURDAY");
                                
                             } else if (localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
-                                mergeCellsHorizontally(table, rowC, 1, 4);
+                                mergeCellsHorizontally(table, rowC, 1, 5);
                                 XWPFTableCell targetCell = targetRow.getCell(1);
                                 targetCell.setText("SUNDAY");
                                 
