@@ -198,7 +198,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
         -fx-border-radius: 7px;
 }
 
-.button: hover {
+.button:hover {
     -fx-opacity: 0.85;
     -fx-background-color: -color-accent-primary;
 
@@ -295,7 +295,7 @@ TextField,
     /*-fx-text-fill: white;*/
 }
 
-.red: hover {
+.red:hover {
     -fx-background-color: -color-red;
     -fx-text-fill: white;
 }
