@@ -91,7 +91,7 @@
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="deactivateUserBtn" mnemonicParsing="false" onAction="#deactivateUser" prefHeight="39.0" prefWidth="267.0" styleClass="red" text="Deactivate" />
+                  <Button fx:id="deactivateUserBtn" mnemonicParsing="false" onAction="#invertUserStatus" prefHeight="39.0" prefWidth="267.0" styleClass="red" text="Deactivate" />
                </children>
             </VBox>
             <VBox layoutX="59.0" layoutY="306.0" prefHeight="99.0" prefWidth="153.0">

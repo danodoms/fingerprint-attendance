@@ -497,6 +497,19 @@ public class User {
         }
         return user;
     }
+
+    //invert userStatus
+    public static void invertUserStatus(int userId) throws SQLException {
+        String updateQuery = "UPDATE `user` SET `user_status`= 1 - `user_status` WHERE `user_id`=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+            preparedStatement.setInt(1, userId);
+
+            preparedStatement.executeUpdate();
+        }
+    }
     
     
     

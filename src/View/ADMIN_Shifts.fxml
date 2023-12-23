@@ -109,7 +109,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateShift" prefHeight="85.0" prefWidth="274.0" styleClass="red" text="Deactivate" />
+                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#invertShiftStatus" prefHeight="85.0" prefWidth="274.0" styleClass="red" text="Deactivate" />
                      </children>
                   </VBox>
                </children>

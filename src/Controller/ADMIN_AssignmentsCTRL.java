@@ -379,7 +379,7 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         String endTime = endTimeHourField.getText() + ":" + endTimeMinuteField.getText();
         
         
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Do you want to proeed?", "This will update the selected assignment record");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Update", "Do you want to proeed?", "This will update the selected assignment record");
         if(actionIsConfirmed){
             try {
                     Assignment.updateAssignment(assignmentId, positionId, shiftId, startTime, endTime);
@@ -394,7 +394,7 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     private void deactivateAssignment(ActionEvent event) {
         int assignmentId = selectedAssignment.getId();
         
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate", "Do you want to proeed?", "This will deactivate the selected assignment record");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Deactivate", "Do you want to proeed?", "This will deactivate the selected assignment record");
         if(actionIsConfirmed){
             Assignment.deactivateAssignment(assignmentId);
             loadAssignmentTable(selectedUser.getId());

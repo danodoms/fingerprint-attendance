@@ -170,7 +170,7 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
     Date startDate = Date.valueOf(localStartDate);
     Date endDate = Date.valueOf(localEndDate);
 
-    boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Do you want to proceed?", "This will update the selected timeoff record");
+    boolean actionIsConfirmed = Modal.actionConfirmed("Update", "Do you want to proceed?", "This will update the selected timeoff record");
     if (actionIsConfirmed) {
         Timeoff.updateTimeoff(userTimeoffId, userId, offID, desription, attachment, startDate, endDate);
         showTimeoffTable(userId);
@@ -204,7 +204,7 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
         int userId = Integer.parseInt(empIdLabel.getText());
         int offID = Integer.parseInt(timeOffIDLabel.getText());
         
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate", "Do you want to proeed?", "This will deactivate the selected assignment record");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Deactivate", "Do you want to proeed?", "This will deactivate the selected assignment record");
         if(actionIsConfirmed){
             Timeoff.deactivateTimeoff(offID);
             showTimeoffTable(userId);

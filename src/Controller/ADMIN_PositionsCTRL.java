@@ -163,13 +163,13 @@ public class ADMIN_PositionsCTRL implements Initializable {
 
         //check if position already exists
         if(Position.positionAlreadyExists(positionTitleField.getText(), departmentChoiceBox.getValue().getId())){
-            if(Modal.showConfirmationModal("Add Position", "Position already exists, continue?", "This action will add the position")){
+            if(Modal.actionConfirmed("Add Position", "Position already exists, continue?", "This action will add the position")){
                 Position.addPosition(positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
                 loadPositionTable();
                 clearFields();
             }
         }else{
-            if(Modal.showConfirmationModal("Add Position", "Add Position?", "This action will add the position")){
+            if(Modal.actionConfirmed("Add Position", "Add Position?", "This action will add the position")){
                 Position.addPosition(positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
                 loadPositionTable();
                 clearFields();
@@ -179,7 +179,7 @@ public class ADMIN_PositionsCTRL implements Initializable {
 
     @FXML
     public void updatePosition(ActionEvent actionEvent) throws SQLException {
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Update Position", "Are you sure you want to update this position?", "This action cannot be undone.");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Update Position", "Are you sure you want to update this position?", "This action cannot be undone.");
         if (actionIsConfirmed) {
             Position.updatePosition(selectedPosition.getId(), positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
             loadPositionTable();
@@ -193,7 +193,7 @@ public class ADMIN_PositionsCTRL implements Initializable {
         String confirmationMessage = actionType + " this position?";
         String actionDescription = "This action will " + actionType.toLowerCase() + " the currently selected position";
 
-        if (Modal.showConfirmationModal(actionType, confirmationMessage, actionDescription)) {
+        if (Modal.actionConfirmed(actionType, confirmationMessage, actionDescription)) {
             Position.invertPositionStatus(selectedPosition.getId());
             loadPositionTable();
             clearFields();

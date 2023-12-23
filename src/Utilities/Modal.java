@@ -4,7 +4,6 @@
  */
 package Utilities;
 
-import Model.Assignment;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -40,7 +39,7 @@ public class Modal {
         successStage.show();
     }
     
-    public static boolean showConfirmationModal(String title, String header, String content) {
+    public static boolean actionConfirmed(String title, String header, String content) {
         final boolean[] userResponse = {false};
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

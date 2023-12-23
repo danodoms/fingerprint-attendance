@@ -144,7 +144,7 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
 
         }else if(Department.departmentNameExists(departmentName)){
             //ask user to confirm if they want to update the department
-            boolean actionIsConfirmed = Modal.showConfirmationModal("Add", "Department name already exists, continue?", "This action will add the department");
+            boolean actionIsConfirmed = Modal.actionConfirmed("Add", "Department name already exists, continue?", "This action will add the department");
 
             if(actionIsConfirmed){
                 Department.addDepartment(departmentName, departmentDesc);
@@ -152,7 +152,7 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
                 clearFields();
             }
         } else{
-            boolean actionIsConfirmed = Modal.showConfirmationModal("Add", "Add this department?", "This action will add the new department");
+            boolean actionIsConfirmed = Modal.actionConfirmed("Add", "Add this department?", "This action will add the new department");
 
             if(actionIsConfirmed){
                 Department.addDepartment(departmentName, departmentDesc);
@@ -164,7 +164,7 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
 
     @FXML
     private void updateDepartment(ActionEvent event) throws SQLException {
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Update this department?", "This action will update the currently selected department");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Update", "Update this department?", "This action will update the currently selected department");
         
         if(actionIsConfirmed){
             Department.updateDepartment(selectedDept.getId(), departmentNameField.getText(), departmentDescTextArea.getText());
@@ -179,7 +179,7 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
         String confirmationMessage = actionType + " this department?";
         String actionDescription = "This action will " + actionType.toLowerCase() + " the currently selected department";
 
-        if (Modal.showConfirmationModal(actionType, confirmationMessage, actionDescription)) {
+        if (Modal.actionConfirmed(actionType, confirmationMessage, actionDescription)) {
             Department.invertDepartmentStatus(selectedDept.getId());
             loadDepartmentTable();
             clearFields();

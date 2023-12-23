@@ -178,5 +178,33 @@ public class Shift {
         }
     }
 
+    //invert shift status
+    public static void invertShiftStatus(int shiftId) throws SQLException{
+        String query = "UPDATE shift SET status=1-status WHERE shift_id=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, shiftId);
+            preparedStatement.executeUpdate();
+
+            System.out.println("Executed invertShiftStatus");
+        }
+    }
+
+    //create method shift already exists
+    public static boolean shiftAlreadyExists(String shiftName) throws SQLException{
+        String query = "SELECT * FROM shift WHERE shift_name = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, shiftName);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            return rs.next();
+        }
+    }
+
 
 }

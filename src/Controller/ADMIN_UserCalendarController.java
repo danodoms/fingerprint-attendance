@@ -1,12 +1,8 @@
 package Controller;
 
-import Model.Attendance;
 import Model.Special_Calendar;
-import static Model.Attendance.getEmpName;
-import static Model.Special_Calendar.getCalendarByUserId;
-import Model.User;
 import Utilities.Modal;
-import java.io.IOException;
+
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -27,9 +23,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 public class ADMIN_UserCalendarController implements Initializable{
@@ -143,7 +136,7 @@ public class ADMIN_UserCalendarController implements Initializable{
         Date startDate = Date.valueOf(localStartDate);
         Date endDate = Date.valueOf(localEndDate);
 
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Do you want to proceed?", "This will update also to all employee records");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Update", "Do you want to proceed?", "This will update also to all employee records");
         if (actionIsConfirmed) {
             Special_Calendar.updateSpecialCalendar(selectedId, type, desription, attachment, startDate, endDate);
             setTable();
@@ -178,7 +171,7 @@ public class ADMIN_UserCalendarController implements Initializable{
             selectedId = selectedItem.getId();
         }
         
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate", "Do you want to proeed?", "This will deactivate Holiday to all employees  record");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Deactivate", "Do you want to proeed?", "This will deactivate Holiday to all employees  record");
         if(actionIsConfirmed){
             Special_Calendar.deactivateSpecialCalendar(selectedId);
             setTable();

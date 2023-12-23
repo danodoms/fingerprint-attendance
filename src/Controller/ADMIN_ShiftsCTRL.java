@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.Position;
 import Model.Shift;
 import Utilities.Modal;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -117,14 +119,33 @@ public class ADMIN_ShiftsCTRL implements Initializable {
 
     //ADD SHIFT
     @FXML
-    public void addShift(ActionEvent actionEvent) {
+    public void addShift(ActionEvent actionEvent) throws SQLException {
         String shiftName = shiftNameField.getText();
         String startTime = startTimeHourField.getText() + ":" + startTimeMinuteField.getText();
         String endTime = endTimeHourField.getText() + ":" + endTimeMinuteField.getText();
 
-        Shift.addShift(shiftName, startTime, endTime);
-        loadShiftTable();
-        clearFields();
+        //check if shift name is empty
+        if(shiftName.isEmpty()){
+            Modal.showModal("Shift Name Required", "Please enter a shift name.");
+            return;
+        }
+
+        //check if shift already exists
+        if(Shift.shiftAlreadyExists(shiftName)){
+            if(Modal.actionConfirmed("Add Shift", "Shift already exists, continue?", "This action will add the shift")){
+                Shift.addShift(shiftName, startTime, endTime);
+                loadShiftTable();
+                clearFields();
+            }
+        }else{
+            if(Modal.actionConfirmed("Add Shift", "Add Shift?", "This action will add the shift")){
+                Shift.addShift(shiftName, startTime, endTime);
+                loadShiftTable();
+                clearFields();
+            }
+        }
+
+
     }
 
     //UPDATE SHIFT
@@ -135,7 +156,7 @@ public class ADMIN_ShiftsCTRL implements Initializable {
         String startTime = startTimeHourField.getText() + ":" + startTimeMinuteField.getText();
         String endTime = endTimeHourField.getText() + ":" + endTimeMinuteField.getText();
 
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Update Shift", "Are you sure you want to update this shift?", "This action cannot be undone.");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Update Shift", "Are you sure you want to update this shift?", "This action cannot be undone.");
 
         if(actionIsConfirmed){
             Shift.updateShift(id, shiftName, startTime, endTime);
@@ -145,13 +166,13 @@ public class ADMIN_ShiftsCTRL implements Initializable {
     }
 
     @FXML
-    public void deactivateShift(ActionEvent actionEvent) {
-        int id = selectedShift.getId();
+    public void invertShiftStatus(ActionEvent actionEvent) throws SQLException {
+        String actionType = selectedShift.getStatus() == 1 ? "Deactivate" : "Activate";
+        String confirmationMessage = actionType + " this position?";
+        String actionDescription = "This action will " + actionType.toLowerCase() + " the currently selected position";
 
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate Shift", "Are you sure you want to deactivate this shift?", "This action cannot be undone.");
-
-        if(actionIsConfirmed){
-            Shift.deactivateShift(id);
+        if (Modal.actionConfirmed(actionType, confirmationMessage, actionDescription)) {
+            Shift.invertShiftStatus(selectedShift.getId());
             loadShiftTable();
             clearFields();
         }
@@ -168,6 +189,12 @@ public class ADMIN_ShiftsCTRL implements Initializable {
         startTimeMinuteField.setText(selectedShift.getStartTime().split(":")[1]);
         endTimeHourField.setText(selectedShift.getEndTime().split(":")[0]);
         endTimeMinuteField.setText(selectedShift.getEndTime().split(":")[1]);
+
+        if(selectedShift.getStatus() == 1){
+            deactivateBtn.setText("Deactivate");
+        }else{
+            deactivateBtn.setText("Activate");
+        }
     }
 
     //CLEAR FIELDS
