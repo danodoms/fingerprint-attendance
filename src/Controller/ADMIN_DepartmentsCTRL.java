@@ -46,7 +46,7 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
     @FXML
     private ChoiceBox statusFilterChoiceBox;
 
-    Department selectedDept= null;
+    Department selectedDept = null;
     @FXML
     private TextField searchField;
 
@@ -74,17 +74,18 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
             loadDepartmentTable();
         });
 
-        addBtn.setDisable(true);
         loadDepartmentTable();
         //showAddBtnOnly();
 
-        departmentNameField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.isEmpty()){
-                addBtn.setDisable(true);
-            }else{
-                addBtn.setDisable(false);
-            }
-        });
+
+        //adds event listener to departmentNameField that disables addBtn if empty
+//        departmentNameField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            if(newValue.isEmpty()){
+//                addBtn.setDisable(true);
+//            }else{
+//                addBtn.setDisable(false);
+//            }
+//        });
     }
     
     private void loadDepartmentTable(){
@@ -118,11 +119,16 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
     @FXML
     private void departmentSelected(MouseEvent event) {
         //showUpdateDeactivateBtnOnly();
-        addBtn.setDisable(true);
         selectedDept = departmentTable.getSelectionModel().getSelectedItem();
         
         departmentNameField.setText(selectedDept.getDepartmentName());
         departmentDescTextArea.setText(selectedDept.getDescription());
+
+        if(selectedDept.getStatus() == 1){
+            deactivateBtn.setText("Deactivate");
+        }else{
+            deactivateBtn.setText("Activate");
+        }
     }
     
     
@@ -135,16 +141,30 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
 
         if(departmentName.isEmpty()){
             Modal.showModal("Error", "Please fill up all fields");
-        }else{
-            Department.addDepartment(departmentName, departmentDesc);
-            loadDepartmentTable();
-            clearFields();
+
+        }else if(Department.departmentNameExists(departmentName)){
+            //ask user to confirm if they want to update the department
+            boolean actionIsConfirmed = Modal.showConfirmationModal("Add", "Department name already exists, continue?", "This action will add the department");
+
+            if(actionIsConfirmed){
+                Department.addDepartment(departmentName, departmentDesc);
+                loadDepartmentTable();
+                clearFields();
+            }
+        } else{
+            boolean actionIsConfirmed = Modal.showConfirmationModal("Add", "Add this department?", "This action will add the new department");
+
+            if(actionIsConfirmed){
+                Department.addDepartment(departmentName, departmentDesc);
+                loadDepartmentTable();
+                clearFields();
+            }
         }
     }
 
     @FXML
     private void updateDepartment(ActionEvent event) throws SQLException {
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Do you want to proceed?", "This action will update the currently selected department");
+        boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Update this department?", "This action will update the currently selected department");
         
         if(actionIsConfirmed){
             Department.updateDepartment(selectedDept.getId(), departmentNameField.getText(), departmentDescTextArea.getText());
@@ -154,15 +174,16 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
     }
 
     @FXML
-    private void deactivateDepartment(ActionEvent event) throws SQLException {
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate", "Do you want to proceed?", "This action will deactivate the currently selected department");
-        
-        if(actionIsConfirmed){
-            Department.deactivateDepartment(selectedDept.getId());
+    private void invertDepartmentStatus(ActionEvent event) throws SQLException {
+        String actionType = selectedDept.getStatus() == 1 ? "Deactivate" : "Activate";
+        String confirmationMessage = actionType + " this department?";
+        String actionDescription = "This action will " + actionType.toLowerCase() + " the currently selected department";
+
+        if (Modal.showConfirmationModal(actionType, confirmationMessage, actionDescription)) {
+            Department.invertDepartmentStatus(selectedDept.getId());
             loadDepartmentTable();
             clearFields();
         }
-       
     }
 
     private void clearFields(){

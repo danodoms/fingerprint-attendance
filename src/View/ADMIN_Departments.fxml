@@ -55,7 +55,7 @@
                               <Insets />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateDepartment" prefHeight="85.0" prefWidth="274.0" styleClass="red" text="Deactivate">
+                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#invertDepartmentStatus" prefHeight="85.0" prefWidth="274.0" styleClass="red" text="Deactivate">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
