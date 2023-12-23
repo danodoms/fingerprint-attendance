@@ -8,3 +8,14 @@ nbdist/
 .nb-gradle/
 nbproject/project.properties
 *.log
+
+
+# Ignores all files ending in .docx except for the template used in Generating DTR
+*.docx
+!DTR.docx
+!OL-DTR.docx
+
+
+# IntelliJ IDEA
+/.idea/
+/out/

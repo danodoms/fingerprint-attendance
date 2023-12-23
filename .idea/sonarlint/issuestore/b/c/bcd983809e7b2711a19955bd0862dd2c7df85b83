@@ -1,25 +1,0 @@
-
-f	java:S117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡Ÿî(
-g	java:S117Ì"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯­¿ƒ
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
-k
-java:S2095«"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÛŞ‡¯üÿÿÿÿ
-„
-java:S4165{"iRemove this useless assignment; "description" already holds the assigned value along all execution paths.(·ĞÛÿüÿÿÿÿ
-[	java:S107l"AConstructor has 9 parameters, which is greater than 7 authorized.(œúéìÿÿÿÿÿ
-I
-java:S1172€"2Remove this unused method parameter "description".(Š‰Ÿ˜
-F	java:S106·"+Replace this use of System.out by a logger.(ùâÑõøÿÿÿÿ
-F	java:S106É"+Replace this use of System.out by a logger.(¯“øËúÿÿÿÿ
-J
-java:S1656{"/Remove or correct this useless self-assignment.(·ĞÛÿüÿÿÿÿ
-E
-java:S1128"/Remove this unused import 'java.sql.Statement'.(ÏÖÔø
-K
-java:S1128"0Remove this unused import 'java.time.LocalDate'.(›‘¬èıÿÿÿÿ
-C
-java:S1128"-Remove this unused import 'java.time.ZoneId'.( Æ½“
-U
-java:S1128"?Remove this unused import 'java.time.format.DateTimeFormatter'.(‰÷÷ª
-P
-java:S1128":Remove this unused import 'java.time.temporal.ChronoUnit'.(Á…§
