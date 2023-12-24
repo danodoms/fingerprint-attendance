@@ -124,7 +124,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#deactivateAssignment" prefHeight="35.0" prefWidth="260.0" styleClass="red" text="Deactivate" />
+                        <Button fx:id="deactivateBtn" mnemonicParsing="false" onAction="#invertAssignmentStatus" prefHeight="35.0" prefWidth="260.0" styleClass="red" text="Deactivate" />
                      </children>
                   </HBox>
                </children>

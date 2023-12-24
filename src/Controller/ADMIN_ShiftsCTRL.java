@@ -91,6 +91,9 @@ public class ADMIN_ShiftsCTRL implements Initializable {
             loadShiftTable();
         });
 
+        startTimePicker.setTime(null);
+        endTimePicker.setTime(null);
+
         loadShiftTable();
     }
 

@@ -119,6 +119,32 @@ public class Shift {
         return shifts;
     }
 
+    public static ObservableList<Shift> getActiveShifts() {
+        ObservableList<Shift> shifts = FXCollections.observableArrayList();
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()) {
+            String query = "SELECT * FROM `shift` WHERE status = 1";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                shifts.add(new Shift(
+                        rs.getInt("shift_id"),
+                        rs.getString("shift_name"),
+                        rs.getString("start_time"),
+                        rs.getString("end_time"),
+                        rs.getInt("status")
+                ));
+            }
+            System.out.println("SHIFTS: " + shifts);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return shifts;
+    }
+
     //ADD SHIFT TO DATABASE
     public static void addShift(String shiftName, String startTime, String endTime){
         try (Connection connection = DatabaseUtil.getConnection();

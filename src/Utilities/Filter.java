@@ -4,6 +4,8 @@
  */
 package Utilities;
 
+import java.time.LocalTime;
+
 /**
  *
  * @author admin
@@ -122,40 +124,55 @@ public class Filter {
 
     public class TIME{
         //method that accepts two time ranges and checks if they overlap
+//        public static boolean isOverlapping(String start1, String end1, String start2, String end2) {
+//            //convert the time ranges to integers
+//            int start1Int = Integer.parseInt(start1.replace(":", ""));
+//            int end1Int = Integer.parseInt(end1.replace(":", ""));
+//            int start2Int = Integer.parseInt(start2.replace(":", ""));
+//            int end2Int = Integer.parseInt(end2.replace(":", ""));
+//
+//            //check if the first time range is within the second time range
+//            if(start1Int >= start2Int && start1Int <= end2Int){
+//                return true;
+//            }
+//
+//            //check if the second time range is within the first time range
+//            if(start2Int >= start1Int && start2Int <= end1Int){
+//                return true;
+//            }
+//
+//            //check if the first time range is equal to the second time range
+//            if(start1Int == start2Int && end1Int == end2Int){
+//                return true;
+//            }
+//
+//            //check if the first time range is greater than the second time range
+//            if(start1Int <= start2Int && end1Int >= end2Int){
+//                return true;
+//            }
+//
+//            //check if the second time range is greater than the first time range
+//            if(start2Int <= start1Int && end2Int >= end1Int){
+//                return true;
+//            }
+//
+//            //return false if the time ranges don't overlap
+//            return false;
+//        }
+
         public static boolean isOverlapping(String start1, String end1, String start2, String end2) {
-            //convert the time ranges to integers
-            int start1Int = Integer.parseInt(start1.replace(":", ""));
-            int end1Int = Integer.parseInt(end1.replace(":", ""));
-            int start2Int = Integer.parseInt(start2.replace(":", ""));
-            int end2Int = Integer.parseInt(end2.replace(":", ""));
+            LocalTime startTime1 = LocalTime.parse(start1);
+            LocalTime endTime1 = LocalTime.parse(end1);
+            LocalTime startTime2 = LocalTime.parse(start2);
+            LocalTime endTime2 = LocalTime.parse(end2);
 
-            //check if the first time range is within the second time range
-            if(start1Int >= start2Int && start1Int <= end2Int){
-                return true;
-            }
+            //print the four variables
+            System.out.println("startTime1: " + startTime1);
+            System.out.println("endTime1: " + endTime1);
+            System.out.println("startTime2: " + startTime2);
+            System.out.println("endTime2: " + endTime2);
 
-            //check if the second time range is within the first time range
-            if(start2Int >= start1Int && start2Int <= end1Int){
-                return true;
-            }
-
-            //check if the first time range is equal to the second time range
-            if(start1Int == start2Int && end1Int == end2Int){
-                return true;
-            }
-
-            //check if the first time range is greater than the second time range
-            if(start1Int <= start2Int && end1Int >= end2Int){
-                return true;
-            }
-
-            //check if the second time range is greater than the first time range
-            if(start2Int <= start1Int && end2Int >= end1Int){
-                return true;
-            }
-
-            //return false if the time ranges don't overlap
-            return false;
+            return !(endTime1.isBefore(startTime2) || startTime1.isAfter(endTime2));
         }
     }
     
