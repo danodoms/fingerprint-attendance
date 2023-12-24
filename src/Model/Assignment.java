@@ -32,11 +32,37 @@ public class Assignment {
     //CALCULATED VARIABLE, NOT IN ACTUAL DATABASE TABLE
     private String timeRange;
 
+    public Assignment(int assignmentId, String departmentName, String positionName, String shiftName, String startTime, String endTime, String dateAssigned) {
+        this.id = assignmentId;
+        this.department = departmentName;
+        this.position = positionName;
+        this.shift = shiftName;
+        this.startTime = LocalTime.parse(startTime);
+        this.endTime = LocalTime.parse(endTime);
+        this.dateAssigned = dateAssigned;
+    }
+
+    public Assignment(int assignmentId, int departmentId, String departmentName, int positionId, String positionName, int shiftId, String shiftName, String timeRange, String startTime, String endTime, String dateAssigned, int status) {
+        this.id = assignmentId;
+        this.departmentId = departmentId;
+        this.department = departmentName;
+        this.positionId = positionId;
+        this.position = positionName;
+        this.shiftId = shiftId;
+        this.shift = shiftName;
+        this.timeRange = timeRange;
+        this.startTime = LocalTime.parse(startTime);
+        this.endTime = LocalTime.parse(endTime);
+        this.dateAssigned = dateAssigned;
+        this.status = status;
+    }
+
     public String getTimeRange() {
         if (startTime != null && endTime != null) {
             timeRange = startTime.toString() + " - " + endTime.toString();
         }
-        
+
+
         return timeRange;
     }
 
@@ -206,7 +232,9 @@ public class Assignment {
                         rs.getString("position_name"),
                         rs.getInt("shift_id"),
                         rs.getString("shift_name"),
-                        rs.getString("time_range"), // Assuming the time_range column is returned by the stored procedure
+                        rs.getString("time_range"),
+                        rs.getString("start_time"),
+                        rs.getString("end_time"),
                         rs.getString("date_assigned"),
                         rs.getInt("status")
                 ));
@@ -239,6 +267,39 @@ public class Assignment {
             e.printStackTrace();
         }
         return assignmentCount;
+    }
+
+    //create method getAssignmentByAssigmentId
+    public static Assignment getAssignmentByAssignmentId(int assignmentId) {
+        Assignment assignment = null;
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+
+            String query = "SELECT a.assignment_id, p.position_name, d.department_name, s.shift_name, a.start_time, a.end_time, a.date_assigned from assignment a, shift s, position p, department d where s.shift_id = a.shift_id AND a.position_id = p.position_id AND p.department_id = d.department_id AND a.assignment_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, assignmentId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                assignment = new Assignment(
+                        rs.getInt("assignment_id"),
+                        rs.getString("department_name"),
+                        rs.getString("position_name"),
+                        rs.getString("shift_name"),
+                        rs.getString("start_time"),
+                        rs.getString("end_time"),
+                        rs.getString("date_assigned")
+                );
+                assignment.setStartTime(rs.getTime("start_time").toLocalTime());
+                assignment.setEndTime(rs.getTime("end_time").toLocalTime());
+                assignment.setDateAssigned(rs.getString("date_assigned"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return assignment;
     }
     
     

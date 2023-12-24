@@ -12,6 +12,7 @@
     <orderEntry type="library" name="dpuareu" level="application" />
     <orderEntry type="library" name="JavaFX" level="application" />
     <orderEntry type="library" name="mysql-connector-j-8.1." level="application" />
+    <orderEntry type="library" exported="" name="dlsc.gemsfx" level="application" />
   </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="63dfa608-655e-47f5-a2bf-edaaa9ef61c0" />

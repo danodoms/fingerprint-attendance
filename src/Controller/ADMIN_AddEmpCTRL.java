@@ -8,6 +8,7 @@ package Controller;
 import Model.User;
 import Utilities.DatabaseUtil;
 import Utilities.Filter;
+import Utilities.ImageUtil;
 import Utilities.PaneUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -323,7 +324,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         
         dateOfBirthPicker.setValue(user.getBirthDate());
         addressField.setText(user.getAddress());
-        userImage.setImage(byteArrayToImage(user.getImage()));
+        userImage.setImage(ImageUtil.byteArrayToImage(user.getImage()));
 
         // Set other fields as needed
         addEmployeeBtn.setText("Save Changes");
@@ -331,16 +332,16 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         repeatPasswordLabel.setText("Repeat New Password");
     }
     
-    private Image byteArrayToImage(byte[] byteArray) {
-        // Convert byte array to JavaFX Image
-        try{
-        return new Image(new java.io.ByteArrayInputStream(byteArray));
-        } catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-        
-    }
+//    private Image byteArrayToImage(byte[] byteArray) {
+//        // Convert byte array to JavaFX Image
+//        try{
+//        return new Image(new java.io.ByteArrayInputStream(byteArray));
+//        } catch(Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//
+//    }
 
 
 

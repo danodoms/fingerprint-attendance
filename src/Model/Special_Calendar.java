@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.sql.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 /**

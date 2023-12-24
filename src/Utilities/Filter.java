@@ -118,6 +118,46 @@ public class Filter {
         }
     }
     }
+
+
+    public class TIME{
+        //method that accepts two time ranges and checks if they overlap
+        public static boolean isOverlapping(String start1, String end1, String start2, String end2) {
+            //convert the time ranges to integers
+            int start1Int = Integer.parseInt(start1.replace(":", ""));
+            int end1Int = Integer.parseInt(end1.replace(":", ""));
+            int start2Int = Integer.parseInt(start2.replace(":", ""));
+            int end2Int = Integer.parseInt(end2.replace(":", ""));
+
+            //check if the first time range is within the second time range
+            if(start1Int >= start2Int && start1Int <= end2Int){
+                return true;
+            }
+
+            //check if the second time range is within the first time range
+            if(start2Int >= start1Int && start2Int <= end1Int){
+                return true;
+            }
+
+            //check if the first time range is equal to the second time range
+            if(start1Int == start2Int && end1Int == end2Int){
+                return true;
+            }
+
+            //check if the first time range is greater than the second time range
+            if(start1Int <= start2Int && end1Int >= end2Int){
+                return true;
+            }
+
+            //check if the second time range is greater than the first time range
+            if(start2Int <= start1Int && end2Int >= end1Int){
+                return true;
+            }
+
+            //return false if the time ranges don't overlap
+            return false;
+        }
+    }
     
     private static boolean containsUppercase(String str) {
         return str.matches(".*[A-Z].*");
