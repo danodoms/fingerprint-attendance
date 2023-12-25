@@ -172,16 +172,21 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     @FXML
     private void userSelected(MouseEvent event) {
         selectedUser = userTable.getSelectionModel().getSelectedItem();
-        Image userImage = ImageUtil.byteArrayToImage(User.getUserImageByUserId(selectedUser.getId()));
-        
-        userImageView.setImage(userImage);
-        nameLabel.setText(selectedUser.getFullName());
-        emailLabel.setText(selectedUser.getEmail());
-        birthDateLabel.setText(selectedUser.getBirthDate()+"");
-        contactNumLabel.setText(selectedUser.getContactNum());
-        addressLabel.setText(User.getUserByUserId(selectedUser.getId()).getAddress());
+        loadUserDetails(selectedUser.getId());
+    }
 
-        if(selectedUser.getStatus() == 1){
+    public void loadUserDetails(int userId){
+        User user = User.getUserByUserId(userId);
+        Image userImage = ImageUtil.byteArrayToImage(User.getUserImageByUserId(user.getId()));
+
+        userImageView.setImage(userImage);
+        nameLabel.setText(user.getFullNameWithInitial());
+        emailLabel.setText(user.getEmail());
+        birthDateLabel.setText(user.getBirthDate()+"");
+        contactNumLabel.setText(user.getContactNum());
+        addressLabel.setText(User.getUserByUserId(user.getId()).getAddress());
+
+        if(user.getStatus() == 1){
             deactivateUserBtn.setText("Deactivate");
         }else{
             deactivateUserBtn.setText("Activate");
@@ -190,9 +195,8 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
 
     @FXML
     private void openEditUserPane(ActionEvent event) {
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        int selectedUserId = selectedUser.getId();
-        User userFromDb = User.getUserByUserId(selectedUserId);
+        User userFromDb = User.getUserByUserId(selectedUser.getId());
+
         try {
             // Load the AddUserForm.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.ADMIN_ADD_EMP));
@@ -201,23 +205,16 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
             // Get the controller of the AddUserForm
             ADMIN_AddEmpCTRL addUserFormController = loader.getController();
 
-            addUserFormController.setDataForEdit(userFromDb);
+
 
             // Show the AddUserForm in the original pane
             Stage secondStage = new Stage();
             secondStage.setScene(new Scene(root));
             secondStage.initModality(Modality.APPLICATION_MODAL);
-            
-            // Set the onHidden event handler to reload userTable when add_employee_pane is closed
-            secondStage.setOnHidden(e -> {
-                // Reload userTable when the add_employee_pane is closed
-                loadUserTable();
-                System.out.println("YESSSSSSSSSSSSSSS USER TABLE IS RELOADED ASJDHJIASBDJAHSVBDFSHUJBDFZXHUVBFXDAUHFBFBDSHJKFGVJHKTGSDFHJVBGFDHUJFDHUJFGBFGBRUJHVGBSDFHUFVGBSDYUGVGUJIHKFRWFGVHU");
-            });
 
+            addUserFormController.setDataForEdit(userFromDb, secondStage, this, true);
             
             secondStage.show();
-            //originalPane.getChildren().add(addUserForm);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -228,7 +225,30 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
 
     @FXML
     private void openAddEmpPane(ActionEvent event) {
-         paneUtil.openModal(paneUtil.ADMIN_ADD_EMP);
+        try {
+            // Load the AddUserForm.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.ADMIN_ADD_EMP));
+            Parent root = loader.load();
+
+            // Get the controller of the AddUserForm
+            ADMIN_AddEmpCTRL addUserFormController = loader.getController();
+
+
+
+            // Show the AddUserForm in the original pane
+            Stage secondStage = new Stage();
+            secondStage.setScene(new Scene(root));
+            secondStage.initModality(Modality.APPLICATION_MODAL);
+
+            addUserFormController.setDataForEdit(null, secondStage, this, false);
+
+            secondStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception
+        }
+        //paneUtil.openPane(paneUtil.ADD_EMPLOYEE_PANE);
     }
 
     @FXML
