@@ -134,9 +134,9 @@ public class LoginPaneCTRL implements Initializable {
             }
         };
         timer.start();
-        
 
-        identification.start();
+
+
         
         showPassCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -149,30 +149,34 @@ public class LoginPaneCTRL implements Initializable {
         });
 
 
-
+        identification.start();
         ExecutorService executor = Executors.newFixedThreadPool(1);
         // Execute a task using the executor
         executor.execute(() -> {
-            while(true && ThreadFlags.programIsRunning) {
-                //Selection.reader = Selection.getReader();
-                Selection.getReader();
-                //sleep thread for 3 seconds
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            System.out.println("///////////////////// Runnning LoginPaneCTRL executor thread ///////////////////");
+
+            while(ThreadFlags.programIsRunning) {
+                //System.out.println("Identification Thread is running: " + identification.isAlive());
 
                     if (Selection.readerIsConnected_noLogging()) {
                         Platform.runLater(() -> {
                             scannerStatusLabel.setText("Reader Connected");
                             scannerStatusSubtextLabel.setText("READY FOR CAPTURE");
+                            //System.out.println("Reader Connected");
                         });
                     } else {
                         Platform.runLater(() -> {
                             scannerStatusLabel.setText("Reader Disconnected");
                             scannerStatusSubtextLabel.setText("WAITING FOR READER");
+                            //System.out.println("Reader Disconnected");
                         });
+                    }
+
+                    //sleep thread for 5 seconds
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             });
@@ -180,6 +184,10 @@ public class LoginPaneCTRL implements Initializable {
 
         // Shutdown the executor to release resources
         executor.shutdown();
+        System.out.println("///////////////////// LoginPaneCTRL executor thread stopped ///////////////////");
+//        if(ThreadFlags.programIsRunning == false){
+//            identification.stopThread();
+//        }
 
 
     }
@@ -250,7 +258,6 @@ public class LoginPaneCTRL implements Initializable {
     private void openAdminPane(ActionEvent event) {
         paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.ADMIN_PANE);
         System.out.println("Logged in as admin");
-//        ThreadFlags.runIdentificationThread = false;
         identification.stopThread();
     }
 

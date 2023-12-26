@@ -48,18 +48,35 @@ public class Main extends Application {
         primaryStage.show();
 
 
- primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-          public void handle(WindowEvent we) {
-              System.out.println("Stage is closing");
-              try {
-                  ThreadFlags.programIsRunning = false;
 
-                  Selection.closeReader();
-              } catch (UareUException ex) {
-                  Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-              }
-          }
-      });
+        //add listener to close the reader when the stage is closed
+//        primaryStage.setOnHidden(event -> {
+//            ThreadFlags.programIsRunning = false;
+//            System.out.println("Stage is closing");
+//            //print the flag
+//            System.out.println("Program is running: " + ThreadFlags.programIsRunning);
+//
+//        });
+
+
+
+
+
+
+
+//
+//         primaryStage.setOnHidden(new EventHandler<WindowEvent>() {
+//          public void handle(WindowEvent we) {
+//              System.out.println("Stage is closing");
+//              try {
+//                  ThreadFlags.programIsRunning = false;
+//
+//                  Selection.closeReader();
+//              } catch (UareUException ex) {
+//                  Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//              }
+//          }
+//      });
 
         
     }

@@ -217,5 +217,25 @@ public class Special_Calendar {
             // Handle the exception or log it as needed
         }
     }
+
+    //check if special calendar description already exists
+    public static boolean specialCalendarDescriptionExists(String description){
+        boolean exists = false;
+        try (Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM special_calendar WHERE sc_desc = ? AND status = 1")) {
+
+            statement.setString(1, description);
+
+            ResultSet rs = statement.executeQuery();
+
+            if(rs.next()){
+                exists = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exists;
+    }
 }
 

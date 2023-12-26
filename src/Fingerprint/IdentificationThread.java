@@ -27,10 +27,9 @@ import java.util.logging.Logger;
  */
 public class IdentificationThread extends Thread{
     IdentificationModal identificationModal = new IdentificationModal();
-    PaneUtil controllerUtils = new PaneUtil();
     private ImageView imageview; //sets the imageview to use as fingerprint display, likely from fpIdentification.fxml
     private Engine engine = UareUGlobal.GetEngine(); //creates engine to be used by whole class
-    private CaptureThread captureThread;
+    public CaptureThread captureThread;
     ObservableList<Fingerprint> fingerprintList;
     ObservableList<User> userList;
     int falsePositiveRate = Engine.PROBABILITY_ONE / 100000; //sets how accurate the identification should be to return candidate
@@ -39,8 +38,7 @@ public class IdentificationThread extends Thread{
     
     private boolean headlessMode = false;
 
-    private boolean isFingerprintMatched = false;
-    private boolean runThisThread = true;
+    public boolean runThisThread = true;
     
     //constructor with fingerprint display
     public IdentificationThread(ImageView imageview){
@@ -53,26 +51,10 @@ public class IdentificationThread extends Thread{
         headlessMode = true;
     }
 
-    
-    //called by the run method for starting the identification process
-//    public void startIdentification(ImageView imageview) throws InterruptedException, UareUException{
-//        Selection.closeAndOpenReader();
-//
-//        ThreadFlags.runIdentificationThread = true;
-//        System.out.println("Identification Thread Started");
-//        while(ThreadFlags.runIdentificationThread) {
-//            Fmd fmdToIdentify = getFmdFromCaptureThread(imageview);
-//            Fmd[] databaseFmds = getFmdsFromDatabase();
-//            compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
-//        }
-//        //ThreadFlags.runIdentificationThread = false;
-//        System.out.println("Identification Thread Stopped");
-//    }
 
 
     public void startIdentification(ImageView imageview) throws InterruptedException, UareUException{
         Selection.closeAndOpenReader();
-
 
         System.out.println("Identification Thread Started");
         while(runThisThread) {
@@ -83,41 +65,46 @@ public class IdentificationThread extends Thread{
         System.out.println("Identification Thread Stopped");
     }
 
-    //create method that stops thread
-    public void stopThread(){
-        runThisThread = false;
-        captureThread.stopThread();
-    }
+
       
     
     //first method used in "startIdentification"
     private Fmd getFmdFromCaptureThread(ImageView imageview)throws UareUException, InterruptedException{
-        while(ThreadFlags.runVerificationThread){
-            System.out.println("Waiting for verification   thread to end capture");
-            Thread.sleep(1000);
-        }
-        captureThread = new CaptureThread(imageview);
+//        captureThread = new CaptureThread(imageview);
+        captureThread = new CaptureThread("Identification Thread", imageview, this);
         captureThread.start();
         captureThread.join(0); //wait till done
 
 
         //store the FMD from the latest capture event, from captureThread
-        CaptureThread.CaptureEvent evt = null;
+//        CaptureThread.CaptureEvent evt = null;
+//
+//        if(captureThread.getLastCapture() != null){
+//            evt = captureThread.getLastCapture();
+//        }
+//
+//        if(evt.captureResult.image != null){
+//            Fmd fmdToIdentify = engine.CreateFmd(evt.captureResult.image, Fmd.Format.ISO_19794_2_2005);
+//            return fmdToIdentify;
+//        }else{
+//            return null;
+//        }
 
-        if(captureThread.getLastCapture() != null){
-            evt = captureThread.getLastCapture();
-        }
 
-        if(evt.captureResult.image != null){
+        //CHATGPT REVISION
+        CaptureThread.CaptureEvent evt = captureThread.getLastCapture();
+
+        if (evt != null && evt.captureResult.image != null) {
             Fmd fmdToIdentify = engine.CreateFmd(evt.captureResult.image, Fmd.Format.ISO_19794_2_2005);
             return fmdToIdentify;
-        }else{
+        } else {
             return null;
         }
-    }    
-    
-      
-    
+
+    }
+
+
+
     //second method used in "startIdentification"
     private Fmd[] getFmdsFromDatabase() throws UareUException{
         fingerprintList = Fingerprint.getFingerprints();
@@ -220,7 +207,6 @@ public class IdentificationThread extends Thread{
     
     
     private void userIdentificationFailed(){
-
         SoundUtil.playFailSound();
         Platform.runLater(() -> {
             identificationModal.displayIdentificationFail(1500);
@@ -239,14 +225,12 @@ public class IdentificationThread extends Thread{
         Fmd[] databaseFmds = getFmdsFromDatabase();
         return compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds, fmdList);
     }
-    
 
-    
-    
-    public void stopIdentificationThread() throws UareUException{
-        ThreadFlags.runIdentificationThread = false;
-        System.out.println("Identification Thread Stopped");
-        Selection.reader.Close();
+
+    //create method that stops thread
+    public void stopThread(){
+        runThisThread = false;
+        captureThread.stopThread();
     }
    
     

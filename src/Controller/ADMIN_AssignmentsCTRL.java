@@ -358,7 +358,6 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         positionChoiceBox.setValue(null);
         shiftChoiceBox.setValue(new Shift(""));
 
-
         //DEPRECATED
 //        //TIME FIELDS
 //        startTimeHourField.clear();

@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Special_Calendar;
 import Utilities.DateUtil;
+import Utilities.Filter;
 import Utilities.Modal;
 
 import com.dlsc.gemsfx.daterange.DateRange;
@@ -159,14 +160,60 @@ public class ADMIN_UserCalendarCTRL implements Initializable{
         Date endDate = Date.valueOf(dateRangePicker.getValue().getEndDate());
 
 
-        try{
-            Special_Calendar.addSpecialCalendar(type, description, attachment, startDate, endDate);
-        } catch(SQLException ex){
-            Modal.showModal("Failed", "Database Error");
+
+        //check first if type is not null
+        if(type == null){
+            Modal.showModal("Failed", "Please select type");
+            return;
         }
-        Modal.showModal("Success", "Special Calendar Added");
-            setTable();
-            clear();
+
+        //check if description is not empty
+        if(description.isEmpty()){
+            Modal.showModal("Failed", "Please add description");
+            return;
+        }
+
+        //check if description already exists
+        if(Special_Calendar.specialCalendarDescriptionExists(description)){
+            Modal.showModal("Failed", "Special Calendar already exists \n   Please change description");
+            return;
+        }
+
+
+        String specialCalendarName = "";
+        boolean isOverlapping = false;
+
+        //checks if date is overlapping with active special calendar
+        ObservableList<Special_Calendar> specialCalendarList = Special_Calendar.getSpecialCalendar();
+        for(Special_Calendar specialCalendar : specialCalendarList){
+            if(Filter.DATE.isOverlapping(startDate+"", endDate+"", specialCalendar.getStartDate()+"", specialCalendar.getEndDate()+"")){
+                specialCalendarName = specialCalendar.getDescription();
+                isOverlapping = true;
+            }
+        }
+
+        if(isOverlapping){
+            if(Modal.actionConfirmed("Confirm Action","Date Overlaps with: '" + specialCalendarName+"'", "Date overlaps with existing special calendar, do you want to proceed?")){
+                try{
+                    Special_Calendar.addSpecialCalendar(type, description, attachment, startDate, endDate);
+                } catch(SQLException ex){
+                    Modal.showModal("Failed", "Database Error");
+                }
+            }
+        }else{
+            //add confirmation modal first
+            if(Modal.actionConfirmed("Confirm Action","Do you want to proceed?", "This will add also to all employee records")){
+                try{
+                    Special_Calendar.addSpecialCalendar(type, description, attachment, startDate, endDate);
+                    setTable();
+                    clear();
+                } catch(SQLException ex){
+                    Modal.showModal("Failed", "Database Error");
+                }
+            }
+        }
+
+
     }
     @FXML
     private void deactivateSpecialCalendar(ActionEvent event) {
@@ -183,5 +230,7 @@ public class ADMIN_UserCalendarCTRL implements Initializable{
             clear();
         }
     }
+
+
 
 }

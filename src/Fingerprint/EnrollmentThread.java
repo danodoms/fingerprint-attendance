@@ -22,72 +22,68 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
     private ImageView imageview;
     private int userIdToEnroll;
     private CaptureThread captureThread;
-    private int requiredFmdToEnroll = 1; //Default is 4
+    private int requiredFmdToEnroll = 2; //Default is 4
     public Engine engine = UareUGlobal.GetEngine();
     IdentificationThread identificationThread = new IdentificationThread();
     ArrayList<Fmd> fmdList = new ArrayList<>();
     boolean runThisThread = true;
-    
+
     public EnrollmentThread(ImageView imageview, int userIdToEnroll){
         this.imageview = imageview;
         this.userIdToEnroll = userIdToEnroll;
-        
-        
+
+
     }
-    
-    
-    
-    public void startEnrollment(ImageView imageview) throws UareUException{
+
+
+    public void startEnrollment() throws UareUException{
         Selection.closeAndOpenReader();
+        int counter = 0;
+        Prompt.prompt(Prompt.START_CAPTURE);
 
-        if(runThisThread){
-            for (int attemptCounter = 0; attemptCounter < requiredFmdToEnroll; attemptCounter++) {
-                System.out.println("User ID to Enroll: " + userIdToEnroll);
-                System.out.println("Attempt " + attemptCounter);
+        while(counter < requiredFmdToEnroll && runThisThread){
+            System.out.println("User ID to Enroll: " + userIdToEnroll);
+            System.out.println("Attempt " + counter);
+            counter++;
 
-                //Calls the Override GetFmd method that is implemented from Engine.CreateEnrollmentFmd Class
-                Fmd fmdToEnroll = null;
+            //Calls the Override GetFmd method that is implemented from Engine.CreateEnrollmentFmd Class
+            Fmd fmdToEnroll = null;
 
-                boolean unableToEnroll = false;
-
-                do{
-                    try{
-                        fmdToEnroll = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
-                    }catch(UareUException ex){
-                        unableToEnroll =  true;
-                        Prompt.prompt(Prompt.UNABLE_TO_ENROLL);
-                        stopEnrollmentThread();
-                    }
-                }while(unableToEnroll);
-
-                System.out.println("FMD returned");
-
-                fmdList.add(fmdToEnroll); // Add the Fmd to the list
-                Prompt.prompt(Prompt.ANOTHER_CAPTURE);
+            try{
+                fmdToEnroll = engine.CreateEnrollmentFmd(Fmd.Format.ISO_19794_2_2005, this);
+            }catch(UareUException ex){
+                Prompt.prompt(Prompt.UNABLE_TO_ENROLL);
+                stopEnrollmentThread();
+                continue;
             }
+
+
+            System.out.println("FMD returned");
+            fmdList.add(fmdToEnroll); // Add the Fmd to the list
+            Prompt.prompt(Prompt.ANOTHER_CAPTURE);
         }
 
-        
-        
+
+
+
         // Insert all Fmds into the database
         for (Fmd fmd : fmdList) {
             Fingerprint.insertFmd(userIdToEnroll, fmd);
             System.out.println("Added FMD to database");
         }
-        
+
         //Clears the current Fmd List to ensure integrity
         fmdList.clear();
-        
-        
-        //Selection.reader.Close();
+
+
         Prompt.prompt(Prompt.DONE_CAPTURE);
         stopEnrollmentThread();
 
         //print ennrollment thread stopped
         System.out.println("Enrollment Thread Stopped");
     }
-    
-        
+
+
 
     @Override
     public PreEnrollmentFmd GetFmd(Fmd.Format format){
@@ -96,19 +92,19 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
         while(null == prefmd){
             //Get captureResult from instance of captureThread
             CaptureResult captureResult = getCaptureResultFromCaptureThread(imageview);
-            
+
             if(captureResult == null){
                 continue;
             }
-            
+
             if(Reader.CaptureQuality.CANCELED == captureResult.quality){
                 break;
             }
-            
+
             if(Reader.CaptureQuality.GOOD == captureResult.quality){
                 try{
                     Fmd fmdToEnroll = engine.CreateFmd(captureResult.image, Fmd.Format.ISO_19794_2_2005); //createFmd from captureResult image
-                    
+
                     if(!identificationThread.fmdIsAlreadyEnrolled(fmdToEnroll, fmdList)){
                         prefmd = new Engine.PreEnrollmentFmd();
                         prefmd.fmd = fmdToEnroll;
@@ -118,14 +114,14 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
                         Prompt.prompt(Prompt.ALREADY_ENROLLED);
                     }
                 }
-                catch(UareUException e){ 
+                catch(UareUException e){
                     System.out.println("FMD Feature Extraction failed");
                 }
             }
         }
         return prefmd;
     }
-    
+
     private CaptureResult getCaptureResultFromCaptureThread(ImageView imageview){
         captureThread = new CaptureThread(imageview);
         captureThread.start();
@@ -134,7 +130,7 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-        
+
         Prompt.prompt(Prompt.CONTINUE_CAPTURE);
 
         //store the CaptureResult from the latest capture event, from captureThread
@@ -142,10 +138,9 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
         CaptureResult captureResult = captureEvent.captureResult;
 
         return captureResult;
-    } 
-    
-    public void stopEnrollmentThread(){
+    }
 
+    public void stopEnrollmentThread(){
         if(captureThread != null){
             runThisThread = false;
             captureThread.stopThread();
@@ -153,13 +148,19 @@ public class EnrollmentThread extends Thread implements Engine.EnrollmentCallbac
         }
 
     }
-    
+
     @Override
     public void run(){
         try {
-            startEnrollment(imageview);
+            if(Selection.readerIsConnected_noLogging()){
+                startEnrollment();
+            }else{
+                Prompt.prompt(Prompt.READER_DISCONNECTED);
+                stopEnrollmentThread();
+            }
+
         } catch (UareUException ex) {
             Logger.getLogger(EnrollmentThread.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }   
+    }
 }

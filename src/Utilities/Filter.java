@@ -4,6 +4,7 @@
  */
 package Utilities;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -123,43 +124,6 @@ public class Filter {
 
 
     public class TIME{
-        //method that accepts two time ranges and checks if they overlap
-//        public static boolean isOverlapping(String start1, String end1, String start2, String end2) {
-//            //convert the time ranges to integers
-//            int start1Int = Integer.parseInt(start1.replace(":", ""));
-//            int end1Int = Integer.parseInt(end1.replace(":", ""));
-//            int start2Int = Integer.parseInt(start2.replace(":", ""));
-//            int end2Int = Integer.parseInt(end2.replace(":", ""));
-//
-//            //check if the first time range is within the second time range
-//            if(start1Int >= start2Int && start1Int <= end2Int){
-//                return true;
-//            }
-//
-//            //check if the second time range is within the first time range
-//            if(start2Int >= start1Int && start2Int <= end1Int){
-//                return true;
-//            }
-//
-//            //check if the first time range is equal to the second time range
-//            if(start1Int == start2Int && end1Int == end2Int){
-//                return true;
-//            }
-//
-//            //check if the first time range is greater than the second time range
-//            if(start1Int <= start2Int && end1Int >= end2Int){
-//                return true;
-//            }
-//
-//            //check if the second time range is greater than the first time range
-//            if(start2Int <= start1Int && end2Int >= end1Int){
-//                return true;
-//            }
-//
-//            //return false if the time ranges don't overlap
-//            return false;
-//        }
-
         public static boolean isOverlapping(String start1, String end1, String start2, String end2) {
             LocalTime startTime1 = LocalTime.parse(start1);
             LocalTime endTime1 = LocalTime.parse(end1);
@@ -174,6 +138,25 @@ public class Filter {
 
             return !(endTime1.isBefore(startTime2) || startTime1.isAfter(endTime2));
         }
+    }
+
+    public class DATE{
+        //copy the approach of isOverlapping in TIME class but accept date instead, but accept parameters as string
+        public static boolean isOverlapping(String start1, String end1, String start2, String end2) {
+            LocalDate startDate1 = LocalDate.parse(start1);
+            LocalDate endDate1 = LocalDate.parse(end1);
+            LocalDate startDate2 = LocalDate.parse(start2);
+            LocalDate endDate2 = LocalDate.parse(end2);
+
+            //print the four variables
+            System.out.println("startDate1: " + startDate1);
+            System.out.println("endDate1: " + endDate1);
+            System.out.println("startDate2: " + startDate2);
+            System.out.println("endDate2: " + endDate2);
+
+            return !(endDate1.isBefore(startDate2) || startDate1.isAfter(endDate2));
+        }
+
     }
     
     private static boolean containsUppercase(String str) {
