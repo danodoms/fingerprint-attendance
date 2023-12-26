@@ -32,7 +32,35 @@ public class Timeoff {
     private Date startDate;
     private Date endDate;
     private int total;
+    private String name;
+    private int month;
+    private int day;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    
     public int getUserOffId() {
         return userOffId;
     }
@@ -120,7 +148,6 @@ public class Timeoff {
         this.id = id;
         this.userOffId = userOffID;
         this.offId = offID;
-        this.description = description;
         this.attachment = attachment;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -135,6 +162,12 @@ public class Timeoff {
      public Timeoff(Date startDate,int total){
          this.startDate = startDate;
          this.total = total;
+     }
+     public Timeoff(String name, String type, int month, int day){
+        this.name = name;
+        this.type = type;
+        this.month = month;
+        this.day = day;
      }
 
      public static ObservableList<Timeoff> getTimeoffByUserId(int user_id) {
@@ -215,4 +248,27 @@ public class Timeoff {
             // Handle the exception or log it as needed
         }
     }
+    
+    public static ObservableList<Timeoff> getTimeoffDtr(){
+        ObservableList<Timeoff> dtrTimeOffDocx = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()){
+            
+            ResultSet rs = statement.executeQuery("SELECT * FROM `user_timeoff_schedule`");
+            
+            while (rs.next()) {
+                dtrTimeOffDocx.add(new Timeoff(
+                        rs.getString("name"),
+                        rs.getString("type"),
+                        rs.getInt("month"),
+                        rs.getInt("day")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dtrTimeOffDocx;
+    }
+    
 }

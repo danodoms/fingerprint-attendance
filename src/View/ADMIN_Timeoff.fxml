@@ -98,8 +98,8 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="327.0" layoutY="38.0" opacity="0.1" text="UserOff ID :" />
-                  <Label fx:id="userOffIdLabel" layoutX="391.0" layoutY="37.0" opacity="0.1" prefHeight="17.0" prefWidth="25.0" text="0">
+                  <Label layoutX="253.0" layoutY="35.0" text="User Off ID :" />
+                  <Label fx:id="userOffIdLabel" layoutX="337.0" layoutY="35.0" prefHeight="17.0" prefWidth="25.0" text="0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
