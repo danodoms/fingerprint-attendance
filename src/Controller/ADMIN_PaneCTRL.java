@@ -149,20 +149,19 @@ public class ADMIN_PaneCTRL implements Initializable {
     
     // Event handler to set pressed style
     private void setPressedStyle(Button button) {
-        button.setStyle("-fx-background-color: #1a1a1a;"
-                + "-fx-text-fill: #07f9a2; ");
+        button.setStyle("-fx-background-color: linear-gradient(to bottom, #a3f8c2, #81ecae, #5ddc99);"
+                + "-fx-text-fill: #3b3b3b; " + " -fx-transition: all 0.5s;");
     }
 
     // Event handler to set default style
     private void setDefaultStyle(Button button) {
         button.setStyle("-fx-background-color: transparent;");
-        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #1a1a1a"));
-        //button.setOnMouseEntered(e -> button.setStyle("-fx-text-fill: #1a1a1a;"));
-        button.setOnMouseExited(e -> {
-        if (!button.isFocused()) {
-            button.setStyle("-fx-background-color: transparent;");
-            }
-        });
+//        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: linear-gradient(to bottom, #a3f8c2, #81ecae, #5ddc99"));
+//        button.setOnMouseExited(e -> {
+//        if (!button.isFocused()) {
+//            button.setStyle("-fx-background-color: linear-gradient(to bottom, #a3f8c2, #81ecae, #5ddc99;");
+//            }
+//        });
     }
     
     private void highlightButton(Button selectedButton){

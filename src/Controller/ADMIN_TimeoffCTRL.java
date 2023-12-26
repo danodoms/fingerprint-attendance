@@ -7,8 +7,11 @@ package Controller;
 import Model.Attendance;
 import Model.Timeoff;
 import Model.User;
+import Utilities.DateUtil;
 import Utilities.ImageUtil;
 import Utilities.Modal;
+import com.dlsc.gemsfx.daterange.DateRange;
+import com.dlsc.gemsfx.daterange.DateRangePicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,15 +47,13 @@ public class ADMIN_TimeoffCTRL implements Initializable{
     @FXML
     private TableView<Attendance> empNameTable;
     @FXML
-    private DatePicker endPicker, startPicker;
-    @FXML
     private TableColumn<Timeoff, Date> endDCol, startDCol;
     @FXML
     private ChoiceBox<String> typeComBox;
     @FXML
     private TextField searchBar, descField, attachmentField;
     @FXML
-    private Button selectBtn, insertBtn, clearBtn, updateBtn,deactivateBtn;
+    private Button insertBtn, clearBtn, updateBtn,deactivateBtn;
     @FXML
     private TableView<Timeoff> specialCalTable;
     @FXML
@@ -69,6 +70,8 @@ public class ADMIN_TimeoffCTRL implements Initializable{
     private ImageView userImageView;
     @FXML
     private Label manageUserLabel;
+    @FXML
+    private DateRangePicker dateRangePicker;
 
 
     @FXML
@@ -121,7 +124,7 @@ public class ADMIN_TimeoffCTRL implements Initializable{
         specialCalTable.setItems(filteredData);
     }
      @FXML
-    private void handleSelectBtn(ActionEvent event) {
+    private void handleSelectBtn(MouseEvent event) {
         selectedUserTimeoff = specialCalTable.getSelectionModel().getSelectedItem();
 //        userOffIdLabel.setText(selectedItem.getOffId()+"");
 //        timeOffIDLabel.setText(selectedItem.getUserOffId()+"");
@@ -130,38 +133,51 @@ public class ADMIN_TimeoffCTRL implements Initializable{
             userOffIdLabelTag.setDisable(false);
 
         if (selectedUserTimeoff != null) {
+            //DEPRECATED
+//            // Assuming startDate is of type java.sql.Date
+//            java.sql.Date startDate = (java.sql.Date) selectedUserTimeoff.getStartDate();
+//            java.util.Date utilStartDate = new java.util.Date(startDate.getTime()); // Convert to java.util.Date
+//            Instant instantStart = utilStartDate.toInstant();
+//            LocalDate sDate = instantStart.atZone(ZoneId.systemDefault()).toLocalDate();
+//
+//            // Similarly, for endDate
+//            java.sql.Date endDate = (java.sql.Date) selectedUserTimeoff.getEndDate();
+//            java.util.Date utilEndDate = new java.util.Date(endDate.getTime()); // Convert to java.util.Date
+//            Instant instantEnd = utilEndDate.toInstant();
+//            LocalDate eDate = instantEnd.atZone(ZoneId.systemDefault()).toLocalDate();
+//
+//            startPicker.setValue(sDate);
+//            endPicker.setValue(eDate);
 
-            // Assuming startDate is of type java.sql.Date
-            java.sql.Date startDate = (java.sql.Date) selectedUserTimeoff.getStartDate();
-            java.util.Date utilStartDate = new java.util.Date(startDate.getTime()); // Convert to java.util.Date
-            Instant instantStart = utilStartDate.toInstant();
-            LocalDate sDate = instantStart.atZone(ZoneId.systemDefault()).toLocalDate();
 
-            // Similarly, for endDate
-            java.sql.Date endDate = (java.sql.Date) selectedUserTimeoff.getEndDate();
-            java.util.Date utilEndDate = new java.util.Date(endDate.getTime()); // Convert to java.util.Date
-            Instant instantEnd = utilEndDate.toInstant();
-            LocalDate eDate = instantEnd.atZone(ZoneId.systemDefault()).toLocalDate();
+            //SET VALUES FOR DATE RANGE PICKER
+            LocalDate startDate = DateUtil.sqlDateToLocalDate(selectedUserTimeoff.getStartDate());
+            LocalDate endDate = DateUtil.sqlDateToLocalDate(selectedUserTimeoff.getEndDate());
+            DateRange dateRange = new DateRange(startDate, endDate);
+            dateRangePicker.setValue(dateRange);
 
             typeComBox.setValue(selectedUserTimeoff.getType());
             descField.setText(selectedUserTimeoff.getDescription());
             attachmentField.setText(selectedUserTimeoff.getAttachment());
+<<<<<<< HEAD
             timeOffIDLabel.setText(selectedUserTimeoff.getUserOffId()+""); //This is the user_timeoff_id( Labeled as - Time Off ID).
             startPicker.setValue(sDate);
             endPicker.setValue(eDate);
+=======
+
+>>>>>>> dano
             insertBtn.setDisable(true);
             typeComBox.setDisable(true);
         } else {
             typeComBox.setValue("");
             descField.setText("");
             descField.setPromptText("Add description . . .");
-            startPicker.setValue(null);
-            endPicker.setValue(null);
         }
     }
     
     @FXML
 private void updateTimeoff(ActionEvent event) throws SQLException {
+<<<<<<< HEAD
     LocalDate localStartDate = startPicker.getValue();
     LocalDate localEndDate = endPicker.getValue();
     int userTimeoffId = Integer.parseInt(timeOffIDLabel.getText()); //This is the user_timeoff_id( Labeled as - Time Off ID).
@@ -171,8 +187,18 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
     int offID = selectedUserTimeoff.getOffId(); //This is the timeoff_id(labeled as - User Off ID).
     Date startDate = Date.valueOf(localStartDate);
     Date endDate = Date.valueOf(localEndDate);
+=======
+    int userTimeoffId = Integer.parseInt(timeOffIDLabel.getText());
+    String desription = descField.getText();
+    String attachment = attachmentField.getText();
+    int userId = Integer.parseInt(empIdLabel.getText());
+    int offID = selectedUserTimeoff.getOffId();
+>>>>>>> dano
 
-    boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Do you want to proceed?", "This will update the selected timeoff record");
+    Date startDate = Date.valueOf(dateRangePicker.getValue().getStartDate());
+    Date endDate = Date.valueOf(dateRangePicker.getValue().getEndDate());
+
+    boolean actionIsConfirmed = Modal.actionConfirmed("Update", "Do you want to proceed?", "This will update the selected timeoff record");
     if (actionIsConfirmed) {
         Timeoff.updateTimeoff(userTimeoffId, userId, offID, desription, attachment, startDate, endDate);
         showTimeoffTable(userId);
@@ -181,10 +207,15 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
 }
 @FXML
     private void addTimeoff(ActionEvent event) {
-        LocalDate localStartDate = startPicker.getValue();
-        LocalDate localEndDate = endPicker.getValue();
-        Date startDate = Date.valueOf(localStartDate);
-        Date endDate = Date.valueOf(localEndDate);
+        //DEPRECATED
+//        LocalDate localStartDate = startPicker.getValue();
+//        LocalDate localEndDate = endPicker.getValue();
+//        Date startDate = Date.valueOf(localStartDate);
+//        Date endDate = Date.valueOf(localEndDate);
+
+        Date startDate = Date.valueOf(dateRangePicker.getValue().getStartDate());
+        Date endDate = Date.valueOf(dateRangePicker.getValue().getEndDate());
+
         String desription = descField.getText();
         String attachment = attachmentField.getText();
         int userId = Integer.parseInt(empIdLabel.getText());
@@ -206,7 +237,7 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
         int userId = Integer.parseInt(empIdLabel.getText());
         int offID = Integer.parseInt(timeOffIDLabel.getText());
         
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate", "Do you want to proeed?", "This will deactivate the selected assignment record");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Deactivate", "Do you want to proeed?", "This will deactivate the selected assignment record");
         if(actionIsConfirmed){
             Timeoff.deactivateTimeoff(offID);
             showTimeoffTable(userId);
@@ -285,8 +316,6 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
             timeOffIDLabel.setText("");
             descField.setPromptText("Add description . . .");
             attachmentField.setPromptText("Add Link . . .");
-            startPicker.setValue(null);
-            endPicker.setValue(null);
             insertBtn.setDisable(false);
             typeComBox.setDisable(false);
             updateBtn.setDisable(false);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.dlsc.gemsfx.DrawerStackPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -121,5 +122,6 @@
       <Pane fx:id="piePane2111121" layoutX="663.0" layoutY="134.0" prefHeight="58.0" prefWidth="118.0" styleClass="tilePane" />
       <Pane fx:id="piePane2111122" layoutX="546.0" layoutY="197.0" prefHeight="74.0" prefWidth="236.0" styleClass="tilePane" />
       <Pane fx:id="piePane21111221" layoutX="547.0" layoutY="277.0" prefHeight="301.0" prefWidth="236.0" styleClass="tilePane" />
+      <DrawerStackPane disable="true" drawerTitle="Pending Actions" prefHeight="600.0" prefWidth="802.0" showDrawer="true" showDrawerTitle="true" visible="false" />
    </children>
 </AnchorPane>

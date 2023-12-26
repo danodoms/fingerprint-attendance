@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,9 +58,7 @@ public class FP_EnrollmentCTRL implements Initializable {
 
         
         
-// Set an event handler for the window hiding event
-//        Stage stage = (Stage) nameLabel.getScene().getWindow();
-//        stage.setOnHiding(event -> enrollmentThread.stopEnrollmentThread());
+
     }
     
     private void setReaderStatusLabel(){
@@ -74,7 +73,7 @@ public class FP_EnrollmentCTRL implements Initializable {
         readerStatusLabel.setText(newText);
     }
     
-    public void setDataForEnrollment(User user){
+    public void setDataForEnrollment(User user, Stage stage, ADMIN_FingerprintsCTRL adminFingerprintsCTRL){
         userIdToEnroll = user.getId();
 
 
@@ -84,7 +83,14 @@ public class FP_EnrollmentCTRL implements Initializable {
         
         enrollmentThread = new EnrollmentThread(fingerprintImage, userIdToEnroll);
         enrollmentThread.start();
-        
+
+        //gets the stage from the class that will use this controller and adds function to it
+        stage.setOnHiding(event -> {
+            enrollmentThread.stopEnrollmentThread();
+                    adminFingerprintsCTRL.loadUserTable();
+                    adminFingerprintsCTRL.loadUserDetails(user);
+        });
+
     }
     
 }

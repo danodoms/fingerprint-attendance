@@ -19,7 +19,7 @@
          <children>
             <ChoiceBox fx:id="statusFilterChoiceBox" layoutX="272.0" layoutY="47.0" prefHeight="29.0" prefWidth="96.0" />
             <Label layoutX="231.0" layoutY="53.0" prefHeight="17.0" prefWidth="37.0" text="Status" />
-            <TableView fx:id="userTable" layoutX="12.0" layoutY="84.0" onMouseClicked="#loadUserDetails" prefHeight="462.0" prefWidth="359.0">
+            <TableView fx:id="userTable" layoutX="12.0" layoutY="84.0" onMouseClicked="#loadUserDetailsAction" prefHeight="462.0" prefWidth="359.0">
               <columns>
                 <TableColumn fx:id="col_id" prefWidth="41.0" text="ID" />
                 <TableColumn fx:id="col_name" prefWidth="313.0" text="Name" />

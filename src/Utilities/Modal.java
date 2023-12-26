@@ -4,7 +4,7 @@
  */
 package Utilities;
 
-import Model.Assignment;
+import com.dlsc.gemsfx.DialogPane;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -39,8 +39,9 @@ public class Modal {
         successStage.setScene(successScene);
         successStage.show();
     }
-    
-    public static boolean showConfirmationModal(String title, String header, String content) {
+
+
+    public static boolean actionConfirmed(String title, String header, String content) {
         final boolean[] userResponse = {false};
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -68,4 +69,14 @@ public class Modal {
 
         return userResponse[0];
     }
+
+//
+//    public static boolean actionConfirmed( String header, String content) {
+//        DialogPane dialogPane = new DialogPane();
+//
+//        boolean response = dialogPane.showConfirmation("This is a test?", "Yes, it is");
+//
+//
+//
+//    }
 }

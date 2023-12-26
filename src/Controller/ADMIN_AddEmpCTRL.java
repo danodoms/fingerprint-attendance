@@ -8,6 +8,7 @@ package Controller;
 import Model.User;
 import Utilities.DatabaseUtil;
 import Utilities.Filter;
+import Utilities.ImageUtil;
 import Utilities.PaneUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -155,6 +156,10 @@ public class ADMIN_AddEmpCTRL implements Initializable {
                 showModal("Failed", "Database error");
                 ex.printStackTrace();
             }
+
+            //close
+            Stage stage = (Stage) addEmployeeBtn.getScene().getWindow();
+            stage.close();
     }
     
     private String generatePrompt(User user, String repeatedPassword, String mode){
@@ -295,52 +300,63 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         return data;
     }
     
-    public void setDataForEdit(User user) {
-        editMode = true;
-        selectedUserId = user.getId();
-        
-        // Set the user details in the form
-        String suffix = user.getSuffix();
-        
-        if(suffix == null || suffix.equals("")){
-            suffix = "None";
-        }
-        
-        FnameField.setText(user.getFname());
-        MnameField.setText(user.getMname());
-        LnameField.setText(user.getLname());
-        userSuffixChoiceBox.setValue(suffix);
-        emailField.setText(user.getEmail());
-        //passwordField.setText(user.getPassword());
-        privilegeChoiceBox.setValue(user.getPrivilege());
-        contactNumField.setText(user.getContactNum());
-        
-        if(user.getSex() == null){
-            sexChoiceBox.setValue("Select");
-        }else{
-            sexChoiceBox.setValue(user.getSex());
-        }
-        
-        dateOfBirthPicker.setValue(user.getBirthDate());
-        addressField.setText(user.getAddress());
-        userImage.setImage(byteArrayToImage(user.getImage()));
+    public void setDataForEdit(User user, Stage stage, ADMIN_EmpMgmtCTRL adminEmpMgmtCTRL, boolean isEditMode) {
+        editMode = isEditMode;
 
-        // Set other fields as needed
-        addEmployeeBtn.setText("Save Changes");
-        passwordLabel.setText("Change Password");
-        repeatPasswordLabel.setText("Repeat New Password");
+        if(isEditMode){
+            selectedUserId = user.getId();
+            // Set the user details in the form
+            String suffix = user.getSuffix();
+
+            if(suffix == null || suffix.equals("")){
+                suffix = "None";
+            }
+
+            FnameField.setText(user.getFname());
+            MnameField.setText(user.getMname());
+            LnameField.setText(user.getLname());
+            userSuffixChoiceBox.setValue(suffix);
+            emailField.setText(user.getEmail());
+            //passwordField.setText(user.getPassword());
+            privilegeChoiceBox.setValue(user.getPrivilege());
+            contactNumField.setText(user.getContactNum());
+
+            if(user.getSex() == null){
+                sexChoiceBox.setValue("Select");
+            }else{
+                sexChoiceBox.setValue(user.getSex());
+            }
+
+            dateOfBirthPicker.setValue(user.getBirthDate());
+            addressField.setText(user.getAddress());
+            userImage.setImage(ImageUtil.byteArrayToImage(user.getImage()));
+
+            // Set other fields as needed
+            addEmployeeBtn.setText("Save Changes");
+            passwordLabel.setText("Change Password");
+            repeatPasswordLabel.setText("Repeat New Password");
+        }
+
+
+        stage.setOnHiding(event -> {
+            adminEmpMgmtCTRL.loadUserTable();
+            if(isEditMode){
+                adminEmpMgmtCTRL.loadUserDetails(user.getId());
+            }
+
+        });
     }
     
-    private Image byteArrayToImage(byte[] byteArray) {
-        // Convert byte array to JavaFX Image
-        try{
-        return new Image(new java.io.ByteArrayInputStream(byteArray));
-        } catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-        
-    }
+//    private Image byteArrayToImage(byte[] byteArray) {
+//        // Convert byte array to JavaFX Image
+//        try{
+//        return new Image(new java.io.ByteArrayInputStream(byteArray));
+//        } catch(Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//
+//    }
 
 
 

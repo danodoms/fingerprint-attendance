@@ -5,10 +5,12 @@
 package Controller;
 
 import Model.Assignment;
+import Model.Position;
 import Model.Shift;
 import Model.User;
 import Utilities.DatabaseUtil;
 import Utilities.ImageUtil;
+import Utilities.Modal;
 import Utilities.PaneUtil;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +29,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -79,7 +82,10 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     @FXML
     private ImageView userImageView;
     @FXML
-    private TextField searchFilterField;    /**
+    private TextField searchFilterField;
+
+    User selectedUser;
+    /**
      * Initializes the controller class.
      */
     @Override
@@ -165,23 +171,32 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
 
     @FXML
     private void userSelected(MouseEvent event) {
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        Image userImage = ImageUtil.byteArrayToImage(User.getUserImageByUserId(selectedUser.getId()));
-        
+        selectedUser = userTable.getSelectionModel().getSelectedItem();
+        loadUserDetails(selectedUser.getId());
+    }
+
+    public void loadUserDetails(int userId){
+        User user = User.getUserByUserId(userId);
+        Image userImage = ImageUtil.byteArrayToImage(User.getUserImageByUserId(user.getId()));
+
         userImageView.setImage(userImage);
-        nameLabel.setText(selectedUser.getFullName());
-        emailLabel.setText(selectedUser.getEmail());
-        birthDateLabel.setText(selectedUser.getBirthDate()+"");
-        contactNumLabel.setText(selectedUser.getContactNum());
-        addressLabel.setText(User.getUserByUserId(selectedUser.getId()).getAddress());
-        
+        nameLabel.setText(user.getFullNameWithInitial());
+        emailLabel.setText(user.getEmail());
+        birthDateLabel.setText(user.getBirthDate()+"");
+        contactNumLabel.setText(user.getContactNum());
+        addressLabel.setText(User.getUserByUserId(user.getId()).getAddress());
+
+        if(user.getStatus() == 1){
+            deactivateUserBtn.setText("Deactivate");
+        }else{
+            deactivateUserBtn.setText("Activate");
+        }
     }
 
     @FXML
     private void openEditUserPane(ActionEvent event) {
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        int selectedUserId = selectedUser.getId();
-        User userFromDb = User.getUserByUserId(selectedUserId);
+        User userFromDb = User.getUserByUserId(selectedUser.getId());
+
         try {
             // Load the AddUserForm.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.ADMIN_ADD_EMP));
@@ -190,21 +205,16 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
             // Get the controller of the AddUserForm
             ADMIN_AddEmpCTRL addUserFormController = loader.getController();
 
-            addUserFormController.setDataForEdit(userFromDb);
+
 
             // Show the AddUserForm in the original pane
             Stage secondStage = new Stage();
             secondStage.setScene(new Scene(root));
             secondStage.initModality(Modality.APPLICATION_MODAL);
-            
-            // Set the onHidden event handler to reload userTable when add_employee_pane is closed
-            secondStage.setOnHidden(e -> {
-                // Reload userTable when the add_employee_pane is closed
-                loadUserTable();
-            });
+
+            addUserFormController.setDataForEdit(userFromDb, secondStage, this, true);
             
             secondStage.show();
-            //originalPane.getChildren().add(addUserForm);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -215,24 +225,41 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
 
     @FXML
     private void openAddEmpPane(ActionEvent event) {
-         paneUtil.openModal(paneUtil.ADMIN_ADD_EMP);
+        try {
+            // Load the AddUserForm.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(paneUtil.ADMIN_ADD_EMP));
+            Parent root = loader.load();
+
+            // Get the controller of the AddUserForm
+            ADMIN_AddEmpCTRL addUserFormController = loader.getController();
+
+
+
+            // Show the AddUserForm in the original pane
+            Stage secondStage = new Stage();
+            secondStage.setScene(new Scene(root));
+            secondStage.initModality(Modality.APPLICATION_MODAL);
+
+            addUserFormController.setDataForEdit(null, secondStage, this, false);
+
+            secondStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception
+        }
+        //paneUtil.openPane(paneUtil.ADD_EMPLOYEE_PANE);
     }
 
     @FXML
-    private void deactivateUser(ActionEvent event) {
-        User selectedItem = userTable.getSelectionModel().getSelectedItem();
+    private void invertUserStatus(ActionEvent event) throws SQLException {
+        String actionType = selectedUser.getStatus() == 1 ? "Deactivate" : "Activate";
+        String confirmationMessage = actionType + " this user?";
+        String actionDescription = "This action will " + actionType.toLowerCase() + " the currently selected user";
 
-        if (selectedItem != null) {
-            int id = selectedItem.getId();
-            String query = "UPDATE user SET user_status = 0 WHERE user_id = " + id;
-
-            DatabaseUtil.executeQuery(query);
+        if (Modal.actionConfirmed(actionType, confirmationMessage, actionDescription)) {
+            User.invertUserStatus(selectedUser.getId());
             loadUserTable();
-            //clearFields();
-            //assignment_table.getItems().clear();
-        } else {
-            // Handle case when no row is selected or handle error.
-            // You can show a message or perform other actions here.
         }
     }
 }

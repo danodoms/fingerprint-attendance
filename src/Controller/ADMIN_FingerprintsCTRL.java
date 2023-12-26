@@ -56,6 +56,8 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
     @FXML
     private TextField searchFilterField;
 
+    User userFromDb;
+
     /**
      * Initializes the controller class.
      */
@@ -113,30 +115,37 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
     }
 
     @FXML
-    private void loadUserDetails(MouseEvent event) {
+    private void loadUserDetailsAction(MouseEvent event) {
         User selectedUser = userTable.getSelectionModel().getSelectedItem();
+        userFromDb = User.getUserByUserId(selectedUser.getId());
+        loadUserDetails(selectedUser);
+
+    }
+
+    public void loadUserDetails(User selectedUser){
+
         int fingerprintCount = Fingerprint.getFingerprintCountByUserId(selectedUser.getId());
         String lastFingerprintEnroll = Fingerprint.getLastFingerprintEnrollByUserId(selectedUser.getId());
         byte[] userImage = User.getUserByUserId(selectedUser.getId()).getImage();
-        
-        
-       
+
+
+
         fingerprintCountLabel.setText(fingerprintCount+"");
-        nameLabel.setText(selectedUser.getFullName());
+        nameLabel.setText(userFromDb.getFullNameWithInitial());
         lastEnrollDateLabel.setText(lastFingerprintEnroll);
         userImageView.setImage(ImageUtil.byteArrayToImage(userImage));
-        
-        
+
+
         if(fingerprintCount > 0){
             enrollBtn.setText("Re-Enroll");
         }else{
             enrollBtn.setText("Enroll");
         }
-        
-        
-        
+
+
+
         System.out.println("Fingerprint cOUNT: "+ fingerprintCount+"");
-        
+
     }
 
     @FXML
@@ -164,6 +173,8 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
                     // Perform actions for Yes
                     Fingerprint.destroyEnrolledFingerprintsByUserId(selectedUserId);
                     openFpEnrollmentPane();
+                    loadUserDetails(selectedUser);
+                    loadUserTable();
                 } else if (response == noButton) {
                     System.out.println("User clicked No");
                     // Perform actions for No
@@ -186,16 +197,19 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
             // Get the controller of the AddUserForm
             FP_EnrollmentCTRL fpEnrollmentCtrl = loader.getController();
 
-            // Pass data to the AddUserFormController
-            fpEnrollmentCtrl.setDataForEnrollment(userFromDb);
+
 
             // Show the AddUserForm in the original pane
             Stage secondStage = new Stage();
             secondStage.setScene(new Scene(root));
             secondStage.initModality(Modality.APPLICATION_MODAL);
 
+            // Pass data to the AddUserFormController
+            fpEnrollmentCtrl.setDataForEnrollment(userFromDb, secondStage, this);
+
 //            secondStage.setOnHidden(e -> {
 //                loadUserTable();
+//
 //            });
 
             secondStage.show();

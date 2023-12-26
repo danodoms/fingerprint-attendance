@@ -152,14 +152,14 @@ public class User {
         String insertQuery = "INSERT INTO `user`(`user_fname`, `user_mname`, `user_lname`, `suffix`, `email`, `password`, `privilege`, `user_cntct`, `sex`, `birth_date`, `address`, `user_img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(insertQuery);
-            preparedStatement.setString(1, fname);
-            preparedStatement.setString(2, mname);
-            preparedStatement.setString(3, lname);
+            preparedStatement.setString(1, fname.trim());
+            preparedStatement.setString(2, mname.trim());
+            preparedStatement.setString(3, lname.trim());
             preparedStatement.setString(4, suffix);
-            preparedStatement.setString(5, email);
+            preparedStatement.setString(5, email.trim());
             preparedStatement.setString(6, hashedPassword);
             preparedStatement.setString(7, privilege);
-            preparedStatement.setString(8, contactNum);
+            preparedStatement.setString(8, contactNum.trim());
             preparedStatement.setString(9, sex);
             
             if (birthDate != null) {
@@ -496,6 +496,19 @@ public class User {
             e.printStackTrace();
         }
         return user;
+    }
+
+    //invert userStatus
+    public static void invertUserStatus(int userId) throws SQLException {
+        String updateQuery = "UPDATE `user` SET `user_status`= 1 - `user_status` WHERE `user_id`=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+            preparedStatement.setInt(1, userId);
+
+            preparedStatement.executeUpdate();
+        }
     }
     
     

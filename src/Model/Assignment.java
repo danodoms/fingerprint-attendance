@@ -32,11 +32,51 @@ public class Assignment {
     //CALCULATED VARIABLE, NOT IN ACTUAL DATABASE TABLE
     private String timeRange;
 
+    public Assignment(int assignmentId, String departmentName, String positionName, String shiftName, String startTime, String endTime, String dateAssigned) {
+        this.id = assignmentId;
+        this.department = departmentName;
+        this.position = positionName;
+        this.shift = shiftName;
+        this.startTime = LocalTime.parse(startTime);
+        this.endTime = LocalTime.parse(endTime);
+        this.dateAssigned = dateAssigned;
+    }
+
+    public Assignment(int assignmentId, int departmentId, String departmentName, int positionId, String positionName, int shiftId, String shiftName, String timeRange, String startTime, String endTime, String dateAssigned, int status) {
+        this.id = assignmentId;
+        this.departmentId = departmentId;
+        this.department = departmentName;
+        this.positionId = positionId;
+        this.position = positionName;
+        this.shiftId = shiftId;
+        this.shift = shiftName;
+        this.timeRange = timeRange;
+        this.startTime = LocalTime.parse(startTime);
+        this.endTime = LocalTime.parse(endTime);
+        this.dateAssigned = dateAssigned;
+        this.status = status;
+    }
+
+    public Assignment(int assignmentId, int departmentId, String departmentName, int positionId, String positionName, int shiftId, String shiftName, String timeRange, String startTime, String endTime, String dateAssigned) {
+        this.id = assignmentId;
+        this.departmentId = departmentId;
+        this.department = departmentName;
+        this.positionId = positionId;
+        this.position = positionName;
+        this.shiftId = shiftId;
+        this.shift = shiftName;
+        this.timeRange = timeRange;
+        this.startTime = LocalTime.parse(startTime);
+        this.endTime = LocalTime.parse(endTime);
+        this.dateAssigned = dateAssigned;
+    }
+
     public String getTimeRange() {
         if (startTime != null && endTime != null) {
             timeRange = startTime.toString() + " - " + endTime.toString();
         }
-        
+
+
         return timeRange;
     }
 
@@ -158,35 +198,37 @@ public class Assignment {
         return assignments;
     }
     
-//    public static ObservableList<Assignment> getActiveAssignmentsByUserId(int user_id) {
-//        ObservableList<Assignment> assignments = FXCollections.observableArrayList();
-//
-//        try (Connection connection = DatabaseUtil.getConnection();
-//             CallableStatement callableStatement = (CallableStatement) connection.prepareCall("{call get_user_active_assignments(?)}")) {
-//
-//            callableStatement.setInt(1, user_id);
-//            ResultSet rs = callableStatement.executeQuery();
-//
-//            while (rs.next()) {
-//                assignments.add(new Assignment(
-//                        rs.getInt("assignment_id"),
-//                        rs.getInt("department_id"),
-//                        rs.getString("department_name"),
-//                        rs.getInt("position_id"),
-//                        rs.getString("position_name"),
-//                        rs.getInt("shift_id"),
-//                        rs.getString("shift_name"),
-//                        rs.getString("time_range"), // Assuming the time_range column is returned by the stored procedure
-//                        rs.getString("date_assigned")
-//                ));
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return assignments;
-//    }
+    public static ObservableList<Assignment> getActiveAssignmentsByUserId(int user_id) {
+        ObservableList<Assignment> assignments = FXCollections.observableArrayList();
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             CallableStatement callableStatement = (CallableStatement) connection.prepareCall("{call get_user_active_assignments(?)}")) {
+
+            callableStatement.setInt(1, user_id);
+            ResultSet rs = callableStatement.executeQuery();
+
+            while (rs.next()) {
+                assignments.add(new Assignment(
+                        rs.getInt("assignment_id"),
+                        rs.getInt("department_id"),
+                        rs.getString("department_name"),
+                        rs.getInt("position_id"),
+                        rs.getString("position_name"),
+                        rs.getInt("shift_id"),
+                        rs.getString("shift_name"),
+                        rs.getString("time_range"), // Assuming the time_range column is returned by the stored procedure
+                        rs.getString("start_time"),
+                        rs.getString("end_time"),
+                        rs.getString("date_assigned")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return assignments;
+    }
 
     public static ObservableList<Assignment> getAssignmentsByUserId(int user_id) {
         ObservableList<Assignment> assignments = FXCollections.observableArrayList();
@@ -206,7 +248,9 @@ public class Assignment {
                         rs.getString("position_name"),
                         rs.getInt("shift_id"),
                         rs.getString("shift_name"),
-                        rs.getString("time_range"), // Assuming the time_range column is returned by the stored procedure
+                        rs.getString("time_range"),
+                        rs.getString("start_time"),
+                        rs.getString("end_time"),
                         rs.getString("date_assigned"),
                         rs.getInt("status")
                 ));
@@ -239,6 +283,39 @@ public class Assignment {
             e.printStackTrace();
         }
         return assignmentCount;
+    }
+
+    //create method getAssignmentByAssigmentId
+    public static Assignment getAssignmentByAssignmentId(int assignmentId) {
+        Assignment assignment = null;
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+
+            String query = "SELECT a.assignment_id, p.position_name, d.department_name, s.shift_name, a.start_time, a.end_time, a.date_assigned from assignment a, shift s, position p, department d where s.shift_id = a.shift_id AND a.position_id = p.position_id AND p.department_id = d.department_id AND a.assignment_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, assignmentId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                assignment = new Assignment(
+                        rs.getInt("assignment_id"),
+                        rs.getString("department_name"),
+                        rs.getString("position_name"),
+                        rs.getString("shift_name"),
+                        rs.getString("start_time"),
+                        rs.getString("end_time"),
+                        rs.getString("date_assigned")
+                );
+                assignment.setStartTime(rs.getTime("start_time").toLocalTime());
+                assignment.setEndTime(rs.getTime("end_time").toLocalTime());
+                assignment.setDateAssigned(rs.getString("date_assigned"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return assignment;
     }
     
     
@@ -290,6 +367,37 @@ public class Assignment {
             // Handle the exception or log it as needed
         }
     }
+
+    //method that inverts the status of an assignment
+    public static void invertAssignmentStatus(int assignmentId) {
+        String query = "UPDATE assignment SET status = 1 - status WHERE assignment_id = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, assignmentId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception or log it as needed
+        }
+    }
+
+    public static boolean positionAlreadyExists(int userId, int positionId) throws SQLException{
+        String query = "SELECT * FROM assignment WHERE user_id = ? AND position_id = ? AND status = 1";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, positionId);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            return rs.next();
+        }
+    }
+
 
     
 
