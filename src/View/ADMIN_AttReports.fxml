@@ -79,8 +79,8 @@
                </children>
             </VBox>
             <Label alignment="CENTER" layoutX="627.0" layoutY="446.0" prefHeight="18.0" prefWidth="94.0" text="Generate DTR" />
-            <Button fx:id="allDTRBtn" layoutX="602.0" layoutY="475.0" mnemonicParsing="false" onAction="#generateDTR" prefHeight="34.0" prefWidth="148.0" text="All" />
-            <Button fx:id="oneDTRBtn" layoutX="602.0" layoutY="517.0" mnemonicParsing="false" onAction="#generateDTR" prefHeight="34.0" prefWidth="148.0" text="by One" />
+            <Button fx:id="allDTRBtn" layoutX="602.0" layoutY="475.0" mnemonicParsing="false" onAction="#generateDTR" prefHeight="34.0" prefWidth="148.0" text="GENERATE" />
+            <Button fx:id="oneDTRBtn" layoutX="602.0" layoutY="517.0" mnemonicParsing="false" onAction="#generateDTR" opacity="0.0" prefHeight="34.0" prefWidth="148.0" text="by One" />
             <ImageView fitHeight="82.0" fitWidth="77.0" layoutX="636.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/default_user_img.jpg" />

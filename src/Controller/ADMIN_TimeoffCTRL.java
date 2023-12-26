@@ -88,6 +88,7 @@ public class ADMIN_TimeoffCTRL implements Initializable{
 
 
         empIdLabel.setText(selectedItem.getId()+"");
+        userOffIdLabel.setText("");
         deactivateBtn.setDisable(true);
         updateBtn.setDisable(true);
         userOffIdLabelTag.setDisable(true);
@@ -129,6 +130,7 @@ public class ADMIN_TimeoffCTRL implements Initializable{
             typeComBox.setValue(selectedUserTimeoff.getType());
             descField.setText(selectedUserTimeoff.getDescription());
             attachmentField.setText(selectedUserTimeoff.getAttachment());
+            timeOffIDLabel.setText(selectedUserTimeoff.getUserOffId()+""); //This is the user_timeoff_id( Labeled as - Time Off ID).
             startPicker.setValue(sDate);
             endPicker.setValue(eDate);
             insertBtn.setDisable(true);
@@ -146,11 +148,11 @@ public class ADMIN_TimeoffCTRL implements Initializable{
 private void updateTimeoff(ActionEvent event) throws SQLException {
     LocalDate localStartDate = startPicker.getValue();
     LocalDate localEndDate = endPicker.getValue();
-    int userTimeoffId = Integer.parseInt(timeOffIDLabel.getText());
+    int userTimeoffId = Integer.parseInt(timeOffIDLabel.getText()); //This is the user_timeoff_id( Labeled as - Time Off ID).
     String desription = descField.getText();
     String attachment = attachmentField.getText();
     int userId = Integer.parseInt(empIdLabel.getText());
-    int offID = selectedUserTimeoff.getOffId();
+    int offID = selectedUserTimeoff.getOffId(); //This is the timeoff_id(labeled as - User Off ID).
     Date startDate = Date.valueOf(localStartDate);
     Date endDate = Date.valueOf(localEndDate);
 
