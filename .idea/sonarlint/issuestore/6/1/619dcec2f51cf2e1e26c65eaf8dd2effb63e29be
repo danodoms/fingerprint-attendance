@@ -1,14 +1,0 @@
-
-n	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÄÍû
-P
-java:S1118":Add a private constructor to hide the implicit public one.(‡ÿÌ
-g
-java:S1858"L"fieldName" is already a string, there's no need to call "toString()" on it.(ç€ «ıÿÿÿÿ
-a
-java:S59983"LRefactor this repetition that can lead to a stack overflow for large inputs.(õæˆB
-U
-java:S1118E":Add a private constructor to hide the implicit public one.(¿†€¨øÿÿÿÿ
-g
-java:S1858J"L"fieldName" is already a string, there's no need to call "toString()" on it.(ç€ «ıÿÿÿÿ
-F
-java:S1172h"0Remove this unused method parameter "fieldName".(ûÒéƒ

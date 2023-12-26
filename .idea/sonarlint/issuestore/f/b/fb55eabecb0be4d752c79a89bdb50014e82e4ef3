@@ -1,8 +1,0 @@
-
-n	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÄÍû
-y
-java:S4144'"^Update this method so that its implementation is not identical to "createFullName" on line 12.(’¯µÿÿÿÿÿ
-U
-java:S1118":Add a private constructor to hide the implicit public one.(Õåø€ûÿÿÿÿ
-K
-java:S11723"0Remove this unused method parameter "delimiter".(û²Ş§øÿÿÿÿ
