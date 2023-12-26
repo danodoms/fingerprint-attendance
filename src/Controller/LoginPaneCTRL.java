@@ -195,43 +195,89 @@ public class LoginPaneCTRL implements Initializable {
 
     @FXML
     private void authenticate(ActionEvent event) {
+//        System.out.println("authenticating");
+//        String enteredEmail = emailField.getText();
+//        String enteredPassword = passwordField.getText();
+//
+//        User user = User.getUserByEmail(enteredEmail);
+//
+//        if(user == null){
+//            System.out.println("Email does not exist");
+//            loginPrompt.setVisible(true);
+//            loginPrompt.setText("Email does not exist");
+//        }else{
+//
+//            String email = user.getEmail();
+//            String password = user.getPassword();
+//
+//            if(enteredEmail.equals("") && enteredPassword.equals("")){
+//             loginPrompt.setText("Fields can't be empty");
+//             loginPrompt.setVisible(true);
+//            }else if(enteredEmail.equals("")){
+//                loginPrompt.setText("Email can't be empty");
+//                loginPrompt.setVisible(true);
+//            }else if(enteredPassword.equals("")){
+//                loginPrompt.setText("Password can't be empty");
+//                loginPrompt.setVisible(true);
+//            }else if(Encryption.verifyPassword(enteredPassword, password)){
+//                System.out.println("password matched");
+//                proceedUserLogin(user);
+//            }else{
+//                System.out.println("password mismatched");
+//                loginPrompt.setVisible(true);
+//                loginPrompt.setText("Incorrect Password");
+//            }
+//        }
+
         System.out.println("authenticating");
+
         String enteredEmail = emailField.getText();
         String enteredPassword = passwordField.getText();
-        
-        User user = User.getUserByEmail(enteredEmail);
-        
-        
-        
-        
-        
-        if(user == null){
-            System.out.println("Email does not exist");
-            loginPrompt.setVisible(true);
-            loginPrompt.setText("Email does not exist");
-        }else{
-            
-            String email = user.getEmail();
-            String password = user.getPassword();
-            
-            if(enteredEmail.equals("") && enteredPassword.equals("")){
-             loginPrompt.setText("Fields can't be empty");
-             loginPrompt.setVisible(true);
-            }else if(enteredEmail.equals("")){
-                loginPrompt.setText("Email can't be empty");
-                loginPrompt.setVisible(true);
-            }else if(enteredPassword.equals("")){
-                loginPrompt.setText("Password can't be empty");
-                loginPrompt.setVisible(true);
-            }else if(Encryption.verifyPassword(enteredPassword, password)){
-                System.out.println("password matched");
-                proceedUserLogin(user);
-            }else{
-                System.out.println("password mismatched");
-                loginPrompt.setVisible(true);
-                loginPrompt.setText("Incorrect Password");
-            }
+
+        //check if fields are empty
+        if (enteredEmail.equals("") && enteredPassword.equals("")) {
+            showLoginPrompt("Fields can't be empty");
+            return;
         }
+
+        //check if email is empty
+        if (enteredEmail.equals("")) {
+            showLoginPrompt("Email can't be empty");
+            return;
+        }
+
+        //check if password is empty
+        if (enteredPassword.equals("")) {
+            showLoginPrompt("Password can't be empty");
+            return;
+        }
+
+        //get user by email
+        User user = User.getUserByEmail(enteredEmail);
+
+        //check if email exists
+        if (user == null) {
+            showLoginPrompt("Email does not exist");
+            return;
+        }
+
+        //get user's password
+        String email = user.getEmail();
+        String password = user.getPassword();
+
+        //check if password matches
+        if (Encryption.verifyPassword(enteredPassword, password)) {
+            System.out.println("password matched");
+            proceedUserLogin(user);
+        } else {
+            System.out.println("password mismatched");
+            showLoginPrompt("Incorrect Password");
+        }
+    }
+
+    private void showLoginPrompt(String message) {
+        loginPrompt.setVisible(true);
+        loginPrompt.setText(message);
     }
     
     private void proceedUserLogin(User authdUser){

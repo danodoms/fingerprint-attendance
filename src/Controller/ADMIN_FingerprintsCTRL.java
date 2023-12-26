@@ -56,6 +56,8 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
     @FXML
     private TextField searchFilterField;
 
+    User userFromDb;
+
     /**
      * Initializes the controller class.
      */
@@ -115,6 +117,7 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
     @FXML
     private void loadUserDetailsAction(MouseEvent event) {
         User selectedUser = userTable.getSelectionModel().getSelectedItem();
+        userFromDb = User.getUserByUserId(selectedUser.getId());
         loadUserDetails(selectedUser);
 
     }
@@ -128,7 +131,7 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
 
 
         fingerprintCountLabel.setText(fingerprintCount+"");
-        nameLabel.setText(selectedUser.getFullName());
+        nameLabel.setText(userFromDb.getFullNameWithInitial());
         lastEnrollDateLabel.setText(lastFingerprintEnroll);
         userImageView.setImage(ImageUtil.byteArrayToImage(userImage));
 

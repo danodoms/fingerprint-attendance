@@ -163,11 +163,7 @@ public class ADMIN_PositionsCTRL implements Initializable {
 
         //check if position already exists
         if(Position.positionAlreadyExists(positionTitleField.getText(), departmentChoiceBox.getValue().getId())){
-            if(Modal.actionConfirmed("Add Position", "Position already exists, continue?", "This action will add the position")){
-                Position.addPosition(positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
-                loadPositionTable();
-                clearFields();
-            }
+            Modal.showModal("Add Position", "Position already exists");
         }else{
             if(Modal.actionConfirmed("Add Position", "Add Position?", "This action will add the position")){
                 Position.addPosition(positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());

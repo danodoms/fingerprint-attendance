@@ -35,14 +35,6 @@ public class ADMIN_ShiftsCTRL implements Initializable {
     @FXML
     private TextField shiftNameField;
     @FXML
-    private TextField startTimeHourField;
-    @FXML
-    private TextField startTimeMinuteField;
-    @FXML
-    private TextField endTimeHourField;
-    @FXML
-    private TextField endTimeMinuteField;
-    @FXML
     private Button addBtn;
     @FXML
     private Button updateBtn;
@@ -145,18 +137,17 @@ public class ADMIN_ShiftsCTRL implements Initializable {
 
         //check if shift already exists
         if(Shift.shiftAlreadyExists(shiftName)){
-            if(Modal.actionConfirmed("Add Shift", "Shift already exists, continue?", "This action will add the shift")){
-                Shift.addShift(shiftName, startTime, endTime);
-                loadShiftTable();
-                clearFields();
-            }
-        }else{
-            if(Modal.actionConfirmed("Add Shift", "Add Shift?", "This action will add the shift")){
-                Shift.addShift(shiftName, startTime, endTime);
-                loadShiftTable();
-                clearFields();
-            }
+            Modal.showModal("Shift Already Exists", "A shift with this name already exists.");
+            return;
         }
+
+        //add shift
+        if(Modal.actionConfirmed("Add Shift", "Add Shift?", "This action will add the shift")){
+            Shift.addShift(shiftName, startTime, endTime);
+            loadShiftTable();
+            clearFields();
+        }
+
 
 
     }
@@ -222,10 +213,8 @@ public class ADMIN_ShiftsCTRL implements Initializable {
     //CLEAR FIELDS
     public void clearFields() {
         shiftNameField.setText("");
-        startTimeHourField.setText("");
-        startTimeMinuteField.setText("");
-        endTimeHourField.setText("");
-        endTimeMinuteField.setText("");
+        startTimePicker.setValue(null);
+        endTimePicker.setValue(null);
     }
 
 }

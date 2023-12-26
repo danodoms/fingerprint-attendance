@@ -140,19 +140,15 @@ public class ADMIN_DepartmentsCTRL implements Initializable {
         String departmentDesc = departmentDescTextArea.getText();
 
         if(departmentName.isEmpty()){
-            Modal.showModal("Error", "Please fill up all fields");
+            Modal.showModal("Add Department", "Please fill up all fields");
+            return;
+        }
 
-        }else if(Department.departmentNameExists(departmentName)){
-            //ask user to confirm if they want to update the department
-            boolean actionIsConfirmed = Modal.actionConfirmed("Add", "Department name already exists, continue?", "This action will add the department");
-
-            if(actionIsConfirmed){
-                Department.addDepartment(departmentName, departmentDesc);
-                loadDepartmentTable();
-                clearFields();
-            }
-        } else{
-            boolean actionIsConfirmed = Modal.actionConfirmed("Add", "Add this department?", "This action will add the new department");
+        if(Department.departmentNameExists(departmentName)){
+            //show modal that department already exists
+            Modal.showModal("Add Department", "Department already exists");
+        }else{
+            boolean actionIsConfirmed = Modal.actionConfirmed("Add Department", "Add this department?", "This action will add the new department");
 
             if(actionIsConfirmed){
                 Department.addDepartment(departmentName, departmentDesc);
