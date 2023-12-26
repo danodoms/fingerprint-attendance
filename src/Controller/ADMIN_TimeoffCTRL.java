@@ -159,13 +159,11 @@ public class ADMIN_TimeoffCTRL implements Initializable{
             typeComBox.setValue(selectedUserTimeoff.getType());
             descField.setText(selectedUserTimeoff.getDescription());
             attachmentField.setText(selectedUserTimeoff.getAttachment());
-<<<<<<< HEAD
             timeOffIDLabel.setText(selectedUserTimeoff.getUserOffId()+""); //This is the user_timeoff_id( Labeled as - Time Off ID).
-            startPicker.setValue(sDate);
-            endPicker.setValue(eDate);
-=======
 
->>>>>>> dano
+            //gikan sa git ni
+//            startPicker.setValue(sDate);
+//            endPicker.setValue(eDate);
             insertBtn.setDisable(true);
             typeComBox.setDisable(true);
         } else {
@@ -177,23 +175,15 @@ public class ADMIN_TimeoffCTRL implements Initializable{
     
     @FXML
 private void updateTimeoff(ActionEvent event) throws SQLException {
-<<<<<<< HEAD
-    LocalDate localStartDate = startPicker.getValue();
-    LocalDate localEndDate = endPicker.getValue();
+//    LocalDate localStartDate = startPicker.getValue();
+//    LocalDate localEndDate = endPicker.getValue();
     int userTimeoffId = Integer.parseInt(timeOffIDLabel.getText()); //This is the user_timeoff_id( Labeled as - Time Off ID).
     String desription = descField.getText();
     String attachment = attachmentField.getText();
     int userId = Integer.parseInt(empIdLabel.getText());
     int offID = selectedUserTimeoff.getOffId(); //This is the timeoff_id(labeled as - User Off ID).
-    Date startDate = Date.valueOf(localStartDate);
-    Date endDate = Date.valueOf(localEndDate);
-=======
-    int userTimeoffId = Integer.parseInt(timeOffIDLabel.getText());
-    String desription = descField.getText();
-    String attachment = attachmentField.getText();
-    int userId = Integer.parseInt(empIdLabel.getText());
-    int offID = selectedUserTimeoff.getOffId();
->>>>>>> dano
+//    Date startDate = Date.valueOf(localStartDate);
+//    Date endDate = Date.valueOf(localEndDate);
 
     Date startDate = Date.valueOf(dateRangePicker.getValue().getStartDate());
     Date endDate = Date.valueOf(dateRangePicker.getValue().getEndDate());

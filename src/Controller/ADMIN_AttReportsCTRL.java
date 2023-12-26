@@ -164,7 +164,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
     
     @FXML
     public void generateDTR(ActionEvent event){
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Generate DTR", "Do you want to generate?", "This will generate the selected employee DTR");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Generate DTR", "Do you want to generate?", "This will generate the selected employee DTR");
         if (actionIsConfirmed) {
             generateDOCX();
         }
@@ -259,7 +259,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                             for (Attendance attendance : dtrList) {//-----------------Attendance traversal
                                 if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
                                     mergeCellsHorizontally(table, rowC, 1, 5);
-                                    targetCell.setText("SATURDAY");
+                                    targetCell.setText("SATURDAY                                                                                       ");
 
                                 } else if (localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
                                     mergeCellsHorizontally(table, rowC, 1, 5);
@@ -319,7 +319,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             fileOutputStream.close();
             String fileName =name[1] + "_" + monthYear[0] + "_" + monthYear[1] + ".docx";
             System.out.println("-----------------Text added successfully.");
-            boolean actionIsConfirmed = Modal.showConfirmationModal("Open File", "Do you want to open the File?", "This action will open "+name[1] + "_" + monthYear[0] + "_" + monthYear[1]+" file.");
+            boolean actionIsConfirmed = Modal.actionConfirmed("Open File", "Do you want to open the File?", "This action will open "+name[1] + "_" + monthYear[0] + "_" + monthYear[1]+" file.");
                 if (actionIsConfirmed) {
                     File file = new File(fileName);
                     Desktop desktop = Desktop.getDesktop();
