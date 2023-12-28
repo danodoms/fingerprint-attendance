@@ -5,14 +5,19 @@ package Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
+import Session.Session;
 import Utilities.PaneUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +32,7 @@ import java.util.logging.Logger;
  *
  * @author admin
  */
-public class ADMIN_PaneCTRL implements Initializable {
+public class ContainerPaneCTRL implements Initializable {
 
     @FXML
     private Button dashboardBtn;
@@ -61,23 +66,59 @@ public class ADMIN_PaneCTRL implements Initializable {
     PaneUtil paneUtil = new PaneUtil();
     
     ArrayList<Button> buttonList = new ArrayList<>();
-   
-    
-    
+    @FXML
+    private HBox reportsButtonContainer;
+    @FXML
+    private VBox navButtonsContainer;
+    @FXML
+    private TitledPane manageButtonsContainer;
+    @FXML
+    private HBox departmentsButtonContainer;
+    @FXML
+    private HBox attendanceButtonContainer;
+    @FXML
+    private HBox holidaysBtnContainer;
+    @FXML
+    private HBox assignmentsButtonContainer;
+    @FXML
+    private HBox positionButtonContainer;
+    @FXML
+    private HBox shiftButtonContainer;
+    @FXML
+    private HBox fingerprintsButtonContainer;
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
+        String dashboardPath = paneUtil.ADMIN_DASHBOARD;
+
+        //if user is records officer, do this
+        if(Session.getInstance().getLoggedInUser().getPrivilege().equalsIgnoreCase("records officer")){
+            hideContainer(reportsButtonContainer);
+            hideContainer(departmentsButtonContainer);
+            hideContainer(attendanceButtonContainer);
+            hideContainer(positionButtonContainer);
+            hideContainer(shiftButtonContainer);
+            hideContainer(fingerprintsButtonContainer);
+
+
+            dashboardPath = paneUtil.RO_DASHBOARD;
+        }
+
+        //load dashboard pane
         try {
-            view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_DASHBOARD));
+            view = FXMLLoader.load(getClass().getResource(dashboardPath));
             contentPane.getChildren().setAll(view);
             highlightButton(dashboardBtn);
         } catch (IOException ex) {
-            Logger.getLogger(ADMIN_PaneCTRL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ContainerPaneCTRL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //borderPaneOb.setCenter(view);
-//        contentPane.getChildren().setAll(view);
+
         contentPane.getChildren().setAll(view);
 
+
+        //list navigation buttons
         Button[] buttonArray = {dashboardBtn, attendanceBtn, employeesBtn, assignmentsBtn, fingerprintsBtn, reportsBtn, departmentsBtn, positionsBtn, shiftsBtn, holidaysBtn, timeOffBtn};
         buttonList = new ArrayList<>(Arrays.asList(buttonArray));
     } 
@@ -114,7 +155,7 @@ public class ADMIN_PaneCTRL implements Initializable {
         contentPane.getChildren().setAll(view);
         highlightButton(reportsBtn);
     }
-    @FXML
+    @Deprecated
     private void openHoCalendar(ActionEvent event) throws IOException{
         view = FXMLLoader.load(getClass().getResource(paneUtil.ADMIN_EMP_CALENDAR_PANE));
         contentPane.getChildren().setAll(view);
@@ -128,6 +169,7 @@ public class ADMIN_PaneCTRL implements Initializable {
     }
     @FXML
     private void logOut(ActionEvent event) {
+        Session.getInstance().clearSession();
         paneUtil.exitAndOpenNewPane(logOutAdminBtn, paneUtil.LOGIN_PANE);
     }
     
@@ -207,4 +249,16 @@ public class ADMIN_PaneCTRL implements Initializable {
         contentPane.getChildren().setAll(view);
         highlightButton(holidaysBtn);
     }
+
+    private void hideContainer(HBox container) {
+        container.setVisible(false);
+        container.setDisable(true);
+        navButtonsContainer.setMargin(container, new Insets(-33,0,0,0) );
+    }
+
+//    private void hideContainer(HBox container) {
+//        container.setVisible(false);
+//        container.setDisable(true);
+//        navButtonsContainer.setMargin(container, new Insets(-33,0,0,0) );
+//    }
 }

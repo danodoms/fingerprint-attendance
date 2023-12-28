@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_PaneCTRL">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ContainerPaneCTRL">
    <children>
       <Pane fx:id="contentPane" layoutX="199.0" minHeight="600.0" minWidth="802.0" prefHeight="600.0" prefWidth="802.0" AnchorPane.topAnchor="0.0" />
       <VBox id="navVbox" prefHeight="600.0" prefWidth="200.0" stylesheets="@../Style/admin_pane.css">

@@ -5,6 +5,7 @@
 package Utilities;
 
 import com.dlsc.gemsfx.DialogPane;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -14,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  *
@@ -70,13 +73,8 @@ public class Modal {
         return userResponse[0];
     }
 
-//
-//    public static boolean actionConfirmed( String header, String content) {
-//        DialogPane dialogPane = new DialogPane();
-//
-//        boolean response = dialogPane.showConfirmation("This is a test?", "Yes, it is");
-//
-//
-//
-//    }
+    public static boolean actionConfirmed(DialogPane dialogPane, String title, String header, String content) {
+        dialogPane.showConfirmation("Confirmation Title", "A confirmation requires the user to decide.");
+        return false;
+    }
 }
