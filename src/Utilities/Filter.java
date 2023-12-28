@@ -4,6 +4,9 @@
  */
 package Utilities;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  *
  * @author admin
@@ -117,6 +120,51 @@ public class Filter {
             return "Invalid contact number";
         }
     }
+    }
+
+
+    public class TIME{
+        public static boolean isOverlapping(String start1, String end1, String start2, String end2) {
+            LocalTime startTime1 = LocalTime.parse(start1);
+            LocalTime endTime1 = LocalTime.parse(end1);
+            LocalTime startTime2 = LocalTime.parse(start2);
+            LocalTime endTime2 = LocalTime.parse(end2);
+
+            // add one minute to end times, to allow 1 minute overlap
+            endTime1 = endTime1.minusMinutes(1);
+            endTime2 = endTime2.minusMinutes(1);
+
+            //print the four variables
+            System.out.println("startTime1: " + startTime1);
+            System.out.println("endTime1: " + endTime1);
+            System.out.println("startTime2: " + startTime2);
+            System.out.println("endTime2: " + endTime2);
+
+            //return true if the two time is overlapping by 1 minute
+
+
+
+            return !(endTime1.isBefore(startTime2) || startTime1.isAfter(endTime2));
+        }
+    }
+
+    public class DATE{
+        //copy the approach of isOverlapping in TIME class but accept date instead, but accept parameters as string
+        public static boolean isOverlapping(String start1, String end1, String start2, String end2) {
+            LocalDate startDate1 = LocalDate.parse(start1);
+            LocalDate endDate1 = LocalDate.parse(end1);
+            LocalDate startDate2 = LocalDate.parse(start2);
+            LocalDate endDate2 = LocalDate.parse(end2);
+
+            //print the four variables
+            System.out.println("startDate1: " + startDate1);
+            System.out.println("endDate1: " + endDate1);
+            System.out.println("startDate2: " + startDate2);
+            System.out.println("endDate2: " + endDate2);
+
+            return !(endDate1.isBefore(startDate2) || startDate1.isAfter(endDate2));
+        }
+
     }
     
     private static boolean containsUppercase(String str) {

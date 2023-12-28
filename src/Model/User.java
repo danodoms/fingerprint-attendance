@@ -39,6 +39,13 @@ public class User {
 
    private String fullNameWithInitial;
 
+    public User(int userId, String userEmail, String password, String privilege) {
+        this.id = userId;
+        this.email = userEmail;
+        this.password = password;
+        this.privilege = privilege;
+    }
+
     public String getFullNameWithInitial() {
         //print the full name with initial
         System.out.println("Full Name with Initial: " + StringUtil.createFullNameWithInitial(fname, mname, lname, suffix));
@@ -152,14 +159,14 @@ public class User {
         String insertQuery = "INSERT INTO `user`(`user_fname`, `user_mname`, `user_lname`, `suffix`, `email`, `password`, `privilege`, `user_cntct`, `sex`, `birth_date`, `address`, `user_img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(insertQuery);
-            preparedStatement.setString(1, fname);
-            preparedStatement.setString(2, mname);
-            preparedStatement.setString(3, lname);
+            preparedStatement.setString(1, fname.trim());
+            preparedStatement.setString(2, mname.trim());
+            preparedStatement.setString(3, lname.trim());
             preparedStatement.setString(4, suffix);
-            preparedStatement.setString(5, email);
+            preparedStatement.setString(5, email.trim());
             preparedStatement.setString(6, hashedPassword);
             preparedStatement.setString(7, privilege);
-            preparedStatement.setString(8, contactNum);
+            preparedStatement.setString(8, contactNum.trim());
             preparedStatement.setString(9, sex);
             
             if (birthDate != null) {
@@ -398,17 +405,18 @@ public class User {
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()) {
 
-            String query = "SELECT email, password, privilege FROM user WHERE email = ?";
+            String query = "SELECT user_id, email, password, privilege FROM user WHERE email = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
 
             ResultSet rs = preparedStatement.executeQuery();
             
             if (rs.next()) {
+                int userId = rs.getInt("user_id");
                 String userEmail = rs.getString("email");
                 String password = rs.getString("password");
                 String privilege = rs.getString("privilege");
-                user = new User(userEmail, password, privilege);
+                user = new User(userId, userEmail, password, privilege);
             }
 
         } catch (SQLException e) {
@@ -496,6 +504,19 @@ public class User {
             e.printStackTrace();
         }
         return user;
+    }
+
+    //invert userStatus
+    public static void invertUserStatus(int userId) throws SQLException {
+        String updateQuery = "UPDATE `user` SET `user_status`= 1 - `user_status` WHERE `user_id`=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+            preparedStatement.setInt(1, userId);
+
+            preparedStatement.executeUpdate();
+        }
     }
     
     

@@ -4,7 +4,8 @@
  */
 package Utilities;
 
-import Model.Assignment;
+import com.dlsc.gemsfx.DialogPane;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -14,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  *
@@ -39,8 +42,9 @@ public class Modal {
         successStage.setScene(successScene);
         successStage.show();
     }
-    
-    public static boolean showConfirmationModal(String title, String header, String content) {
+
+
+    public static boolean actionConfirmed(String title, String header, String content) {
         final boolean[] userResponse = {false};
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -67,5 +71,10 @@ public class Modal {
         });
 
         return userResponse[0];
+    }
+
+    public static boolean actionConfirmed(DialogPane dialogPane, String title, String header, String content) {
+        dialogPane.showConfirmation("Confirmation Title", "A confirmation requires the user to decide.");
+        return false;
     }
 }

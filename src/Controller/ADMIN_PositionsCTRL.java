@@ -145,18 +145,37 @@ public class ADMIN_PositionsCTRL implements Initializable {
         positionTitleField.setText(selectedPosition.getPosition());
         departmentChoiceBox.setValue(Department.getDepartmentById(selectedPosition.getDepartmentId()));
         positionDescTextArea.setText(selectedPosition.getDescription());
+
+        if(selectedPosition.getStatus() == 1){
+            deactivateBtn.setText("Deactivate");
+        }else{
+            deactivateBtn.setText("Activate");
+        }
     }
 
     @FXML
     public void addPosition(ActionEvent actionEvent) throws SQLException {
-        Position.addPosition(positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
-        loadPositionTable();
-        clearFields();
+        //check if position title is empty and department choice box
+        if(positionTitleField.getText().isEmpty() || departmentChoiceBox.getValue() == null){
+            Modal.showModal("Add Position", "Please fill out all fields");
+            return;
+        }
+
+        //check if position already exists
+        if(Position.positionAlreadyExists(positionTitleField.getText(), departmentChoiceBox.getValue().getId())){
+            Modal.showModal("Add Position", "Position already exists");
+        }else{
+            if(Modal.actionConfirmed("Add Position", "Add Position?", "This action will add the position")){
+                Position.addPosition(positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
+                loadPositionTable();
+                clearFields();
+            }
+        }
     }
 
     @FXML
     public void updatePosition(ActionEvent actionEvent) throws SQLException {
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Update Position", "Are you sure you want to update this position?", "This action cannot be undone.");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Update Position", "Are you sure you want to update this position?", "This action cannot be undone.");
         if (actionIsConfirmed) {
             Position.updatePosition(selectedPosition.getId(), positionTitleField.getText(), positionDescTextArea.getText(), departmentChoiceBox.getValue().getId());
             loadPositionTable();
@@ -165,10 +184,13 @@ public class ADMIN_PositionsCTRL implements Initializable {
     }
 
     @FXML
-    public void deactivatePosition(ActionEvent actionEvent) throws SQLException {
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate Position", "Are you sure you want to deactivate this position?", "This action cannot be undone.");
-        if (actionIsConfirmed) {
-            Position.deactivatePosition(selectedPosition.getId());
+    public void invertPositionStatus(ActionEvent actionEvent) throws SQLException {
+        String actionType = selectedPosition.getStatus() == 1 ? "Deactivate" : "Activate";
+        String confirmationMessage = actionType + " this position?";
+        String actionDescription = "This action will " + actionType.toLowerCase() + " the currently selected position";
+
+        if (Modal.actionConfirmed(actionType, confirmationMessage, actionDescription)) {
+            Position.invertPositionStatus(selectedPosition.getId());
             loadPositionTable();
             clearFields();
         }

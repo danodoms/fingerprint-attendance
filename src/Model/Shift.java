@@ -119,6 +119,32 @@ public class Shift {
         return shifts;
     }
 
+    public static ObservableList<Shift> getActiveShifts() {
+        ObservableList<Shift> shifts = FXCollections.observableArrayList();
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()) {
+            String query = "SELECT * FROM `shift` WHERE status = 1";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                shifts.add(new Shift(
+                        rs.getInt("shift_id"),
+                        rs.getString("shift_name"),
+                        rs.getString("start_time"),
+                        rs.getString("end_time"),
+                        rs.getInt("status")
+                ));
+            }
+            System.out.println("SHIFTS: " + shifts);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return shifts;
+    }
+
     //ADD SHIFT TO DATABASE
     public static void addShift(String shiftName, String startTime, String endTime){
         try (Connection connection = DatabaseUtil.getConnection();
@@ -175,6 +201,34 @@ public class Shift {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    //invert shift status
+    public static void invertShiftStatus(int shiftId) throws SQLException{
+        String query = "UPDATE shift SET status=1-status WHERE shift_id=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, shiftId);
+            preparedStatement.executeUpdate();
+
+            System.out.println("Executed invertShiftStatus");
+        }
+    }
+
+    //create method shift already exists
+    public static boolean shiftAlreadyExists(String shiftName) throws SQLException{
+        String query = "SELECT * FROM shift WHERE shift_name = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, shiftName);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            return rs.next();
         }
     }
 

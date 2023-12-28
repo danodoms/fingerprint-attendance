@@ -125,7 +125,7 @@ public class Department {
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()){
             
-            String query = "SELECT department_id, department_name FROM department WHERE department_id=?";
+            String query = "SELECT * FROM department WHERE department_id=?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, departmentId);
             
@@ -134,7 +134,9 @@ public class Department {
             while (rs.next()) {
                   department = new Department(
                           rs.getInt("department_id"),
-                 rs.getString("department_name")
+                 rs.getString("department_name"),
+                          rs.getString("description"),
+                    rs.getInt("status")
                   );
             }
 
@@ -148,8 +150,8 @@ public class Department {
         String insertQuery = "INSERT INTO department (department_name, description) VALUES (?, ?)";
 
         PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(insertQuery);
-            preparedStatement.setString(1, departmentName);
-            preparedStatement.setString(2, description);
+            preparedStatement.setString(1, departmentName.trim());
+            preparedStatement.setString(2, description.trim());
 
             preparedStatement.executeUpdate();
     }
@@ -182,5 +184,32 @@ public class Department {
             
             System.out.println("Executed deactivateDepartment");
         }
+    }
+
+    public static void invertDepartmentStatus(int departmentId) throws SQLException{
+        Department department = getDepartmentById(departmentId);
+        int status = department.getStatus() == 1 ? 0 : 1;
+
+        String query = "UPDATE department SET status=? WHERE department_id=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, status);
+            preparedStatement.setInt(2, departmentId);
+            preparedStatement.executeUpdate();
+
+            System.out.println("Executed invertDepartmentStatus");
+        }
+    }
+
+    public static boolean departmentNameExists(String departmentName) throws SQLException{
+        String query = "SELECT * FROM department WHERE department_name=?";
+        PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(query);
+        preparedStatement.setString(1, departmentName);
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        return rs.next();
     }
 }

@@ -81,7 +81,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-border-color: transparent;
     -fx-color: white;
     /*-fx-text-fill: white; */
-    -fx-text-fill: #1a1a1a;
+    -fx-text-fill:  -color-text;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-border-radius: 100px;
@@ -92,16 +92,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 #navVbox .button:hover {
     /*-fx-background-color: #07f9a2; */
-    -fx-background-color: #1a1a1a;
+    -fx-background-color: -color-accent-primary;
     -fx-font-weight: bold;
     /*-fx-text-fill: #1a1a1a; */
-    -fx-text-fill: #07f9a2;
+    /*-fx-text-fill: #07f9a2;*/
 }
 
 #navVbox .button:pressed{
-    -fx-background-color: #1a1a1a;
-    -fx-font-weight: bold;
-    -fx-text-fill: #07f9a2;
+    opacity: 0.7;
 }
 
 /*#navVbox .label {
@@ -200,9 +198,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .button:hover {
-    -fx-opacity: 0.85;
     -fx-background-color: -color-accent-primary;
-
 }
 
 
@@ -303,7 +299,10 @@ TextField,
 
 
 
-
-
+.rounded {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-clip: ellipse(50% 50%);
+}
 
 

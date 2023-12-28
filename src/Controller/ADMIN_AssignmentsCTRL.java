@@ -5,8 +5,11 @@
 package Controller;
 
 import Model.*;
+import Utilities.Filter;
 import Utilities.ImageUtil;
 import Utilities.Modal;
+import com.dlsc.gemsfx.DialogPane;
+import com.dlsc.gemsfx.TimePicker;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +25,7 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -74,14 +78,6 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     @FXML
     private HBox buttonContainerHBox;
     @FXML
-    private TextField startTimeHourField;
-    @FXML
-    private TextField startTimeMinuteField;
-    @FXML
-    private TextField endTimeHourField;
-    @FXML
-    private TextField endTimeMinuteField;
-    @FXML
     private ChoiceBox userAssignCntFilterChoiceBox;
     @FXML
     private ChoiceBox assignmentStatusFilterChoiceBox;
@@ -92,6 +88,10 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     private TextField searchField;
     @FXML
     private Label manageUserLabel;
+    @FXML
+    private TimePicker startTimePicker;
+    @FXML
+    private TimePicker endTimePicker;
 
 
     /**
@@ -105,6 +105,12 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         col_name.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
 
 
+        //DEPARTMENT CHOICEBOX
+        //MAKE DEPARTMENT CHOICEBOX SET THE POSITION CHOICEBOX VALUE TO NULL WHEN A NEW DEPARTMENT IS SELECTED
+        departmentChoiceBox.setOnAction(event -> {
+            positionChoiceBox.setValue(null);
+        });
+
 
         //ASSIGNMENT TABLE
         col_department.setCellValueFactory(new PropertyValueFactory<Assignment, String>("department"));
@@ -117,7 +123,7 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
 
         //ASSIGNMENT CHOICEBOX
         departmentChoiceBox.getItems().addAll(Department.getActiveDepartments());
-        shiftChoiceBox.getItems().addAll(Shift.getShifts());
+        shiftChoiceBox.getItems().addAll(Shift.getActiveShifts());
 
         //USER ASSIGNMENT COUNT FILTER CHOICE BOX
         userAssignCntFilterChoiceBox.getItems().addAll("All", "None", "1", "2", "More than 2");
@@ -148,41 +154,80 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
             System.out.println("Selected Dept ID: "+selectedDepartmentId);
             positionChoiceBox.setItems(Position.getPositionsByDepartmentId(selectedDepartmentId));
         });
-        
+
+
+
+
         shiftChoiceBox.setOnAction(event -> {
             //System.out.println(Arrays.toString(shiftChoiceBox.getValue().getStartTime().split(":")));
-            
+
             String startTime = shiftChoiceBox.getValue().getStartTime();
             String endTime = shiftChoiceBox.getValue().getEndTime();
-            
-            
-            if(!(startTime.equals(""))){
-                String startTimeHour = shiftChoiceBox.getValue().getStartTime().split(":")[0];
-                String startTimeMinute = shiftChoiceBox.getValue().getStartTime().split(":")[1];
 
-                startTimeHourField.setText(startTimeHour);
-                startTimeMinuteField.setText(startTimeMinute);
+
+            if(!(startTime.isEmpty())){
+                //DEPRECATED
+//                String startTimeHour = shiftChoiceBox.getValue().getStartTime().split(":")[0];
+//                String startTimeMinute = shiftChoiceBox.getValue().getStartTime().split(":")[1];
+//
+//                startTimeHourField.setText(startTimeHour);
+//                startTimeMinuteField.setText(startTimeMinute);
+
+                startTimePicker.setTime(LocalTime.parse(shiftChoiceBox.getValue().getStartTime()));
             }
-            
-            
-            if(!(endTime.equals(""))){
-                String endTimeHour = shiftChoiceBox.getValue().getEndTime().split(":")[0];
-                String endTimeMinute = shiftChoiceBox.getValue().getEndTime().split(":")[1];
 
-                endTimeHourField.setText(endTimeHour);
-                endTimeMinuteField.setText(endTimeMinute);
+
+            if(!(endTime.isEmpty())){
+                //DEPRECATED
+//                String endTimeHour = shiftChoiceBox.getValue().getEndTime().split(":")[0];
+//                String endTimeMinute = shiftChoiceBox.getValue().getEndTime().split(":")[1];
+//
+//                endTimeHourField.setText(endTimeHour);
+//                endTimeMinuteField.setText(endTimeMinute);
+
+                endTimePicker.setTime(LocalTime.parse(shiftChoiceBox.getValue().getEndTime()));
             }
         });
-        
-        addBtn.setVisible(false);
-        updateBtn.setVisible(false);
-        deactivateBtn.setVisible(false);
-        
+
+
+
+        //make the end time and start time pickers uneditable if the selected shift is empty or it contains a value of "flexi" or "overload"
+
+//        startTimePicker.setEditable(false);
+//        endTimePicker.setEditable(false);
+//
+//        shiftChoiceBox.setOnAction(event -> {
+//
+//            String shiftName = shiftChoiceBox.getValue().getShiftName().toString().toLowerCase();
+//
+//
+//            if(shiftChoiceBox.getValue() == null){
+//                startTimePicker.setEditable(false);
+//                endTimePicker.setEditable(false);
+//            }else{
+//                if(shiftName.contains("flexi") || shiftName.contains("overload")){
+//                    startTimePicker.setEditable(false);
+//                    endTimePicker.setEditable(false);
+//                }else{
+//                    startTimePicker.setEditable(true);
+//                    endTimePicker.setEditable(true);
+//                }
+//            }
+//        });
+
         userImageView.setVisible(false);
         userNameLabel.setVisible(false);
         manageUserLabel.setVisible(false);
-        
+
+        startTimePicker.setTime(null);
+        endTimePicker.setTime(null);
+
+
         loadUserTable();
+
+
+        //print if starttimepicker and endtimepicker is editable
+        System.out.println("startTimePicker.isEditable(): " + startTimePicker.isEditable());
     }    
     
     public void loadUserTable(){
@@ -236,13 +281,12 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
 
 
 
-
         assignmentTable.setItems(filteredAssignments);
     }    
 
     @FXML
     private void userSelected(MouseEvent event) {
-        showAddBtnOnly();
+//        showAddBtnOnly();
         selectedUser = userTable.getSelectionModel().getSelectedItem();
         loadAssignmentTable(selectedUser.getId());
         
@@ -258,7 +302,7 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
 
     @FXML
     private void assignmentSelected(MouseEvent event) {
-        showUpdateDeactivateBtnOnly();
+//        showUpdateDeactivateBtnOnly();
         selectedAssignment = assignmentTable.getSelectionModel().getSelectedItem();
         String department = selectedAssignment.getDepartment();
         int departmentId = selectedAssignment.getDepartmentId();
@@ -290,16 +334,27 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         } else {
             System.out.println("Invalid time range format");
         }
-        
-        //TIME FIELDS
-        startTimeHourField.setText(startTimeHour);
-        startTimeMinuteField.setText(startTimeMinute);
-        endTimeHourField.setText(endTimeHour);
-        endTimeMinuteField.setText(endTimeMinute);
+
+        //DEPRECATED
+//        //TIME FIELDS
+//        startTimeHourField.setText(startTimeHour);
+//        startTimeMinuteField.setText(startTimeMinute);
+//        endTimeHourField.setText(endTimeHour);
+//        endTimeMinuteField.setText(endTimeMinute);
+
+        //TIME PICKERS
+        startTimePicker.setTime(selectedAssignment.getStartTime());
+        endTimePicker.setTime(selectedAssignment.getEndTime());
         
         departmentChoiceBox.setValue(new Department(departmentId,department));
         positionChoiceBox.setValue(new Position(positionId, position));
         shiftChoiceBox.setValue(new Shift(shiftId, shift));
+
+        if(selectedAssignment.getStatus() == 1){
+            deactivateBtn.setText("Deactivate");
+        }else{
+            deactivateBtn.setText("Activate");
+        }
 
         
     }
@@ -338,35 +393,78 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         departmentChoiceBox.setValue(null);
         positionChoiceBox.setValue(null);
         shiftChoiceBox.setValue(new Shift(""));
-        
-        //TIME FIELDS
-        startTimeHourField.clear();
-        startTimeMinuteField.clear();
-        endTimeHourField.clear();
-        endTimeMinuteField.clear();
+
+        //set timepicker to null
+        startTimePicker.setTime(null);
+        endTimePicker.setTime(null);
+
+        //DEPRECATED
+//        //TIME FIELDS
+//        startTimeHourField.clear();
+//        startTimeMinuteField.clear();
+//        endTimeHourField.clear();
+//        endTimeMinuteField.clear();
     }
 
     @FXML
-    private void addAssignment(ActionEvent event) {
+    private void addAssignment(ActionEvent event) throws SQLException {
+        //check first if values are null before storing them
+
+        //check if a user is selected first
+        if(selectedUser == null){
+            Modal.showModal("Failed", "Please select a user first");
+            return;
+        }
+
+        //check if no fields are empty, if there is then showModal and return
+        if (departmentChoiceBox.getValue() == null || positionChoiceBox.getValue() == null || shiftChoiceBox.getValue() == null || startTimePicker.getTime() == null || endTimePicker.getTime() == null) {
+            Modal.showModal("Failed", "Please fill out all fields");
+            return;
+        }
+
+        //get the values from the fields
         int userId = selectedUser.getId();
         int positionId = positionChoiceBox.getValue().getId();
         int shiftId = shiftChoiceBox.getValue().getId();
-        
-        String startTime = startTimeHourField.getText() + ":" + startTimeMinuteField.getText();
-        String endTime = endTimeHourField.getText() + ":" + endTimeMinuteField.getText();
-        
-        
+
+        String startTime = startTimePicker.getTime().toString();
+        String endTime = endTimePicker.getTime().toString();
+
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String dateAssigned = currentDate.format(formatter);
-        
-        try{
-            Assignment.addAssignment(userId, positionId, shiftId, startTime, endTime, dateAssigned);
-        } catch(SQLException ex){
-            Modal.showModal("Failed", "Database Error");
+
+
+        //check if position is already assigned to user but allow if the shift contains the word "overload"
+        if (Assignment.positionAlreadyExists(userId, positionId) && !shiftChoiceBox.getValue().getShiftName().toLowerCase().contains("overload")) {
+            Modal.showModal("Failed", "This position is already assigned to the selected user");
+            return;
         }
-        
-        Modal.showModal("Success", "Assignment Added");
+
+        //for each active assignment in the assignment table, check if the time range overlaps with the new assignment
+        boolean isOverlapping = false;
+
+        ObservableList<Assignment> assignments = Assignment.getActiveAssignmentsByUserId(userId);
+        for (Assignment assignment : assignments) {
+            if (Filter.TIME.isOverlapping(assignment.getStartTime() + "", assignment.getEndTime() + "", startTime, endTime)) {
+                isOverlapping = true;
+                break;
+            }
+        }
+
+        System.out.println("isOverlapping: " + isOverlapping);
+
+        if (isOverlapping) {
+            if (Modal.actionConfirmed("Overlapping Assignment", "Overlapping assignment, Continue?", "This will add an overlapping assignment")) {
+                Assignment.addAssignment(userId, positionId, shiftId, startTime, endTime, dateAssigned);
+            }
+        } else {
+            //prompt user to confirm action
+            if (Modal.actionConfirmed("Add Assignment", "Do you want to proceed?", "This will add a new assignment")) {
+                Assignment.addAssignment(userId, positionId, shiftId, startTime, endTime, dateAssigned);
+            }
+        }
+
         loadAssignmentTable(userId);
     }
 
@@ -375,11 +473,16 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         int assignmentId = selectedAssignment.getId();
         int positionId = positionChoiceBox.getValue().getId();
         int shiftId = shiftChoiceBox.getValue().getId();
-        String startTime = startTimeHourField.getText() + ":" + startTimeMinuteField.getText();
-        String endTime = endTimeHourField.getText() + ":" + endTimeMinuteField.getText();
+
+        //DEPRECATED
+//        String startTime = startTimeHourField.getText() + ":" + startTimeMinuteField.getText();
+//        String endTime = endTimeHourField.getText() + ":" + endTimeMinuteField.getText();
+
+        String startTime = startTimePicker.getTime().toString();
+        String endTime = endTimePicker.getTime().toString();
         
         
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Update", "Do you want to proeed?", "This will update the selected assignment record");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Update", "Do you want to proeed?", "This will update the selected assignment record");
         if(actionIsConfirmed){
             try {
                     Assignment.updateAssignment(assignmentId, positionId, shiftId, startTime, endTime);
@@ -391,13 +494,15 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
     }
 
     @FXML
-    private void deactivateAssignment(ActionEvent event) {
-        int assignmentId = selectedAssignment.getId();
-        
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Deactivate", "Do you want to proeed?", "This will deactivate the selected assignment record");
-        if(actionIsConfirmed){
-            Assignment.deactivateAssignment(assignmentId);
+    private void invertAssignmentStatus(ActionEvent event) {
+        String actionType = selectedAssignment.getStatus() == 1 ? "Deactivate" : "Activate";
+        String confirmationMessage = actionType + " this assignment?";
+        String actionDescription = "This action will " + actionType.toLowerCase() + " the currently selected assignment";
+
+        if (Modal.actionConfirmed(actionType, confirmationMessage, actionDescription)) {
+            Assignment.invertAssignmentStatus(selectedAssignment.getId());
             loadAssignmentTable(selectedUser.getId());
+            clearFields();
         }
         
     }
@@ -436,27 +541,27 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         }
     }
 
-    @FXML
-    private void filterTimeFields(KeyEvent event){
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-
-        executor.execute(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            Platform.runLater(() -> {
-                startTimeHourField.setText(filterHour(startTimeHourField.getText()));
-                startTimeMinuteField.setText(filterMinute(startTimeMinuteField.getText()));
-                endTimeHourField.setText(filterHour(endTimeHourField.getText()));
-                endTimeMinuteField.setText(filterMinute(endTimeMinuteField.getText()));
-            });
-        });
-        executor.shutdown();
-
-
-    }
+//DEPRECATED
+//    private void filterTimeFields(KeyEvent event){
+//        ExecutorService executor = Executors.newFixedThreadPool(1);
+//
+//        executor.execute(() -> {
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//
+//            Platform.runLater(() -> {
+//                startTimeHourField.setText(filterHour(startTimeHourField.getText()));
+//                startTimeMinuteField.setText(filterMinute(startTimeMinuteField.getText()));
+//                endTimeHourField.setText(filterHour(endTimeHourField.getText()));
+//                endTimeMinuteField.setText(filterMinute(endTimeMinuteField.getText()));
+//            });
+//        });
+//        executor.shutdown();
+//
+//
+//    }
 
 }

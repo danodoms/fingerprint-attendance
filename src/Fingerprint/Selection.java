@@ -24,7 +24,7 @@ public class Selection extends Thread{
             ReaderCollection readerCollection = getReaderCollection();
             if (!readerCollection.isEmpty()) {
                 Reader reader = readerCollection.get(0);
-                System.out.println("Connected fingerprint reader: " + reader.GetDescription().name);
+                System.out.println("readerIsConnected method: Connected fingerprint reader: " + reader.GetDescription().name);
                 return true;
             } else {
                 System.out.println("No fingerprint reader found.");
@@ -40,7 +40,6 @@ public class Selection extends Thread{
         try {
             ReaderCollection readerCollection = getReaderCollection();
             if (!readerCollection.isEmpty()) {
-                Reader reader = readerCollection.get(0);
                 return true;
             }
         } catch (UareUException e) {
@@ -64,7 +63,7 @@ public class Selection extends Thread{
 
     public static void getReader(){
         try {
-            if (readerIsConnected_noLogging()){
+            if (readerIsConnected()){
                 ReaderCollection readerCollection = getReaderCollection();
                 reader = readerCollection.get(0);
             }
@@ -119,6 +118,7 @@ public class Selection extends Thread{
                 }
             }
         });
+//        executor.shutdown();
     }
 
     public void Run(){

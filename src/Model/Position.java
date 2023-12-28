@@ -145,8 +145,8 @@ public class Position {
 
             String query = "INSERT INTO position (position_name, position_desc, department_id) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, position);
-            preparedStatement.setString(2, description);
+            preparedStatement.setString(1, position.trim());
+            preparedStatement.setString(2, description.trim());
             preparedStatement.setInt(3, departmentId);
 
             preparedStatement.executeUpdate();
@@ -184,6 +184,36 @@ public class Position {
             preparedStatement.executeUpdate();
 
             System.out.println("Executed deactivatePosition");
+        }
+    }
+
+    //invert position status
+    public static void invertPositionStatus(int positionId) throws SQLException{
+        String query = "UPDATE position SET status=1-status WHERE position_id=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, positionId);
+            preparedStatement.executeUpdate();
+
+            System.out.println("Executed invertPositionStatus");
+        }
+    }
+
+    //if position already exists based on department id
+    public static boolean positionAlreadyExists(String position, int departmentId) throws SQLException{
+        String query = "SELECT * FROM position WHERE position_name=? AND department_id=?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, position);
+            preparedStatement.setInt(2, departmentId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            return rs.next();
         }
     }
 }
