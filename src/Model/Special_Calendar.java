@@ -29,6 +29,42 @@ public class Special_Calendar {
     private Date startDate;
     private Date endDate;
     private int total;
+    private String name;
+    private int year;
+    private int month;
+    private int day;
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
 
     public String getAttachment() {
         return attachment;
@@ -113,7 +149,38 @@ public class Special_Calendar {
          this.startDate = startDate;
          this.total = total;
      }
+     
+     public Special_Calendar(String name, String type,int year, int month, int day){
+        this.name = name;
+        this.type = type;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+     }
+     
+    public static ObservableList<Special_Calendar> getHolidayDtr(){
+        ObservableList<Special_Calendar> dtrHolidayDocx = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()){
+            
+            ResultSet rs = statement.executeQuery("SELECT * FROM `user_calendar_schedule`");
+            
+            while (rs.next()) {
+                dtrHolidayDocx.add(new Special_Calendar(
+                        rs.getString("name"),
+                        rs.getString("type"),
+                        rs.getInt("year"),
+                        rs.getInt("month"),
+                        rs.getInt("day")
+                ));
+            }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dtrHolidayDocx;
+    }
+     
      public static ObservableList<Special_Calendar> getCalendarByUserId(int user_id) {
     ObservableList<Special_Calendar> calendar = FXCollections.observableArrayList();
     try (Connection connection = DatabaseUtil.getConnection();
