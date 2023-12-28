@@ -193,13 +193,15 @@ public class ADMIN_UserCalendarCTRL implements Initializable{
         }
 
         if(isOverlapping){
-            if(Modal.actionConfirmed("Confirm Action","Date Overlaps with: '" + specialCalendarName+"'", "Date overlaps with existing special calendar, do you want to proceed?")){
-                try{
-                    Special_Calendar.addSpecialCalendar(type, description, attachment, startDate, endDate);
-                } catch(SQLException ex){
-                    Modal.showModal("Failed", "Database Error");
-                }
-            }
+//            if(Modal.actionConfirmed("Confirm Action","Date Overlaps with: '" + specialCalendarName+"'", "Date overlaps with existing special calendar, do you want to proceed?")){
+//                try{
+//                    Special_Calendar.addSpecialCalendar(type, description, attachment, startDate, endDate);
+//                } catch(SQLException ex){
+//                    Modal.showModal("Failed", "Database Error");
+//                }
+//            }
+
+            Modal.showModal("Failed", "Date Overlaps with: '" + specialCalendarName+"'");
         }else{
             //add confirmation modal first
             if(Modal.actionConfirmed("Confirm Action","Do you want to proceed?", "This will add also to all employee records")){

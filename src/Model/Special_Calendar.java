@@ -271,7 +271,7 @@ public class Special_Calendar {
         }
     }
     public static void deactivateSpecialCalendar(int special_calendar_id) {
-        String query = "UPDATE special_calendar SET status = 0 WHERE special_calendar_id = ?";
+        String query = "UPDATE special_calendar SET status = 2 WHERE special_calendar_id = ?";
 
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
