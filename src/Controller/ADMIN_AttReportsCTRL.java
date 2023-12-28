@@ -160,8 +160,196 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             }
         }
 }
-
+   @FXML
+    public void generateOLDTR(ActionEvent event){
+        boolean actionIsConfirmed = Modal.showConfirmationModal("Generate DTR", "Do you want to generate?", "This will generate the selected employee DTR");
+        if (actionIsConfirmed) {
+            generateOLDOCX();
+        }
+    }
     
+     private void generateOLDOCX() {
+    try {
+        FileInputStream templateFile = new FileInputStream(new File("DTR.docx"));
+        XWPFDocument doc = new XWPFDocument(templateFile);
+        String monthYearText = monthYearLabel.getText().toUpperCase();
+        String[] monthYear = monthYearText.split(" , ");
+        String nameText = nameLabel.getText().toUpperCase();
+
+        String[] name = nameText.split(" ");
+        String monthToNum = "";
+
+        int daysInMonth = 0, lateCount = 0, absentCount = 0;
+        if (monthYear[0].equals("JANUARY")) { monthToNum = "1"; }
+        if (monthYear[0].equals("FEBRUARY")) { monthToNum = "2"; }
+        if (monthYear[0].equals("MARCH")) { monthToNum = "3"; }
+        if (monthYear[0].equals("APRIL")) { monthToNum = "4"; }
+        if (monthYear[0].equals("MAY")) { monthToNum = "5"; }
+        if (monthYear[0].equals("JUNE")) { monthToNum = "6"; }
+        if (monthYear[0].equals("JULY")) { monthToNum = "7"; }
+        if (monthYear[0].equals("AUGUST")) { monthToNum = "8"; }
+        if (monthYear[0].equals("SEPTEMBER")) { monthToNum = "9"; }
+        if (monthYear[0].equals("OCTOBER")) { monthToNum = "10"; }
+        if (monthYear[0].equals("NOVEMBER")) { monthToNum = "11"; }
+        if (monthYear[0].equals("DECEMBER")) { monthToNum = "12"; }
+
+        int year = Integer.parseInt(monthYear[1]);
+        int month = Integer.parseInt(monthToNum);
+        YearMonth yearMonth = YearMonth.of(year, month);
+        daysInMonth = yearMonth.lengthOfMonth();
+
+        // Define target texts
+        String targetNameText = "Name:";
+        String targetMonthText = "For the month of";
+
+        boolean targetNameFound = false;
+        boolean targetMonthFound = false;
+
+        for (IBodyElement element : doc.getBodyElements()) {
+            if (element instanceof XWPFParagraph) {
+                XWPFParagraph paragraph = (XWPFParagraph) element;
+
+                // Check for "Name:" target text
+                if (paragraph.getText().contains(targetNameText)) {
+                    // Add a run to the paragraph
+                    XWPFRun run = paragraph.createRun();
+                    run.setText("       " + nameLabel.getText().toUpperCase());
+
+                    // Can customize the font, size, etc. for the new run if needed
+                    run.setFontFamily("Times New Roman");
+                    run.setFontSize(12);
+
+                    targetNameFound = true;
+                }
+
+                // Check for "For the month of" target text
+                if (paragraph.getText().contains(targetMonthText)) {
+                    // Add a run to the paragraph
+                    XWPFRun run = paragraph.createRun();
+                    run.setText(" " + monthYearLabel.getText().toUpperCase()+"(OL)");
+
+                    // You can customize the font, size, etc. for the new run if needed
+                    run.setFontFamily("Times New Roman");
+                    run.setFontSize(12);
+
+                    targetMonthFound = true;
+                }
+            } else if (element instanceof XWPFTable) {
+                ObservableList<Timeoff> dtrTimeoff = Timeoff.getTimeoffDtr();
+                ObservableList<Special_Calendar> dtrHoliday = Special_Calendar.getHolidayDtr();
+                ObservableList<Attendance> dtrList = Attendance.getOLAMForDocx();
+                ObservableList<Attendance> dtrListPm = Attendance.getOLPMForDocx();
+                XWPFTable table = (XWPFTable) element;
+                int counter = 0;
+                List<XWPFTableRow> rows = table.getRows();
+
+                for (int targetRowIndex = 2; targetRowIndex <= 32; targetRowIndex++) {
+                    counter++;
+                    if(counter>daysInMonth){
+                        break;
+                    }else{
+                        LocalDate localDate = LocalDate.of(year, month, counter);
+                        XWPFTableRow targetRow = table.getRow(targetRowIndex);
+                        XWPFTableCell targetCell = targetRow.getCell(1);
+                        String cellText = "", cellText1="";
+                        int rowC =counter +1;
+                            
+                         for (Special_Calendar holiday : dtrHoliday ) {//-----------------Holiday traversal
+                                 if(nameLabel.getText().toUpperCase().equals(holiday.getName().toUpperCase())
+                                        && holiday.getYear()== year && holiday.getMonth()== month && holiday.getDay()==counter
+                                        && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
+                                        && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
+                                    System.out.println("-----Timeoff Year: "+holiday.getYear()+" Month: "+holiday.getMonth()+" Day: "+holiday.getDay()+" Type: "+ holiday.getType());
+                                    
+                                    if(cellText.equals("")){
+                                        mergeCellsHorizontally(table, rowC, 1, 5);
+                                        targetCell.setText(holiday.getType().toUpperCase());
+                                        cellText = "HOLIDAY";
+                                        cellText1 = "HOLIDAY";
+                                    }
+                                }
+                             }
+                        
+                            for (Timeoff timeoff : dtrTimeoff ) {//-----------------Timeoff traversal
+                                 if(nameLabel.getText().toUpperCase().equals(timeoff.getName().toUpperCase())
+                                         && timeoff.getMonth()== month && timeoff.getDay()==counter
+                                         && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
+                                         && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
+                                    System.out.println("-----Timeoff Month: "+timeoff.getMonth()+" Day: "+timeoff.getDay()+" Type: "+ timeoff.getType());
+                                    
+                                    if(cellText.equals("")){
+                                        mergeCellsHorizontally(table, rowC, 1, 5);
+                                        targetCell.setText(timeoff.getType().toUpperCase());
+                                        cellText = timeoff.getType().toUpperCase();
+                                        cellText1 = timeoff.getType().toUpperCase();
+                                    }
+                                }
+                             }
+                             System.out.println("--------------------------CELLTEXT STRING VALUE: "+cellText);
+                            for (Attendance attendance : dtrList) {//-----------------Attendance traversal
+                                    if ((attendance.getName().toUpperCase()).equals(nameLabel.getText().toUpperCase())
+                                        && (attendance.getDtrDate().toUpperCase()).equals(monthYearLabel.getText().toUpperCase())
+                                        && (targetRowIndex - 1) == attendance.getDay() && cellText1.equals("")) {
+
+                                        targetCell.setText(attendance.getTimeIn());
+                                    targetCell = targetRow.getCell(2);
+                                        targetCell.setText(attendance.getTimeOut());
+                                        cellText = "AM";
+                                    System.out.println(attendance.getTimeInAm() + ", " + attendance.getTimeOutAm());
+                                    
+                                }
+                            } 
+                             for (Attendance attendance : dtrListPm) {
+                             if ((attendance.getName().toUpperCase()).equals(nameLabel.getText().toUpperCase())
+                                        && (attendance.getDtrDate().toUpperCase()).equals(monthYearLabel.getText().toUpperCase())
+                                        && (targetRowIndex - 1) == attendance.getDay() && cellText1.equals("")) {
+
+                                    targetCell = targetRow.getCell(3);
+                                        targetCell.setText(attendance.getTimeIn());
+                                    targetCell = targetRow.getCell(4);
+                                        targetCell.setText(attendance.getTimeOut());
+                                        cellText = "PM";
+                                    System.out.println(attendance.getTimeInAm() + ", " + attendance.getTimeOutAm());
+                                }
+                            }
+                            if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY && cellText.equals("")) {
+                                    mergeCellsHorizontally(table, rowC, 1, 5);
+                                    targetCell.setText("SATURDAY");
+
+                                } else if (localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                                    mergeCellsHorizontally(table, rowC, 1, 5);
+                                    targetCell.setText("SUNDAY");
+
+                                }
+                           
+                    }
+                }
+            }
+        }
+
+        if (targetNameFound && targetMonthFound) {
+
+            FileOutputStream fileOutputStream = new FileOutputStream(name[1] + "_" + monthYear[0] + "_" + monthYear[1] + "_OL.docx");
+            doc.write(fileOutputStream);
+            fileOutputStream.close();
+            String fileName =name[1] + "_" + monthYear[0] + "_" + monthYear[1] + "_OL.docx";
+            System.out.println("-----------------Text added successfully.");
+            boolean actionIsConfirmed = Modal.showConfirmationModal("Open File", "Do you want to open the File?", "This action will open "+name[1] + "_" + monthYear[0] + "_" + monthYear[1]+"_OL file.");
+                if (actionIsConfirmed) {
+                    File file = new File(fileName);
+                    Desktop desktop = Desktop.getDesktop();
+                    desktop.open(file);
+                }
+        } else {
+            System.out.println("-----------------Target text(s) not found.");
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    
+   
     @FXML
     public void generateDTR(ActionEvent event){
         boolean actionIsConfirmed = Modal.showConfirmationModal("Generate DTR", "Do you want to generate?", "This will generate the selected employee DTR");

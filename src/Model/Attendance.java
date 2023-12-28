@@ -254,6 +254,60 @@ public void setTimeOutPm(String timeOutPm) {
     this.timeOutPm = timeOutPm;
 }   
 
+public Attendance (String dtrDate, int day, String name,  String timeIn, String timeOut){
+        this.dtrDate = dtrDate;
+        this.day = day;
+        this.name = name;
+        this.timeIn = timeIn;
+        this.timeOut = timeOut;
+    }
+
+    public static ObservableList<Attendance> getOLAMForDocx(){
+        ObservableList<Attendance>dtrOLDocx = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()){
+            
+            ResultSet rs = statement.executeQuery("SELECT * FROM `overload_view_am`");
+            
+            while (rs.next()) {
+                dtrOLDocx.add(new Attendance(
+                        rs.getString("dtrDate"),
+                        rs.getInt("day"),
+                        rs.getString("name"),
+                        rs.getString("timeIn"),
+                        rs.getString("timeOut")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dtrOLDocx;
+    }
+
+    public static ObservableList<Attendance> getOLPMForDocx(){
+        ObservableList<Attendance>dtrOLDocx = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+            Statement statement = connection.createStatement()){
+            
+            ResultSet rs = statement.executeQuery("SELECT * FROM `overload_view_pm`");
+            
+            while (rs.next()) {
+                dtrOLDocx.add(new Attendance(
+                        rs.getString("dtrDate"),
+                        rs.getInt("day"),
+                        rs.getString("name"),
+                        rs.getString("timeIn"),
+                        rs.getString("timeOut")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dtrOLDocx;
+    }
+    
     public static ObservableList<Attendance> getDtrForDocx(){
         ObservableList<Attendance>dtrDocx = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();
