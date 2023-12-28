@@ -130,11 +130,19 @@ public class Filter {
             LocalTime startTime2 = LocalTime.parse(start2);
             LocalTime endTime2 = LocalTime.parse(end2);
 
+            // add one minute to end times, to allow 1 minute overlap
+            endTime1 = endTime1.minusMinutes(1);
+            endTime2 = endTime2.minusMinutes(1);
+
             //print the four variables
             System.out.println("startTime1: " + startTime1);
             System.out.println("endTime1: " + endTime1);
             System.out.println("startTime2: " + startTime2);
             System.out.println("endTime2: " + endTime2);
+
+            //return true if the two time is overlapping by 1 minute
+
+
 
             return !(endTime1.isBefore(startTime2) || startTime1.isAfter(endTime2));
         }

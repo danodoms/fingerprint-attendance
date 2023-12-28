@@ -15,6 +15,47 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ADMIN_FingerprintsCTRL">
    <children>
+      <Pane layoutX="414.0" layoutY="22.0" prefHeight="560.0" prefWidth="371.0" styleClass="tilePane">
+         <children>
+            <ImageView fx:id="userImageView" fitHeight="150.0" fitWidth="200.0" layoutX="109.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/default_user_img.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="enrollBtn" layoutX="101.0" layoutY="388.0" mnemonicParsing="false" onAction="#erollBtnAction" prefHeight="34.0" prefWidth="173.0" text="Enroll">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Label alignment="CENTER" layoutX="98.0" layoutY="433.0" prefHeight="27.0" prefWidth="180.0" style="-fx-alignment: center;" text="Last Enroll Date" />
+            <Label fx:id="lastEnrollDateLabel" layoutX="98.0" layoutY="455.0" prefHeight="20.0" prefWidth="180.0" style="-fx-alignment: center;" text="MM/DD/YYYY" />
+            <Label fx:id="nameLabel" layoutX="54.0" layoutY="225.0" prefHeight="17.0" prefWidth="267.0" style="-fx-alignment: center;" text="Name Surname">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Pane layoutX="102.0" layoutY="269.0" prefHeight="97.0" prefWidth="173.0" style="-fx-background-color: -color-accent-primary-to-bottom-right;" styleClass="tilePane">
+               <children>
+                  <Label fx:id="fingerprintCountLabel" layoutX="-4.0" layoutY="36.0" prefHeight="50.0" prefWidth="180.0" style="-fx-alignment: center;" text="0">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </Label>
+                  <Label layoutX="17.0" layoutY="17.0" prefHeight="20.0" prefWidth="138.0" style="-fx-alignment: center;" text="Fingerprints Enrolled" textFill="#75b992">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
       <Pane layoutX="21.0" layoutY="22.0" prefHeight="560.0" prefWidth="382.0" styleClass="tilePane">
          <children>
             <ChoiceBox fx:id="statusFilterChoiceBox" layoutX="272.0" layoutY="47.0" prefHeight="29.0" prefWidth="96.0" />
@@ -31,47 +72,6 @@
                   <Font name="System Bold" size="28.0" />
                </font>
             </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="414.0" layoutY="22.0" prefHeight="560.0" prefWidth="371.0" styleClass="tilePane">
-         <children>
-            <ImageView fx:id="userImageView" fitHeight="150.0" fitWidth="200.0" layoutX="109.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/default_user_img.jpg" />
-               </image>
-            </ImageView>
-            <Label layoutX="115.0" layoutY="342.0" prefHeight="20.0" prefWidth="138.0" style="-fx-alignment: center;" text="Fingerprints Enrolled">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </Label>
-            <Button fx:id="enrollBtn" layoutX="101.0" layoutY="387.0" mnemonicParsing="false" onAction="#erollBtnAction" prefHeight="25.0" prefWidth="173.0" text="Enroll">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Label alignment="CENTER" layoutX="98.0" layoutY="432.0" prefHeight="27.0" prefWidth="180.0" style="-fx-alignment: center;" text="Last Enroll Date" />
-            <Label fx:id="lastEnrollDateLabel" layoutX="98.0" layoutY="454.0" prefHeight="20.0" prefWidth="180.0" style="-fx-alignment: center;" text="MM/DD/YYYY" />
-            <Label fx:id="nameLabel" layoutX="54.0" layoutY="215.0" prefHeight="17.0" prefWidth="267.0" style="-fx-alignment: center;" text="Name Surname">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Pane layoutX="142.0" layoutY="249.0" prefHeight="86.0" prefWidth="85.0" style="-fx-background-color: -color-accent-primary-to-bottom-right;" styleClass="tilePane">
-               <children>
-                  <Label fx:id="fingerprintCountLabel" layoutX="-10.0" layoutY="10.0" prefHeight="74.0" prefWidth="106.0" style="-fx-alignment: center;" text="0">
-                     <font>
-                        <Font name="System Bold" size="40.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </Pane>
          </children>
       </Pane>
    </children>

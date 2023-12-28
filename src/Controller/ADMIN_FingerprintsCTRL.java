@@ -64,6 +64,11 @@ public class ADMIN_FingerprintsCTRL implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
+        //empty labels
+        nameLabel.setText("");
+        
+
         col_id.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
 

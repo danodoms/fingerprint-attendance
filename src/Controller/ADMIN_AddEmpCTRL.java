@@ -147,7 +147,12 @@ public class ADMIN_AddEmpCTRL implements Initializable {
                         User.addUser(fname, mname, lname, suffix, email, password, privilege, contactNum, sex, birthDate, address, image);
                         showModal("Success","Employee added successfully!");
                     }
+
                     clearFields();
+
+                    //close
+                    Stage stage = (Stage) addEmployeeBtn.getScene().getWindow();
+                    stage.close();
                 }else{
                     showModal("Failed", prompt);
                 }
@@ -157,9 +162,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
                 ex.printStackTrace();
             }
 
-            //close
-            Stage stage = (Stage) addEmployeeBtn.getScene().getWindow();
-            stage.close();
+
     }
     
     private String generatePrompt(User user, String repeatedPassword, String mode){

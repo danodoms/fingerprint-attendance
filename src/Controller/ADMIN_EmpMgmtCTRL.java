@@ -93,6 +93,16 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
+        //empty labels
+        nameLabel.setText("");
+        emailLabel.setText("");
+        birthDateLabel.setText("");
+        contactNumLabel.setText("");
+        addressLabel.setText("");
+
+
+
+
         if(Session.getInstance().getLoggedInUser().getPrivilege().equalsIgnoreCase("records officer")){
             editUserBtn.setVisible(false);
             deactivateUserBtn.setVisible(false);

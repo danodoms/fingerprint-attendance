@@ -14,7 +14,10 @@ import Utilities.Encryption;
 import Utilities.PaneUtil;
 import com.dlsc.gemsfx.DialogPane;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +25,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -43,43 +47,12 @@ public class LoginPaneCTRL implements Initializable {
     @FXML
     private Button loginRecordsOfficerBtn;
 
-    /**
-     * Initializes the controller class.
-     */
-    
-    
-    @FXML
-    private Button fpEnrollmentShortcutBtn;
-    @FXML
-    private Button fpIdentificationShortcutBtn;
     @FXML
     private ImageView fpImageview;
     @FXML
-    private Pane loginPane;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
     private Button loginBtn;
     @FXML
-    private Pane fpEnrollmentPane;
-    @FXML
-    private ImageView userImage;
-    @FXML
-    private Label userNameLabel;
-    @FXML
-    private Label fpCountLabel;
-    @FXML
-    private Button enrollFpBtn;
-    @FXML
-    private Label lastEnrollDateLabel;
-    @FXML
     private Label titleLabel;
-    @FXML
-    private Pane fpIdentificationPane;
-    @FXML
-    private ImageView fpIdentificationUserImage;
-    @FXML
-    private Label fpIdentificationUserName;
     @FXML
     private TextField emailField;
     @FXML
@@ -100,6 +73,15 @@ public class LoginPaneCTRL implements Initializable {
     private Label scannerStatusSubtextLabel;
 
     IdentificationThread identification;
+    @FXML
+    private ImageView togglePassVisibilityImageView;
+
+
+    boolean showPassword = false;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private TextField visiblePasswordField;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -140,16 +122,34 @@ public class LoginPaneCTRL implements Initializable {
 
 
 
-        
-        showPassCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                passwordField.setPromptText(passwordField.getText());
-                passwordField.setText("");
+
+        passwordField.setVisible(true);
+        visiblePasswordField.setVisible(false);
+
+
+        //i want to make the togglePassVisibilityImageView clickable and switch between two pictures
+        togglePassVisibilityImageView.setOnMouseClicked(event -> {
+            if (showPassword) {
+                togglePassVisibilityImageView.setImage(new Image("/Images/hide_password.png"));
+
+                passwordField.setText(visiblePasswordField.getText());
+                passwordField.setVisible(true);
+                visiblePasswordField.setVisible(false);
+
+                showPassword = false;
             } else {
-                passwordField.setText(passwordField.getPromptText());
-                passwordField.setPromptText("");
+                togglePassVisibilityImageView.setImage(new Image("/Images/show_password.png"));
+
+                visiblePasswordField.setText(passwordField.getText());
+                visiblePasswordField.setVisible(true);
+                passwordField.setVisible(false);
+
+                showPassword = true;
             }
         });
+
+
+
 
 
         identification.start();
@@ -325,14 +325,14 @@ public class LoginPaneCTRL implements Initializable {
 
     
     
-    @FXML
+    @Deprecated
     private void openFpEnrollmentPane(ActionEvent event) {
         paneUtil.openPane(paneUtil.FP_ENROLLMENT);
     }
 
     
     
-    @FXML
+    @Deprecated
     private void openFpIdentificationPane(ActionEvent event) {
         paneUtil.openPane(paneUtil.FP_IDENTIFICATION);
     }

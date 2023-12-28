@@ -105,6 +105,12 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         col_name.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
 
 
+        //DEPARTMENT CHOICEBOX
+        //MAKE DEPARTMENT CHOICEBOX SET THE POSITION CHOICEBOX VALUE TO NULL WHEN A NEW DEPARTMENT IS SELECTED
+        departmentChoiceBox.setOnAction(event -> {
+            positionChoiceBox.setValue(null);
+        });
+
 
         //ASSIGNMENT TABLE
         col_department.setCellValueFactory(new PropertyValueFactory<Assignment, String>("department"));
@@ -148,14 +154,17 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
             System.out.println("Selected Dept ID: "+selectedDepartmentId);
             positionChoiceBox.setItems(Position.getPositionsByDepartmentId(selectedDepartmentId));
         });
-        
+
+
+
+
         shiftChoiceBox.setOnAction(event -> {
             //System.out.println(Arrays.toString(shiftChoiceBox.getValue().getStartTime().split(":")));
-            
+
             String startTime = shiftChoiceBox.getValue().getStartTime();
             String endTime = shiftChoiceBox.getValue().getEndTime();
-            
-            
+
+
             if(!(startTime.isEmpty())){
                 //DEPRECATED
 //                String startTimeHour = shiftChoiceBox.getValue().getStartTime().split(":")[0];
@@ -166,8 +175,8 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
 
                 startTimePicker.setTime(LocalTime.parse(shiftChoiceBox.getValue().getStartTime()));
             }
-            
-            
+
+
             if(!(endTime.isEmpty())){
                 //DEPRECATED
 //                String endTimeHour = shiftChoiceBox.getValue().getEndTime().split(":")[0];
@@ -179,11 +188,33 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
                 endTimePicker.setTime(LocalTime.parse(shiftChoiceBox.getValue().getEndTime()));
             }
         });
-        
-//        addBtn.setVisible(false);
-//        updateBtn.setVisible(false);
-//        deactivateBtn.setVisible(false);
-        
+
+
+
+        //make the end time and start time pickers uneditable if the selected shift is empty or it contains a value of "flexi" or "overload"
+
+//        startTimePicker.setEditable(false);
+//        endTimePicker.setEditable(false);
+//
+//        shiftChoiceBox.setOnAction(event -> {
+//
+//            String shiftName = shiftChoiceBox.getValue().getShiftName().toString().toLowerCase();
+//
+//
+//            if(shiftChoiceBox.getValue() == null){
+//                startTimePicker.setEditable(false);
+//                endTimePicker.setEditable(false);
+//            }else{
+//                if(shiftName.contains("flexi") || shiftName.contains("overload")){
+//                    startTimePicker.setEditable(false);
+//                    endTimePicker.setEditable(false);
+//                }else{
+//                    startTimePicker.setEditable(true);
+//                    endTimePicker.setEditable(true);
+//                }
+//            }
+//        });
+
         userImageView.setVisible(false);
         userNameLabel.setVisible(false);
         manageUserLabel.setVisible(false);
@@ -193,6 +224,10 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
 
 
         loadUserTable();
+
+
+        //print if starttimepicker and endtimepicker is editable
+        System.out.println("startTimePicker.isEditable(): " + startTimePicker.isEditable());
     }    
     
     public void loadUserTable(){
@@ -359,6 +394,10 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         positionChoiceBox.setValue(null);
         shiftChoiceBox.setValue(new Shift(""));
 
+        //set timepicker to null
+        startTimePicker.setTime(null);
+        endTimePicker.setTime(null);
+
         //DEPRECATED
 //        //TIME FIELDS
 //        startTimeHourField.clear();
@@ -396,13 +435,11 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
         String dateAssigned = currentDate.format(formatter);
 
 
-
-        //check if position is already assigned to user
-        if (Assignment.positionAlreadyExists(userId, positionId)) {
+        //check if position is already assigned to user but allow if the shift contains the word "overload"
+        if (Assignment.positionAlreadyExists(userId, positionId) && !shiftChoiceBox.getValue().getShiftName().toLowerCase().contains("overload")) {
             Modal.showModal("Failed", "This position is already assigned to the selected user");
             return;
         }
-
 
         //for each active assignment in the assignment table, check if the time range overlaps with the new assignment
         boolean isOverlapping = false;
