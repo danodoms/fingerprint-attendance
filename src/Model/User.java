@@ -39,6 +39,13 @@ public class User {
 
    private String fullNameWithInitial;
 
+    public User(int userId, String userEmail, String password, String privilege) {
+        this.id = userId;
+        this.email = userEmail;
+        this.password = password;
+        this.privilege = privilege;
+    }
+
     public String getFullNameWithInitial() {
         //print the full name with initial
         System.out.println("Full Name with Initial: " + StringUtil.createFullNameWithInitial(fname, mname, lname, suffix));
@@ -398,17 +405,18 @@ public class User {
         try (Connection connection = DatabaseUtil.getConnection();
             Statement statement = connection.createStatement()) {
 
-            String query = "SELECT email, password, privilege FROM user WHERE email = ?";
+            String query = "SELECT user_id, email, password, privilege FROM user WHERE email = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
 
             ResultSet rs = preparedStatement.executeQuery();
             
             if (rs.next()) {
+                int userId = rs.getInt("user_id");
                 String userEmail = rs.getString("email");
                 String password = rs.getString("password");
                 String privilege = rs.getString("privilege");
-                user = new User(userEmail, password, privilege);
+                user = new User(userId, userEmail, password, privilege);
             }
 
         } catch (SQLException e) {

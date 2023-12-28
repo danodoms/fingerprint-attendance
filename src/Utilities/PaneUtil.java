@@ -23,8 +23,9 @@ import java.io.IOException;
  */
 public class PaneUtil {
     public final String LOGIN_PANE = "/View/LoginPane.fxml";
-    public final String ADMIN_PANE = "/View/ADMIN_Pane.fxml";
+    public final String CONTAINER_PANE = "/View/ContainerPane.fxml";
     public final String RO_PANE = "/View/RO_Pane.fxml";
+    public final String RO_DASHBOARD = "/View/RO_Dashboard.fxml";
     public final String ADMIN_EMP_MGMT = "/View/ADMIN_EmpMgmt.fxml";
     public final String ADMIN_ADD_EMP = "/View/ADMIN_AddEmp.fxml";
     public final String ADMIN_ASSIGNMENTS = "/View/ADMIN_Assignments.fxml";

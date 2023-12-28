@@ -8,6 +8,7 @@ import Model.*;
 import Utilities.Filter;
 import Utilities.ImageUtil;
 import Utilities.Modal;
+import com.dlsc.gemsfx.DialogPane;
 import com.dlsc.gemsfx.TimePicker;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;

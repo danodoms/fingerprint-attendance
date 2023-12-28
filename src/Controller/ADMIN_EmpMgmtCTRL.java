@@ -8,6 +8,7 @@ import Model.Assignment;
 import Model.Position;
 import Model.Shift;
 import Model.User;
+import Session.Session;
 import Utilities.DatabaseUtil;
 import Utilities.ImageUtil;
 import Utilities.Modal;
@@ -91,6 +92,11 @@ public class ADMIN_EmpMgmtCTRL implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
+        if(Session.getInstance().getLoggedInUser().getPrivilege().equalsIgnoreCase("records officer")){
+            editUserBtn.setVisible(false);
+            deactivateUserBtn.setVisible(false);
+        }
 
         //INIT privilege FILTER CHOICEBOX
         privilegeFilter_choiceBox.setValue("All");

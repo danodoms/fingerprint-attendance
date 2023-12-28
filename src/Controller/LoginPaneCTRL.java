@@ -9,8 +9,10 @@ import Fingerprint.IdentificationThread;
 import Fingerprint.Selection;
 import Fingerprint.ThreadFlags;
 import Model.User;
+import Session.Session;
 import Utilities.Encryption;
 import Utilities.PaneUtil;
+import com.dlsc.gemsfx.DialogPane;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -101,6 +103,7 @@ public class LoginPaneCTRL implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
 
         loginPrompt.setVisible(false);
 
@@ -265,9 +268,13 @@ public class LoginPaneCTRL implements Initializable {
         String email = user.getEmail();
         String password = user.getPassword();
 
+        User userFromDb = User.getUserByUserId(user.getId());
+
         //check if password matches
         if (Encryption.verifyPassword(enteredPassword, password)) {
             System.out.println("password matched");
+
+            Session.getInstance().setLoggedInUser(userFromDb);
             proceedUserLogin(user);
         } else {
             System.out.println("password mismatched");
@@ -288,21 +295,19 @@ public class LoginPaneCTRL implements Initializable {
         
         if(privilege.equalsIgnoreCase("employee")){
             System.out.println("Access denied");
-        }else if(privilege.equalsIgnoreCase("admin")){
-            paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.ADMIN_PANE);
-            System.out.println("Logged in as " + currentUser+"");
-        }else if(privilege.equalsIgnoreCase("records officer")){
-            paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.RO_PANE);
+        }else if(privilege.equalsIgnoreCase("admin") || privilege.equalsIgnoreCase("records officer")){
+            paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.CONTAINER_PANE);
             System.out.println("Logged in as " + currentUser+"");
         }
-        
     }
     
     
     
     @FXML
     private void openAdminPane(ActionEvent event) {
-        paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.ADMIN_PANE);
+        User user = new User("dev@dev.com", "developer", "admin");
+        Session.getInstance().setLoggedInUser(user);
+        paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.CONTAINER_PANE);
         System.out.println("Logged in as admin");
         identification.stopThread();
     }
@@ -311,7 +316,9 @@ public class LoginPaneCTRL implements Initializable {
     
     @FXML
     private void openRecordsOfficerPane(ActionEvent event) {
-        paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.RO_PANE);
+        User user = new User("dev@dev.com", "developer", "records officer");
+        Session.getInstance().setLoggedInUser(user);
+        paneUtil.exitAndOpenNewPane(loginRecordsOfficerBtn, paneUtil.CONTAINER_PANE);
         System.out.println("Logged in as records officer");
         identification.stopThread();
     }
