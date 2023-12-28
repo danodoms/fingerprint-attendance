@@ -27,14 +27,16 @@ public class VerficationThread extends Thread{
     int candidateCount = 1; //how many candidate Fmd/s to return
     //private boolean isFingerprintMatched;
     private int userIdToMatch;
+    private int delayTimeInMs;
 
     boolean runThisThread = true;
 
 
 
     //constructor used for user fingerprint verification
-    public VerficationThread(int userIdToMatch){
+    public VerficationThread(int userIdToMatch, int delayTimeInMs){
         this.userIdToMatch = userIdToMatch;
+        this.delayTimeInMs = delayTimeInMs;
     }
 
 
@@ -61,14 +63,18 @@ public class VerficationThread extends Thread{
         Selection.closeAndOpenReader();
 
         //print identification thread started
+        ThreadFlags.runVerificationThread = true;
         System.out.println("Verification Thread Started");
+
         while(runThisThread) {
             Fmd fmdToIdentify = getFmdFromCaptureThread();
             Fmd[] databaseFmds = getFmdsFromDatabase();
             //compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
             isFingerprintMatchWithUserId(fmdToIdentify, databaseFmds);
         }
+        ThreadFlags.runVerificationThread = false;
         System.out.println("Verification Thread Stopped");
+
     }
 
 
@@ -80,15 +86,26 @@ public class VerficationThread extends Thread{
 //            Thread.sleep(1000);
 //        }
 
-        captureThread = new CaptureThread("Verification Thread");
+        captureThread = new CaptureThread("Verification Thread", delayTimeInMs);
         captureThread.start();
         captureThread.join(0); //wait till done
 
         //store the FMD from the latest capture event, from captureThread
         CaptureThread.CaptureEvent evt = captureThread.getLastCapture();
-        Fmd fmdToIdentify = engine.CreateFmd(evt.captureResult.image, Fmd.Format.ISO_19794_2_2005);
+        if(evt == null ){
+            System.out.println("evt is null");
 
-        return fmdToIdentify;
+            return null;
+        }else{
+            if(evt.captureResult.image == null){
+                System.out.println("evt.captureResult.image is null");
+                return null;
+            }
+            Fmd fmdToIdentify = engine.CreateFmd(evt.captureResult.image, Fmd.Format.ISO_19794_2_2005);
+            return fmdToIdentify;
+        }
+
+
     }
 
 
@@ -110,6 +127,14 @@ public class VerficationThread extends Thread{
 
     //used for verification
     private void isFingerprintMatchWithUserId(Fmd fmdToIdentify, Fmd[] databaseFmds) throws UareUException{
+
+        if(fmdToIdentify == null){
+            System.out.println("fmdToIdentify is null");
+            ThreadFlags.isFingerprintMatched = false;
+            runThisThread = false;
+            return;
+        }
+
         Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, databaseFmds, falsePositiveRate, candidateCount );
 
         if(candidateFmds.length != 0){

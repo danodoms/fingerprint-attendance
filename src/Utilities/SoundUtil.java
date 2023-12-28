@@ -16,12 +16,12 @@ public class SoundUtil {
 
     
      public static void playSuccessSound() {
-         AudioClip buzzer = new AudioClip(SoundUtil.class.getResource("/Audio/success.wav").toExternalForm());
+         AudioClip buzzer = new AudioClip(SoundUtil.class.getResource("/Audio/success.mp3").toExternalForm());
          buzzer.play();
      }
 
      public static void playFailSound() {
-         AudioClip buzzer = new AudioClip(SoundUtil.class.getResource("/Audio/fail.wav").toExternalForm());
+         AudioClip buzzer = new AudioClip(SoundUtil.class.getResource("/Audio/fail.mp3").toExternalForm());
          buzzer.play();
      }
 

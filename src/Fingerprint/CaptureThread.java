@@ -19,6 +19,7 @@ public class CaptureThread extends Thread{
     private ImageView imageview;
     private CaptureEvent lastCapture;
     private String threadName;
+    private int delayTimeInMs;
     
     public CaptureThread(ImageView imageview){
         this.imageview = imageview;
@@ -29,9 +30,18 @@ public class CaptureThread extends Thread{
         this.threadName = threadName;
 
     }
+
+    public CaptureThread(String threadName, int delayTimeInMs){
+        this.threadName = threadName;
+        this.delayTimeInMs = delayTimeInMs;
+
+    }
     
     public void startCapture() {
         System.out.println(threadName + ": Capture Thread Started");
+
+
+
         try {
             //null checking for reader before executing the lines below
             if(Selection.reader == null){
@@ -39,24 +49,31 @@ public class CaptureThread extends Thread{
                     Selection.reader = Selection.getReader();
                 });
             }else{
-                System.out.println("Reader Status: " + Selection.reader.GetStatus());
+                System.out.println(threadName + "Reader Status: " + Selection.reader.GetStatus());
+                cancelCaptureBasedOnDelayTime(delayTimeInMs);
                 Reader.CaptureResult captureResult = Selection.reader.Capture(Fid.Format.ISO_19794_4_2005, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
 
+
+
                 lastCapture = new CaptureEvent(captureResult, Selection.reader.GetStatus());
-                System.out.println("Capture quality: " + captureResult.quality);
+                System.out.println(threadName + "Capture quality: " + captureResult.quality);
 
-                //Store sigle fingerprint view
-                Fid fid = captureResult.image;
-                Fid.Fiv view = fid.getViews()[0];
+                Fid.Fiv view = null;
 
-                //Display fingerprint image on imageview
-                if(imageview != null){
+                if(captureResult.image != null ){
+                    //Store single fingerprint view
+                    Fid fid = captureResult.image;
+                    view = fid.getViews()[0];
+                }
+
+                if(imageview != null && view != null){
+                    //Display fingerprint image on imageview
                     Display.displayFingerprint(view, imageview);
                 }
+
+
             }
 
-
-                
             } catch (UareUException ex) {
                 ex.printStackTrace();
             }
@@ -105,6 +122,29 @@ public class CaptureThread extends Thread{
     
     public CaptureEvent getLastCapture(){
         return lastCapture;
+    }
+
+    public void cancelCaptureBasedOnDelayTime(int delayTimeInMs){
+        //platform runlater syntax
+
+        if(delayTimeInMs != 0){
+            Platform.runLater(() -> {
+                try {
+                    System.out.println("Delaying for " + delayTimeInMs + "ms");
+                    Thread.sleep(delayTimeInMs);
+
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    Selection.reader.CancelCapture();
+                } catch (UareUException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+
+
     }
 
     @Override

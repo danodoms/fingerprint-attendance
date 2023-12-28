@@ -35,7 +35,7 @@ public class IdentificationThread extends Thread{
     ObservableList<User> userList;
     int falsePositiveRate = Engine.PROBABILITY_ONE / 100000; //sets how accurate the identification should be to return candidate
     int candidateCount = 1; //how many candidate Fmd/s to return
-    int delayTimeInMs = 5000;
+    int delayTimeInMs = 4000;
     
     private boolean headlessMode = false;
 
@@ -61,7 +61,7 @@ public class IdentificationThread extends Thread{
 
         //print identification thread started
         System.out.println("Identification Thread Started");
-        while(ThreadFlags.runIdentificationThread && ThreadFlags.runVerificationThread == false) {
+        while(ThreadFlags.runIdentificationThread) {
             Fmd fmdToIdentify = getFmdFromCaptureThread(imageview);
             Fmd[] databaseFmds = getFmdsFromDatabase();
             compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
@@ -82,11 +82,20 @@ public class IdentificationThread extends Thread{
         captureThread.start();
         captureThread.join(0); //wait till done
 
+
         //store the FMD from the latest capture event, from captureThread
-        CaptureThread.CaptureEvent evt = captureThread.getLastCapture();
-        Fmd fmdToIdentify = engine.CreateFmd(evt.captureResult.image, Fmd.Format.ISO_19794_2_2005);
-        
-        return fmdToIdentify;
+        CaptureThread.CaptureEvent evt = null;
+
+        if(captureThread.getLastCapture() != null){
+            evt = captureThread.getLastCapture();
+        }
+
+        if(evt.captureResult.image != null){
+            Fmd fmdToIdentify = engine.CreateFmd(evt.captureResult.image, Fmd.Format.ISO_19794_2_2005);
+            return fmdToIdentify;
+        }else{
+            return null;
+        }
     }    
     
       
@@ -108,7 +117,12 @@ public class IdentificationThread extends Thread{
     
     
     //third method used in "startIdentification"
-    private boolean compareFmdToDatabaseFmds(Fmd fmdToIdentify, Fmd[] databaseFmds) throws UareUException{     
+    private boolean compareFmdToDatabaseFmds(Fmd fmdToIdentify, Fmd[] databaseFmds) throws UareUException{
+
+        if(fmdToIdentify == null){
+            System.out.println("fmdToIdentify is null");
+            return false;
+        }
         Candidate[] candidateFmds = engine.Identify(fmdToIdentify, 0, databaseFmds, falsePositiveRate, candidateCount );
 
         if(candidateFmds.length != 0){
@@ -169,7 +183,17 @@ public class IdentificationThread extends Thread{
 
         //make the thread sleep based on delayTimeInMs
         try {
-            Thread.sleep(delayTimeInMs);
+            if(ThreadFlags.runVerificationThread == false){
+                Thread.sleep(delayTimeInMs);
+            }else{
+                while(ThreadFlags.runVerificationThread){
+                    System.out.println("Waiting for verification thread to end capture");
+                    Thread.sleep(1000);
+                }
+            }
+
+
+
         } catch (InterruptedException ex) {
             Logger.getLogger(IdentificationThread.class.getName()).log(Level.SEVERE, null, ex);
         }

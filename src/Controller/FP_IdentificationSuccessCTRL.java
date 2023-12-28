@@ -22,10 +22,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * FXML Controller class
@@ -98,7 +100,13 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         nameMnameLabel.setText(formattedName[1]);
 
         prevTimeInLabel.setVisible(false);
+
+        //Platform runlater syntax
+
         loadProgressbar();
+
+
+
         addAttendance();
 
 
@@ -201,11 +209,15 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
                 SoundUtil.playDenySound();
                 attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
 
-                //get how much time before 12:00 in Hours and minutes, make it concise
-                LocalTime timeNow = LocalTime.now();
-                LocalTime timeNoon = LocalTime.parse("12:00");
-                int hours = timeNoon.getHour() - timeNow.getHour();
-                int minutes = timeNow.getMinute() - timeNoon.getMinute();
+
+                LocalTime currentTime = LocalTime.now();
+                // Define 12 noon
+                LocalTime noonTime = LocalTime.of(12, 0);
+                // Calculate the duration between the current time and 12 noon
+                Duration duration = Duration.between(currentTime, noonTime);
+                // Extract hours and minutes from the duration
+                long hours = duration.toHours();
+                long minutes = duration.minusHours(hours).toMinutes();
                 String timeLeft = hours+" hours and "+minutes+" minutes";
 
 
@@ -230,18 +242,49 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
 
 
 
+//    public void timeOutUser(String time) {
+//        SoundUtil.playPromptSound();
+//
+//        attendanceTypeLabel.setText("SCAN AGAIN TO TIME OUT");
+//        timeLabel.setText("");
+//        dateLabel.setText("");
+//        prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId())+" SINCE LAST TIME IN");
+//        prevTimeInLabel.setVisible(true);
+//
+//
+//        Platform.runLater(() -> {
+//            //ThreadFlags.runVerificationThread = true;
+//            VerficationThread verificationThread = new VerficationThread(userToTime.getId(), delayTimeInMs);
+//            verificationThread.start();
+//            try {
+//                verificationThread.join();
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//            if(ThreadFlags.isFingerprintMatched){
+//                timeOutActionConfirmed(time);
+//            }else{
+//                attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
+//                SoundUtil.playFailSound();
+//            }
+//        });
+//    }
+
+
+
+
     public void timeOutUser(String time) {
         SoundUtil.playPromptSound();
 
         attendanceTypeLabel.setText("SCAN AGAIN TO TIME OUT");
         timeLabel.setText("");
         dateLabel.setText("");
-        prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId())+" SINCE LAST TIME IN");
+        prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId()) + " SINCE LAST TIME IN");
         prevTimeInLabel.setVisible(true);
 
-
-        Platform.runLater(() -> {
-            VerficationThread verificationThread = new VerficationThread(userToTime.getId());
+        CompletableFuture<Void> verificationFuture = CompletableFuture.runAsync(() -> {
+            VerficationThread verificationThread = new VerficationThread(userToTime.getId(), delayTimeInMs);
             verificationThread.start();
             try {
                 verificationThread.join();
@@ -249,31 +292,42 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
                 throw new RuntimeException(e);
             }
 
-
-            if(ThreadFlags.isFingerprintMatched){
-                timeOutActionConfirmed(time);
-            }else{
-                attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
-                SoundUtil.playFailSound();
+            if (ThreadFlags.isFingerprintMatched) {
+                //Platform.runLater(() -> {
+                    timeOutActionConfirmed(time);
+//                });
+            } else {
+                Platform.runLater(() -> {
+                    attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
+                    SoundUtil.playFailSound();
+                });
             }
+        });
+
+        // Handle completion asynchronously if needed
+        verificationFuture.thenRun(() -> {
+            // Code to run after verification is complete (if needed)
         });
     }
 
     public void timeOutActionConfirmed(String time){
-        System.out.println("User timed out at " + time);
-        attendanceTypeLabel.setText("Timed Out");
-        timeLabel.setText(LocalDateTime.now().format(timeFormatter));
-        dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
+        CompletableFuture<Void> methodFuture = CompletableFuture.runAsync(() -> {
+            System.out.println("User timed out at " + time);
+            attendanceTypeLabel.setText("Timed Out");
+            timeLabel.setText(LocalDateTime.now().format(timeFormatter));
+            dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
 
+            // Insert the time into the database
+            Attendance.timeOut(userToTime.getId(), time);
+            SoundUtil.playTimeOutSound();
+            ThreadFlags.isFingerprintMatched = false;
+        });
 
-        // Insert the time in into the database
-        Attendance.timeOut(userToTime.getId(), time);
-        SoundUtil.playTimeOutSound();
-        ThreadFlags.isFingerprintMatched = false;
+        // Handle completion asynchronously if needed
+        methodFuture.thenRun(() -> {
+            // Code to run after verification is complete (if needed)
+        });
     }
-
-
-
     //V1: doesnt confirm action before time out
 //    public void timeOutUser(String time) {
 //        System.out.println("User timed out at " + time);
