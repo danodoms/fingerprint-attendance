@@ -252,10 +252,39 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                         LocalDate localDate = LocalDate.of(year, month, counter);
                         XWPFTableRow targetRow = table.getRow(targetRowIndex);
                         XWPFTableCell targetCell = targetRow.getCell(1);
-                        String cellText = targetCell.getText();
+                        String cellText = "";
                         int rowC =counter +1;
                             
-                            
+                         for (Special_Calendar holiday : dtrHoliday ) {//-----------------Holiday traversal
+                                 if(nameLabel.getText().toUpperCase().equals(holiday.getName().toUpperCase())
+                                        && holiday.getYear()== year && holiday.getMonth()== month && holiday.getDay()==counter
+                                        && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
+                                        && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
+                                    System.out.println("-----Timeoff Year: "+holiday.getYear()+" Month: "+holiday.getMonth()+" Day: "+holiday.getDay()+" Type: "+ holiday.getType());
+                                    
+                                    if(cellText.equals("")){
+                                        mergeCellsHorizontally(table, rowC, 1, 5);
+                                        targetCell.setText(holiday.getType().toUpperCase());
+                                        cellText = "HOLIDAY";
+                                    }
+                                }
+                             }
+                        
+                            for (Timeoff timeoff : dtrTimeoff ) {//-----------------Timeoff traversal
+                                 if(nameLabel.getText().toUpperCase().equals(timeoff.getName().toUpperCase())
+                                         && timeoff.getMonth()== month && timeoff.getDay()==counter
+                                         && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
+                                         && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
+                                    System.out.println("-----Timeoff Month: "+timeoff.getMonth()+" Day: "+timeoff.getDay()+" Type: "+ timeoff.getType());
+                                    
+                                    if(cellText.equals("")){
+                                        mergeCellsHorizontally(table, rowC, 1, 5);
+                                        targetCell.setText(timeoff.getType().toUpperCase());
+                                        cellText = timeoff.getType().toUpperCase();
+                                    }
+                                }
+                             }
+                             System.out.println("--------------------------CELLTEXT STRING VALUE: "+cellText);
                             for (Attendance attendance : dtrList) {//-----------------Attendance traversal
                                 if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
                                     mergeCellsHorizontally(table, rowC, 1, 5);
@@ -280,33 +309,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                                     System.out.println(attendance.getTimeInAm() + ", " + attendance.getTimeOutAm());
                                 }
                             } 
-                            for (Special_Calendar holiday : dtrHoliday ) {//-----------------Holiday traversal
-                                 if(nameLabel.getText().toUpperCase().equals(holiday.getName().toUpperCase())
-                                        && holiday.getYear()== year && holiday.getMonth()== month && holiday.getDay()==counter
-                                        && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
-                                        && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
-                                    System.out.println("-----Timeoff Year: "+holiday.getYear()+" Month: "+holiday.getMonth()+" Day: "+holiday.getDay()+" Type: "+ holiday.getType());
-                                    
-                                    if(cellText.equals("")){
-                                        mergeCellsHorizontally(table, rowC, 1, 5);
-                                        targetCell.setText(holiday.getType().toUpperCase());
-                                    }
-                                }
-                             }
-                        
-                            for (Timeoff timeoff : dtrTimeoff ) {//-----------------Timeoff traversal
-                                 if(nameLabel.getText().toUpperCase().equals(timeoff.getName().toUpperCase())
-                                         && timeoff.getMonth()== month && timeoff.getDay()==counter
-                                         && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
-                                         && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
-                                    System.out.println("-----Timeoff Month: "+timeoff.getMonth()+" Day: "+timeoff.getDay()+" Type: "+ timeoff.getType());
-                                    
-                                    if(cellText.equals("")){
-                                        mergeCellsHorizontally(table, rowC, 1, 5);
-                                        targetCell.setText(timeoff.getType().toUpperCase());
-                                    }
-                                }
-                             }
+                           
                     }
                 }
             }

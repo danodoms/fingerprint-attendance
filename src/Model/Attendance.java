@@ -350,7 +350,11 @@ public void setTimeOutPm(String timeOutPm) {
                             in = "0"+(convertIn+"")+ ":"+splitIn[1]+":"+splitIn[2];
                         }if(convertOut >= 13){
                             convertOut = convertOut - 12;
-                            out = "0"+(convertOut+"")+ ":"+splitOut[1]+":"+splitOut[2];
+                            if(convertOut<=9){
+                                out = "0"+(convertOut+"")+ ":"+splitOut[1]+":"+splitOut[2];
+                            }else{
+                                out = (convertOut+"")+ ":"+splitOut[1]+":"+splitOut[2];
+                            }
                         }
                         
                     }
@@ -470,7 +474,6 @@ public void setTimeOutPm(String timeOutPm) {
              
              return attendance;
          }
-
 
     public static ObservableList<Attendance> getRecentAttendance(){
         ObservableList<Attendance> recentAttendance = FXCollections.observableArrayList();

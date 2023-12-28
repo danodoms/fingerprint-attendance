@@ -15,7 +15,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
   -color-accent-primary: linear-gradient(to bottom, #a3f8c2, #81ecae, #5ddc99);
   -color-accent-primary-to-bottom-right: linear-gradient(to bottom right, #a3f8c2, #81ecae, #5ddc99);
   -color-accent-secondary: #c9ffec;
-  -color-base:   white;
+  -color-base: white;
+  
+/*  i want a gradient from top left corner to bottom right corner*/
   -color-base-gradient: linear-gradient(to bottom right, -color-base, #f0f0f0);
   -color-base-darker1:   #e6e6e6;
   -color-text: #3b3b3b;
