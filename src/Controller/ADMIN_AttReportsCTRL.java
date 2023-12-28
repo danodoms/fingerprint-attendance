@@ -162,7 +162,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
 }
    @FXML
     public void generateOLDTR(ActionEvent event){
-        boolean actionIsConfirmed = Modal.showConfirmationModal("Generate DTR", "Do you want to generate?", "This will generate the selected employee DTR");
+        boolean actionIsConfirmed = Modal.actionConfirmed("Generate DTR", "Do you want to generate?", "This will generate the selected employee DTR");
         if (actionIsConfirmed) {
             generateOLDOCX();
         }
@@ -334,7 +334,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             fileOutputStream.close();
             String fileName =name[1] + "_" + monthYear[0] + "_" + monthYear[1] + "_OL.docx";
             System.out.println("-----------------Text added successfully.");
-            boolean actionIsConfirmed = Modal.showConfirmationModal("Open File", "Do you want to open the File?", "This action will open "+name[1] + "_" + monthYear[0] + "_" + monthYear[1]+"_OL file.");
+            boolean actionIsConfirmed = Modal.actionConfirmed("Open File", "Do you want to open the File?", "This action will open "+name[1] + "_" + monthYear[0] + "_" + monthYear[1]+"_OL file.");
                 if (actionIsConfirmed) {
                     File file = new File(fileName);
                     Desktop desktop = Desktop.getDesktop();
