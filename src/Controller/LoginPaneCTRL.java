@@ -121,7 +121,8 @@ public class LoginPaneCTRL implements Initializable {
         timer.start();
 
 
-
+        //bind the textProperty of the visiblePasswordField to the textProperty of the passwordField
+        visiblePasswordField.textProperty().bindBidirectional(passwordField.textProperty());
 
         passwordField.setVisible(true);
         visiblePasswordField.setVisible(false);

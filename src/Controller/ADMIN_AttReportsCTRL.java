@@ -480,7 +480,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
 
                                 } else if (localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
                                     mergeCellsHorizontally(table, rowC, 1, 5);
-                                    targetCell.setText("SUNDAY");
+                                    targetCell.setText("SUNDAY                                                                                         ");
 
                                 } else if ((attendance.getName().toUpperCase()).equals(nameLabel.getText().toUpperCase())
                                         && (attendance.getDtrDate().toUpperCase()).equals(monthYearLabel.getText().toUpperCase())
