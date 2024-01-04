@@ -4,6 +4,9 @@
  */
 package Utilities;
 
+import Model.User;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -65,6 +68,30 @@ public class Filter {
                 return "Privilege can't be empty";
             }else{
                 return "";
+            }
+        }
+
+        public static String isEmailInUse(String email){
+            try {
+                if(User.isEmailUsed(email)){
+                    return "Email is already in use";
+                }else{
+                    return "";
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public static String isEmailInUseExceptCurrentUser(String email, String currentEmail){
+            try {
+                if(User.isEmailUsedExceptForCurrentUser(email, currentEmail)){
+                    return "Email is already in use";
+                }else{
+                    return "";
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
     }

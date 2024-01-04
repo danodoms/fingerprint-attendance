@@ -518,7 +518,29 @@ public class User {
             preparedStatement.executeUpdate();
         }
     }
-    
+
+    //create a boolean method that will check if the email is already used
+    public static boolean isEmailUsed(String email) throws SQLException {
+        String query = "SELECT * FROM user WHERE email = ?";
+        PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(query);
+        preparedStatement.setString(1, email);
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        return rs.next();
+    }
+
+    //create a boolean method that will check if the email is already used except for the current user
+    public static boolean isEmailUsedExceptForCurrentUser(String email, String currentEmail) throws SQLException {
+        String query = "SELECT * FROM user WHERE email = ? AND email != ?";
+        PreparedStatement preparedStatement = DatabaseUtil.getConnection().prepareStatement(query);
+        preparedStatement.setString(1, email);
+        preparedStatement.setString(2, currentEmail);
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        return rs.next();
+    }
     
     
     public int getCount() {

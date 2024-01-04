@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -892,6 +893,20 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
         }
     }
 
+    public static void timeOutRecentRecord(int userId, String time) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "UPDATE attendance SET time_out = ? WHERE user_id = ? AND time_out IS NULL")) {
+            statement.setString(1, time);
+            statement.setInt(2, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     public static boolean userHasTimeInToday(int userId) {
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(
@@ -908,7 +923,7 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
         }
     }
 
-    public static boolean userHasTimeOutBetween(int userId, String startTime, String endTime, String notation) {
+    public static boolean userHasTimeOutTodayBetween(int userId, String startTime, String endTime, String notation) {
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      //"SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_in IS NOT NULL ORDER by time_in desc limit 1")) {
@@ -928,12 +943,29 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
         }
     }
 
+
     public static boolean userHasTimeOutToday(int userId) {
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_out IS NOT NULL AND time_in IS NOT NULL")) {
             statement.setInt(1, userId);
             statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1) > 0; // Check if there is at least one record
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Assume no time-out record on error
+        }
+    }
+
+    //create a method that returns a boolean if user has a missing time out record
+    public static boolean userHasMissingTimeOut(int userId) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT COUNT(*) FROM attendance WHERE user_id = ? AND time_out IS NULL AND time_in IS NOT NULL")) {
+            statement.setInt(1, userId);
+//            statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return resultSet.getInt(1) > 0; // Check if there is at least one record
@@ -958,7 +990,7 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
         }
     }
 
-    public static String getHoursSinceLastTimeIn(int userId){
+    public static String getHoursSinceLastTimeInToday(int userId){
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      //"SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_in IS NOT NULL ORDER by time_in desc limit 1")) {
@@ -984,6 +1016,64 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
         }
 
     }
+
+//    public static String getHoursSinceLastTimeIn(int userId){
+//        try (Connection connection = DatabaseUtil.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(
+//                     //"SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_in IS NOT NULL ORDER by time_in desc limit 1")) {
+//                     "SELECT time_in FROM attendance WHERE user_id = ? AND time_in IS NOT NULL AND time_out IS NULL;")){
+//            statement.setInt(1, userId);
+//            ResultSet resultSet = statement.executeQuery();
+//            resultSet.next();
+//
+//
+//            LocalTime earlierTime = LocalTime.parse(resultSet.getString("time_in"));
+//            LocalTime laterTime = LocalTime.now();
+//
+//            // Calculate the time difference
+//            long hours = ChronoUnit.HOURS.between(earlierTime, laterTime);
+//            long minutes = ChronoUnit.MINUTES.between(earlierTime, laterTime) % 60;
+//
+//
+//            return hours + " HOUR(S) AND " + minutes + " MINUTES";
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return "DATABASE ERROR: No time-in record found";
+//        }
+//
+//    }
+
+    public static String getHoursSinceLastTimeIn(int userId) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT date, time_in FROM attendance WHERE user_id = ? AND time_in IS NOT NULL AND time_out IS NULL ORDER BY date DESC, time_in DESC LIMIT 1")) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                LocalDateTime earlierDateTime = LocalDateTime.of(
+                        resultSet.getDate("date").toLocalDate(),
+                        LocalTime.parse(resultSet.getString("time_in"))
+                );
+                LocalDateTime laterDateTime = LocalDateTime.now();
+
+                // Calculate the time difference
+                long totalHours = ChronoUnit.HOURS.between(earlierDateTime, laterDateTime);
+
+                long daysAsHours = ChronoUnit.DAYS.between(earlierDateTime, laterDateTime) * 24;
+                long hours = totalHours % 24;
+                long minutes = ChronoUnit.MINUTES.between(earlierDateTime, laterDateTime) % 60;
+
+                return (daysAsHours + hours) + " HOURS AND " + minutes + " MINUTES";
+            } else {
+                return "No time-in record found";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "DATABASE ERROR: Unable to fetch time-in record";
+        }
+    }
+
 
     public static class Notation{
         public static final String AM = "AM";

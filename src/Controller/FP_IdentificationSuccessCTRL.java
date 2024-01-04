@@ -100,19 +100,81 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         addAttendance();
     }
 
-
     //simplified method, but time out for lunch break is not enforced, meaning if the user needs to log out first before lunch break, before they can login in the next period, if they miss the lnchbreak time out
+//    public void addAttendance() {
+//        // Check if user has already timed in for the current day
+//        boolean hasTimedInToday = Attendance.userHasTimeInToday(userToTime.getId());
+//        System.out.println("Has timed in: " + hasTimedInToday);
+//
+//        // Check if user has timed out for the current day
+//        boolean hasTimedOutToday = Attendance.userHasTimeOutToday(userToTime.getId());
+//        System.out.println("Has timed out: " + hasTimedOutToday);
+//
+//        boolean hasTimedOutAM = Attendance.userHasTimeOutBetween(userToTime.getId(), "00:00", "11:59", "AM");
+//        boolean hasTimedOutPM = Attendance.userHasTimeOutBetween(userToTime.getId(), "12:00", "23:59", "PM");
+//        boolean hasReachedDailyAttendanceLimit = Attendance.userHasReachedDailyAttendanceLimit(userToTime.getId(), dailyAttendanceLimit);
+//
+//        LocalTime currentTime = LocalTime.now();
+//
+//        LocalTime noonTime = LocalTime.of(12, 0);
+//        Duration noontimeDuration = Duration.between(currentTime, noonTime);
+//        long noonTimeHours = noontimeDuration.toHours();
+//        long noonTimeMinutes = noontimeDuration.minusHours(noonTimeHours).toMinutes();
+//
+//        LocalTime midnight = LocalTime.of(23, 59);
+//        Duration midnightDuration = Duration.between(currentTime, midnight);
+//        long midnightHours = midnightDuration.toHours();
+//        long midnightMinutes = midnightDuration.minusHours(midnightHours).toMinutes();
+//
+//        if(hasReachedDailyAttendanceLimit){
+//                SoundUtil.playDenySound();
+//                attendanceTypeLabel.setText("ATTENDANCE LIMIT REACHED");
+//                timeLabel.setText("DAILY LIMIT: " + dailyAttendanceLimit);
+//                dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
+//
+//                System.out.println("///////////IM ON LINE 136//////////");
+//        } else if (hasTimedOutAM && LocalTime.now().isBefore(LocalTime.parse("12:00"))) {
+//                SoundUtil.playDenySound();
+//                attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
+//
+//                String timeLeft = noonTimeHours +" hours and "+ noonTimeMinutes +" minutes";
+//
+//                timeLabel.setText(timeLeft);
+//                dateLabel.setText("UNTIL YOUR NEXT TIME IN");
+//
+//                System.out.println("///////////IM ON LINE 146//////////");
+//        } else if (hasTimedOutPM){
+//                SoundUtil.playDenySound();
+//                attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
+//
+//                String timeLeft = midnightHours +" hours and "+ midnightMinutes +" minutes";
+//
+//                timeLabel.setText(timeLeft);
+//                dateLabel.setText("UNTIL YOUR NEXT TIME IN");
+//
+//                System.out.println("///////////IM ON LINE 156//////////");
+//        }else if (hasTimedInToday) {
+//            timeOutUser(getCurrentTime());
+//            System.out.println("///////////IM ON LINE 159//////////");
+//        } else {
+//            timeInUser(getCurrentTime());
+//            System.out.println("///////////IM ON LINE 162//////////");
+//        }
+//    }
+
     public void addAttendance() {
+        boolean userHasMissingTimeOut = Attendance.userHasMissingTimeOut(userToTime.getId());
+
         // Check if user has already timed in for the current day
-        boolean hasTimedIn = Attendance.userHasTimeInToday(userToTime.getId());
-        System.out.println("Has timed in: " + hasTimedIn);
+        boolean hasTimedInToday = Attendance.userHasTimeInToday(userToTime.getId());
+        System.out.println("Has timed in: " + hasTimedInToday);
 
         // Check if user has timed out for the current day
-        boolean hasTimedOut = Attendance.userHasTimeOutToday(userToTime.getId());
-        System.out.println("Has timed out: " + hasTimedOut);
+        boolean hasTimedOutToday = Attendance.userHasTimeOutToday(userToTime.getId());
+        System.out.println("Has timed out: " + hasTimedOutToday);
 
-        boolean hasTimedOutAM = Attendance.userHasTimeOutBetween(userToTime.getId(), "00:00", "11:59", "AM");
-        boolean hasTimedOutPM = Attendance.userHasTimeOutBetween(userToTime.getId(), "12:00", "23:59", "PM");
+        boolean hasTimedOutTodayAM = Attendance.userHasTimeOutTodayBetween(userToTime.getId(), "00:00", "11:59", "AM");
+        boolean hasTimedOutTodayPM = Attendance.userHasTimeOutTodayBetween(userToTime.getId(), "12:00", "23:59", "PM");
         boolean hasReachedDailyAttendanceLimit = Attendance.userHasReachedDailyAttendanceLimit(userToTime.getId(), dailyAttendanceLimit);
 
         LocalTime currentTime = LocalTime.now();
@@ -128,40 +190,37 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         long midnightMinutes = midnightDuration.minusHours(midnightHours).toMinutes();
 
         if(hasReachedDailyAttendanceLimit){
-                SoundUtil.playDenySound();
-                attendanceTypeLabel.setText("ATTENDANCE LIMIT REACHED");
-                timeLabel.setText("DAILY LIMIT: " + dailyAttendanceLimit);
-                dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
+            SoundUtil.playDenySound();
+            attendanceTypeLabel.setText("ATTENDANCE LIMIT REACHED");
+            timeLabel.setText("DAILY LIMIT: " + dailyAttendanceLimit);
+            dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
+        } else if (hasTimedOutTodayAM && LocalTime.now().isBefore(LocalTime.parse("12:00"))) {
+            SoundUtil.playDenySound();
+            attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
 
-                System.out.println("///////////IM ON LINE 136//////////");
-        } else if (hasTimedOutAM && LocalTime.now().isBefore(LocalTime.parse("12:00"))) {
-                SoundUtil.playDenySound();
-                attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
+            String timeLeft = noonTimeHours +" hours and "+ noonTimeMinutes +" minutes";
 
-                String timeLeft = noonTimeHours +" hours and "+ noonTimeMinutes +" minutes";
+            timeLabel.setText(timeLeft);
+            dateLabel.setText("UNTIL YOUR NEXT TIME IN");
+        } else if (hasTimedOutTodayPM){
+            SoundUtil.playDenySound();
+            attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
 
-                timeLabel.setText(timeLeft);
-                dateLabel.setText("UNTIL YOUR NEXT TIME IN");
+            String timeLeft = midnightHours +" hours and "+ midnightMinutes +" minutes";
 
-                System.out.println("///////////IM ON LINE 146//////////");
-        } else if (hasTimedOutPM){
-                SoundUtil.playDenySound();
-                attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
-
-                String timeLeft = midnightHours +" hours and "+ midnightMinutes +" minutes";
-
-                timeLabel.setText(timeLeft);
-                dateLabel.setText("UNTIL YOUR NEXT TIME IN");
-
-                System.out.println("///////////IM ON LINE 156//////////");
-        }else if (hasTimedIn) {
+            timeLabel.setText(timeLeft);
+            dateLabel.setText("UNTIL YOUR NEXT TIME IN");
+        }else if (userHasMissingTimeOut) {
             timeOutUser(getCurrentTime());
-            System.out.println("///////////IM ON LINE 159//////////");
+            //NOTE: timeOutActionConfirmed for this version of timeOut
         } else {
             timeInUser(getCurrentTime());
-            System.out.println("///////////IM ON LINE 162//////////");
         }
     }
+
+
+
+
 
 
     public void timeInUser(String time) {
@@ -183,6 +242,8 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         attendanceTypeLabel.setText("SCAN AGAIN TO TIME OUT");
         timeLabel.setText("");
         dateLabel.setText("");
+        //DEPRECATED
+        //prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeInToday(userToTime.getId()) + " SINCE LAST TIME IN");
         prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId()) + " SINCE LAST TIME IN");
         prevTimeInLabel.setVisible(true);
 
@@ -224,7 +285,12 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
 
         // Insert the time into the database
-        Attendance.timeOut(userToTime.getId(), time);
+        //Deprecated
+        //Attendance.timeOut(userToTime.getId(), time);
+
+        Attendance.timeOutRecentRecord(userToTime.getId(), time);
+
+
         SoundUtil.playTimeOutSound();
     }
 

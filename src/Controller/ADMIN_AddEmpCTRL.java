@@ -73,6 +73,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     PaneUtil paneUtil = new PaneUtil();
     boolean editMode = false;
     int selectedUserId = 0;
+    User selectedUser;
     @FXML
     private Label passwordLabel;
     @FXML
@@ -164,6 +165,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
 
 
     }
+
     
     private String generatePrompt(User user, String repeatedPassword, String mode){
         ArrayList<String> promptList = new ArrayList<>();
@@ -173,12 +175,16 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         String mnamePrompt = Filter.OPTIONAL.name(user.getMname(), "Middle Name");
         String lnamePrompt = Filter.REQUIRED.name(user.getLname(), "Last Name");
         String emailPrompt = Filter.REQUIRED.email(user.getEmail());
-        
+
+        String emailInUsePrompt = "";
         String passwordPrompt = "";
+
         if(mode.equalsIgnoreCase("add")){
             passwordPrompt = Filter.REQUIRED.password(user.getPassword(), repeatedPassword);
+            emailInUsePrompt = Filter.REQUIRED.isEmailInUse(user.getEmail());
         }else{
             passwordPrompt = Filter.OPTIONAL.password(user.getPassword(), repeatedPassword);
+            emailInUsePrompt = Filter.REQUIRED.isEmailInUseExceptCurrentUser(user.getEmail(), selectedUser.getEmail());
         }
         
         String privilegePrompt = Filter.REQUIRED.privilege(user.getPrivilege());
@@ -190,6 +196,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
         promptList.add(emailPrompt);
         promptList.add(passwordPrompt);
         promptList.add(privilegePrompt);
+        promptList.add(emailInUsePrompt);
         
         //Combines all prompts from promptlist and also adds new line for each
         for(int i=0; i<promptList.size(); i++){
@@ -305,6 +312,7 @@ public class ADMIN_AddEmpCTRL implements Initializable {
     
     public void setDataForEdit(User user, Stage stage, ADMIN_EmpMgmtCTRL adminEmpMgmtCTRL, boolean isEditMode) {
         editMode = isEditMode;
+        selectedUser = user;
 
         if(isEditMode){
             selectedUserId = user.getId();

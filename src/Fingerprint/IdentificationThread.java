@@ -26,6 +26,7 @@ import java.util.logging.Logger;
  * @author admin
  */
 public class IdentificationThread extends Thread{
+    private Runnable onFingerprintScan;
     IdentificationModal identificationModal = new IdentificationModal();
     private ImageView imageview; //sets the imageview to use as fingerprint display, likely from fpIdentification.fxml
     private Engine engine = UareUGlobal.GetEngine(); //creates engine to be used by whole class
@@ -43,6 +44,12 @@ public class IdentificationThread extends Thread{
     //constructor with fingerprint display
     public IdentificationThread(ImageView imageview){
         this.imageview = imageview;
+    }
+
+    //constructor with fingerprint display and callback function
+    public IdentificationThread(ImageView imageview, Runnable onFingerprintScan){
+        this.imageview = imageview;
+        this.onFingerprintScan = onFingerprintScan;
     }
     
 
@@ -71,9 +78,18 @@ public class IdentificationThread extends Thread{
     //first method used in "startIdentification"
     private Fmd getFmdFromCaptureThread(ImageView imageview)throws UareUException, InterruptedException{
 //        captureThread = new CaptureThread(imageview);
+        //runs the callback function if not null
+        if(onFingerprintScan != null){
+            onFingerprintScan.run();
+        }
+
         captureThread = new CaptureThread("Identification Thread", imageview, this);
         captureThread.start();
         captureThread.join(0); //wait till done
+
+
+
+
 
 
         //store the FMD from the latest capture event, from captureThread

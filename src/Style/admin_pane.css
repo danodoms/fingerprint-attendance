@@ -211,6 +211,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     /*-fx-border-color:linear-gradient(to bottom right, #2f3f89,#9231b5);*/
     -fx-border-width:2px;
     -fx-border-radius:8px;
+    -fx-background-radius: 10px;
 }
 .table-view .table-column{
     /*-fx-alignment: CENTER;*/
@@ -224,13 +225,54 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 .table-view .column-header, .filter{
     -fx-background-color:transparent;
-    -fx-size:40px;
+    -fx-size:30px;
 }
 .table-view .column-header .label{
     -fx-text-fill: -color-text;
     -fx-font-family:"Arial";
 }
 
+.outline-table {
+ -fx-border-width:2px;
+ -fx-border-color: transparent;
+ -fx-background-color: -color-base;
+
+}
+
+.outline-table .column-header {
+    -fx-alignment: left;
+}
+
+.outline-table .column-header-background{
+    -fx-background-color: transparent;
+    /*-fx-background-color: -color-accent-primary;*/
+    -fx-background-radius:8px 8px 0px 0px;
+    -fx-background-inset: 0 0 0 0;
+    -fx-border-width: 10px;
+
+    -fx-max-height: 0;
+        -fx-pref-height: 0;
+        -fx-min-height: 0;
+}
+
+.outline-table .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
+.outline-table .table-row-cell:odd,
+ .outline-table .table-row-cell:even{
+   -fx-background-color: transparent;
+}
+
+.outline-table .table-cell {
+    -fx-padding: 5;
+}
 
 
 TextField,

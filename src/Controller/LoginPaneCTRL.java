@@ -8,6 +8,7 @@ package Controller;
 import Fingerprint.IdentificationThread;
 import Fingerprint.Selection;
 import Fingerprint.ThreadFlags;
+import Model.Attendance;
 import Model.User;
 import Session.Session;
 import Utilities.Encryption;
@@ -18,10 +19,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -56,8 +59,6 @@ public class LoginPaneCTRL implements Initializable {
     @FXML
     private TextField emailField;
     @FXML
-    private CheckBox showPassCheckBox;
-    @FXML
     private Label loginPrompt;
     
     PaneUtil paneUtil = new PaneUtil();
@@ -82,6 +83,18 @@ public class LoginPaneCTRL implements Initializable {
     private PasswordField passwordField;
     @FXML
     private TextField visiblePasswordField;
+    @FXML
+    private TableView recentAttendanceTable;
+    @FXML
+    private TableColumn col_name;
+    @FXML
+    private TableColumn col_time;
+    @FXML
+    private TableColumn col_type;
+
+    String fpAnimationImagePath = "/Images/fp_scan_animation.gif";
+    String fpImagePath = "/Images/fp_placeholder.jpg";
+    Image fpImage = new Image(fpImagePath);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -89,12 +102,10 @@ public class LoginPaneCTRL implements Initializable {
 
         loginPrompt.setVisible(false);
 
-        identification = new IdentificationThread(fpImageview);
-        //set an image for fpImageview
-        String fpAnimationImagePath = "/Images/fp_scan_animation.gif";
-        String fpImagePath = "/Images/fp_placeholder.jpg";
+        Runnable onFingerPrintScan = this::loginCallBackMethod;
+        identification = new IdentificationThread(fpImageview, onFingerPrintScan);
 
-        Image fpImage = new Image(fpImagePath);
+        //set an image for fpImageview
         fpImageview.setImage(fpImage);
 
         // TODO
@@ -149,8 +160,11 @@ public class LoginPaneCTRL implements Initializable {
             }
         });
 
-
-
+        //RECENT ATTENDANCE TABLE
+        col_name.setCellValueFactory(new PropertyValueFactory<Attendance, String>("name"));
+        col_time.setCellValueFactory(new PropertyValueFactory<Attendance, String>("time"));
+        col_type.setCellValueFactory(new PropertyValueFactory<Attendance, String>("type"));
+        loadRecentAttendanceTable();
 
 
         identification.start();
@@ -296,13 +310,31 @@ public class LoginPaneCTRL implements Initializable {
         
         if(privilege.equalsIgnoreCase("employee")){
             System.out.println("Access denied");
+            showLoginPrompt("Access denied");
         }else if(privilege.equalsIgnoreCase("admin") || privilege.equalsIgnoreCase("records officer")){
             paneUtil.exitAndOpenNewPane(loginAdminBtn, paneUtil.CONTAINER_PANE);
             System.out.println("Logged in as " + currentUser+"");
         }
     }
-    
-    
+
+    private void loginCallBackMethod(){
+        loadRecentAttendanceTable();
+        reloadDefaultFingerprintImage();
+
+    }
+
+    private void reloadDefaultFingerprintImage(){
+        //add a 3 second delay before reloading the default fingerprint image
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(7000),
+                ae -> fpImageview.setImage(fpImage)));
+        timeline.play();
+    }
+
+    private void loadRecentAttendanceTable(){
+        ObservableList<Attendance> attendanceList = Attendance.getRecentAttendance();
+        recentAttendanceTable.setItems(attendanceList);
+    }
     
     @FXML
     private void openAdminPane(ActionEvent event) {
