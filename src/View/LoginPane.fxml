@@ -19,7 +19,7 @@
 
 <AnchorPane id="AnchorPane" focusTraversable="true" prefHeight="539.0" prefWidth="778.0" style="-fx-background-color: -color-base;" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginPaneCTRL">
    <children>
-      <VBox layoutX="493.0" layoutY="396.0" prefHeight="104.0" prefWidth="179.0">
+      <VBox layoutX="493.0" layoutY="396.0" opacity="0.05" prefHeight="104.0" prefWidth="179.0">
          <children>
             <Label text="DEV TOOLS" textFill="#bdffdc">
                <font>
@@ -30,6 +30,9 @@
                <VBox.margin>
                   <Insets top="7.0" />
                </VBox.margin>
+               <font>
+                  <Font size="4.0" />
+               </font>
             </Button>
             <Button fx:id="loginRecordsOfficerBtn" mnemonicParsing="false" onAction="#openRecordsOfficerPane" prefHeight="25.0" prefWidth="185.0" styleClass="red" text="LOGIN AS RECORDS OFFICER">
                <VBox.margin>

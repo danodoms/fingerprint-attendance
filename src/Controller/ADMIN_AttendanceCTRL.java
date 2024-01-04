@@ -5,16 +5,21 @@
 package Controller;
 
 import Utilities.DatabaseUtil;
+import Utilities.DateUtil;
 import Utilities.PaneUtil;
 import Model.*;
 import static Model.Attendance.getAdministrative;
 import static Model.Attendance.getAttendance;
 import static Model.Attendance.getInstruction;
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.sql.Date;
 import java.util.ResourceBundle;
+
+import com.dlsc.gemsfx.YearMonthPicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,8 +49,6 @@ public class ADMIN_AttendanceCTRL implements Initializable {
     @FXML
     private TableColumn<Attendance, Date> dateCol;
     @FXML
-    private DatePicker datePicker;
-    @FXML
     private ChoiceBox<Department> departmentChoiceBox;
     @FXML
     private TextField searchBar;
@@ -55,217 +58,93 @@ public class ADMIN_AttendanceCTRL implements Initializable {
     
     DatabaseUtil dbMethods = new DatabaseUtil();
     PaneUtil method = new PaneUtil();
-    
+    @FXML
+    private YearMonthPicker yearMonthPicker;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setTable();
+
+        loadAttendanceTable();
+        //init department choicebox
         departmentChoiceBox.setValue(new Department("All"));
         departmentChoiceBox.getItems().addAll(new Department("All"));
-        departmentChoiceBox.getItems().addAll(Department.getDepartments());
-        departmentChoiceBox.setOnAction(event -> filterByDept());
-    }
+        departmentChoiceBox.getItems().addAll(Department.getActiveDepartments());
 
-    @FXML
-    public void clearChoiceBox(ActionEvent event){
-        setTable();
-    }
-//    @FXML
-    public void setTable(){
+        departmentChoiceBox.setOnAction((event) -> {
+            loadAttendanceTable();
+        });
+
+
+        yearMonthPicker.setOnAction((event) -> {
+            loadAttendanceTable();
+        });
+
+
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         tiCol.setCellValueFactory(new PropertyValueFactory<>("timeIn"));
         toCol.setCellValueFactory(new PropertyValueFactory<>("timeOut"));
         timeNotation.setCellValueFactory(new PropertyValueFactory<>("notation"));
         status.setCellValueFactory(new PropertyValueFactory<>("attendance_status"));
-        adminTableView.setItems(Attendance.getAttendance());
+
+
+        //init search field
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadAttendanceTable();
+        });
+
+
+
+
+    }
+
+    @FXML
+    public void clearChoiceBox(ActionEvent event){
+        resetFilters();
+    }
+//    @FXML
+    public void resetFilters(){
         searchBar.setText("");
-        searchBar.setPromptText("Search name...");
         departmentChoiceBox.setValue(new Department("All"));
-        datePicker.setValue(null);
-        
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        
-        datePicker.setConverter(new StringConverter<LocalDate>(){   
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
-                }
-            }
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                     return LocalDate.parse(string, dateFormatter);
-                }else{
-                    return null;
-                }
+        adminTableView.setItems(Attendance.getAttendance());
+    }
+
+    public void loadAttendanceTable(){
+        ObservableList<Attendance> attendanceList = Attendance.getAttendance();
+
+
+//        ObservableList<Attendance> filteredAttendance = attendanceList.filtered(attendance -> {
+//            String departmentFilter = departmentChoiceBox.getValue().toString();
+//            if(departmentFilter.equalsIgnoreCase("All")){
+//                return true;
+//            }else{
+//                return attendance.getDeptName().equalsIgnoreCase(departmentFilter);
+//            }
+//        });
+
+        //then filter by search bar
+        ObservableList<Attendance> filteredAttendance = attendanceList.filtered(attendance -> {
+            String searchBarFilter = searchBar.getText().toLowerCase();
+            if(searchBarFilter.isEmpty()){
+                return true;
+            }else{
+                return attendance.getName().toLowerCase().contains(searchBarFilter);
             }
         });
+
+        //filter using yearmonthpicker
+//        filteredAttendance = filteredAttendance.filtered(attendance -> {
+//            LocalDate date = DateUtil.utilDateToLocalDate(attendance.getDate());
+//            LocalDate yearMonthPickerDate = LocalDate.from(yearMonthPicker.getValue());
+//            if(yearMonthPickerDate == null){
+//                return true;
+//            }else{
+//                return date.getMonthValue() == yearMonthPickerDate.getMonthValue() && date.getYear() == yearMonthPickerDate.getYear();
+//            }
+//        });
+
+
+        adminTableView.setItems(filteredAttendance);
     }
-    
-    @FXML
-    private void filterBySearchBar(KeyEvent event) {
-        ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
-        String keyword = searchBar.getText().toLowerCase(); 
-        LocalDate selectedDate = datePicker.getValue();
-        
-            if(selectedDate==null && departmentChoiceBox.getValue().toString().equals("All")){
-                for (Attendance attendance : getAttendance()) {   
-                    if ((attendance.getName().toLowerCase()).contains(keyword)){
-                        filteredData.add(attendance);
-                    }
-                }
-            }
-            else if(selectedDate!=null &&departmentChoiceBox.getValue().toString().equals("All")){
-                for (Attendance attendance : getAttendance()) {
-                    if (attendance.getDate().toString().equals(selectedDate.toString()) && (attendance.getName().toLowerCase()).contains(keyword)){
-                        filteredData.add(attendance);
-                    }
-                }
-            }else if(selectedDate!=null && departmentChoiceBox.getValue().toString().equals("Administrative")){
-                for (Attendance attendance : getAdministrative()) {  
-                    if (attendance.getDate().toString().equals(selectedDate.toString()) 
-                            && (attendance.getName().toLowerCase()).contains(keyword)){
-                        filteredData.add(attendance);
-                    }else if(departmentChoiceBox.getValue().toString().equals(attendance.getDeptName())
-                            && attendance.getDate().toString().equals(selectedDate.toString()) 
-                            && (attendance.getName().toLowerCase()).contains(keyword)){
-                        filteredData.add(attendance);
-                    }
-                }
-            }else if(selectedDate!=null && departmentChoiceBox.getValue().toString().equals("Instruction")){
-                for (Attendance attendance : getInstruction()) {
-                    if (attendance.getDate().toString().equals(selectedDate.toString()) 
-                            && (attendance.getName().toLowerCase()).contains(keyword)){
-                        filteredData.add(attendance);
-                        
-                    }
-                 }
-            }
-        adminTableView.setItems(filteredData);
-    }  
-    
-    @FXML
-    private void filterByDate(ActionEvent event) {
-        ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
-        String keyword = searchBar.getText().toLowerCase(); 
-        LocalDate selectedDate = datePicker.getValue();
-        
-            if(selectedDate==null && departmentChoiceBox.getValue().toString().equals("All")){
-                for (Attendance attendance : getAttendance()) {   
-                    if ((attendance.getName().toLowerCase()).contains(keyword)){
-                        filteredData.add(attendance);
-                    }
-                }
-            }
-            else if(selectedDate!=null &&departmentChoiceBox.getValue().toString().equals("All")){
-                for (Attendance attendance : getAttendance()) {
-                    if (attendance.getDate().toString().equals(selectedDate.toString()) && (attendance.getName().toLowerCase()).contains(keyword)){
-                        filteredData.add(attendance);
-                    }
-                }
-            }else if(selectedDate!=null && departmentChoiceBox.getValue().toString().equals("Administrative")){
-                for (Attendance attendance : getAdministrative()) {  
-                    if (attendance.getDate().toString().equals(selectedDate.toString()) 
-                            && (attendance.getName().toLowerCase()).contains(keyword)){
-                        filteredData.add(attendance);
-                    }else if(departmentChoiceBox.getValue().toString().equals(attendance.getDeptName())
-                            && attendance.getDate().toString().equals(selectedDate.toString()) 
-                            && (attendance.getName().toLowerCase()).contains(keyword)){
-                        filteredData.add(attendance);
-                    }
-                }
-            }else if(selectedDate!=null && departmentChoiceBox.getValue().toString().equals("Instruction")){
-                for (Attendance attendance : getInstruction()) {
-                    if (attendance.getDate().toString().equals(selectedDate.toString()) 
-                            && (attendance.getName().toLowerCase()).contains(keyword)){
-                        filteredData.add(attendance);
-                    }
-                 }
-            }
-        adminTableView.setItems(filteredData);
-    }
-     
-    private void filterByDept() {
-        ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
-        String keyword = searchBar.getText().toLowerCase(); 
-        LocalDate selectedDate = datePicker.getValue();
-        
-            if(departmentChoiceBox.getValue().toString().equals("All")){
-                if(selectedDate==null && keyword.isEmpty()){
-                    for (Attendance attendance : getAttendance()) {   
-                        filteredData.add(attendance);
-                    }
-                }else if(selectedDate!=null && !keyword.isEmpty()){
-                    for (Attendance attendance : getAttendance()) {
-                        if (attendance.getDate().toString().equals(selectedDate.toString()) && (attendance.getName().toLowerCase()).contains(keyword)){
-                            filteredData.add(attendance);
-                        }
-                    }   
-                }else if(selectedDate!=null && keyword.isEmpty()){
-                    for (Attendance attendance : getAttendance()) {
-                        if (attendance.getDate().toString().equals(selectedDate.toString())){
-                            filteredData.add(attendance);
-                        }
-                    }
-                }else if(selectedDate==null && !keyword.isEmpty()){
-                    for (Attendance attendance : getAttendance()) {
-                        if ((attendance.getName().toLowerCase()).contains(keyword)){
-                            filteredData.add(attendance);
-                        }
-                    }
-                }
-            }else if(departmentChoiceBox.getValue().toString().equals("Administrative")){
-                if(selectedDate==null && keyword.isEmpty()){
-                    for (Attendance attendance : getAdministrative()) {   
-                        filteredData.add(attendance);
-                    }
-                }else if(selectedDate!=null && !keyword.isEmpty()){
-                    for (Attendance attendance : getAdministrative()) {
-                        if (attendance.getDate().toString().equals(selectedDate.toString()) && (attendance.getName().toLowerCase()).contains(keyword)){
-                            filteredData.add(attendance);
-                        }
-                    }   
-                }else if(selectedDate!=null && keyword.isEmpty()){
-                    for (Attendance attendance : getAdministrative()) {
-                        if (attendance.getDate().toString().equals(selectedDate.toString())){
-                            filteredData.add(attendance);
-                        }
-                    }
-                }else if(selectedDate==null && !keyword.isEmpty()){
-                    for (Attendance attendance : getAdministrative()) {
-                        if ((attendance.getName().toLowerCase()).contains(keyword)){
-                            filteredData.add(attendance);
-                        }
-                    }
-                }
-            }else if(departmentChoiceBox.getValue().toString().equals("Instruction")){
-                if(selectedDate==null && keyword.isEmpty()){
-                    for (Attendance attendance : getInstruction()) {   
-                        filteredData.add(attendance);
-                    }
-                }else if(selectedDate!=null && !keyword.isEmpty()){
-                    for (Attendance attendance : getInstruction()) {
-                        if (attendance.getDate().toString().equals(selectedDate.toString()) && (attendance.getName().toLowerCase()).contains(keyword)){
-                            filteredData.add(attendance);
-                        }
-                    }   
-                }else if(selectedDate!=null && keyword.isEmpty()){
-                    for (Attendance attendance : getInstruction()) {
-                        if (attendance.getDate().toString().equals(selectedDate.toString())){
-                            filteredData.add(attendance);
-                        }
-                    }
-                }else if(selectedDate==null && !keyword.isEmpty()){
-                    for (Attendance attendance : getInstruction()) {
-                        if ((attendance.getName().toLowerCase()).contains(keyword)){
-                            filteredData.add(attendance);
-                        }
-                    }
-                }
-            }
-        adminTableView.setItems(filteredData);
-    }
+
 }

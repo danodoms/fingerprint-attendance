@@ -3,6 +3,7 @@ package Utilities;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 
 public class DateUtil {
     public static LocalDate sqlDateToLocalDate(java.sql.Date date) {
@@ -11,5 +12,14 @@ public class DateUtil {
 
         // Convert Instant to LocalDate
         return instant.atZone(ZoneId.systemDefault()).toLocalDate();
+
     }
+
+
+//    public static LocalDate utilDateToLocalDate(Date utilDate) {
+//        return utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//    }
+
+
+
 }

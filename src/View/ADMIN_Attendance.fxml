@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.dlsc.gemsfx.YearMonthPicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -30,16 +30,11 @@
             <Button fx:id="resetBtn" layoutX="653.0" layoutY="49.0" mnemonicParsing="false" onAction="#clearChoiceBox" onMouseDragReleased="#clearChoiceBox" prefHeight="34.0" prefWidth="97.0" text="Reset" />
             <HBox layoutX="229.0" layoutY="52.0" prefHeight="27.0" prefWidth="407.0">
                <children>
-                  <Label prefHeight="87.0" prefWidth="38.0" text="Date">
+                  <YearMonthPicker fx:id="yearMonthPicker" maxWidth="-Infinity" prefHeight="29.0" prefWidth="165.0">
                      <HBox.margin>
-                        <Insets />
+                        <Insets right="7.0" />
                      </HBox.margin>
-                  </Label>
-                  <DatePicker fx:id="datePicker" onAction="#filterByDate" prefHeight="25.0" prefWidth="128.0" promptText="yyyy-mm-dd">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </DatePicker>
+                  </YearMonthPicker>
                   <Label prefHeight="130.0" prefWidth="72.0" text="Department">
                      <HBox.margin>
                         <Insets />
@@ -55,7 +50,7 @@
                   <Insets left="30.0" />
                </padding>
             </HBox>
-            <TextField fx:id="searchBar" layoutX="11.0" layoutY="51.0" maxWidth="234.0" onKeyReleased="#filterBySearchBar" prefHeight="29.0" prefWidth="234.0" promptText="Search name..." />
+            <TextField fx:id="searchBar" layoutX="11.0" layoutY="51.0" maxWidth="238.0" prefHeight="29.0" prefWidth="238.0" promptText="Search name..." />
             <Label layoutX="14.0" layoutY="14.0" text="Attendance" textFill="#f8f7f7">
                <font>
                   <Font name="Arial Bold" size="24.0" />

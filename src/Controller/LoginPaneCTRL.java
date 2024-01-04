@@ -104,6 +104,7 @@ public class LoginPaneCTRL implements Initializable {
 
         Runnable onFingerPrintScan = this::loginCallBackMethod;
         identification = new IdentificationThread(fpImageview, onFingerPrintScan);
+        identification.setPriority(Thread.MAX_PRIORITY);
 
         //set an image for fpImageview
         fpImageview.setImage(fpImage);
