@@ -142,11 +142,11 @@ public class Attendance {
      public Attendance (String name, Date date, String timeInAm, String timeOutAm, String timeInPm, String timeOutPm, String attendance_status){
         this.name = name;
         this.date = date;
-        this.attendance_status = attendance_status;
         this.timeInAm = timeInAm;
         this.timeOutAm = timeOutAm;
         this.timeInPm = timeInPm;
         this.timeOutPm = timeOutPm;
+        this.attendance_status = attendance_status;
     }
 
     public void setNotationAM(String notationAM) {
@@ -749,6 +749,8 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
         return attendance;
     }
         //Note: Sabta nlng gyud akong mga comments. THis is for remembering lang fo.
+        
+        
         public static ObservableList<Attendance> getAttendancebyLate(int user_id){
         ObservableList<Attendance> attendance = FXCollections.observableArrayList();
         try (Connection connection = DatabaseUtil.getConnection();
@@ -769,6 +771,7 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
                 String out = rs.getString("timeOutPm") ;
                 int statusInt = rs.getInt("status");
                 String rs1Date = rs.getDate("date").toString();
+                String statusString;
                 
                 // timeIn convertion from 24 hours to 12 hours.
                 if(timeOutAm1!=null){
@@ -819,20 +822,21 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
                 else{
                    out = "    --";
                }
-                
-                String statusString;
+            
                 if (statusInt == 1) {
                     statusString = "Present";
                 } else if (statusInt == 2) {
                     statusString = "Late";
                 } else if (statusInt == 3) {
                     statusString = "Undertime";
-                } else {
+                } else if (statusInt == 4) {
+                    statusString = "Late";
+                } else{
                     statusString = "No Out";
                 }
 
                 attendance.add(new Attendance(
-                    name,
+                        name,
                     rs.getDate("date"),
                     timeInAm1,
                     timeOutAm1,

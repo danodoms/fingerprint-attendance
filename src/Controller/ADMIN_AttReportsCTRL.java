@@ -272,7 +272,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                         
                             for (Timeoff timeoff : dtrTimeoff ) {//-----------------Timeoff traversal
                                  if(nameLabel.getText().toUpperCase().equals(timeoff.getName().toUpperCase())
-                                         && timeoff.getMonth()== month && timeoff.getDay()==counter
+                                         && timeoff.getYear()== year && timeoff.getMonth()== month && timeoff.getDay()==counter
                                          && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
                                          && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
                                     System.out.println("-----Timeoff Month: "+timeoff.getMonth()+" Day: "+timeoff.getDay()+" Type: "+ timeoff.getType());
@@ -460,7 +460,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                         
                             for (Timeoff timeoff : dtrTimeoff ) {//-----------------Timeoff traversal
                                  if(nameLabel.getText().toUpperCase().equals(timeoff.getName().toUpperCase())
-                                         && timeoff.getMonth()== month && timeoff.getDay()==counter
+                                         && timeoff.getYear()== year && timeoff.getMonth()== month && timeoff.getDay()==counter
                                          && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
                                          && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
                                     System.out.println("-----Timeoff Month: "+timeoff.getMonth()+" Day: "+timeoff.getDay()+" Type: "+ timeoff.getType());
@@ -607,6 +607,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             searchBar.setPromptText("Search name...");
             tardinessTable.setItems(null);
         }
+        showAttTable(selectedItem.getId());
     }
     @FXML
     private void selectEMployeeLate(MouseEvent event) {
@@ -645,7 +646,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
         }
     }
     
-     public void showAttTable(int user_id){
+    public void showAttTable(int user_id){
          totalLogin.setText("");
             byPercent.setText("0%");
             totalLate.setText("");
@@ -654,8 +655,15 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             searchBar.setText("");
             searchBar.setPromptText("Search name...");
         ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
-                List<String> dayHolder = new LinkedList<>();
-                List<String> holidayHolder = new LinkedList<>();
+        ObservableList<Timeoff> dtrTimeoff = Timeoff.getTimeoffDtr();
+        ObservableList<Special_Calendar> dtrHoliday = Special_Calendar.getHolidayDtr();
+        List<String> dayHolder = new LinkedList<>();
+        List<Integer> holidayHolder = new LinkedList<>();
+        List<Integer> timeoffHolder = new LinkedList<>();
+        List<Integer> weekendsHolder = new LinkedList<>();
+        Set<Integer> mergedSet = new HashSet<>();
+        
+        
         String selectedYear = (String) yearChoiceBox.getSelectionModel().getSelectedItem();
         String[] dateOnCTRL = monthYearLabel.getText().split(" ");
         String selectedName = nameLabel.getText();
@@ -666,11 +674,11 @@ public class ADMIN_AttReportsCTRL implements Initializable{
         
         double tardiness;
         int daysInMonth=0, lateCount = 0, absentCount = 0;
-                if(dateOnCTRL[0].equals("January")){monthToNum="1";}if(dateOnCTRL[0].equals("February")){monthToNum="2";}
-                if(dateOnCTRL[0].equals("March")){monthToNum="3";}if(dateOnCTRL[0].equals("April")){monthToNum="4";}
-                if(dateOnCTRL[0].equals("May")){monthToNum="5";}if(dateOnCTRL[0].equals("June")){monthToNum="6";}
-                if(dateOnCTRL[0].equals("July")){monthToNum="7";}if(dateOnCTRL[0].equals("August")){monthToNum="8";}
-                if(dateOnCTRL[0].equals("September")){monthToNum="9";}if(dateOnCTRL[0].equals("October")){monthToNum="10";}
+                if(dateOnCTRL[0].equals("January")){monthToNum="01";}if(dateOnCTRL[0].equals("February")){monthToNum="02";}
+                if(dateOnCTRL[0].equals("March")){monthToNum="03";}if(dateOnCTRL[0].equals("April")){monthToNum="04";}
+                if(dateOnCTRL[0].equals("May")){monthToNum="05";}if(dateOnCTRL[0].equals("June")){monthToNum="06";}
+                if(dateOnCTRL[0].equals("July")){monthToNum="07";}if(dateOnCTRL[0].equals("August")){monthToNum="08";}
+                if(dateOnCTRL[0].equals("September")){monthToNum="09";}if(dateOnCTRL[0].equals("October")){monthToNum="10";}
                 if(dateOnCTRL[0].equals("November")){monthToNum="11";}if(dateOnCTRL[0].equals("December")){monthToNum="12";}
                  
                 int year= Integer.parseInt(dateOnCTRL[2]);
@@ -678,35 +686,35 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                 YearMonth yearMonth = YearMonth.of(year, month);
                 daysInMonth = yearMonth.lengthOfMonth();
                 
-                //Checking if there's the Special calendar
-                    for (Special_Calendar sCalendar : getCalendarByUserId(user_id)) {
-                        String[] dateOnModel = sCalendar.getStartDate().toString().split("-");
-                        int total = (int) sCalendar.getTotal();
-                        if (dateOnModel[1].equals(monthToNum)) {
-                            int toNum = Integer.parseInt(dateOnModel[2]);
-                            for (int l = 0; l < total; l++) {
-                                if (toNum < daysInMonth && toNum >= 1) {
-                                    LocalDate specialDate = LocalDate.of(year, month, toNum);
-                                    if (specialDate.getDayOfWeek() != DayOfWeek.SATURDAY && specialDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
-                                        SpecialDays++;
-                                    }
-                                    holidayHolder.add(toNum + "");
-                                }
-                                toNum++;
-                            }
+                //Checking if there's a Special calendar
+                for (int k = 1; k <= daysInMonth; k++) {
+                    LocalDate localDate = LocalDate.of(year, month, k);
+                    for (Special_Calendar holiday : dtrHoliday ) {//-----------------Holiday traversal
+                        if(nameLabel.getText().toUpperCase().equals(holiday.getName().toUpperCase())
+                            && holiday.getYear()== year && holiday.getMonth()== month && holiday.getDay()==k
+                            && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
+                            && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
+                            holidayHolder.add(k);       
                         }
                     }
-                    
-                for (int k = 1; k <= daysInMonth; k++) {
-                    LocalDate localDate1 = LocalDate.of(year, month, k);
-                // Check if the day is not Saturday (DayOfWeek.SATURDAY) or Sunday (DayOfWeek.SUNDAY)
-                    if (localDate1.getDayOfWeek() != DayOfWeek.SATURDAY && localDate1.getDayOfWeek() != DayOfWeek.SUNDAY) {
-                        workingDaysInMonth++;
+                    for (Timeoff timeoff : dtrTimeoff ) {//-----------------Timeoff traversal
+                        if(nameLabel.getText().toUpperCase().equals(timeoff.getName().toUpperCase())
+                            && timeoff.getMonth()== month && timeoff.getDay()==k
+                            && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
+                            && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
+                            timeoffHolder.add(k);
+                        }
+                    }
+                    if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY || localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                        weekendsHolder.add(k);
                     }
                 }
+                mergedSet.addAll(holidayHolder);
+                mergedSet.addAll(timeoffHolder);
+                mergedSet.addAll(weekendsHolder);
+                List<Integer> mergedList = new ArrayList<>(mergedSet);
+                System.out.println("Merged List with no duplicates: " + mergedList);
                 
-                    System.out.println(daysInMonth);
-                    System.out.println(Arrays.toString(holidayHolder.toArray()));
                 for (Attendance attendance : getAttendancebyLate(user_id)){
                     System.out.println(attendance.getDate()+", "+attendance.getTimeInAm()+", "+attendance.getTimeOutAm()+", "+attendance.getTimeInPm()+", "+attendance.getTimeOutPm());
                     String[] dateOnModel = attendance.getDate().toString().split("-");
@@ -714,39 +722,45 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                         dayHolder.add(dateOnModel[2]);
                     }
                 }
-                for(int i =1; i<=daysInMonth; i++){
+                
+                for (int i = 1; i <= daysInMonth; i++) {
+                    
                     LocalDate localDate = LocalDate.of(year, month, i);
-                    if(holidayHolder.contains(String.valueOf(i))){
-                        // Skip Holidays and TimeOFFs
-                    }else
-                    if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY || localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
-                        // Skip Saturday and Sunday
+                    if (mergedList.contains(i)) {
+                        //Skipping all non_working days...
                     }else{
                         boolean dayChecker = false;
                         for(int j =0; j<dayHolder.size(); j++){
                             int amDay = Integer.parseInt(dayHolder.get(j));
-                                if(i==amDay){
+                            if(i==amDay){
                                 dayChecker=true;
                             }
                         }
-                        if(dayChecker==true){
+                    if(dayChecker){
                             for (Attendance attendance : getAttendancebyLate(user_id)){
-
+                                 System.out.println(attendance.getDate()+"-------------------------" + java.sql.Date.valueOf(localDate));
                                 if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
                                         && attendance.getAttendance_status().equals("Late")){
                                     filteredData.add(attendance);
                                      lateCount++;
+                                    dayChecker=true;
                                     break;
                                 }
                                 if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
                                         && attendance.getAttendance_status().equals("Absent")){
                                     filteredData.add(attendance);
                                      absentCount++;
+                                     dayChecker=true;
+                                    break;
+                                }
+                                if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
+                                        && attendance.getAttendance_status().equals("Present")){
+                                    dayChecker=true;
                                     break;
                                 }
                             }
                         }
-                        if(dayChecker==false){
+                        if(!dayChecker){
                             for (Attendance attendance : getAttendancebyLate(user_id)){
                                 attendance.setDate(java.sql.Date.valueOf(localDate));
                                 attendance.setTimeInAm("    --");
@@ -759,7 +773,8 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                                 break;
                             }
                         }
-                    }
+                    }  
+                     
                 }
                 int roundedTardiness=0;
             if (lateCount != 0 || absentCount != 0) {
@@ -769,7 +784,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                 }
                 converted = String.format("%.1f", tardiness);
                 roundedTardiness = (int) Math.round(Double.parseDouble(converted));
-                workingDaysInMonth = workingDaysInMonth-SpecialDays;
+                workingDaysInMonth = daysInMonth-mergedList.size();
                 totalLogin.setText(workingDaysInMonth + "");  
                 totalLate.setText(lateCount + "");
                 totalAbsent.setText(absentCount + "");
@@ -780,8 +795,10 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             }
             tardinessTable.setItems(filteredData);
             byPercent.setText(roundedTardiness + "%"); 
-     }   
-      public void showAttTableLate(int user_id){
+     }
+     
+     
+     public void showAttTableLate(int user_id){
          totalLogin.setText("");
             byPercent.setText("0%");
             totalLate.setText("");
@@ -790,8 +807,15 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             searchBar.setText("");
             searchBar.setPromptText("Search name...");
         ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
-                List<String> dayHolder = new LinkedList<>();
-                List<String> holidayHolder = new LinkedList<>();
+        ObservableList<Timeoff> dtrTimeoff = Timeoff.getTimeoffDtr();
+        ObservableList<Special_Calendar> dtrHoliday = Special_Calendar.getHolidayDtr();
+        List<String> dayHolder = new LinkedList<>();
+        List<Integer> holidayHolder = new LinkedList<>();
+        List<Integer> timeoffHolder = new LinkedList<>();
+        List<Integer> weekendsHolder = new LinkedList<>();
+        Set<Integer> mergedSet = new HashSet<>();
+        
+        
         String selectedYear = (String) yearChoiceBox.getSelectionModel().getSelectedItem();
         String[] dateOnCTRL = monthYearLabel.getText().split(" ");
         String selectedName = nameLabel.getText();
@@ -802,47 +826,47 @@ public class ADMIN_AttReportsCTRL implements Initializable{
         
         double tardiness;
         int daysInMonth=0, lateCount = 0, absentCount = 0;
-                if(dateOnCTRL[0].equals("January")){monthToNum="1";}if(dateOnCTRL[0].equals("February")){monthToNum="2";}
-                if(dateOnCTRL[0].equals("March")){monthToNum="3";}if(dateOnCTRL[0].equals("April")){monthToNum="4";}
-                if(dateOnCTRL[0].equals("May")){monthToNum="5";}if(dateOnCTRL[0].equals("June")){monthToNum="6";}
-                if(dateOnCTRL[0].equals("July")){monthToNum="7";}if(dateOnCTRL[0].equals("August")){monthToNum="8";}
-                if(dateOnCTRL[0].equals("September")){monthToNum="9";}if(dateOnCTRL[0].equals("October")){monthToNum="10";}
+                if(dateOnCTRL[0].equals("January")){monthToNum="01";}if(dateOnCTRL[0].equals("February")){monthToNum="02";}
+                if(dateOnCTRL[0].equals("March")){monthToNum="03";}if(dateOnCTRL[0].equals("April")){monthToNum="04";}
+                if(dateOnCTRL[0].equals("May")){monthToNum="05";}if(dateOnCTRL[0].equals("June")){monthToNum="06";}
+                if(dateOnCTRL[0].equals("July")){monthToNum="07";}if(dateOnCTRL[0].equals("August")){monthToNum="08";}
+                if(dateOnCTRL[0].equals("September")){monthToNum="09";}if(dateOnCTRL[0].equals("October")){monthToNum="10";}
                 if(dateOnCTRL[0].equals("November")){monthToNum="11";}if(dateOnCTRL[0].equals("December")){monthToNum="12";}
                  
-        int year= Integer.parseInt(dateOnCTRL[2]);
+                int year= Integer.parseInt(dateOnCTRL[2]);
                 int month = Integer.parseInt(monthToNum);
                 YearMonth yearMonth = YearMonth.of(year, month);
                 daysInMonth = yearMonth.lengthOfMonth();
                 
-                //Checking if there's the Special calendar
-                    for (Special_Calendar sCalendar : getCalendarByUserId(user_id)) {
-                        String[] dateOnModel = sCalendar.getStartDate().toString().split("-");
-                        int total = (int) sCalendar.getTotal();
-                        if (dateOnModel[1].equals(monthToNum)) {
-                            int toNum = Integer.parseInt(dateOnModel[2]);
-                            for (int l = 0; l < total; l++) {
-                                if (toNum < daysInMonth && toNum >= 1) {
-                                    LocalDate specialDate = LocalDate.of(year, month, toNum);
-                                    if (specialDate.getDayOfWeek() != DayOfWeek.SATURDAY && specialDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
-                                        SpecialDays++;
-                                    }
-                                    holidayHolder.add(toNum + "");
-                                }
-                                toNum++;
-                            }
+                //Checking if there's a Special calendar
+                for (int k = 1; k <= daysInMonth; k++) {
+                    LocalDate localDate = LocalDate.of(year, month, k);
+                    for (Special_Calendar holiday : dtrHoliday ) {//-----------------Holiday traversal
+                        if(nameLabel.getText().toUpperCase().equals(holiday.getName().toUpperCase())
+                            && holiday.getYear()== year && holiday.getMonth()== month && holiday.getDay()==k
+                            && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
+                            && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
+                            holidayHolder.add(k);       
                         }
                     }
- // -------------------------naay bug, pag saturday or sunday ang holiday. magDouble ang minus sa working days.
-                for (int k = 1; k <= daysInMonth; k++) {
-                    LocalDate localDate1 = LocalDate.of(year, month, k);
-                // Check if the day is not Saturday (DayOfWeek.SATURDAY) or Sunday (DayOfWeek.SUNDAY)
-                    if (localDate1.getDayOfWeek() != DayOfWeek.SATURDAY && localDate1.getDayOfWeek() != DayOfWeek.SUNDAY) {
-                        workingDaysInMonth++;
+                    for (Timeoff timeoff : dtrTimeoff ) {//-----------------Timeoff traversal
+                        if(nameLabel.getText().toUpperCase().equals(timeoff.getName().toUpperCase())
+                            && timeoff.getMonth()== month && timeoff.getDay()==k
+                            && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
+                            && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
+                            timeoffHolder.add(k);
+                        }
+                    }
+                    if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY || localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                        weekendsHolder.add(k);
                     }
                 }
+                mergedSet.addAll(holidayHolder);
+                mergedSet.addAll(timeoffHolder);
+                mergedSet.addAll(weekendsHolder);
+                List<Integer> mergedList = new ArrayList<>(mergedSet);
+                System.out.println("Merged List with no duplicates: " + mergedList);
                 
-                    System.out.println(daysInMonth);
-                    System.out.println(Arrays.toString(holidayHolder.toArray()));
                 for (Attendance attendance : getAttendancebyLate(user_id)){
                     System.out.println(attendance.getDate()+", "+attendance.getTimeInAm()+", "+attendance.getTimeOutAm()+", "+attendance.getTimeInPm()+", "+attendance.getTimeOutPm());
                     String[] dateOnModel = attendance.getDate().toString().split("-");
@@ -850,39 +874,45 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                         dayHolder.add(dateOnModel[2]);
                     }
                 }
-                for(int i =1; i<=daysInMonth; i++){
+                
+                for (int i = 1; i <= daysInMonth; i++) {
+                    
                     LocalDate localDate = LocalDate.of(year, month, i);
-                    if(holidayHolder.contains(String.valueOf(i))){
-                        // Skip Holidays and TimeOFFs
-                    }else
-                    if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY || localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
-                        // Skip Saturday and Sunday
+                    if (mergedList.contains(i)) {
+                        //Skipping all non_working days...
                     }else{
                         boolean dayChecker = false;
                         for(int j =0; j<dayHolder.size(); j++){
                             int amDay = Integer.parseInt(dayHolder.get(j));
-                                if(i==amDay){
+                            if(i==amDay){
                                 dayChecker=true;
                             }
                         }
-                        if(dayChecker==true){
+                    if(dayChecker){
                             for (Attendance attendance : getAttendancebyLate(user_id)){
-
+                                 System.out.println(attendance.getDate()+"-------------------------" + java.sql.Date.valueOf(localDate));
                                 if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
                                         && attendance.getAttendance_status().equals("Late")){
                                     filteredData.add(attendance);
                                      lateCount++;
+                                    dayChecker=true;
                                     break;
                                 }
                                 if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
                                         && attendance.getAttendance_status().equals("Absent")){
 //                                    filteredData.add(attendance);
                                      absentCount++;
+                                     dayChecker=true;
+                                    break;
+                                }
+                                if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
+                                        && attendance.getAttendance_status().equals("Present")){
+                                    dayChecker=true;
                                     break;
                                 }
                             }
                         }
-                        if(dayChecker==false){
+                        if(!dayChecker){
                             for (Attendance attendance : getAttendancebyLate(user_id)){
 //                                attendance.setDate(java.sql.Date.valueOf(localDate));
 //                                attendance.setTimeInAm("    --");
@@ -895,7 +925,8 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                                 break;
                             }
                         }
-                    }
+                    }  
+                     
                 }
                 int roundedTardiness=0;
             if (lateCount != 0 || absentCount != 0) {
@@ -905,7 +936,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                 }
                 converted = String.format("%.1f", tardiness);
                 roundedTardiness = (int) Math.round(Double.parseDouble(converted));
-                workingDaysInMonth = workingDaysInMonth-SpecialDays;
+                workingDaysInMonth = daysInMonth-mergedList.size();
                 totalLogin.setText(workingDaysInMonth + "");  
                 totalLate.setText(lateCount + "");
                 totalAbsent.setText(absentCount + "");
@@ -916,8 +947,8 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             }
             tardinessTable.setItems(filteredData);
             byPercent.setText(roundedTardiness + "%"); 
-     }  
-     public void showAttTableAbsent(int user_id){
+     }
+    public void showAttTableAbsent(int user_id){
          totalLogin.setText("");
             byPercent.setText("0%");
             totalLate.setText("");
@@ -926,8 +957,15 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             searchBar.setText("");
             searchBar.setPromptText("Search name...");
         ObservableList<Attendance> filteredData = FXCollections.observableArrayList();
-                List<String> dayHolder = new LinkedList<>();
-                List<String> holidayHolder = new LinkedList<>();
+        ObservableList<Timeoff> dtrTimeoff = Timeoff.getTimeoffDtr();
+        ObservableList<Special_Calendar> dtrHoliday = Special_Calendar.getHolidayDtr();
+        List<String> dayHolder = new LinkedList<>();
+        List<Integer> holidayHolder = new LinkedList<>();
+        List<Integer> timeoffHolder = new LinkedList<>();
+        List<Integer> weekendsHolder = new LinkedList<>();
+        Set<Integer> mergedSet = new HashSet<>();
+        
+        
         String selectedYear = (String) yearChoiceBox.getSelectionModel().getSelectedItem();
         String[] dateOnCTRL = monthYearLabel.getText().split(" ");
         String selectedName = nameLabel.getText();
@@ -938,47 +976,47 @@ public class ADMIN_AttReportsCTRL implements Initializable{
         
         double tardiness;
         int daysInMonth=0, lateCount = 0, absentCount = 0;
-                if(dateOnCTRL[0].equals("January")){monthToNum="1";}if(dateOnCTRL[0].equals("February")){monthToNum="2";}
-                if(dateOnCTRL[0].equals("March")){monthToNum="3";}if(dateOnCTRL[0].equals("April")){monthToNum="4";}
-                if(dateOnCTRL[0].equals("May")){monthToNum="5";}if(dateOnCTRL[0].equals("June")){monthToNum="6";}
-                if(dateOnCTRL[0].equals("July")){monthToNum="7";}if(dateOnCTRL[0].equals("August")){monthToNum="8";}
-                if(dateOnCTRL[0].equals("September")){monthToNum="9";}if(dateOnCTRL[0].equals("October")){monthToNum="10";}
+                if(dateOnCTRL[0].equals("January")){monthToNum="01";}if(dateOnCTRL[0].equals("February")){monthToNum="02";}
+                if(dateOnCTRL[0].equals("March")){monthToNum="03";}if(dateOnCTRL[0].equals("April")){monthToNum="04";}
+                if(dateOnCTRL[0].equals("May")){monthToNum="05";}if(dateOnCTRL[0].equals("June")){monthToNum="06";}
+                if(dateOnCTRL[0].equals("July")){monthToNum="07";}if(dateOnCTRL[0].equals("August")){monthToNum="08";}
+                if(dateOnCTRL[0].equals("September")){monthToNum="09";}if(dateOnCTRL[0].equals("October")){monthToNum="10";}
                 if(dateOnCTRL[0].equals("November")){monthToNum="11";}if(dateOnCTRL[0].equals("December")){monthToNum="12";}
                  
-        int year= Integer.parseInt(dateOnCTRL[2]);
+                int year= Integer.parseInt(dateOnCTRL[2]);
                 int month = Integer.parseInt(monthToNum);
                 YearMonth yearMonth = YearMonth.of(year, month);
                 daysInMonth = yearMonth.lengthOfMonth();
                 
-                //Checking if there's the Special calendar
-                    for (Special_Calendar sCalendar : getCalendarByUserId(user_id)) {
-                        String[] dateOnModel = sCalendar.getStartDate().toString().split("-");
-                        int total = (int) sCalendar.getTotal();
-                        if (dateOnModel[1].equals(monthToNum)) {
-                            int toNum = Integer.parseInt(dateOnModel[2]);
-                            for (int l = 0; l < total; l++) {
-                                if (toNum < daysInMonth && toNum >= 1) {
-                                    LocalDate specialDate = LocalDate.of(year, month, toNum);
-                                    if (specialDate.getDayOfWeek() != DayOfWeek.SATURDAY && specialDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
-                                        SpecialDays++;
-                                    }
-                                    holidayHolder.add(toNum + "");
-                                }
-                                toNum++;
-                            }
+                //Checking if there's a Special calendar
+                for (int k = 1; k <= daysInMonth; k++) {
+                    LocalDate localDate = LocalDate.of(year, month, k);
+                    for (Special_Calendar holiday : dtrHoliday ) {//-----------------Holiday traversal
+                        if(nameLabel.getText().toUpperCase().equals(holiday.getName().toUpperCase())
+                            && holiday.getYear()== year && holiday.getMonth()== month && holiday.getDay()==k
+                            && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
+                            && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
+                            holidayHolder.add(k);       
                         }
                     }
- // -------------------------naay bug, pag saturday or sunday ang holiday. magDouble ang minus sa working days.
-                for (int k = 1; k <= daysInMonth; k++) {
-                    LocalDate localDate1 = LocalDate.of(year, month, k);
-                // Check if the day is not Saturday (DayOfWeek.SATURDAY) or Sunday (DayOfWeek.SUNDAY)
-                    if (localDate1.getDayOfWeek() != DayOfWeek.SATURDAY && localDate1.getDayOfWeek() != DayOfWeek.SUNDAY) {
-                        workingDaysInMonth++;
+                    for (Timeoff timeoff : dtrTimeoff ) {//-----------------Timeoff traversal
+                        if(nameLabel.getText().toUpperCase().equals(timeoff.getName().toUpperCase())
+                            && timeoff.getMonth()== month && timeoff.getDay()==k
+                            && localDate.getDayOfWeek() != DayOfWeek.SATURDAY
+                            && localDate.getDayOfWeek() != DayOfWeek.SUNDAY){
+                            timeoffHolder.add(k);
+                        }
+                    }
+                    if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY || localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                        weekendsHolder.add(k);
                     }
                 }
+                mergedSet.addAll(holidayHolder);
+                mergedSet.addAll(timeoffHolder);
+                mergedSet.addAll(weekendsHolder);
+                List<Integer> mergedList = new ArrayList<>(mergedSet);
+                System.out.println("Merged List with no duplicates: " + mergedList);
                 
-                    System.out.println(daysInMonth);
-                    System.out.println(Arrays.toString(holidayHolder.toArray()));
                 for (Attendance attendance : getAttendancebyLate(user_id)){
                     System.out.println(attendance.getDate()+", "+attendance.getTimeInAm()+", "+attendance.getTimeOutAm()+", "+attendance.getTimeInPm()+", "+attendance.getTimeOutPm());
                     String[] dateOnModel = attendance.getDate().toString().split("-");
@@ -986,39 +1024,45 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                         dayHolder.add(dateOnModel[2]);
                     }
                 }
-                for(int i =1; i<=daysInMonth; i++){
+                
+                for (int i = 1; i <= daysInMonth; i++) {
+                    
                     LocalDate localDate = LocalDate.of(year, month, i);
-                    if(holidayHolder.contains(String.valueOf(i))){
-                        // Skip Holidays and TimeOFFs
-                    }else
-                    if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY || localDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
-                        // Skip Saturday and Sunday
+                    if (mergedList.contains(i)) {
+                        //Skipping all non_working days...
                     }else{
                         boolean dayChecker = false;
                         for(int j =0; j<dayHolder.size(); j++){
                             int amDay = Integer.parseInt(dayHolder.get(j));
-                                if(i==amDay){
+                            if(i==amDay){
                                 dayChecker=true;
                             }
                         }
-                        if(dayChecker==true){
+                    if(dayChecker){
                             for (Attendance attendance : getAttendancebyLate(user_id)){
-
+                                 System.out.println(attendance.getDate()+"-------------------------" + java.sql.Date.valueOf(localDate));
                                 if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
                                         && attendance.getAttendance_status().equals("Late")){
 //                                    filteredData.add(attendance);
                                      lateCount++;
+                                    dayChecker=true;
                                     break;
                                 }
                                 if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
                                         && attendance.getAttendance_status().equals("Absent")){
                                     filteredData.add(attendance);
                                      absentCount++;
+                                     dayChecker=true;
+                                    break;
+                                }
+                                if(attendance.getDate().equals(java.sql.Date.valueOf(localDate))
+                                        && attendance.getAttendance_status().equals("Present")){
+                                    dayChecker=true;
                                     break;
                                 }
                             }
                         }
-                        if(dayChecker==false){
+                        if(!dayChecker){
                             for (Attendance attendance : getAttendancebyLate(user_id)){
                                 attendance.setDate(java.sql.Date.valueOf(localDate));
                                 attendance.setTimeInAm("    --");
@@ -1031,7 +1075,8 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                                 break;
                             }
                         }
-                    }
+                    }  
+                     
                 }
                 int roundedTardiness=0;
             if (lateCount != 0 || absentCount != 0) {
@@ -1041,7 +1086,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                 }
                 converted = String.format("%.1f", tardiness);
                 roundedTardiness = (int) Math.round(Double.parseDouble(converted));
-                workingDaysInMonth = workingDaysInMonth-SpecialDays;
+                workingDaysInMonth = daysInMonth-mergedList.size();
                 totalLogin.setText(workingDaysInMonth + "");  
                 totalLate.setText(lateCount + "");
                 totalAbsent.setText(absentCount + "");
@@ -1053,7 +1098,7 @@ public class ADMIN_AttReportsCTRL implements Initializable{
             tardinessTable.setItems(filteredData);
             byPercent.setText(roundedTardiness + "%"); 
      }
-//   
+     
     
     @FXML
     private void resetSelectedItems(ActionEvent event){

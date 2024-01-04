@@ -214,7 +214,8 @@ public class ADMIN_UserCalendarCTRL implements Initializable{
                 }
             }
         }
-
+        setTable();
+        clear();
 
     }
     @FXML

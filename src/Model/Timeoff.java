@@ -26,9 +26,20 @@ public class Timeoff {
     private Date endDate;
     private int total;
     private String name;
+    private int year;
     private int month;
     private int day;
 
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    
+    
     public String getName() {
         return name;
     }
@@ -156,9 +167,10 @@ public class Timeoff {
          this.startDate = startDate;
          this.total = total;
      }
-     public Timeoff(String name, String type, int month, int day){
+     public Timeoff(String name, String type,int year, int month, int day){
         this.name = name;
         this.type = type;
+        this.year = year;
         this.month = month;
         this.day = day;
      }
@@ -253,6 +265,7 @@ public class Timeoff {
                 dtrTimeOffDocx.add(new Timeoff(
                         rs.getString("name"),
                         rs.getString("type"),
+                        rs.getInt("year"),
                         rs.getInt("month"),
                         rs.getInt("day")
                 ));
