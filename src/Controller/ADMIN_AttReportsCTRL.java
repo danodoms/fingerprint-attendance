@@ -291,9 +291,9 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                                         && (attendance.getDtrDate().toUpperCase()).equals(monthYearLabel.getText().toUpperCase())
                                         && (targetRowIndex - 1) == attendance.getDay() && cellText1.equals("")) {
 
-                                        targetCell.setText(attendance.getTimeIn());
+                                        targetCell.setText(attendance.getTimeIn()+"   ");
                                     targetCell = targetRow.getCell(2);
-                                        targetCell.setText(attendance.getTimeOut());
+                                        targetCell.setText(attendance.getTimeOut()+"   ");
                                         cellText = "AM";
                                     System.out.println(attendance.getTimeInAm() + ", " + attendance.getTimeOutAm());
                                     
@@ -305,9 +305,9 @@ public class ADMIN_AttReportsCTRL implements Initializable{
                                         && (targetRowIndex - 1) == attendance.getDay() && cellText1.equals("")) {
 
                                     targetCell = targetRow.getCell(3);
-                                        targetCell.setText(attendance.getTimeIn());
+                                        targetCell.setText(attendance.getTimeIn()+"   ");
                                     targetCell = targetRow.getCell(4);
-                                        targetCell.setText(attendance.getTimeOut());
+                                        targetCell.setText(attendance.getTimeOut()+"   ");
                                         cellText = "PM";
                                     System.out.println(attendance.getTimeInAm() + ", " + attendance.getTimeOutAm());
                                 }
