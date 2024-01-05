@@ -247,7 +247,6 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId()) + " SINCE LAST TIME IN");
         prevTimeInLabel.setVisible(true);
 
-        //delaytime is cusing issues currently
         VerificationThread verificationThread = new VerificationThread(userToTime.getId(), delayTimeInMs);
 
         ExecutorService executor = Executors.newSingleThreadExecutor();

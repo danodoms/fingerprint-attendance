@@ -30,6 +30,13 @@ public class Timeoff {
     private int month;
     private int day;
 
+    public Timeoff(int time0ffId, String timeoffType) {
+    }
+
+    public Timeoff(String type){
+        this.type = type;
+    }
+
     public int getYear() {
         return year;
     }
@@ -276,5 +283,26 @@ public class Timeoff {
         }
         return dtrTimeOffDocx;
     }
-    
+
+
+
+    public static ObservableList<String> getTimeOffTypes(){
+        ObservableList<String> timeOffTypes = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement statement = connection.createStatement()){
+
+            ResultSet rs = ((Statement) statement).executeQuery("SELECT * FROM timeoff");
+
+            while (rs.next()) {
+                timeOffTypes.add(rs.getString("timeoff_type"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return timeOffTypes;
+    }
+
+
+
 }

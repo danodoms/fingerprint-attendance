@@ -35,7 +35,7 @@ public class IdentificationThread extends Thread{
     ObservableList<User> userList;
     int falsePositiveRate = Engine.PROBABILITY_ONE / 100000; //sets how accurate the identification should be to return candidate
     int candidateCount = 1; //how many candidate Fmd/s to return
-    int delayTimeInMs = 4000;
+    int delayTimeInMs = 4000; //DEFAULT IS 4000
     
     private boolean headlessMode = false;
 

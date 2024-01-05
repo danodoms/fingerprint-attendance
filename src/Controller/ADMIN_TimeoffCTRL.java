@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -101,10 +102,8 @@ public class ADMIN_TimeoffCTRL implements Initializable{
         updateBtn.setDisable(true);
         userOffIdLabelTag.setDisable(true);
         typeComBox.setValue("On Leave");
-//<<<<<<< HEAD
         searchBar.setText("");
         searchBar.setPromptText("Search name...");
-//=======
 
 
         userNameLabel.setText(selectedUser.getFullNameWithInitial());
@@ -113,7 +112,6 @@ public class ADMIN_TimeoffCTRL implements Initializable{
         manageUserLabel.setVisible(true);
         userImageView.setVisible(true);
         userNameLabel.setVisible(true);
-//>>>>>>> dano
         
     }
     public void showTimeoffTable(int user_id){
@@ -250,8 +248,9 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
 //                "November", "December");
 //        monthChoiceBox.setItems(monthList);
         
-        ObservableList<String> timeoffList = FXCollections.observableArrayList();
-        timeoffList.addAll("On Leave", "On Travel", "No Office");
+        ObservableList<String> timeoffList = Timeoff.getTimeOffTypes();
+
+//        timeoffList.addAll(timeOff);
         typeComBox.setItems(timeoffList);
         
       //Selection Name table
@@ -275,12 +274,14 @@ private void updateTimeoff(ActionEvent event) throws SQLException {
 });
        typeComBox.setOnAction(event -> {
     if (typeComBox.getValue() != null) {
-        if (typeComBox.getValue().equals("On Travel")) {
+        if (typeComBox.getValue().equals("Official Time")) {
             userOffIdLabel.setText("2");
         } else if (typeComBox.getValue().equals("On Leave")){
             userOffIdLabel.setText("1");
         } else if (typeComBox.getValue().equals("No Office")){
             userOffIdLabel.setText("3");
+        } else if (typeComBox.getValue().equals("Official Business")){
+            userOffIdLabel.setText("6");
         }else{ userOffIdLabel.setText("");}
     }
 });
