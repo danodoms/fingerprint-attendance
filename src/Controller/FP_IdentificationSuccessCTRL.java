@@ -5,8 +5,7 @@
 package Controller;
 
 import Fingerprint.IdentificationModal;
-import Fingerprint.ThreadFlags;
-import Fingerprint.VerficationThread;
+import Fingerprint.VerificationThread;
 import Model.Attendance;
 import Model.User;
 import Utilities.ImageUtil;
@@ -27,7 +26,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * FXML Controller class
@@ -71,10 +71,8 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
     }    
-    
-    
+
      public void setUserData(int delayTimeInMs, User user) {
         userToTime = user;
         this.delayTimeInMs = delayTimeInMs;
@@ -101,79 +99,9 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
 
         prevTimeInLabel.setVisible(false);
 
-        //Platform runlater syntax
-
         loadProgressbar();
-
-
-
         addAttendance();
-
-
     }
-
-
-    //Version 1
-//    public void addAttendance() {
-//        //MORNING
-//        if (isTimeWithinRange(getCurrentTime(), "00:00", "11:59")) {
-//            if (userHasTimeIn("00:00", "11:59") || userHasTimeIn("12:00", "23:59")){
-//                //PROMPT USER TO SCAN FINGERPRINT AGAIN TO TIMEOUT
-//                timeOutUser_PM();
-//            } else {
-//                timeInUser_AM();
-//            }
-//            //LUNCH BREAK
-//        } else if (isTimeWithinRange(getCurrentTime(), "12:00", "23:59")) {
-//            if (userHasTimeIn("00:00", "11:59") && userHasTimeOut("00:00", "11:59")) {
-//                timeInUser_PM();
-//            } else {
-//                if (userHasTimeIn("00:00", "11:59")) {
-//                    timeOutUser_PM();
-//                } else {
-//                    timInUser_PM
-//                }
-//            }
-//            //AFTERNOON TO MIDNIGHT
-//        } else if (isTimeWithinRange(getCurrentTime(), "12:00", "23:59")) {
-//            if (userHasTimeIn("12:00", "23:59")) {
-//                //PROMPT USER TO SCAN FINGERPRINT AGAIN TO TIMEOUT
-//                timeOutUser_PM();
-//            } else {
-//                timeInUser_PM();
-//            }
-//        }
-//    }
-
-
-    //PERFECT ALGORITHM, but for day shift only, fixed format
-//    public void addAttendance() {
-//        // Check if user has already timed in for the current period
-//        boolean hasTimedIn = userHasTimeIn(getCurrentPeriod());
-//
-//        // Check if user has timed out for the previous period
-//        boolean hasTimedOutPrevious = userHasTimeOut(getPreviousPeriod());
-//
-//        // Morning
-//        if (isTimeWithinRange(getCurrentTime(), "00:00", "11:59")) {
-//            if (hasTimedIn) {
-//                // Prompt user to scan fingerprint again to timeout
-//                timeOutUser(getCurrentPeriod());
-//            } else {
-//                timeInUser(getCurrentPeriod());
-//            }
-//        } else if (isTimeWithinRange(getCurrentTime(), "12:00", "23:59")) {
-//            if (hasTimedIn) {
-//                // Prompt user to scan fingerprint again to timeout
-//                timeOutUser(getCurrentPeriod());
-//            } else if (!hasTimedOutPrevious) {
-//                // User has not timed out for previous period, so prompt them to time out
-//                timeOutUser(getPreviousPeriod());
-//            } else {
-//                timeInUser(getCurrentPeriod());
-//            }
-//        }
-//    }
 
 
     //simplified method, but time out for lunch break is not enforced, meaning if the user needs to log out first before lunch break, before they can login in the next period, if they miss the lnchbreak time out
@@ -203,6 +131,7 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
                 SoundUtil.playDenySound();
                 attendanceTypeLabel.setText("ATTENDANCE LIMIT REACHED");
                 timeLabel.setText("DAILY LIMIT: " + dailyAttendanceLimit);
+                dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
         }else if (hasTimedIn) {
                 timeOutUser(getCurrentTime());
         } else if (hasTimedOutAM && LocalTime.now().isBefore(LocalTime.parse("12:00"))) {
@@ -248,12 +177,10 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
 //        attendanceTypeLabel.setText("SCAN AGAIN TO TIME OUT");
 //        timeLabel.setText("");
 //        dateLabel.setText("");
-//        prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId())+" SINCE LAST TIME IN");
+//        prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId()) + " SINCE LAST TIME IN");
 //        prevTimeInLabel.setVisible(true);
 //
-//
-//        Platform.runLater(() -> {
-//            //ThreadFlags.runVerificationThread = true;
+//        CompletableFuture<Void> verificationFuture = CompletableFuture.runAsync(() -> {
 //            VerficationThread verificationThread = new VerficationThread(userToTime.getId(), delayTimeInMs);
 //            verificationThread.start();
 //            try {
@@ -262,17 +189,23 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
 //                throw new RuntimeException(e);
 //            }
 //
-//            if(ThreadFlags.isFingerprintMatched){
-//                timeOutActionConfirmed(time);
-//            }else{
-//                attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
-//                SoundUtil.playFailSound();
+//            if (ThreadFlags.isFingerprintMatched) {
+//                Platform.runLater(() -> {
+//                    timeOutActionConfirmed(time);
+//                });
+//            } else {
+//                Platform.runLater(() -> {
+//                    attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
+//                    SoundUtil.playFailSound();
+//                });
 //            }
 //        });
+//
+//        // Handle completion asynchronously if needed
+//        verificationFuture.thenRun(() -> {
+//            // Code to run after verification is complete (if needed)
+//        });
 //    }
-
-
-
 
     public void timeOutUser(String time) {
         SoundUtil.playPromptSound();
@@ -283,8 +216,12 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId()) + " SINCE LAST TIME IN");
         prevTimeInLabel.setVisible(true);
 
-        CompletableFuture<Void> verificationFuture = CompletableFuture.runAsync(() -> {
-            VerficationThread verificationThread = new VerficationThread(userToTime.getId(), delayTimeInMs);
+        //delaytime is cusing issues currently
+        VerificationThread verificationThread = new VerificationThread(userToTime.getId(), delayTimeInMs);
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+
             verificationThread.start();
             try {
                 verificationThread.join();
@@ -292,72 +229,89 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
                 throw new RuntimeException(e);
             }
 
-            if (ThreadFlags.isFingerprintMatched) {
-                //Platform.runLater(() -> {
+            if (verificationThread.userIsVerified) {
+                Platform.runLater(() -> {
                     timeOutActionConfirmed(time);
-//                });
-            } else {
+                });
+            } else if(verificationThread.isCaptureCanceled){
+                Platform.runLater(() -> {
+                    SoundUtil.playFailSound();
+                });
+            }else{
                 Platform.runLater(() -> {
                     attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
                     SoundUtil.playFailSound();
                 });
             }
         });
+        executor.shutdown();
 
-        // Handle completion asynchronously if needed
-        verificationFuture.thenRun(() -> {
-            // Code to run after verification is complete (if needed)
-        });
+
+
+
+//        Task<Void> nonUITask = new Task<>() {
+//            @Override
+//            protected Void call() throws Exception {
+//                VerficationThread verificationThread = new VerficationThread(userToTime.getId(), delayTimeInMs);
+//                verificationThread.start();
+//                try {
+//                    verificationThread.join();
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//                if (verificationThread.userIsVerified) {
+//                    Platform.runLater(() -> {
+//                        timeOutActionConfirmed(time);
+//                    });
+//                } else {
+//                    Platform.runLater(() -> {
+//                        attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
+//                        SoundUtil.playFailSound();
+//                    });
+//                }
+//                return null;
+//            }
+//        };
+//
+//        Thread thread = new Thread(nonUITask);
+//        thread.start();
+
+
+
+
+//        CompletableFuture<Void> verificationFuture = CompletableFuture.runAsync(() -> {
+//            VerficationThread verificationThread = new VerficationThread(userToTime.getId(), delayTimeInMs);
+//            verificationThread.start();
+//            try {
+//                verificationThread.join();
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//            if (verificationThread.userIsVerified) {
+//                Platform.runLater(() -> {
+//                    timeOutActionConfirmed(time);
+//                });
+//            } else {
+//                Platform.runLater(() -> {
+//                    attendanceTypeLabel.setText("FINGERPRINT DOESN'T MATCH");
+//                    SoundUtil.playFailSound();
+//                });
+//            }
+//        });
     }
 
     public void timeOutActionConfirmed(String time){
-        CompletableFuture<Void> methodFuture = CompletableFuture.runAsync(() -> {
-            System.out.println("User timed out at " + time);
-            attendanceTypeLabel.setText("Timed Out");
-            timeLabel.setText(LocalDateTime.now().format(timeFormatter));
-            dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
+        System.out.println("User timed out at " + time);
+        attendanceTypeLabel.setText("Timed Out");
+        timeLabel.setText(LocalDateTime.now().format(timeFormatter));
+        dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
 
-            // Insert the time into the database
-            Attendance.timeOut(userToTime.getId(), time);
-            SoundUtil.playTimeOutSound();
-            ThreadFlags.isFingerprintMatched = false;
-        });
-
-        // Handle completion asynchronously if needed
-        methodFuture.thenRun(() -> {
-            // Code to run after verification is complete (if needed)
-        });
-    }
-    //V1: doesnt confirm action before time out
-//    public void timeOutUser(String time) {
-//        System.out.println("User timed out at " + time);
-//        attendanceTypeLabel.setText("Timed Out");
-//        timeLabel.setText(LocalDateTime.now().format(timeFormatter));
-//        dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
-//        prevTimeInLabel.setText(Attendance.getHoursSinceLastTimeIn(userToTime.getId())+" SINCE LAST TIME IN");
-//        prevTimeInLabel.setVisible(true);
-//
-//        // Insert the time in into the database
-//        Attendance.timeOut(userToTime.getId(), time);
-//    }
-
-
-
-
-
-
-
-
-
-
-    public static boolean isTimeWithinRange(String timeToCheck, String rangeStart, String rangeEnd) {
-        // Parse the input strings to LocalTime objects
-        LocalTime time = LocalTime.parse(timeToCheck);
-        LocalTime start = LocalTime.parse(rangeStart);
-        LocalTime end = LocalTime.parse(rangeEnd);
-
-        // Check if the given time is within the range
-        return !time.isBefore(start) && !time.isAfter(end);
+        // Insert the time into the database
+        Attendance.timeOut(userToTime.getId(), time);
+        SoundUtil.playTimeOutSound();
+        //ThreadFlags.isFingerprintMatched = false;
     }
 
     public static String getCurrentTime(){
@@ -384,6 +338,4 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         thread.setDaemon(true);
         thread.start();
     }
-
-
 }

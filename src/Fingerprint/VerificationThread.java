@@ -18,7 +18,7 @@ import javafx.collections.ObservableList;
  *
  * @author admin
  */
-public class VerficationThread extends Thread{
+public class VerificationThread extends Thread{
     private Engine engine = UareUGlobal.GetEngine(); //creates engine to be used by whole class
     private CaptureThread captureThread;
     ObservableList<Fingerprint> fingerprintList;
@@ -29,35 +29,25 @@ public class VerficationThread extends Thread{
     private int userIdToMatch;
     private int delayTimeInMs;
 
+    public boolean userIsVerified;
+
     boolean runThisThread = true;
+
+    public boolean isCaptureCanceled;
 
 
 
     //constructor used for user fingerprint verification
-    public VerficationThread(int userIdToMatch, int delayTimeInMs){
+    public VerificationThread(int userIdToMatch, int delayTimeInMs){
         this.userIdToMatch = userIdToMatch;
         this.delayTimeInMs = delayTimeInMs;
     }
 
+    public VerificationThread(int userIdToMatch){
+        this.userIdToMatch = userIdToMatch;
+    }
 
 
-
-    //called by the run method for starting the identification process
-//    public void startVerification() throws InterruptedException, UareUException{
-//        Selection.closeAndOpenReader();
-//        ThreadFlags.runVerificationThread = true;
-//
-//        //print identification thread started
-//        System.out.println("Verification Thread Started");
-//        while(ThreadFlags.runVerificationThread) {
-//            Fmd fmdToIdentify = getFmdFromCaptureThread();
-//            Fmd[] databaseFmds = getFmdsFromDatabase();
-//            //compareFmdToDatabaseFmds(fmdToIdentify, databaseFmds);
-//            isFingerprintMatchWithUserId(fmdToIdentify, databaseFmds);
-//        }
-//        ThreadFlags.runVerificationThread = false;
-//        System.out.println("Verification Thread Stopped");
-//    }
 
     public void startVerification() throws InterruptedException, UareUException{
         Selection.closeAndOpenReader();
@@ -89,6 +79,8 @@ public class VerficationThread extends Thread{
         captureThread = new CaptureThread("Verification Thread", delayTimeInMs);
         captureThread.start();
         captureThread.join(0); //wait till done
+
+        isCaptureCanceled = captureThread.isCaptureCanceled;
 
         //store the FMD from the latest capture event, from captureThread
         CaptureThread.CaptureEvent evt = captureThread.getLastCapture();
@@ -130,7 +122,8 @@ public class VerficationThread extends Thread{
 
         if(fmdToIdentify == null){
             System.out.println("fmdToIdentify is null");
-            ThreadFlags.isFingerprintMatched = false;
+            //ThreadFlags.isFingerprintMatched = false;
+            userIsVerified = false;
             runThisThread = false;
             return;
         }
@@ -144,10 +137,12 @@ public class VerficationThread extends Thread{
 
             if(matchingUserId == userIdToMatch) {
                 System.out.println("VERFICATION: Fingerprint matched with User ID");
-                ThreadFlags.isFingerprintMatched = true;
+                userIsVerified = true;
+                //ThreadFlags.isFingerprintMatched = true;
             }else{
                 System.out.println("VERFICATION: Fingerprint doesn't match with User ID");
-                ThreadFlags.isFingerprintMatched = false;
+                //ThreadFlags.isFingerprintMatched = false;
+                userIsVerified = false;
             }
 
         }else{

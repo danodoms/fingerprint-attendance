@@ -13,5 +13,5 @@ public class ThreadFlags {
     public static volatile boolean runVerificationThread = false;
 
     //flag used by VerificationThread to check if fingerprint is matched
-    public static volatile boolean isFingerprintMatched = false;
+    //public static volatile boolean isFingerprintMatched = false;
 }

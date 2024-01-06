@@ -10,6 +10,9 @@ import com.digitalpersona.uareu.UareUException;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 /**
  *
@@ -20,6 +23,7 @@ public class CaptureThread extends Thread{
     private CaptureEvent lastCapture;
     private String threadName;
     private int delayTimeInMs;
+    public boolean isCaptureCanceled;
     
     public CaptureThread(ImageView imageview){
         this.imageview = imageview;
@@ -128,7 +132,8 @@ public class CaptureThread extends Thread{
         //platform runlater syntax
 
         if(delayTimeInMs != 0){
-            Platform.runLater(() -> {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.submit(() -> {
                 try {
                     System.out.println("Delaying for " + delayTimeInMs + "ms");
                     Thread.sleep(delayTimeInMs);
@@ -138,10 +143,12 @@ public class CaptureThread extends Thread{
                 }
                 try {
                     Selection.reader.CancelCapture();
+                    isCaptureCanceled = true;
                 } catch (UareUException e) {
                     throw new RuntimeException(e);
                 }
             });
+            executor.shutdown();
         }
 
 
