@@ -401,10 +401,10 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
                         int convertIn = Integer.parseInt(splitIn[0]);
                         int convertOut = Integer.parseInt(splitOut[0]);
                         if(convertIn >= 13){
-                            convertIn = convertIn - 12;
+                            convertIn = convertIn - 0; //PREVIOUS WAS '- 12'
                             in = "0"+(convertIn+"")+ ":"+splitIn[1]+":"+splitIn[2];
                         }if(convertOut >= 13){
-                            convertOut = convertOut - 12;
+                            convertOut = convertOut - 0; //PREVIOUS WAS '- 12'
                             if(convertOut<=9){
                                 out = "0"+(convertOut+"")+ ":"+splitOut[1]+":"+splitOut[2];
                             }else{
