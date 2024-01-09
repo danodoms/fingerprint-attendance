@@ -908,15 +908,16 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
         }
     }
 
-    public static boolean userHasTimeOutBetween(int userId, String startTime, String endTime) {
+    public static boolean userHasTimeOutBetween(int userId, String startTime, String endTime, String notation) {
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      //"SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_in IS NOT NULL ORDER by time_in desc limit 1")) {
-                     "SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_out BETWEEN ? AND ?")){
+                     "SELECT COUNT(*) FROM attendance WHERE user_id = ? AND date = ? AND time_out BETWEEN ? AND ? AND time_notation = ?")){
             statement.setInt(1, userId);
             statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
             statement.setString(3, startTime);
             statement.setString(4, endTime);
+            statement.setString(5, notation);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return resultSet.getInt(1) > 0; // Check if there is at least one record
@@ -982,6 +983,11 @@ public Attendance (String dtrDate, int day, String name,  String timeIn, String 
             return "DATABASE ERROR: No time-in record found";
         }
 
+    }
+
+    public static class Notation{
+        public static final String AM = "AM";
+        public static final String PM = "PM";
     }
 
 

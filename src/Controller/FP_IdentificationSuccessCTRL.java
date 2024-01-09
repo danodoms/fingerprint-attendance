@@ -111,8 +111,8 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
         boolean hasTimedOut = Attendance.userHasTimeOutToday(userToTime.getId());
         System.out.println("Has timed out: " + hasTimedOut);
 
-        boolean hasTimedOutAM = Attendance.userHasTimeOutBetween(userToTime.getId(), "00:00", "11:59");
-        boolean hasTimedOutPM = Attendance.userHasTimeOutBetween(userToTime.getId(), "12:00", "23:59");
+        boolean hasTimedOutAM = Attendance.userHasTimeOutBetween(userToTime.getId(), "00:00", "11:59", "AM");
+        boolean hasTimedOutPM = Attendance.userHasTimeOutBetween(userToTime.getId(), "12:00", "23:59", "PM");
         boolean hasReachedDailyAttendanceLimit = Attendance.userHasReachedDailyAttendanceLimit(userToTime.getId(), dailyAttendanceLimit);
 
         LocalTime currentTime = LocalTime.now();
@@ -132,6 +132,8 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
                 attendanceTypeLabel.setText("ATTENDANCE LIMIT REACHED");
                 timeLabel.setText("DAILY LIMIT: " + dailyAttendanceLimit);
                 dateLabel.setText(LocalDateTime.now().format(dateTimeFormatter));
+
+                System.out.println("///////////IM ON LINE 136//////////");
         } else if (hasTimedOutAM && LocalTime.now().isBefore(LocalTime.parse("12:00"))) {
                 SoundUtil.playDenySound();
                 attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
@@ -140,6 +142,8 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
 
                 timeLabel.setText(timeLeft);
                 dateLabel.setText("UNTIL YOUR NEXT TIME IN");
+
+                System.out.println("///////////IM ON LINE 146//////////");
         } else if (hasTimedOutPM){
                 SoundUtil.playDenySound();
                 attendanceTypeLabel.setText("YOU'VE ALREADY TIMED OUT");
@@ -148,10 +152,14 @@ public class FP_IdentificationSuccessCTRL implements Initializable {
 
                 timeLabel.setText(timeLeft);
                 dateLabel.setText("UNTIL YOUR NEXT TIME IN");
+
+                System.out.println("///////////IM ON LINE 156//////////");
         }else if (hasTimedIn) {
             timeOutUser(getCurrentTime());
+            System.out.println("///////////IM ON LINE 159//////////");
         } else {
             timeInUser(getCurrentTime());
+            System.out.println("///////////IM ON LINE 162//////////");
         }
     }
 
