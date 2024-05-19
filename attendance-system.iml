@@ -9,12 +9,13 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="appengine-awt-1.0.0" level="application" />
-    <orderEntry type="library" name="dpuareu" level="application" />
     <orderEntry type="library" name="JavaFX" level="application" />
     <orderEntry type="library" name="mysql-connector-j-8.1." level="application" />
     <orderEntry type="library" name="dlsc.gemsfx" level="application" />
+    <orderEntry type="library" name="Dependencies" level="project" />
+    <orderEntry type="library" name="attendance-system" level="project" />
   </component>
   <component name="SonarLintModuleSettings">
-    <option name="uniqueId" value="63dfa608-655e-47f5-a2bf-edaaa9ef61c0" />
+    <option name="uniqueId" value="57f5c131-f929-458c-afc5-e67136550145" />
   </component>
 </module>

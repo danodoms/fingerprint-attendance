@@ -11,7 +11,7 @@ import java.sql.*;
  * @author admin
  */
 public class DatabaseUtil {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/v11_attendance_system";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/test21";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
     

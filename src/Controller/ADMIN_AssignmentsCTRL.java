@@ -8,9 +8,7 @@ import Model.*;
 import Utilities.Filter;
 import Utilities.ImageUtil;
 import Utilities.Modal;
-import com.dlsc.gemsfx.DialogPane;
 import com.dlsc.gemsfx.TimePicker;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
@@ -29,8 +26,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -227,7 +222,7 @@ public class ADMIN_AssignmentsCTRL implements Initializable {
 
 
         //print if starttimepicker and endtimepicker is editable
-        System.out.println("startTimePicker.isEditable(): " + startTimePicker.isEditable());
+        //System.out.println("startTimePicker.isEditable(): " + startTimePicker.isEditable());
     }    
     
     public void loadUserTable(){
