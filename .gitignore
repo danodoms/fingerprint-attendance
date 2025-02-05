@@ -21,3 +21,9 @@ nbproject/project.properties
 /.idea/
 /out/
 lib/
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
