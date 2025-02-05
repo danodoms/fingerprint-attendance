@@ -8,6 +8,7 @@ nbdist/
 .nb-gradle/
 nbproject/project.properties
 *.log
+*.iml
 
 
 # Ignores all files ending in .docx except for the template used in Generating DTR
