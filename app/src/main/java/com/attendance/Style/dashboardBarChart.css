@@ -1,0 +1,97 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 26, 2023, 10:27:37 PM
+    Author     : User
+*/
+
+
+.chart-bar.series0 {
+    -fx-bar-fill: #FF97C4;
+}
+
+.chart-bar.series1 {
+    -fx-bar-fill: #8367C7;  
+}
+.mView{
+    /*-fx-image: url('file:///C:/Users/User/Downloads/download.png');*/
+    /* Other styling properties if needed */
+}
+/*#pinkPane {
+    -fx-background-color: #FF97C4;
+}*/
+.chart-bar{
+    -fx-border-radius: 10;
+}
+
+.chart-pie-label{
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+.default-color0.chart-pie{
+    -fx-pie-color: #FF97C4;
+}
+.default-color1.chart-pie{
+    -fx-pie-color: #8367C7;
+}
+
+#topLine{
+    -fx-border-width: 2px;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+}
+#timeLabel{
+    -fx-text-fill:  #3DAC78;
+}
+
+#displayDateLabel{
+    -fx-text-fill: #74C69D;
+}
+#timeLabel:hover {
+    -fx-text-fill: #F9F9F9;
+    -fx-font-size: 103.0px;
+    -fx-text-fill:  #3A5A40;
+}
+#displayDateLabel:hover {/*.default-color0.chart-pie:hover{
+    -fx-pie-color: #21D375;
+}
+.default-color1.chart-pie:hover{
+    -fx-pie-color: #073B3A;
+}*/
+    -fx-text-fill: #F9F9F9;
+    -fx-font-size: 42.0px;
+    -fx-text-fill: #3A5A40;
+}
+
+.chart-pie-label:hover{
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #21D375;
+}
+#paneBot{
+   -fx-background-color: linear-gradient(to right, #43AC78 0%, #64C695 25%, #A8EDCB 50%, #64C695 75%, #43AC78 100%);
+   
+}
+#botLabel{
+    -fx-stroke: black;
+  -fx-stroke-width: 1px;
+}
+.fView, .mView {
+    -fx-fit-width: 50px;
+    -fx-fit-height: 50px;
+}
+
+.fView {
+   /* -fx-image: url('../images/female.png');*/
+}
+
+.mView {
+    /*-fx-image: url('../images/male.png');*/
+}
+.pinkPane{
+    -fx-background-color: #FF97C4;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}

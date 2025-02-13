@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FP_IdentificationSuccessCTRL">
+   <children>
+      <Label fx:id="surnameLabel" layoutX="246.0" layoutY="82.0" prefHeight="55.0" prefWidth="524.0" style="-fx-alignment: CENTER-LEFT;" text="Surname," textFill="#07f9a2">
+         <font>
+            <Font name="System Bold" size="50.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="userImageView" fitHeight="183.0" fitWidth="194.0" layoutX="43.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/default_user_img.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="176.0" fitWidth="173.0" layoutX="787.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/fp_id_success_icon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="nameMnameLabel" layoutX="246.0" layoutY="137.0" prefHeight="73.0" prefWidth="535.0" style="-fx-alignment: CENTER-LEFT;" text="First Name D." textFill="#07f9a2">
+         <font>
+            <Font name="System Bold" size="50.0" />
+         </font>
+      </Label>
+      <Label fx:id="greetingLabel" layoutX="246.0" layoutY="50.0" prefHeight="39.0" prefWidth="416.0" text="Good Morning!" textFill="#07f79f">
+         <font>
+            <Font size="27.0" />
+         </font></Label>
+      <VBox layoutX="41.0" layoutY="262.0" prefHeight="353.0" prefWidth="919.0" style="-fx-border-radius: 10px; -fx-border-style: solid; -fx-border-color: #07f9a2; -fx-border-width: 2px;">
+         <children>
+            <Label fx:id="attendanceTypeLabel" alignment="CENTER" prefHeight="88.0" prefWidth="926.0" text="TIMED OUT" textAlignment="CENTER" textFill="#07f9a2">
+               <font>
+                  <Font size="65.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="-5.0" top="25.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="timeLabel" alignment="CENTER" prefHeight="88.0" prefWidth="931.0" text="07:50 AM" textFill="#07f9a2">
+               <font>
+                  <Font name="System Bold" size="60.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="-8.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="dateLabel" alignment="CENTER" prefHeight="45.0" prefWidth="958.0" text="Friday, July 9, 2023" textFill="#07f9a2">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="prevTimeInLabel" alignment="CENTER" prefHeight="36.0" prefWidth="1021.0" text="4 HOUR(S) AND 30 MINUTES SINCE LAST TIME IN" textFill="#07f9a2">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <ProgressBar fx:id="progressBar" prefHeight="32.0" prefWidth="895.0" progress="1.0" style="-fx-padding: 0; -fx-accent: #1a1a1a; -fx-box-border: transparent;">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </ProgressBar>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

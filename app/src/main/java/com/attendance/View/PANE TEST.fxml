@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="0.0" prefWidth="0.0" stylesheets="@../Style/admin_pane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ContainerPaneCTRL">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="200.0" styleClass="navVbox">
+         <children>
+            <VBox prefHeight="608.0" prefWidth="200.0" snapToPixel="false">
+               <children>
+                  <VBox prefHeight="85.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="0.0" prefWidth="143.0" text="attendance" textFill="#9bffd9">
+                           <font>
+                              <Font name="System Bold" size="26.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="17.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label prefHeight="12.0" prefWidth="133.0" text="system" textFill="#9bffd9">
+                           <font>
+                              <Font name="System Bold" size="26.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="17.0" top="-13.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Button fx:id="dashboardBtn" mnemonicParsing="false" onAction="#openDashboardPane" prefHeight="40.0" prefWidth="180.0" text="Dashboard">
+                     <VBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="attendanceBtn" mnemonicParsing="false" onAction="#openAttendancePane" prefHeight="40.0" prefWidth="180.0" text="Attendance">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="calendarBtn" mnemonicParsing="false" onAction="#openEmpCalendar" prefHeight="40.0" prefWidth="180.0" text="Calendar">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                <TitledPane style="-fx-background-color: transparent; -fx-border-radius: 20px; -fx-alignment: LEFT;" text="Manage">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: transparent;">
+                           <children>
+                              <Button fx:id="assignmentsBtn" mnemonicParsing="false" onAction="#openAssignmentsPane" prefHeight="40.0" prefWidth="210.0" text="Assignment">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Button>
+                              <Button fx:id="assignmentsBtn1" mnemonicParsing="false" onAction="#openAssignmentsPane" prefHeight="40.0" prefWidth="200.0" text="Department" />
+                              <Button fx:id="assignmentsBtn11" mnemonicParsing="false" onAction="#openAssignmentsPane" prefHeight="40.0" prefWidth="237.0" text="Position" />
+                              <Button fx:id="assignmentsBtn111" mnemonicParsing="false" onAction="#openAssignmentsPane" prefHeight="40.0" prefWidth="261.0" text="Shift" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </VBox>
+                     </content>
+                </TitledPane>
+                  <Button fx:id="employeesBtn" mnemonicParsing="false" onAction="#openEmpPane" prefHeight="40.0" prefWidth="180.0" text="Employees">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="fingerprintsBtn" mnemonicParsing="false" onAction="#openFingerprintsPane" prefHeight="40.0" prefWidth="180.0" text="Fingerprints">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="reportsBtn" mnemonicParsing="false" onAction="#openAttRepPane" prefHeight="40.0" prefWidth="180.0" text="Reports">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="logOutAdminBtn" mnemonicParsing="false" onAction="#logOut" prefHeight="40.0" prefWidth="180.0" text="Log Out">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <Pane fx:id="contentPane" layoutX="200.0" minHeight="600.0" minWidth="802.0" prefHeight="600.0" prefWidth="802.0" />
+   </children>
+</AnchorPane>
