@@ -213,8 +213,8 @@ public class ADMIN_ShiftsCTRL implements Initializable {
     //CLEAR FIELDS
     public void clearFields() {
         shiftNameField.setText("");
-        startTimePicker.setValue(null);
-        endTimePicker.setValue(null);
+        startTimePicker.setTime(null);
+        endTimePicker.setTime(null);
     }
 
 }

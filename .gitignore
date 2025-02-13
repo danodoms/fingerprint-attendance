@@ -20,4 +20,4 @@ nbproject/project.properties
 # IntelliJ IDEA
 /.idea/
 /out/
-lib/
+# lib/
