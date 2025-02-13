@@ -1,4 +1,4 @@
-package Controller;
+package com.attendance.Controller;
 
 import javafx.scene.control.Label;
 

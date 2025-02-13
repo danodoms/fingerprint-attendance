@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Fingerprint;
+package com.attendance.Fingerprint;
 
 import com.digitalpersona.uareu.Fid;
 import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.UareUException;
 import javafx.scene.image.ImageView;
+import com.attendance.Fingerprint.IdentificationThread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

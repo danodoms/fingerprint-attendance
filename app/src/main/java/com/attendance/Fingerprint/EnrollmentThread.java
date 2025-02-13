@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Fingerprint;
+package com.attendance.Fingerprint;
 
-import Model.Fingerprint;
+import com.attendance.Model.Fingerprint;
 import com.digitalpersona.uareu.*;
 import com.digitalpersona.uareu.Engine.PreEnrollmentFmd;
 import com.digitalpersona.uareu.Reader.CaptureResult;

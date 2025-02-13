@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package Controller;
+package com.attendance.Controller;
 
-import Model.Fingerprint;
-import Model.User;
+import com.attendance.Model.Fingerprint;
+import com.attendance.Controller.FP_EnrollmentCTRL;
+import com.attendance.Model.User;
 import Utilities.ImageUtil;
 import Utilities.PaneUtil;
 import javafx.collections.ObservableList;

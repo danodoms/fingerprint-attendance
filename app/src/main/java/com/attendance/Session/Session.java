@@ -1,6 +1,6 @@
-package Session;
+package com.attendance.Session;
 
-import Model.User;
+import com.attendance.Model.User;
 
 public class Session {
     private static Session instance;

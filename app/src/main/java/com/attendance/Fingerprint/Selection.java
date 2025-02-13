@@ -1,4 +1,4 @@
-package Fingerprint;
+package com.attendance.Fingerprint;
 
 import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.ReaderCollection;

@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package com.attendance.Controller;
 
 import Utilities.DatabaseUtil;
 import Utilities.DateUtil;
 import Utilities.PaneUtil;
-import Model.*;
-import static Model.Attendance.getAdministrative;
-import static Model.Attendance.getAttendance;
-import static Model.Attendance.getInstruction;
+import com.attendance.Model.*;
+import static com.attendance.Model.Attendance.getAdministrative;
+import static com.attendance.Model.Attendance.getAttendance;
+import static com.attendance.Model.Attendance.getInstruction;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;

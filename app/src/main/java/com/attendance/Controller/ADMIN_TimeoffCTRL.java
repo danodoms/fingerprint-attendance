@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package main.java.com.attendance.Controller;
 
 import Model.Attendance;
 import Model.Timeoff;
@@ -32,8 +32,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ResourceBundle;
 
-import static Model.Attendance.getEmpName;
-import static Model.Timeoff.getTimeoffByUserId;
+import static com.attendance.Model.Attendance.getEmpName;
+import static com.attendance.Model.Timeoff.getTimeoffByUserId;
 /**
  *
  * @author User

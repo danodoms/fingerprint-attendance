@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Fingerprint;
+package com.attendance.Fingerprint;
 
-import Controller.FP_IdentificationSuccessCTRL;
-import Model.User;
+import com.attendance.Controller.FP_IdentificationSuccessCTRL;
+import com.attendance.Model.User;
 import Utilities.PaneUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

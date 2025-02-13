@@ -1,9 +1,9 @@
-package main.java.com.attendance;/*
+package com.attendance;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
 
-import Fingerprint.Selection;
+import com.attendance.Fingerprint.Selection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

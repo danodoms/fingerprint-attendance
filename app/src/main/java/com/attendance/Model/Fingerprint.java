@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package main.java.com.attendance.Model;
+package com.attendance.Model;
 
 import Utilities.DatabaseUtil;
 import java.util.Date;
-import Controller.*;
+import com.attendance.Controller.*;
 import com.digitalpersona.uareu.Fmd;
 import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;

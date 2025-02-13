@@ -1,11 +1,11 @@
-package Controller;
+package main.java.com.attendance.Controller;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
-import Session.Session;
+import com.attendance.Session.Session;
 import Utilities.PaneUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

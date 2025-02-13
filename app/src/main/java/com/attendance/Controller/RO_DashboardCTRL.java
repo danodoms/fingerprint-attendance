@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package Controller;
+package com.attendance.Controller;
 
-import Model.Attendance;
-import Model.User;
-import Session.Session;
+import com.attendance.Model.Attendance;
+import com.attendance.Model.User;
+import com.attendance.Session.Session;
 import Utilities.DatabaseUtil;
 import Utilities.ImageUtil;
 import Utilities.PaneUtil;
@@ -34,8 +34,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static Model.Attendance.getEmpToPieChart;
-import static Model.User.getUserGender;
+import static com.attendance.Model.Attendance.getEmpToPieChart;
+import static com.attendance.Model.User.getUserGender;
 
 /**
  * FXML Controller class

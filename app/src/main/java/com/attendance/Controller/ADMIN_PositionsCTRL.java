@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package Controller;
+package com.attendance.Controller;
 
-import Model.Department;
-import Model.Position;
+import com.attendance.Model.Department;
+import com.attendance.Model.Position;
 import Utilities.Modal;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

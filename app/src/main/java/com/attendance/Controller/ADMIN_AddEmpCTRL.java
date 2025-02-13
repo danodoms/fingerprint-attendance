@@ -1,11 +1,11 @@
-package main.java.com.attendance.Controller;
+package com.attendance.Controller;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
-import Model.User;
+import com.attendance.Model.User;
 import Utilities.DatabaseUtil;
 import Utilities.Filter;
 import Utilities.ImageUtil;

@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package com.attendance.Controller;
 
-import Model.Attendance;
-import Model.Special_Calendar;
+import com.attendance.Model.Attendance;
+import com.attendance.Model.Special_Calendar;
 import Utilities.DatabaseUtil;
 import Utilities.PaneUtil;
 import javafx.collections.FXCollections;
@@ -30,9 +30,9 @@ import java.time.Month;
 import java.time.YearMonth;
 import java.util.*;
 
-import static Model.Attendance.*;
-import static Model.Special_Calendar.getCalendarByUserId;
-import Model.Timeoff;
+import static com.attendance.Model.Attendance.*;
+import static com.attendance.Model.Special_Calendar.getCalendarByUserId;
+import com.attendance.Model.Timeoff;
 import Utilities.Modal;
 import java.awt.Desktop;
 import java.io.File;

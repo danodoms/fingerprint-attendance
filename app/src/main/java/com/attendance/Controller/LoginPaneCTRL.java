@@ -1,4 +1,4 @@
-package Controller;
+package com.attendance.Controller;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -8,9 +8,9 @@ package Controller;
 import Fingerprint.IdentificationThread;
 import Fingerprint.Selection;
 import Fingerprint.ThreadFlags;
-import Model.Attendance;
-import Model.User;
-import Session.Session;
+import com.attendance.Model.Attendance;
+import com.attendance.Model.User;
+import com.attendance.Session.Session;
 import Utilities.Encryption;
 import Utilities.PaneUtil;
 import com.dlsc.gemsfx.DialogPane;
