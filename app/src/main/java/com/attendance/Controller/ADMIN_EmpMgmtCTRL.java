@@ -7,10 +7,10 @@ package com.attendance.Controller;
 
 import com.attendance.Model.*;
 import com.attendance.Session.Session;
-import Utilities.DatabaseUtil;
-import Utilities.ImageUtil;
-import Utilities.Modal;
-import Utilities.PaneUtil;
+import com.attendance.Utilities.DatabaseUtil;
+import com.attendance.Utilities.ImageUtil;
+import com.attendance.Utilities.Modal;
+import com.attendance.Utilities.PaneUtil;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

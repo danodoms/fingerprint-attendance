@@ -1,4 +1,4 @@
-package main.java.com.attendance.Controller;
+package com.attendance.Controller;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -6,7 +6,7 @@ package main.java.com.attendance.Controller;
  */
 
 import com.attendance.Session.Session;
-import Utilities.PaneUtil;
+import com.attendance.Utilities.PaneUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -6,7 +6,7 @@ package com.attendance.Controller;
 
 import com.attendance.Model.Position;
 import com.attendance.Model.Shift;
-import Utilities.Modal;
+import com.attendance.Utilities.Modal;
 import com.dlsc.gemsfx.TimePicker;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

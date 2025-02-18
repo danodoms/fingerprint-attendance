@@ -4,7 +4,7 @@
  */
 package com.attendance.Model;
 
-import Utilities.DatabaseUtil;
+import com.attendance.Utilities.DatabaseUtil;
 import java.util.Date;
 import com.attendance.Controller.*;
 import com.digitalpersona.uareu.Fmd;

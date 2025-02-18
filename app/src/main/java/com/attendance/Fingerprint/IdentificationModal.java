@@ -6,7 +6,7 @@ package com.attendance.Fingerprint;
 
 import com.attendance.Controller.FP_IdentificationSuccessCTRL;
 import com.attendance.Model.User;
-import Utilities.PaneUtil;
+import com.attendance.Utilities.PaneUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;

@@ -4,9 +4,9 @@
  */
 package com.attendance.Model;
 
-import Utilities.DatabaseUtil;
-import Utilities.Encryption;
-import Utilities.StringUtil;
+import com.attendance.Utilities.DatabaseUtil;
+import com.attendance.Utilities.Encryption;
+import com.attendance.Utilities.StringUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

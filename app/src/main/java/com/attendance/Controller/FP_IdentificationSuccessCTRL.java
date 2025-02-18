@@ -4,12 +4,12 @@
  */
 package com.attendance.Controller;
 
-import Fingerprint.VerificationThread;
+import com.attendance.Fingerprint.VerificationThread;
 import com.attendance.Model.Attendance;
 import com.attendance.Model.User;
-import Utilities.ImageUtil;
-import Utilities.SoundUtil;
-import Utilities.StringUtil;
+import com.attendance.Utilities.ImageUtil;
+import com.attendance.Utilities.SoundUtil;
+import com.attendance.Utilities.StringUtil;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;

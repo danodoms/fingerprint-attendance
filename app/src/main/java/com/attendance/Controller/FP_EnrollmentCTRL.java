@@ -5,9 +5,9 @@
 package com.attendance.Controller;
 
 import com.attendance.Fingerprint.EnrollmentThread;
-import Fingerprint.Selection;
+import com.attendance.Fingerprint.Selection;
 import com.attendance.Model.User;
-import Utilities.ImageUtil;
+import com.attendance.Utilities.ImageUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static Fingerprint.Prompt.promptLabel;
+import static com.attendance.Fingerprint.Prompt.promptLabel;
 /**
  * FXML Controller class
  *

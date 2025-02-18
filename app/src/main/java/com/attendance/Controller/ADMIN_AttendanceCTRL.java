@@ -4,9 +4,9 @@
  */
 package com.attendance.Controller;
 
-import Utilities.DatabaseUtil;
-import Utilities.DateUtil;
-import Utilities.PaneUtil;
+import com.attendance.Utilities.DatabaseUtil;
+import com.attendance.Utilities.DateUtil;
+import com.attendance.Utilities.PaneUtil;
 import com.attendance.Model.*;
 import static com.attendance.Model.Attendance.getAdministrative;
 import static com.attendance.Model.Attendance.getAttendance;

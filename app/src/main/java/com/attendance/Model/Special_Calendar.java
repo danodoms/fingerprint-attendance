@@ -4,7 +4,7 @@
  */
 package com.attendance.Model;
 
-import Utilities.DatabaseUtil;
+import com.attendance.Utilities.DatabaseUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

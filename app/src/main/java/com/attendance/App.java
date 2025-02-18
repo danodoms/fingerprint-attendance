@@ -27,15 +27,15 @@ public class App extends Application {
 
 
         // Load the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("../View/LoginPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("/app/src/main/java/com/attendance/View/LoginPane.fxml"));
         Parent root = loader.load();
 
         // Create a scene with the loaded FXML content
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/app/src/main/java/org/attendance/Style/admin_pane.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/app/src/main/java/com/attendance/Style/admin_pane.css").toExternalForm());
 
         // Set the application icon
-        primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/app/src/main/java/org/attendance/Images/program_icon.png")));
+        primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/app/src/main/java/com/attendance/Images/program_icon.png")));
 
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);

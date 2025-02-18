@@ -6,8 +6,8 @@ package com.attendance.Fingerprint;
 
 import com.attendance.Model.Fingerprint;
 import com.attendance.Model.User;
-import Utilities.PaneUtil;
-import Utilities.SoundUtil;
+import com.attendance.Utilities.PaneUtil;
+import com.attendance.Utilities.SoundUtil;
 import com.digitalpersona.uareu.Engine;
 import com.digitalpersona.uareu.Engine.Candidate;
 import com.digitalpersona.uareu.Fmd;

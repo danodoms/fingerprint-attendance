@@ -5,14 +5,14 @@ package com.attendance.Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
-import Fingerprint.IdentificationThread;
-import Fingerprint.Selection;
-import Fingerprint.ThreadFlags;
+import com.attendance.Fingerprint.IdentificationThread;
+import com.attendance.Fingerprint.Selection;
+import com.attendance.Fingerprint.ThreadFlags;
 import com.attendance.Model.Attendance;
 import com.attendance.Model.User;
 import com.attendance.Session.Session;
-import Utilities.Encryption;
-import Utilities.PaneUtil;
+import com.attendance.Utilities.Encryption;
+import com.attendance.Utilities.PaneUtil;
 import com.dlsc.gemsfx.DialogPane;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;

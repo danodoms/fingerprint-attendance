@@ -6,10 +6,10 @@ package com.attendance.Controller;
  */
 
 import com.attendance.Model.User;
-import Utilities.DatabaseUtil;
-import Utilities.Filter;
-import Utilities.ImageUtil;
-import Utilities.PaneUtil;
+import com.attendance.Utilities.DatabaseUtil;
+import com.attendance.Utilities.Filter;
+import com.attendance.Utilities.ImageUtil;
+import com.attendance.Utilities.PaneUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

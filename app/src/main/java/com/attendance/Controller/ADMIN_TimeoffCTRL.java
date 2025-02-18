@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package main.java.com.attendance.Controller;
+package com.attendance.Controller;
 
-import Model.Attendance;
-import Model.Timeoff;
-import Model.User;
-import Utilities.DateUtil;
-import Utilities.ImageUtil;
-import Utilities.Modal;
+import com.attendance.Model.Attendance;
+import com.attendance.Model.Timeoff;
+import com.attendance.Model.User;
+import com.attendance.Utilities.DateUtil;
+import com.attendance.Utilities.ImageUtil;
+import com.attendance.Utilities.Modal;
 import com.dlsc.gemsfx.daterange.DateRange;
 import com.dlsc.gemsfx.daterange.DateRangePicker;
 import javafx.collections.FXCollections;

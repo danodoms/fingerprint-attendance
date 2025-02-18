@@ -5,9 +5,9 @@
 package com.attendance.Controller;
 
 import com.attendance.Model.*;
-import Utilities.Filter;
-import Utilities.ImageUtil;
-import Utilities.Modal;
+import com.attendance.Utilities.Filter;
+import com.attendance.Utilities.ImageUtil;
+import com.attendance.Utilities.Modal;
 import com.dlsc.gemsfx.TimePicker;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
